@@ -1,3 +1,7 @@
+
+
+//we need to add cohort and other user information here
+
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':
