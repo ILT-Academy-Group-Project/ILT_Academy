@@ -39,7 +39,10 @@ CREATE TABLE "user" (
 	"aboutMe" VARCHAR
 );
 
-
+CREATE TABLE "adminCode"(
+	"id" SERIAL PRIMARY KEY,
+	"adminCode" VARCHAR(255)
+);
 
 CREATE TABLE "series" (
 	"id" SERIAL PRIMARY KEY,
@@ -166,7 +169,10 @@ VALUES
 	('No class today :(', 'Due to the abundance of sparrows in the entry way we will not have class today');
 
 
-
+INSERT INTO "adminCode"
+	("adminCode")
+VALUES
+	('1376eRsDD');
 
 
 
