@@ -19,10 +19,10 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
-    announcementsSaga(),
-    assignmentsSaga(),
-    eventsSaga(),
-    submissionsSaga()
+    // announcementsSaga(),
+    // assignmentsSaga(),
+    // eventsSaga(),
+    // submissionsSaga()
   ]);
 }
 
