@@ -14,7 +14,7 @@
 CREATE TABLE "cohorts" (
 	"id" SERIAL PRIMARY KEY,
 	"cohortName" VARCHAR(255) NOT NULL,
-	"accessCode" VARCHAR NOT NULL
+	"accessCode" VARCHAR NOT NULL UNIQUE
 );
 
 
@@ -41,7 +41,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "adminCode"(
 	"id" SERIAL PRIMARY KEY,
-	"adminCode" VARCHAR(255)
+	"adminCode" VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE "series" (
