@@ -82,7 +82,8 @@ CREATE TABLE "assignments" (
 	"file" BOOL DEFAULT 'false',
 	"video" BOOL DEFAULT 'false',
 	"community" BOOL DEFAULT 'false',
-	"postClass" BOOL DEFAULT 'false'
+	"postClass" BOOL DEFAULT 'false',
+    "feedback" VARCHAR
 );
 
 
