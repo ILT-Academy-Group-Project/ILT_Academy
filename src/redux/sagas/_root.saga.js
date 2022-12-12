@@ -28,6 +28,8 @@ export default function* rootSaga() {
     assignmentsSaga(),
     // announcementsSaga(),
     // eventsSaga(),
+    // assignmentsSaga(),
+    eventsSaga(),
     // submissionsSaga()
   ]);
 }

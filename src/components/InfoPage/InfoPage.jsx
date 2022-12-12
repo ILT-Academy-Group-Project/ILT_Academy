@@ -1,4 +1,5 @@
 import React from 'react';
+import CalendarList from '../Calendar/CalendarList/CalendarList';
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -7,9 +8,7 @@ import React from 'react';
 
 function InfoPage() {
   return (
-    <div className="container">
-      <p>Info Page</p>
-    </div>
+    <p>test page</p>
   );
 }
 

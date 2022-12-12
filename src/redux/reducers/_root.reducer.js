@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   assignments,
 //   announcments,
 //   assignments,
-//   events,
+  events,
 //   submissions,
 });
 
