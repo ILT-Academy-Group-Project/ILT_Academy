@@ -6,17 +6,11 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-// Not sure if we need this for createdDate?
-// import dayjs from 'dayjs';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
-
 function Announcements() {
     console.log('in announcements');
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    // const [createdDate, setCreatedDate] = useState('');
 
     const addNewAnnouncement = () => {
         console.log('in addNewAnnouncement');
@@ -24,18 +18,13 @@ function Announcements() {
         const newAnnouncement = {
             title: title,
             content: content,
-            // createdDate: createdDate
         }
 
-        // dispatch({
-        //     type: ''
-        // })
+        dispatch({
+            type: 'CREATE_ANNOUNCEMENT',
+            payload: newAnnouncement
+        })
     }
-
-    // const handleAddDate = (value) => {
-    //     console.log('Add date value is:', value.$d);
-    //     setCreatedDate(value);
-    // }
 
     return (
         <>
@@ -44,7 +33,6 @@ function Announcements() {
             </div>     
 
             <Stack 
-                className='myBox'
                 component="form" 
                 mx={'auto'}
                 sx={{ 
@@ -77,19 +65,6 @@ function Announcements() {
                     onChange={(event) => setContent(event.target.value)}
                     value={content}
                 />
-
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs} >
-                    <DateTimePicker
-                        renderInput={(params) => {
-                            return <TextField {...params} />;
-                        }}
-                        variant="outlined"
-                        // value={dayjs(addDate).format('L LT')}
-                        inputFormat="YYYY/MM/DD hh:mm a"
-                        value={dayjs(createdDate).format('L LT')}
-                        onChange={handleAddDate}
-                    />
-                    </LocalizationProvider> */}
 
                 <Button
                     type="submit"

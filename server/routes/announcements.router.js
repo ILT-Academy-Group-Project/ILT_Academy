@@ -8,20 +8,19 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET route code here
   console.log('GET all announcements');
-  let accessLevel = req.user.id;
-  const sqlParams = [accessLevel];
 
   const sqlQuery = `
-    SELECT * FROM "announcements"
+    SELECT * FROM "announcements";
   `;
 
-  pool.query(sqlQuery, sqlParams)
+  pool.query(sqlQuery)
     .then((dbRes) => {
         res.send(dbRes.rows);
         console.log(dbRes.rows);
     })
     .catch((err) => {
       console.log('Error in GET announcements query', err);
+      res.sendStatus(500);
     });
 });
 
@@ -30,21 +29,20 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   // POST route code here
-  let user_id = req.user.id;
-  let newAnnouncment = req.body;
+  let accessLevel = req.user.accessLevel;
+  let newAnnouncement = req.body;
 
+  if(accessLevel === 2) {
   const sqlQuery = `
-    INSERT INTO "annoucements"
-      ("user_id", "title", "content", "createdDate")
+    INSERT INTO "announcements"
+      ("title", "content")
     VALUES
-      ($1, $2, $3, $4);
+      ($1, $2);
   `;
 
   const sqlParams = [
-    user_id,
-    newAnnouncment.title,
-    newAnnouncment.content,
-    newAnnouncment.createdDate
+    newAnnouncement.title,
+    newAnnouncement.content,
   ];
 
   pool.query(sqlQuery, sqlParams)
@@ -55,6 +53,10 @@ router.post('/', (req, res) => {
       console.log('Error in POST announcements', err);
       res.sendStatus(500);
     });
+  }
+  else{
+    res.sendStatus(403);
+  };
 });
 
 /**
