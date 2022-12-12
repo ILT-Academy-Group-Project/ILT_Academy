@@ -17,19 +17,72 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {
-  const username = req.body.username;
-  const password = encryptLib.encryptPassword(req.body.password);
+router.post('/register', async (req, res, next) => {
+    const username = req.body.username;
+    const password = encryptLib.encryptPassword(req.body.password);
+    //assign accessCode to variable
+    const accessCode = req.body.accessCode
+    //   console.log('req.body', req.body);
+    const accessSql = `
+    SELECT "cohorts"."id" as "cohortId", 
+	"cohorts"."accessCode" as "cohortAccessCode",
+    "adminCode"."adminCode" from "cohorts", "adminCode";    
+    `
+    try{
+        //get all access codes and assign to accessInfo
+        let accessInfo = await pool.query(accessSql);
+        // console.log('accessInfo', accessInfo.rows);
+        let accessLvl;
+        let cohortId;
+        let queryText;
+        let queryParams;
+        for (let accessRow of accessInfo.rows){
+            // if the cohort accesscode of this object from db == access code submitted by user
+            // assign user the specified cohort
+            if(accessRow.cohortAccessCode === accessCode){
+                //set access level to student(1)
+                accessLvl = 1;
+                //set cohortID to the cohortId for querying to the user db
+                cohortId = accessRow.cohortId;
+                //create queryText for the pool.query to the db with cohort id assigned
+                queryText = `
+                    INSERT INTO "user"
+                        ("username", "password", "cohortId")
+                    VALUES
+                        ($1, $2, $3);
+                `;
+                //set query Params for query
+                queryParams = [username, password, cohortId];
+            }
+            //admin creation for access level 2
+            //if provided code equals the adminCode set admin access level 2
+            else if (accessRow.adminCode === accessCode){
+                //set access level to admin(2)
+                accessLvl = 2;
+                //set query text for the admin user creation
+                queryText = `
+                    INSERT INTO "user"
+                        ("username", "password", "accessLevel")
+                    VALUES
+                        ($1, $2, $3);
+                `;
+                queryParams = [username, password, accessLvl];
+            };
+        }; //end for loop
+        //send query to the database
+        pool
+        .query(queryText, queryParams)
+        .then(() => res.sendStatus(201))
+        .catch((err) => {
+          console.log('User registration failed: ', err);
+          res.sendStatus(500);
+        });
 
-  const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
-  pool
-    .query(queryText, [username, password])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log('User registration failed: ', err);
-      res.sendStatus(500);
-    });
+    }
+    catch{
+        console.error('POST /register', err);
+        res.sendStatus(500);
+    }
 });
 
 // Handles login form authenticate/login POST

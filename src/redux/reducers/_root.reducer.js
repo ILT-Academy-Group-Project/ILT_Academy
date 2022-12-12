@@ -16,10 +16,10 @@ import submissions from './submissions.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  announcments,
-  assignments,
-  events,
-  submissions,
+//   announcments,
+//   assignments,
+//   events,
+//   submissions,
 });
 
 export default rootReducer;
