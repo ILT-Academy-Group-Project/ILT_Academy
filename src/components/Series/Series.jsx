@@ -1,9 +1,13 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+
 
 function Series() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const series = useSelector(store => store.series);
 
     useEffect(() => {
@@ -14,9 +18,13 @@ function Series() {
     }, []);
 
     return (
-        <>
+        
+        <> 
             {series.map(serial => (
-                <h1>{serial.seriesName}</h1>
+                <Button 
+                variant='outlined'
+                onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}
+                </ Button>
             ))}
         </>
     )

@@ -3,11 +3,12 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import announcementsSaga from './announcements.saga';
-import assignmentsSaga from './assignments.saga';
 import eventsSaga from './events.saga';
 import submissionsSaga from './submissions.saga';
 import cohortsSaga from './cohorts.saga';
 import seriesSaga from './series.saga';
+import modulesSaga from './modules.saga';
+import assignmentsSaga from './assignments.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,7 +24,10 @@ export default function* rootSaga() {
     userSaga(),
     cohortsSaga(),
     seriesSaga(),
+    modulesSaga(),
+    assignmentsSaga(),
     // announcementsSaga(),
+    // eventsSaga(),
     // assignmentsSaga(),
     eventsSaga(),
     // submissionsSaga()

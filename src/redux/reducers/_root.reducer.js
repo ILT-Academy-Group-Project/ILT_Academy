@@ -2,11 +2,12 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import announcments from './announcements.reducer';
-import assignments from './assignments.reducer';
 import events from './events.reducer';
 import submissions from './submissions.reducer';
 import cohorts from './cohorts.reducer';
 import series from './series.reducer';
+import modules from './modules.reducer';
+import assignments from './assignments.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -20,6 +21,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   cohorts, //contains all cohorts
   series, //contains all series
+  modules,
+  assignments,
 //   announcments,
 //   assignments,
   events,
