@@ -15,6 +15,7 @@ const submissionsRouter = require('./routes/submissions.router');
 const calendarRouter = require('./routes/calendar.router');
 const cohortsRouter = require('./routes/cohorts.router');
 const seriesRouter = require('./routes/series.router');
+const modulesRouter = require('./routes/modules.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -35,6 +36,7 @@ app.use('/api/submissions', submissionsRouter);
 app.use('/api/calendar', calendarRouter);
 app.use('/api/cohorts', cohortsRouter);
 app.use('/api/series', seriesRouter);
+app.use('/api/modules', modulesRouter);
 
 
 // Serve static files

@@ -1,23 +1,12 @@
-import { combineReducers } from 'redux';
-
-// SETAnnouncements
 
 
+const assignmentsReducer = (state = [], action ) => {
+    switch(action.type) {
+        case 'SET_ASSIGNMENTS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
-
-
-//PUT announcements?
-
-
-
-
-
-//
-
-
-
-//
-
-export default combineReducers({
-   
-});
+export default assignmentsReducer;

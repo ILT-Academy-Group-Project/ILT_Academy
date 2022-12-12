@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
+import CreateAssignment from '../CreateAssignment/CreateAssignment';
 
 import './App.css';
 
@@ -77,6 +78,13 @@ function App() {
             exact
             path="/admin/modules/:seriesId">
               <Modules />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/create/assignment">
+              <CreateAssignment />
           </ProtectedRoute>
 
           <Route
