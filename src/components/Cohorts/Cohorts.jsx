@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Cohorts() {
     const dispatch = useDispatch();
+    const cohorts = useSelector(store => store.cohorts);
     // FETCH cohorts
     useEffect(() => {
         dispatch({
@@ -15,9 +16,14 @@ function Cohorts() {
 
     }, [])
 
-    
+    console.log('cohorts is ', cohorts);
+
     return (
-        <></>
+        <>
+        {cohorts.map(cohort => (
+            <h1>{cohort.cohortName}</h1>
+        ))}
+        </>
     )
 }
 

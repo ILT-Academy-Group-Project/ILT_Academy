@@ -6,6 +6,7 @@ import assignments from './assignments.reducer';
 import events from './events.reducer';
 import submissions from './submissions.reducer';
 import cohorts from './cohorts.reducer';
+import series from './series.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -17,7 +18,8 @@ import cohorts from './cohorts.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  cohorts //contains all cohorts
+  cohorts, //contains all cohorts
+  series, //contains all series
 //   announcments,
 //   assignments,
 //   events,

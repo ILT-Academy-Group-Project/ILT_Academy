@@ -7,6 +7,7 @@ import assignmentsSaga from './assignments.saga';
 import eventsSaga from './events.saga';
 import submissionsSaga from './submissions.saga';
 import cohortsSaga from './cohorts.saga';
+import seriesSaga from './series.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     cohortsSaga(),
+    seriesSaga(),
     // announcementsSaga(),
     // assignmentsSaga(),
     // eventsSaga(),

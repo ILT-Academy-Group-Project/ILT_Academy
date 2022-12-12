@@ -9,12 +9,12 @@ const {
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
     try{
-        const sqlText = `SELECT * FROM "cohorts";`;
+        const sqlText = `SELECT * FROM "series";`;
         let dbResult = await pool.query(sqlText);
         res.send(dbResult.rows);
 
     } catch(err) {
-        console.error('cohorts.router GET error', err.message);
+        console.error('series.router GET error', err.message);
         res.sendStatus(500);
     }
 })

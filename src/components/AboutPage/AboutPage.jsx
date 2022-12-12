@@ -1,4 +1,6 @@
 import React from 'react';
+import Cohorts from '../Cohorts/Cohorts';
+import Series from '../Series/Series';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -10,6 +12,8 @@ function AboutPage() {
     <div className="container">
       <div>
         <p>This about page is for anyone to read!</p>
+        < Cohorts />
+        < Series />
       </div>
     </div>
   );
