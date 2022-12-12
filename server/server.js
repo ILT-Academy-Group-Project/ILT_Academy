@@ -13,6 +13,8 @@ const announcementsRouter = require('./routes/announcements.router');
 const assignmentsRouter = require('./routes/assignments.router');
 const submissionsRouter = require('./routes/submissions.router');
 const calendarRouter = require('./routes/calendar.router');
+const cohortsRouter = require('./routes/cohorts.router');
+const seriesRouter = require('./routes/series.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +33,9 @@ app.use('/api/announcements', announcementsRouter);
 app.use('/api/assignments', assignmentsRouter);
 app.use('/api/submissions', submissionsRouter);
 app.use('/api/calendar', calendarRouter);
+app.use('/api/cohorts', cohortsRouter);
+app.use('/api/series', seriesRouter);
+
 
 // Serve static files
 app.use(express.static('build'));
