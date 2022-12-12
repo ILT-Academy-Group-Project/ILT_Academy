@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
 //   announcments,
 //   assignments,
-//   events,
+  events,
 //   submissions,
 });
 
