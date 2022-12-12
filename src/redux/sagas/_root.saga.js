@@ -21,7 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     // announcementsSaga(),
     // assignmentsSaga(),
-    // eventsSaga(),
+    eventsSaga(),
     // submissionsSaga()
   ]);
 }
