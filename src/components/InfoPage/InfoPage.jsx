@@ -8,7 +8,7 @@ import CalendarList from '../Calendar/CalendarList/CalendarList';
 
 function InfoPage() {
   return (
-    <CalendarList />
+    <p>test page</p>
   );
 }
 
