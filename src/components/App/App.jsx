@@ -20,6 +20,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
+import Announcements from '../Announcements/Announcements';
+
 import './App.css';
 
 function App() {
@@ -60,13 +62,13 @@ function App() {
             <UserPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          <Route
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >
-            <InfoPage />
-          </ProtectedRoute>
+            <Announcements />
+          </Route>
 
           <Route
             exact
