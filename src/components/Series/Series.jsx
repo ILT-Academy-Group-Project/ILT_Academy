@@ -23,7 +23,7 @@ function Series() {
             {series.map(serial => (
                 <Button 
                 variant='outlined'
-                onClick={() => history.push(`/modules/${serial.id}`)}>{serial.seriesName}</ Button>
+                onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}</ Button>
             ))}
         </>
     )

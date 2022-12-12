@@ -19,6 +19,8 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Modules from '../Modules/Modules';
+import Series from '../Series/Series';
 
 import './App.css';
 
@@ -66,6 +68,15 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+         {/* ADMIN DASHBOARD ProtectedRoute HERE! */}
+
+          <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/modules/:seriesId">
+              <Modules />
           </ProtectedRoute>
 
           <Route
