@@ -25,7 +25,7 @@ export default function* rootSaga() {
     seriesSaga(),
     // announcementsSaga(),
     // assignmentsSaga(),
-    // eventsSaga(),
+    eventsSaga(),
     // submissionsSaga()
   ]);
 }

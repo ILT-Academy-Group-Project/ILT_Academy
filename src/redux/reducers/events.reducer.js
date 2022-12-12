@@ -1,7 +1,17 @@
 import { combineReducers } from 'redux';
 
-// SETAnnouncements
+// SETAnnouncement
 
+//google calender events (next four)
+const eventsReducer = (state=[], action) => {
+    //set events array in switch statement
+    switch(action.type) {
+        case 'SET_EVENTS':
+                return action.payload;
+    };
+
+    return state;
+}
 
 
 
@@ -19,5 +29,5 @@ import { combineReducers } from 'redux';
 //
 
 export default combineReducers({
-   
+   eventsReducer,
 });

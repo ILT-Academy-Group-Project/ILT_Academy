@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   series, //contains all series
 //   announcments,
 //   assignments,
-//   events,
+  events,
 //   submissions,
 });
 
