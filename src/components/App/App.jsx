@@ -85,12 +85,12 @@ function App() {
               <Modules />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          {/* <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
             path="/admin/create/assignment">
               <CreateAssignment />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
             {/* LOGIN */}
             
@@ -143,6 +143,14 @@ function App() {
             {/* Admin cohort view of individual cohort   /admin/:id (cohort id)  */}
 
             {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
+
+            {/* create lesson */}
+            <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/create/assignment">
+              { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
 
             {/* STUDENT BELOW HERE _______________________________ */}
 
