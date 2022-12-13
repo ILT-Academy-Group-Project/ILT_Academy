@@ -24,6 +24,7 @@ function CreateAssignment(){
     const [textField, setTextField] = useState(false);
     const [fileSubmission, setFileSubmission] = useState(false);
     const [postClass, setPostClass] = useState(false);
+    const [videoSubmission, setVideoSubmission] = useState(false);
 
     const submitAssignment = (evt) => {
         evt.preventDefault();
@@ -41,7 +42,12 @@ function CreateAssignment(){
                 assignmentVideo,
                 assignmentContent,
                 assignmentTitle,
-                moduleId: params.id
+                moduleId: params.id,
+                postClass,
+                textField,
+                // name to match database, lef as submission so there isnt confusion on this page
+                file: fileSubmission,
+                video: videoSubmission,
             }
         })
     }
@@ -50,9 +56,10 @@ function CreateAssignment(){
         setAssignmentContent(content);
     }
 
+    //testing logs
     // console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission);
     // console.log('pre class should be false:', postClass);
-
+    // console.log('video submission', videoSubmission);
     return(
         <>
             {/* <video width="320" height="240" controls src="/videos/assignmentVideo1670963030995.mov">
@@ -105,6 +112,8 @@ function CreateAssignment(){
                 <input  onClick={()=>setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
                 <label>File</label>
                 <input onClick={()=>setFileSubmission(!fileSubmission)}type="checkbox" name="fileSubmission" className="valueRadio"></input>
+                <label>Video</label>
+                <input onClick={()=>setVideoSubmission(!videoSubmission)}type="checkbox" name="fileSubmission" className="valueRadio"></input>
             </div>
                 
 

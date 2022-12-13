@@ -24,15 +24,15 @@ function* fetchAssignments() {
 
 
 function* createAssignment(action) {
-    console.log('in createAssignment SAGA with payload of:', action.payload);
+    // console.log('in createAssignment SAGA with payload of:', action.payload);
      
     //create payload object
     let data=action.payload;
     //new formdata for payload to multer and router
     let formData = new FormData();
 
-    console.log('video', data.assignmentVideo);
-    console.log('video[0]', data.assignmentVideo);
+    // console.log('video', data.assignmentVideo);
+    // console.log('video[0]', data.assignmentVideo);
     //req.file
     formData.append('assignmentVideo', data.assignmentVideo);
 
@@ -40,6 +40,10 @@ function* createAssignment(action) {
     formData.append('assignmentTitle', data.assignmentTitle);
     formData.append('assignmentContent', data.assignmentContent);
     formData.append('moduleId', data.moduleId);
+    formData.append('postClass', data.postClass);
+    formData.append('textField', data.textField);
+    formData.append('file', data.file);
+    formData.append('video', data.video);
 //post to server
 
     try{
