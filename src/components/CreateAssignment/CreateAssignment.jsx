@@ -20,6 +20,11 @@ function CreateAssignment(){
     //useState to track assignment title
     const [assignmentTitle, setAssignmentTitle] = useState('');
 
+    //submission types
+    const [textField, setTextField] = useState(false);
+    const [fileSubmission, setFileSubmission] = useState(false);
+    const [postClass, setPostClass] = useState(false);
+
     const submitAssignment = (evt) => {
         evt.preventDefault();
         console.log('in submit assignment');
@@ -45,6 +50,8 @@ function CreateAssignment(){
         setAssignmentContent(content);
     }
 
+    // console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission);
+    // console.log('pre class should be false:', postClass);
 
     return(
         <>
@@ -85,9 +92,23 @@ function CreateAssignment(){
 			    }}
                 //  setContents={content}
             />
+            
+            <div>
+                <label>Pre Class</label>
+                <input defaultChecked onClick={()=>setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
+                <label>Post Class</label>
+                <input onClick={()=>setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>
+            </div>
+            <div>
+                <h3>Submission type</h3>
+                <label>Textfield</label>
+                <input  onClick={()=>setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
+                <label>File</label>
+                <input onClick={()=>setFileSubmission(!fileSubmission)}type="checkbox" name="fileSubmission" className="valueRadio"></input>
+            </div>
+                
 
             <button type="submit">Create Assignment</button>
-
             </form>
         </>
     )
