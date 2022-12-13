@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../CreateAssignment/CreateAssignment';
+import AssignmentDetails from '../AssignmentDetails/AssignmentDetails';
 
 import './App.css';
 
@@ -81,16 +82,16 @@ function App() {
           <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/modules/:seriesId">
-              <Modules />
+            path="/admin/modules/:seriesId">              
+            { user.accessLevel === 2 ? <Modules /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
-          <ProtectedRoute
+          {/* <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
             path="/admin/create/assignment">
               <CreateAssignment />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
             {/* LOGIN */}
             
@@ -144,6 +145,14 @@ function App() {
 
             {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
 
+            {/* create lesson */}
+            <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/create/assignment/:seriesId/:moduleId">
+              { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
+
             {/* STUDENT BELOW HERE _______________________________ */}
 
             {/* orientation   /studentportal/orientation (maybe /:page) */}
@@ -154,6 +163,12 @@ function App() {
 
             {/* lesson   /studentportal/:id (lesson id) */}
 
+            <ProtectedRoute
+                exact
+                path='/studentportal/:id'
+            >
+                <AssignmentDetails />
+            </ProtectedRoute>
             {/* profile  /studentportal/profile/:username */}
           
           

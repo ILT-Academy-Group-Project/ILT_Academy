@@ -15,7 +15,7 @@ function Modules() {
     const modules = useSelector(store => store.modules);
     const assignments = useSelector(store => store.assignments);
 
-    console.log('🍏 params.id is THIS ', params.seriesId) 
+    // console.log('🍏 params.id is THIS ', params.seriesId) 
 
     useEffect(() =>{
         dispatch({
@@ -34,6 +34,7 @@ function Modules() {
             <>
                 <h1>{module.name}</h1>
                 {/* TO DO include icons for submission required AND completed */}
+                {console.log('module', module)}
                 <ul>
                     {assignments.map(assignment => {
                         if(assignment.moduleId === module.id) {
@@ -41,7 +42,7 @@ function Modules() {
                         }
                     })}
                 </ul>
-                <Button onClick={() => history.push('/admin/create/assignment')}>Add assignment</Button>
+                <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
             </>
         ))}
         </>
