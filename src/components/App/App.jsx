@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../CreateAssignment/CreateAssignment';
+import AssignmentDetails from '../AssignmentDetails/AssignmentDetails';
 
 import './App.css';
 
@@ -148,7 +149,7 @@ function App() {
             <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/create/assignment/:id">
+            path="/admin/create/assignment/:seriesId/:moduleId">
               { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
@@ -162,6 +163,12 @@ function App() {
 
             {/* lesson   /studentportal/:id (lesson id) */}
 
+            <ProtectedRoute
+                exact
+                path='/studentportal/:id'
+            >
+                <AssignmentDetails />
+            </ProtectedRoute>
             {/* profile  /studentportal/profile/:username */}
           
           

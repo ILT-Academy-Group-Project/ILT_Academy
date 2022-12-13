@@ -42,7 +42,7 @@ function Modules() {
                         }
                     })}
                 </ul>
-                <Button onClick={() => history.push(`/admin/create/assignment/${module.id}`)}>Add assignment</Button>
+                <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
             </>
         ))}
         </>

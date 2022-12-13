@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 function CreateAssignment(){
     //import user
@@ -11,6 +11,7 @@ function CreateAssignment(){
     //setup
     const dispatch = useDispatch();
     const params = useParams();
+    const history = useHistory();
 
     // console.log(user.accessLevel)
     // import useState and create state for selected file on video upload
@@ -42,7 +43,7 @@ function CreateAssignment(){
                 assignmentVideo,
                 assignmentContent,
                 assignmentTitle,
-                moduleId: params.id,
+                moduleId: params.moduleId,
                 postClass,
                 textField,
                 // name to match database, lef as submission so there isnt confusion on this page
@@ -50,6 +51,9 @@ function CreateAssignment(){
                 video: videoSubmission,
             }
         })
+        //push to modules view
+        history.push(`/admin/modules/${params.seriesId}`)
+
     }
 
     const handleChange = (content) => {
