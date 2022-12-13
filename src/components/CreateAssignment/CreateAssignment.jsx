@@ -19,13 +19,13 @@ function CreateAssignment(){
     //useState to track assignment title
     const [assignmentTitle, setAssignmentTitle] = useState('');
 
-    // console.log('assignmentContent', assignmentContent);
-    // console.log('assignmentTitle', assignmentTitle);
-    // console.log('selectedVideo', selectedVideo);
-
     const submitAssignment = (evt) => {
         evt.preventDefault();
-        
+        console.log('in submit assignment');
+        if(assignmentContent.length <=10){
+            alert('Must put content into the assignment');
+            return
+        }
     }
 
 
@@ -42,6 +42,7 @@ function CreateAssignment(){
                     />
                 </label>
                 <input 
+                    required
                     type='text' 
                     placeholder="Assignment Name"
                     onChange={(evt)=>setAssignmentTitle(evt.target.value)}
@@ -57,9 +58,8 @@ function CreateAssignment(){
                         ['bold'],
                         ['underline'],
                         ['video'],
-                        ['image'],
-                                           
-                    ]                    
+                        ['image'],                                       
+                    ]                                        
                     // plugins: [font] set plugins, all plugins are set by default
 					// Other option
 			    }}
