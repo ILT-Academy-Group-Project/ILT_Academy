@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../CreateAssignment/CreateAssignment';
+import CohortDetails from '../Cohorts/CohortDetails';
 
 import './App.css';
 
@@ -140,7 +141,15 @@ function App() {
 
             {/* Admin Home  /admin */}
 
-            {/* Admin cohort view of individual cohort   /admin/:id (cohort id)  */}
+            {/* Admin cohort view of individual cohort   /admin/cohort/:id (cohort id)  */}
+          <ProtectedRoute
+            exact 
+            path="/admin/cohort/:cohortId">
+            {user.accessLevel === 2 ? 
+            <CohortDetails /> 
+            :
+            <LoginPage />}
+          </ProtectedRoute>
 
             {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
 

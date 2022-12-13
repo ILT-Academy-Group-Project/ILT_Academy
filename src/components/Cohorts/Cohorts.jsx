@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -18,6 +19,7 @@ import './Cohorts.css'
 
 function Cohorts() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const cohorts = useSelector(store => store.cohorts);
     // FETCH cohorts
     useEffect(() => {
@@ -36,7 +38,7 @@ function Cohorts() {
                 <Grid2 item xs={6} sx={{}} className='cohortCard'
                     key={cohort.id}>
                     <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
-                        <CardActionArea>
+                        <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
                             <CardMedia
                                 component="img"
                                 // height="140"

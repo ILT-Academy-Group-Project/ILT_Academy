@@ -15,7 +15,7 @@ function Modules() {
     const modules = useSelector(store => store.modules);
     const assignments = useSelector(store => store.assignments);
 
-    console.log('🍏 params.id is THIS ', params.seriesId) 
+    // console.log('🍏 params.seriesId is THIS ', params.seriesId) 
 
     useEffect(() =>{
         dispatch({
