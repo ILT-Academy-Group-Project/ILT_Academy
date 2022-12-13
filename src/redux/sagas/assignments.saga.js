@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+
+//IMPORT FORM DATA FOR FILE SEND
+import FormData from 'form-data';
+
+//ROUTE: '/api/assignments'
 
 function* fetchAssignments() {
   
@@ -17,8 +22,49 @@ function* fetchAssignments() {
      }
 }
 
+
+function* createAssignment(action) {
+    console.log('in createAssignment SAGA with payload of:', action.payload);
+     
+    //create payload object
+    let data=action.payload;
+    //new formdata for payload to multer and router
+    let formData = new FormData();
+
+    console.log('video', data.assignmentVideo);
+    console.log('video[0]', data.assignmentVideo);
+    //req.file
+    formData.append('assignmentVideo', data.assignmentVideo);
+
+    //req.body
+    formData.append('assignmentTitle', data.assignmentTitle);
+    formData.append('assignmentContent', data.assignmentContent);
+    formData.append('moduleId', data.moduleId);
+//post to server
+
+    try{
+        //send FormData to server for db query
+        yield axios.post('/api/assignments', formData, {
+            //must include this header, it is what Multer uses to id file
+            headers:{
+                headers: { "Content-Type": "multipart/form-data" },
+            }
+        });
+        //get posts redux and rerender after store is updated
+
+    } catch (err){
+        console.error('in createAssignment SAGA error', err);
+    }
+     
+
+}
+
 function* assignmentsSaga() {
   yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments)
+
+  //CREATE Assignment
+  yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
+
 }
 
 export default assignmentsSaga;

@@ -1,13 +1,29 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-
-/**
- * GET route template
- */
+const path = require('path');
+//reject unauthenticated
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
+
+//import multer for file reciept
+const multer  = require('multer');
+
+//set storage location and naming convention for image
+const storage = multer.diskStorage({
+    destination: './public/videos', 
+    filename: function (req, file, cb) {
+        //names file profile_pic-(userid#).jpg
+        //path.extname(file.originalname)
+        cb(null, 'assignmentVideo' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+//declares upload variable, ie the above storage variable becomes where Multer sends file with new name
+const upload = multer({
+    storage: storage,
+});
 
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
@@ -27,8 +43,11 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
-  // POST route code here
+router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, res) => {
+    // POST route code here
+    console.log('in assignment Post route! YAY, req.file:', req.file, 'req.body', req.body);
+
+
 });
 
 /**

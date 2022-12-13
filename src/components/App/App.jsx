@@ -148,7 +148,7 @@ function App() {
             <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/create/assignment">
+            path="/admin/create/assignment/:id">
               { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
