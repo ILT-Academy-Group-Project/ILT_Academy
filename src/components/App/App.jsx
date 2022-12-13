@@ -81,8 +81,8 @@ function App() {
           <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/modules/:seriesId">
-              <Modules />
+            path="/admin/modules/:seriesId">              
+            { user.accessLevel === 2 ? <Modules /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
           {/* <ProtectedRoute
