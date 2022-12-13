@@ -1,11 +1,20 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Modal, Box,  } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react';
-
 import { useHistory } from 'react-router-dom';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { ThemeProvider } from '@mui/system';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 
 
 
@@ -37,14 +46,25 @@ function Series() {
     }, []);
 
     return (
-        
-        <> 
+
+        <>
+        <ThemeProvider theme={PrimaryMainTheme}>
+        <h1>Series</h1>
             {series.map(serial => (
-                <Button 
-                variant='outlined'
-                onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}
-                </ Button>
+                <Grid2 direction='column'
+                key={serial.seriesName}>
+                    <Button
+                    sx={{minHeight: 100, fontSize: 60}}
+                    
+                    color='primary'
+                    fullWidth={true}
+                        variant='outlined'
+                        onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}
+                    </ Button>
+                </Grid2>
+
             ))}
+            </ThemeProvider>
             <Button
             variant='outlined'
             onClick={() => setOpen(true)}

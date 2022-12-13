@@ -1,0 +1,4 @@
+.cohortCard{
+    display : flex;
+    flex-wrap: wrap;
+}
