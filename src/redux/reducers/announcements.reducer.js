@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // SETAnnouncements
-const announcment = (state = [], action) => {
+const announcements = (state = [], action) => {
     switch (action.type) {
         case 'SET_ANNOUNCEMENT':
             return action.payload;
@@ -26,5 +26,5 @@ const announcment = (state = [], action) => {
 //
 
 export default combineReducers({
-    announcment,
+    announcements,
 });
