@@ -36,7 +36,41 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', rejectUnauthenticated, upload.any(), (req, res) => {
- console.log('req.files', req.files);
+    console.log('req.body', req.body);
+//  console.log('req.files', req.files);
+    //set up all variables for submissions
+    let video;
+    let file;
+    let sqlText;
+    let sqlParams;
+    //seperate files and assign to associated variable (video or file)
+    for (let i=0; i<req.files.length; i++){
+    //check if the file at index i is the pdf file or the video file (need this to assign to db)
+    if(req.files[i].fieldname === 'file'){
+        file = req.files[i];
+    }
+    else if (req.files[i].fieldname === 'video'){
+        video = req.files[i];
+    }
+    }; //end for loop
+//  console.log('file', file, 'video', video);
+    //Big darn conditional :( There has to be a better way to do this, I just dont know how right now
+//case file, video, text
+
+
+//case file, video
+
+//case video, text
+
+//case file, text
+
+//case file
+
+//case video
+
+//case text
+
+
 res.sendStatus(200);
 });
 

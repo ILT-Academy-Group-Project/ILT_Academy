@@ -15,8 +15,8 @@ function* createSubmission(action){
     try{
         let formData = new FormData;
         //APPEND TEXT AND BOTH FILES will conditionalize the query to DB server side
-        formData.append('pdfSubmission', data.pdfSubmission);
-        formData.append('videoSubmission', data.videoSubmission);
+        formData.append('file', data.pdfSubmission);
+        formData.append('video', data.videoSubmission);
         formData.append('textSubmission', data.videoSubmission);
         formData.append('assignmentId', data.assignmentId);
 
