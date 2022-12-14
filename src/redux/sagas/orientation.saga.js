@@ -17,9 +17,13 @@ function* fetchOrientation() {
      }
 }
 
+// function* editCurrentStep(action) {
+//     console.log('CURRENT STEP', action.payload)
+// }
+
 function* orientationSaga() {
   yield takeLatest('FETCH_ORIENTATION', fetchOrientation);
-  
+//   yield takeLatest('EDIT_CURRENT_STEP', editCurrentStep);
 }
 
 export default orientationSaga;
