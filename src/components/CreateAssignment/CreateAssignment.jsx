@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
+import axios from "axios";
+import FormData from "form-data";
 
 function CreateAssignment(){
     //import user
@@ -52,7 +54,26 @@ function CreateAssignment(){
             }
         })
         //push to modules view
-        history.push(`/admin/modules/${params.seriesId}`)
+        // history.push(`/admin/modules/${params.seriesId}`)
+
+    }
+    console.log('assignmentcontent', assignmentContent);
+    const handleImageUploadBefore= (files, info, uploadHandler) => {
+        // uploadHandler is a function
+        console.log(files, info)
+        
+        const callBack = async () => { let formData = new FormData();
+        formData.append('image', files[0]);
+        const response = await axios.post('/api/assignments/imagefield', formData, {
+            //must include this header, it is what Multer uses to id file
+            headers:{
+                headers: { "Content-Type": "multipart/form-data" },
+            }});
+        console.log('response', response.data);
+        uploadHandler(response.data);}
+
+        callBack();
+        uploadHandler();
 
     }
 
@@ -101,6 +122,7 @@ function CreateAssignment(){
                         ['image'],                                       
                     ]                                        
 			    }}
+                onImageUploadBefore={handleImageUploadBefore} 
                 //  setContents={content}
             />
             
