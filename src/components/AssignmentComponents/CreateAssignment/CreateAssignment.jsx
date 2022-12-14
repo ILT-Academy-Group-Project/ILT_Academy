@@ -57,10 +57,14 @@ function CreateAssignment(){
         history.push(`/admin/modules/${params.seriesId}`)
 
     }
-    console.log('assignmentcontent', assignmentContent);
+
+    
+    // console.log('assignmentcontent', assignmentContent);
+
+
     const handleImageUploadBefore= (files, info, uploadHandler) => {
         // uploadHandler is a function
-        console.log(files, info)
+        // console.log(files, info)
         
         const callBack = async () => { 
         let formData = new FormData();

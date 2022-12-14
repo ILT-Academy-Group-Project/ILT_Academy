@@ -30,7 +30,7 @@ export default function* rootSaga() {
     // eventsSaga(),
     // assignmentsSaga(),
     eventsSaga(),
-    // submissionsSaga()
+    submissionsSaga()
   ]);
 }
 

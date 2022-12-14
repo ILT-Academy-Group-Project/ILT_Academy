@@ -43,21 +43,25 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
 router.post('/imagefield',  rejectUnauthenticated, upload.single('image'), (req,res) => {
 
-console.log('in /imagefield', req.file);
-const url = 'files/'+req.file.filename;
-const response = {
-    "result": [
-        {
-            "url":`${url}`,
-            "name": req.file.filename,
-            "size": req.file.size
-        }
-    ]
-};
-res.send(response);
-// res.sendStatus(200);
-
-})
+// console.log('in /imagefield', req.file);
+//ensure that this route is only available for admin users
+if (req.user.accessLevel === 2){
+    const url = 'files/'+req.file.filename;
+    const response = {
+        "result": [
+            {
+                "url":`${url}`,
+                "name": req.file.filename,
+                "size": req.file.size
+            }
+        ]
+    };
+    res.send(response);
+}
+//if not an admin send forbidden status
+else{
+    res.sendStatus(403);
+}});
 
 
 /**
@@ -116,15 +120,10 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
                 console.error('in POST assignment error', err);
                 res.sendStatus(500);
             })
-
-
-
     }
     else{
         res.sendStatus(403);
-    };
-
-});
+    }});
 
 /**
  * GET:ID route 
@@ -136,6 +135,27 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
  * DELETE route 
  */
 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    // console.log('in GET assignment by ID route with payload of:', req.params.id);
+    
+    //create sqlText for db query
+    const sqlText=`
+        SELECT * FROM "assignments"
+        WHERE "id" = $1;
+    `;
+    //query DB
+    pool.query(sqlText, [req.params.id])
+        .then(dbRes => {
+            // console.log('dbRes.rows', dbRes.rows[0]);
+            res.send(dbRes.rows[0]);
+        })
+        .catch(err => {
+            console.error('in GET assignment by ID error:', err);
+            res.sendStatus(500);
+        })
+
+
+});
 
 
 /**
