@@ -55,7 +55,6 @@ function* createAssignment(action) {
             }
         });
         //get posts redux and rerender after store is updated
-
     } catch (err){
         console.error('in createAssignment SAGA error', err);
     }

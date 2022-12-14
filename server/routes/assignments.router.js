@@ -12,11 +12,11 @@ const multer  = require('multer');
 
 //set storage location and naming convention for image
 const storage = multer.diskStorage({
-    destination: './public/videos', 
+    destination: './public/files', 
     filename: function (req, file, cb) {
         //names file profile_pic-(userid#).jpg
         //path.extname(file.originalname)
-        cb(null, 'assignmentVideo' + Date.now() + path.extname(file.originalname));
+        cb(null, 'assignmentFile' + Date.now() + path.extname(file.originalname));
     }
 });
 
@@ -40,12 +40,33 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
   }
 })
 
+
+router.post('/imagefield',  rejectUnauthenticated, upload.single('image'), (req,res) => {
+
+console.log('in /imagefield', req.file);
+const url = 'files/'+req.file.filename;
+const response = {
+    "result": [
+        {
+            "url":`${url}`,
+            "name": req.file.filename,
+            "size": req.file.size
+        }
+    ]
+};
+res.send(response);
+// res.sendStatus(200);
+
+})
+
+
 /**
  * POST route template
  */
 router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, res) => {
     // POST route code here
     // console.log('in assignment Post route! YAY, req.file:', req.file, 'req.body', req.body);
+    console.log('req.body', req.body);
     let data=req.body;
     if(req.user.accessLevel === 2){
         //sql text for the insert
@@ -63,7 +84,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
                 data.assignmentTitle,
                 data.moduleId,
                 data.assignmentContent,
-                'videos/'+req.file.filename,
+                'files/'+req.file.filename,
                 data.textField,
                 data.file,
                 data.video
@@ -88,9 +109,11 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         }
         //pool to DB
         pool.query(sqlText, sqlParams)
-            .then(dbRes => res.sendStatus(201))
+            .then(dbRes => {
+                res.sendStatus(201)
+            })
             .catch(err=>{
-                console.error('in POST assignment error');
+                console.error('in POST assignment error', err);
                 res.sendStatus(500);
             })
 

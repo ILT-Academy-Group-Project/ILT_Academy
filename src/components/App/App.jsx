@@ -169,6 +169,8 @@ function App() {
             >
                 <AssignmentDetails />
             </ProtectedRoute>
+
+            
             {/* profile  /studentportal/profile/:username */}
           
           
