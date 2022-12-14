@@ -6,28 +6,110 @@ import { useParams, useHistory } from 'react-router-dom';
 
 function AssignmentDetails () {
 
-        //import dispatch, history, params
-        const history = useHistory();
-        const dispatch = useDispatch();
-        const params=useParams();
+    //import dispatch, history, params
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const params=useParams();
 
-        //get selected assignment for the render
-        const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
-        console.log('assignment is:', assignment);
+    //get selected assignment for the render
+    const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
+    // console.log('assignment is:', assignment);
 
-        //useEffect for getting assignment by id
-        useEffect(() => {
-            dispatch({
-                type: 'FETCH_SELECTED_ASSIGMENT',
-                payload: params.id
-            });
-        },[params.id]);
+    //usestate to keep files
+    const [pdfSubmission, setPdfSubmission] = useState(null);
+    const [videoSubmission, setVideoSubmission] = useState(null);
+    const [textSubmission, setTextSubmission] = useState('');
+
+
+    //useEffect for getting assignment by id
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_SELECTED_ASSIGMENT',
+            payload: params.id
+        });
+    },[params.id]);
+
+    //handle file submission
+    const handleSubmission = (evt) => {
+        evt.preventDefault();
+        // console.log('pdf file', pdfSubmission);
+        // console.log('video file', videoSubmission);
+        // console.log('text file', textSubmission);
+        //dispatch to SAGA for post to server
+        dispatch({
+            type: 'CREATE_SUBMISSION',
+            payload: {
+                pdfSubmission,
+                videoSubmission,
+                textSubmission,
+                assignmentId: assignment.id,
+            }
+        });
+    }
     return(
         <>
-            {/* <div dangerouslySetInnerHTML={{__html: }}></div> */}
             <h3 className="assignmentTitle">{assignment.name}</h3>
+            {
+            assignment.media ? <video width="640" height="480" controls src={assignment.media}></video>
+            :
+            null
+            };
+            {/* <div dangerouslySetInnerHTML={{__html: }}></div> */}            
             <div dangerouslySetInnerHTML={{__html: assignment.content}}></div>
 
+            <form onSubmit={handleSubmission}>
+                {  //is there a text submission requirement?
+                    assignment.textField ? 
+                        <div>
+                            <textarea
+                                id='textSubmission'
+                                required
+                                placeholder="Type your response here"
+                                // value={story} 
+                                // // update local state
+                                value={textSubmission}
+                                onChange={(evt)=>setTextSubmission(evt.target.value)}
+                            />
+                        </div>
+                    :
+                    null
+                }
+                {   //is there a file submission requirement?
+                    assignment.file ? 
+                        <div>
+                            <label>Upload PDF Here</label>
+                            <input 
+                                required
+                                title=' '
+                                type='file' 
+                                name="fileSubmission"                         
+                                accept='.pdf'
+                                onChange = {(evt)=>{setPdfSubmission(evt.target.files[0])}}
+                            />
+                        </div>
+                    :
+                    null
+                }
+                { //is there a video upload requirement?
+                    assignment.video ?
+                        <div>
+                            <label> Upload Video Here</label>
+                            <input 
+                                required
+                                title=' '
+                                type='file' 
+                                name="post_img" 
+                                className='inputBtn'
+                                accept='video/*'
+                                onChange = {(evt)=>{setVideoSubmission(evt.target.files[0])}}
+                            />
+                        </div>
+                    :
+                    null
+                }
+
+                <input type="submit" />
+            </form>
             
         </>
             
