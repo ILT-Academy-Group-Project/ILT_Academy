@@ -54,7 +54,7 @@ function CreateAssignment(){
             }
         })
         //push to modules view
-        // history.push(`/admin/modules/${params.seriesId}`)
+        history.push(`/admin/modules/${params.seriesId}`)
 
     }
     console.log('assignmentcontent', assignmentContent);
