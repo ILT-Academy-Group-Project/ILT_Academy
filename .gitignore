@@ -15,7 +15,7 @@ yarn-error.log*
 # Files
 public/files
 public/videos
-
+public/submissions
 
 # Runtime data
 pids
