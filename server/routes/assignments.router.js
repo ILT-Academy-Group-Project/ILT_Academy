@@ -84,7 +84,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
                 data.assignmentTitle,
                 data.moduleId,
                 data.assignmentContent,
-                'videos/'+req.file.filename,
+                'files/'+req.file.filename,
                 data.textField,
                 data.file,
                 data.video
