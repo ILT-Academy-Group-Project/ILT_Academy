@@ -110,10 +110,10 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         //pool to DB
         pool.query(sqlText, sqlParams)
             .then(dbRes => {
-                res.send('videos/'+req.file.filename);
+                res.sendStatus(201)
             })
             .catch(err=>{
-                console.error('in POST assignment error');
+                console.error('in POST assignment error', err);
                 res.sendStatus(500);
             })
 
