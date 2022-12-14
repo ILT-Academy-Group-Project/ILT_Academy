@@ -1,4 +1,4 @@
-
+import { combineReducers } from 'redux';
 
 const assignmentsReducer = (state = [], action ) => {
     switch(action.type) {
@@ -9,4 +9,16 @@ const assignmentsReducer = (state = [], action ) => {
     }
 }
 
-export default assignmentsReducer;
+const selectedAssignmentReducer = ( state={}, action ) => {
+    switch(action.type) {
+        case 'SET_SELECTED_ASSIGNMENT':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    selectedAssignmentReducer,
+    assignmentsReducer,
+})

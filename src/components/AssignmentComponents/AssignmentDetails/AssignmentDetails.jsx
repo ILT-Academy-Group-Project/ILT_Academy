@@ -10,7 +10,11 @@ function AssignmentDetails () {
         const history = useHistory();
         const dispatch = useDispatch();
         const params=useParams();
-    
+
+        //get selected assignment for the render
+        const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
+        console.log('assignment is:', assignment);
+
         //useEffect for getting assignment by id
         useEffect(() => {
             dispatch({
@@ -21,13 +25,22 @@ function AssignmentDetails () {
     return(
         <>
             {/* <div dangerouslySetInnerHTML={{__html: }}></div> */}
-            <input 
-                required
-                type='text' 
-                placeholder="Assignment Name"
-                // onChange={(evt)=>setAssignmentTitle(evt.target.value)}
-            />
-            <SunEditor 
+            <h3 className="assignmentTitle">{assignment.name}</h3>
+            <div dangerouslySetInnerHTML={{__html: assignment.content}}></div>
+
+            
+        </>
+            
+
+    )
+}
+
+
+export default AssignmentDetails;
+
+
+//save suneditor format in case we change display type
+{/* <SunEditor 
             // onChange={handleChange}
             setOptions={{
                 height: 200,                                                   
@@ -37,12 +50,4 @@ function AssignmentDetails () {
             disable={true}
             // defaultValue={'<p>&nbsp;&nbsp;&nbsp;&nbsp;Sam TEST 1Sam TEST 1Sam TEST 1Sam TEST 1<br></p>'}
             //  setContents={content}
-        />
-        </>
-            
-
-    )
-}
-
-
-export default AssignmentDetails;
+        /> */}
