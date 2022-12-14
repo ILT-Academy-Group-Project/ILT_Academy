@@ -27,7 +27,7 @@ function Modules() {
     const history = useHistory();
     const params = useParams();
     const modules = useSelector(store => store.modules);
-    const assignments = useSelector(store => store.assignments);
+    const assignments = useSelector(store => store.assignments.assignmentsReducer);
     const [expanded, setExpanded] = React.useState(false);
 
     // console.log('🍏 params.id is THIS ', params.seriesId) 
@@ -120,30 +120,13 @@ function Modules() {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            <Button onClick={() => history.push('/admin/create/assignment')}>Add assignment</Button>
+                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
 
                 </>
             ))}
-
-        //{modules.map(module => (
-           // <>
-                //<h1>{module.name}</h1>
-                //{/* TO DO include icons for submission required AND completed */}
-                //{console.log('module', module)}
-                //<ul>
-                   // {assignments.map(assignment => {
-                      //  if(assignment.moduleId === module.id) {
-                         //   return <li>{assignment.name}</li>
-                       // }
-                    //})}
-               // </ul>
-               // <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
-           // </>
-        //))}
-
         </>
     )
 }
