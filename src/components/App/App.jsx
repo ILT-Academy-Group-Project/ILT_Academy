@@ -21,7 +21,8 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
-import CreateAssignment from '../CreateAssignment/CreateAssignment';
+import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
+import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 
 import './App.css';
 
@@ -81,15 +82,8 @@ function App() {
           <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/modules/:seriesId">
-              <Modules />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-          // logged in admin shows Modules within selected Series
-            exact
-            path="/admin/create/assignment">
-              <CreateAssignment />
+            path="/admin/modules/:seriesId">              
+            { user.accessLevel === 2 ? <Modules /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
             {/* LOGIN */}
@@ -144,6 +138,14 @@ function App() {
 
             {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
 
+            {/* create lesson */}
+            <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/create/assignment/:seriesId/:moduleId">
+              { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
+
             {/* STUDENT BELOW HERE _______________________________ */}
 
             {/* orientation   /studentportal/orientation (maybe /:page) */}
@@ -152,7 +154,15 @@ function App() {
 
             {/* student portal moddules  /studentportal/modules/:id  (series id) */}
 
-            {/* lesson   /studentportal/:id (lesson id) */}
+            {/* individual lesson boy id (viewable by admin and student)  /lesson/:id (lesson id) */}
+
+            <ProtectedRoute
+                exact
+                path='/assignment/:id'
+            >
+                <AssignmentDetails />
+            </ProtectedRoute>
+
 
             {/* profile  /studentportal/profile/:username */}
           

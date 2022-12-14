@@ -30,7 +30,8 @@ function Modules() {
     const assignments = useSelector(store => store.assignments);
     const [expanded, setExpanded] = React.useState(false);
 
-    console.log('🍏 params.id is THIS ', params.seriesId);
+    // console.log('🍏 params.id is THIS ', params.seriesId) 
+
 
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -73,6 +74,7 @@ function Modules() {
 
     return (
         <>
+
             {modules.map(module => (
                 <>
                     <Accordion expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
@@ -125,6 +127,23 @@ function Modules() {
 
                 </>
             ))}
+
+        //{modules.map(module => (
+           // <>
+                //<h1>{module.name}</h1>
+                //{/* TO DO include icons for submission required AND completed */}
+                //{console.log('module', module)}
+                //<ul>
+                   // {assignments.map(assignment => {
+                      //  if(assignment.moduleId === module.id) {
+                         //   return <li>{assignment.name}</li>
+                       // }
+                    //})}
+               // </ul>
+               // <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+           // </>
+        //))}
+
         </>
     )
 }
