@@ -62,7 +62,8 @@ function CreateAssignment(){
         // uploadHandler is a function
         console.log(files, info)
         
-        const callBack = async () => { let formData = new FormData();
+        const callBack = async () => { 
+        let formData = new FormData();
         formData.append('image', files[0]);
         const response = await axios.post('/api/assignments/imagefield', formData, {
             //must include this header, it is what Multer uses to id file
