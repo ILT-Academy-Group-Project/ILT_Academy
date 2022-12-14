@@ -18,6 +18,7 @@ function* fetchAssignments() {
              payload: assignments.data
          })
      } catch{
+        //error route tested
          console.log('error in assignmentsSaga')
      }
 }
@@ -56,9 +57,21 @@ function* createAssignment(action) {
         });
         //get posts redux and rerender after store is updated
     } catch (err){
+        //error route tested
         console.error('in createAssignment SAGA error', err);
+    }    
+}
+
+function* fetchSelectedAssignment(action){
+    // console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
+    try{
+        //get selectedAssignment from server
+        const selectedAssignment = yield axios.get(`/api/assignments/${action.payload}`);
+        // console.log('response from GET assignment by ID', selectedAssignment.data);
+    } catch (err) {
+        //error route tested
+        console.error('in fetchSelectedAssignment error', err);
     }
-     
 
 }
 
@@ -67,6 +80,9 @@ function* assignmentsSaga() {
 
   //CREATE Assignment
   yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
+
+  //fetch selected assignment for details view
+  yield takeEvery('FETCH_SELECTED_ASSIGMENT', fetchSelectedAssignment)
 
 }
 
