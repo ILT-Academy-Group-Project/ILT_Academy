@@ -40,6 +40,8 @@ function CohortDetails() {
 
     console.log('🎈Cohort Details params.id is ', params.cohortId);
 
+    const cohortParam = params.cohortId
+
     let newSeriesObject = series;
     for (let i = 0; i<newSeriesObject.length ; i++){
         if (cohortSeries[i]){
@@ -60,10 +62,14 @@ function CohortDetails() {
     //     console.log('switch toggled')
     // }
 
-    function publish() {
+    function publish(seriesId) {
         console.log('PUBLISH')
         dispatch({
-            
+            type: 'PUBLISH_SERIES',
+            payload: {
+                seriesId: seriesId,
+                cohortParam: cohortParam,
+            }
         })
     }
 
@@ -119,7 +125,7 @@ function CohortDetails() {
                                 </ Button>
                                 <FormControlLabel  control={<Switch />} 
                                     label="Publish Series"
-                                    onChange={(event) => publish(series.id)}
+                                    onChange={(event) => publish(series.id, cohortParam)}
                                     />
 
                             </Grid2>

@@ -11,7 +11,7 @@ function* fetchSeries() {
              payload: series.data
          })
      } catch{
-         console.log('error in seriesSaga')
+         console.log('error in seriesSaga fetchSeries')
      }
 }
 
@@ -25,14 +25,25 @@ function* fetchCohortSeries(action){
             payload: cohortSeries.data
         })
     } catch{
-        console.log('error in cohort.saga')
+        console.log('error in cohort.saga fetchCohortSeries')
     }
 
+}
+
+function* publishCohortSeries(action) {
+    console.log('📰 publish cohort series action.payload is ', action.payload)
+    try{
+        axios.post(`api/series/publish/${action.payload}`)
+
+    } catch{
+        console.log('error in cohort.saga publishCohortSeries')
+    }
 }
 
 function* seriesSaga() {
   yield takeLatest('FETCH_SERIES', fetchSeries);
   yield takeLatest('FETCH_COHORT_SERIES', fetchCohortSeries);
+  yield takeLatest('PUBLISH_SERIES', publishCohortSeries);
 }
 
 export default seriesSaga;

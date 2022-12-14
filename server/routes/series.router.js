@@ -41,5 +41,9 @@ router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
     }
 })
 
+router.post('/publish/:cohortId', rejectUnauthenticated, async (req,res) => {
+    
+})
+
 
 module.exports = router
