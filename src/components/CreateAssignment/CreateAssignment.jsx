@@ -73,7 +73,7 @@ function CreateAssignment(){
         uploadHandler(response.data);}
 
         callBack();
-        uploadHandler();
+        // uploadHandler();
 
     }
 
