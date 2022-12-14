@@ -35,14 +35,9 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', 
-    rejectUnauthenticated, 
-        upload.single('pdfSubmission'),
-        upload.single('videoSubmission'), 
-        (req, res) => {
-    
-    console.log('req.files', req.files);
-  // POST route code here
+router.post('/', rejectUnauthenticated, upload.any(), (req, res) => {
+ console.log('req.files', req.files);
+res.sendStatus(200);
 });
 
 /**

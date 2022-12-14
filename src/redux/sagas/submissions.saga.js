@@ -20,7 +20,7 @@ function* createSubmission(action){
         formData.append('textSubmission', data.videoSubmission);
         formData.append('assignmentId', data.assignmentId);
 
-        axios.post('/api/submissions', formData, {
+        yield axios.post('/api/submissions', formData, {
             //must include this header, it is what Multer uses to id file
             headers:{
                 headers: { "Content-Type": "multipart/form-data" },
