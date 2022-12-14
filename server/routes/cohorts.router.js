@@ -23,10 +23,10 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
     try{
         const sqlText = 
-        `SELECT * FROM "user"
+        `SELECT "user"."id", "user"."firstName", "user"."lastName", "user"."email", "user"."slack", "user"."username", "user"."accessLevel", "user"."cohortId", "cohorts"."cohortName" FROM "user"
         JOIN "cohorts" ON "cohorts".id = "user"."cohortId"
-        WHERE "cohortId" = $1
-        ;`;
+        WHERE "user"."cohortId" = $1;
+        `;
 
         const sqlParams = req.params.cohortId
         console.log('sqlParams in cohort router are 💖', sqlParams);

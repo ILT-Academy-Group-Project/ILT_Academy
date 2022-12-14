@@ -19,18 +19,20 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     }
 })
 
-router.get('/:seriesId', rejectUnauthenticated, async (req, res) => {
-    //GET all series whether they are assigned to cohort or not. 
+router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
+    //GET all series assigned to cohort 
     try{
         const sqlText = `
         SELECT * FROM "cohorts"
         JOIN "cohorts_series"
             ON "cohorts_series"."cohortId" = "cohorts"."id"
-        RIGHT JOIN "series"
+        JOIN "series"
             ON "cohorts_series"."seriesId" = "series"."id"
-            
+      	WHERE "cohorts".id = $1
         ;`;
-        let dbResult = await pool.query(sqlText);
+        const sqlParams = req.params.cohortId
+        console.log('req.user.cohortId is ', req.params.cohortId);
+        let dbResult = await pool.query(sqlText,[sqlParams]);
         res.send(dbResult.rows);
 
     } catch(err) {

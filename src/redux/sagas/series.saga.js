@@ -18,7 +18,7 @@ function* fetchSeries() {
 function* fetchCohortSeries(action){
     // console.log(`🫐 action.payload is `, action.payload);
     try{
-        let cohortSeries = yield axios.get(`api/series/${action.payload}`) //get series and cohort data 
+        let cohortSeries = yield axios.get(`api/series/${action.payload}`) //get series info for cohort by id 
             // console.log('🥬Cohort series is ', cohortSeries)
         yield put({
             type: 'SET_COHORT_SERIES',
