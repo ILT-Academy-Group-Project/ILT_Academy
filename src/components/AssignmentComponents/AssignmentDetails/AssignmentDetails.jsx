@@ -18,7 +18,7 @@ function AssignmentDetails () {
     //usestate to keep files
     const [pdfSubmission, setPdfSubmission] = useState(null);
     const [videoSubmission, setVideoSubmission] = useState(null);
-    const [textSubmission, setTextSubmission] = useState('');
+    const [textSubmission, setTextSubmission] = useState(null);
 
 
     //useEffect for getting assignment by id
@@ -67,7 +67,8 @@ function AssignmentDetails () {
                                 placeholder="Type your response here"
                                 // value={story} 
                                 // // update local state
-                                value={textSubmission}
+                                //If text submission is null have it be an empty string, otherwise = value
+                                value={textSubmission ? textSubmission : ''}
                                 onChange={(evt)=>setTextSubmission(evt.target.value)}
                             />
                         </div>

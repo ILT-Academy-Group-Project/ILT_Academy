@@ -17,7 +17,14 @@ function* createSubmission(action){
         //APPEND TEXT AND BOTH FILES will conditionalize the query to DB server side
         formData.append('file', data.pdfSubmission);
         formData.append('video', data.videoSubmission);
-        formData.append('textSubmission', data.videoSubmission);
+        //make sure it only sends textfield if it exists, otherwise
+        //there is an error where formdata converts null to 'null'as a string
+        {data.textSubmission ? 
+            formData.append('textSubmission', data.textSubmission)
+        :
+            null
+        };
+        
         formData.append('assignmentId', data.assignmentId);
 
         yield axios.post('/api/submissions', formData, {
