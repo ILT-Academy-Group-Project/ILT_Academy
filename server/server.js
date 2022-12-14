@@ -16,6 +16,8 @@ const calendarRouter = require('./routes/calendar.router');
 const cohortsRouter = require('./routes/cohorts.router');
 const seriesRouter = require('./routes/series.router');
 const modulesRouter = require('./routes/modules.router');
+const orientationRouter = require('./routes/orientation.router');
+const orientationStepRouter = require('./routes/orientationStep.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -37,6 +39,8 @@ app.use('/api/calendar', calendarRouter);
 app.use('/api/cohorts', cohortsRouter);
 app.use('/api/series', seriesRouter);
 app.use('/api/modules', modulesRouter);
+app.use('/api/orientation', orientationRouter);
+app.use('/api/orientation/step', orientationStepRouter);
 
 
 // Serve static files

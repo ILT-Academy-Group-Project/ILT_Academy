@@ -8,8 +8,9 @@ import cohorts from './cohorts.reducer';
 import series from './series.reducer';
 import modules from './modules.reducer';
 import assignments from './assignments.reducer';
-import cohortStudents from './cohort.student.reducer'
-import cohortSeries from './cohort.series.reducer'
+import orientation from './orientation.reducer';
+import cohortStudents from './cohort.student.reducer';
+import cohortSeries from './cohort.series.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   assignments,
   cohortStudents,
   cohortSeries,
+  orientation,
 //   announcments,
 //   assignments,
   events,

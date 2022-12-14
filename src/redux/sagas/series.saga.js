@@ -31,9 +31,12 @@ function* fetchCohortSeries(action){
 }
 
 function* publishCohortSeries(action) {
+    let cohort = action.payload.cohortParam
+    let series = action.payload.seriesId
+    console.log('cohort variable', cohort);
     console.log('📰 publish cohort series action.payload is ', action.payload)
     try{
-        axios.post(`api/series/publish/${action.payload}`)
+        axios.post(`api/series/publish/${cohort}/${series}`)
 
     } catch{
         console.log('error in cohort.saga publishCohortSeries')

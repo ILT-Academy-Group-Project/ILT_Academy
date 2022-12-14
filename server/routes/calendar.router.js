@@ -3,7 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { google } = require('googleapis');
 require('dotenv').config();
-
+const {
+    rejectUnauthenticated,
+  } = require('../modules/authentication-middleware');
 
 
 const fixedKey = process.env.GOOGLE_PRIVATE_KEY.replace(new RegExp("\\\\n", "\g"), "\n");
@@ -24,8 +26,8 @@ const calendar = google.calendar({
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-    
+router.get('/', rejectUnauthenticated, (req, res) => {
+    console.log('in router test user info', req.user);
     calendar.events.list({
         calendarId: process.env.GOOGLE_CALENDAR_ID,
         timeMin: (new Date()).toISOString(),

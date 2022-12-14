@@ -40,7 +40,7 @@ function CohortDetails() {
 
     console.log('🎈Cohort Details params.id is ', params.cohortId);
 
-    const cohortParam = params.cohortId
+    const cohortParam = Number(params.cohortId)
 
     let newSeriesObject = series;
     for (let i = 0; i<newSeriesObject.length ; i++){
@@ -71,6 +71,14 @@ function CohortDetails() {
                 cohortParam: cohortParam,
             }
         })
+        dispatch({
+            type: 'FETCH_COHORT_SERIES',
+            payload: params.cohortId
+        })
+        dispatch({
+            type: 'FETCH_SERIES'
+        })
+
     }
 
     // function unpublish() {
