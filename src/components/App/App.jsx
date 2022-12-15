@@ -149,7 +149,7 @@ function App() {
           {/* Admin can view cohort's modules within selected series  /admin/cohort/molues/:id (series id) */}
           <ProtectedRoute
             exact 
-            path="/admin/cohort/modules/:seriesId">
+            path="/admin/cohort/modules/:cohortId/:seriesId">
             {user.accessLevel === 2 ? 
             <CohortModules /> 
             :

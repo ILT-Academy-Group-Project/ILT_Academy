@@ -92,7 +92,7 @@ function CohortDetails() {
                                 color='primary'
                                 fullWidth={true}
                                 variant='outlined'
-                                onClick={() => history.push(`/admin/cohort/modules/${series.id}`)}>
+                                onClick={() => history.push(`/admin/cohort/modules/${params.cohortId}/${series.id}`)}>
                                     {series.seriesName}
                                 </ Button>
 
@@ -115,7 +115,7 @@ function CohortDetails() {
                                 color='unpublished'
                                 fullWidth={true}
                                 variant='outlined'
-                                onClick={() => history.push(`/admin/cohort/modules/${series.id}`)}>
+                                onClick={() => history.push(`/admin/cohort/modules/${params.cohortId}/${series.id}`)}>
                                     {series.seriesName}
                                     
                                 </ Button>
