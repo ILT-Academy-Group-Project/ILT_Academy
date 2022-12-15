@@ -13,6 +13,8 @@ function AssignmentDetails () {
     const params=useParams();
 
     //get selected assignment for the render
+    //import user
+    const user = useSelector(store => store.user);
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
     // console.log('assignment is:', assignment);
 
@@ -47,15 +49,35 @@ function AssignmentDetails () {
             }
         });
     }
+
+    const deleteLesson = () => {
+        console.log('IN DELETELESSON FN');
+    }
+
+    const editLesson = () => {
+        console.log('IN EDITLESSON FN');
+    }
+
     return(
         <>
-            <h3 className="assignmentTitle">{assignment.name}</h3>
+            <header>
+                <h3 className="assignmentTitle">{assignment.name}</h3>
+                {user.accessLevel === 2 ? 
+                    <>
+                        <button onClick={editLesson}>Edit</button>
+                        <button onClick={deleteLesson}>Delete</button>
+                    </>
+                    :
+                    null
+                }
+            </header>
+
             {
             assignment.media ? <video width="640" height="480" controls src={assignment.media}></video>
             :
             null
-            };
-                        
+            }
+            
             <Markup content={assignment.content}/>
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement?
