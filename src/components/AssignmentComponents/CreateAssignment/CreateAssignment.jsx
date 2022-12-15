@@ -9,7 +9,6 @@ import FormData from "form-data";
 function CreateAssignment(){
     //import user
     const user = useSelector(store => store.user);
-
     //setup
     const dispatch = useDispatch();
     const params = useParams();

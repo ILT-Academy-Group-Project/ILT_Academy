@@ -56,10 +56,14 @@ function AssignmentDetails () {
             type: 'DELETE_ASSIGNMENT',
             payload: params.id,
         });
+        // history.push('')
     }
 
     const editLesson = () => {
-        console.log('IN EDITLESSON FN');
+        // console.log('IN EDITLESSON FN');
+
+        history.push(`/admin/assignment/edit/${params.id}`);
+
     }
 
     if(!assignment.name){
