@@ -18,7 +18,17 @@ const selectedAssignmentReducer = ( state={}, action ) => {
     }
 }
 
+const editAssignmentReducer = ( state={}, action ) => {
+    switch(action.type) {
+        case 'SET_EDIT_ASSIGNMENT':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     selectedAssignmentReducer,
     assignmentsReducer,
+    editAssignmentReducer,
 })

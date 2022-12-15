@@ -94,17 +94,39 @@ function* deleteAssignment(action){
 
 }
 
+function* fetchEditAssignment(action){
+    console.log('in fetchEditAssignment saga with payload of:', action.payload);
+    try{
+        //get selectedAssignment from server
+        const editAssignment = yield axios.get(`/api/assignments/${action.payload}`);
+        
+        console.log('in fetchEditAssignments with response of:', editAssignment.data);
+
+        //send results to redux store
+        yield put ({
+            type: 'SET_EDIT_ASSIGNMENT',
+            payload: editAssignment.data
+        });
+    } catch (err) {
+        //error route tested
+        console.error('in fetchEditAssignment error', err);
+    }
+}
+
 function* assignmentsSaga() {
-  yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments)
+    yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments);
 
-  //CREATE Assignment
-  yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
+    //CREATE Assignment
+    yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
 
-  //fetch selected assignment for details view
-  yield takeEvery('FETCH_SELECTED_ASSIGMENT', fetchSelectedAssignment)
+    //fetch selected assignment for details view
+    yield takeEvery('FETCH_SELECTED_ASSIGNMENT', fetchSelectedAssignment);
 
-  //DELETE assignment
-  yield takeEvery('DELETE_ASSIGNMENT', deleteAssignment);
+    //DELETE assignment
+    yield takeEvery('DELETE_ASSIGNMENT', deleteAssignment);
+
+    //FETCH EDIT ASSIGNMENT
+    yield takeEvery('FETCH_EDIT_ASSIGNMENT', fetchEditAssignment);
 
 }
 

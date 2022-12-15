@@ -151,7 +151,7 @@ function App() {
             // logged in admin can edit assignment
             exact
             path="/admin/assignment/edit/:id">
-              { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
+              { user.accessLevel === 2 ? <EditAssignment /> : <Redirect exact to="/login" />}
             </ProtectedRoute>
 
 
