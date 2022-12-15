@@ -51,17 +51,8 @@ function CohortDetails() {
 
     console.log('newSeries Object', newSeriesObject);
 
-    // const isSelected = (seriesId) => {
-    //     if (seriesId.cohortSeries){
-    //         return true;
-    //     }
-    //    return false
-    // }
 
-    // function handleChange() {
-    //     console.log('switch toggled')
-    // }
-
+    // assign series to cohort
     function publish(seriesId) {
         console.log('PUBLISH')
         dispatch({
@@ -81,9 +72,6 @@ function CohortDetails() {
 
     }
 
-    // function unpublish() {
-    //     console.log('UNPUBLISH')
-    // }
 
     return(
         <>
@@ -104,7 +92,7 @@ function CohortDetails() {
                                 color='primary'
                                 fullWidth={true}
                                 variant='outlined'
-                                onClick={() => history.push(`/admin/cohort/${series.id}`)}>
+                                onClick={() => history.push(`/admin/cohort/modules/${series.id}`)}>
                                     {series.seriesName}
                                 </ Button>
 
@@ -127,7 +115,7 @@ function CohortDetails() {
                                 color='unpublished'
                                 fullWidth={true}
                                 variant='outlined'
-                                onClick={() => history.push(`/admin/cohort/${series.id}`)}>
+                                onClick={() => history.push(`/admin/cohort/modules/${series.id}`)}>
                                     {series.seriesName}
                                     
                                 </ Button>

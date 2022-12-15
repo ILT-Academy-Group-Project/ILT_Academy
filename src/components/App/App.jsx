@@ -24,6 +24,7 @@ import Series from '../Series/Series';
 import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
 import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
+import CohortModules from '../Cohorts/CohortModules';
 
 import './App.css';
 
@@ -141,6 +142,16 @@ function App() {
             path="/admin/cohort/:cohortId">
             {user.accessLevel === 2 ? 
             <CohortDetails /> 
+            :
+            <LoginPage />}
+          </ProtectedRoute>
+
+          {/* Admin can view cohort's modules within selected series  /admin/cohort/molues/:id (series id) */}
+          <ProtectedRoute
+            exact 
+            path="/admin/cohort/modules/:seriesId">
+            {user.accessLevel === 2 ? 
+            <CohortModules /> 
             :
             <LoginPage />}
           </ProtectedRoute>
