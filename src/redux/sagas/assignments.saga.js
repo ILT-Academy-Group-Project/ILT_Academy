@@ -82,6 +82,26 @@ function* fetchSelectedAssignment(action){
 
 }
 
+function* fetchSeriesAssignments(action){
+    //get all assignments from series with id of action.payload (seriesId)
+    try{
+        //get assignments in series from server
+        const seriesAssignments = yield axios.get(`/api/assignments/series/${action.payload}`);
+        console.log('response from GET assignment by series', seriesAssignments.data);
+
+        //send results to redux store
+        yield put ({
+            type: 'SET_SERIES_ASSIGNMENTS',
+            payload: seriesAssignments.data
+        });
+
+    } catch (err) {
+        //error route tested
+        console.error('in fetchSelectedAssignment error', err);
+    }
+}
+
+
 function* assignmentsSaga() {
   yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments)
 
@@ -89,7 +109,9 @@ function* assignmentsSaga() {
   yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
 
   //fetch selected assignment for details view
-  yield takeEvery('FETCH_SELECTED_ASSIGMENT', fetchSelectedAssignment)
+  yield takeEvery('FETCH_SELECTED_ASSIGMENT', fetchSelectedAssignment);
+
+  yield takeLatest('FETCH_SERIES_ASSIGNMENTS', fetchSeriesAssignments);
 
 }
 

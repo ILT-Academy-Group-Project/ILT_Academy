@@ -163,4 +163,26 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
  */
 
 
+// GET ASSIGNMENTS BY SERIES
+router.get('/series/:seriesId', rejectUnauthenticated, (req, res) => {
+    console.log('in GET assignment by series:', req.params.seriesId);
+    
+    const sqlText=`
+    SELECT "assignments".id, "assignments"."name", "assignments".community, "assignments".content, "assignments"."createdDate", "assignments".feedback, "assignments".file, "assignments".media, "assignments"."postClass", "assignments"."textField", "assignments".video, "modules"."seriesId"
+    FROM "assignments"
+    JOIN "modules" ON "modules".id = "assignments"."moduleId"
+    WHERE "modules"."seriesId" = $1;
+    `;
+    pool.query(sqlText, [req.params.seriesId])
+        .then(dbRes => {
+            res.send(dbRes.rows);
+        })
+        .catch(err => {
+            console.error('in GET assignments by series', err);
+            res.sendStatus(500);
+        })
+
+
+});
+
 module.exports = router;
