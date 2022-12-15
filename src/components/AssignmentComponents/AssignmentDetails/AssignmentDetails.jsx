@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
+import { Markup } from 'interweave';
 
 function AssignmentDetails () {
 
@@ -54,9 +55,8 @@ function AssignmentDetails () {
             :
             null
             };
-            {/* <div dangerouslySetInnerHTML={{__html: }}></div> */}            
-            <div dangerouslySetInnerHTML={{__html: assignment.content}}></div>
-
+                        
+            <Markup content={assignment.content}/>
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement?
                     assignment.textField ? 
@@ -96,13 +96,11 @@ function AssignmentDetails () {
                         <div>
                             <label> Upload Video Here</label>
                             <input 
-                                required
-                                title=' '
-                                type='file' 
-                                name="post_img" 
-                                className='inputBtn'
-                                accept='video/*'
-                                onChange = {(evt)=>{setVideoSubmission(evt.target.files[0])}}
+                                type='url'
+                                required   //dont cause 'cant be null error' 
+                                            // if video submission != null set val, else set as empty string
+                                value={videoSubmission ? videoSubmission : ''}  
+                                onChange = {(evt)=>{setVideoSubmission(evt.target.value)}}
                             />
                         </div>
                     :
@@ -112,9 +110,7 @@ function AssignmentDetails () {
                 <input type="submit" />
             </form>
             
-        </>
-            
-
+        </>            
     )
 }
 
