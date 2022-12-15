@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
+import { Markup } from 'interweave';
 
 function AssignmentDetails () {
 
@@ -54,9 +55,8 @@ function AssignmentDetails () {
             :
             null
             };
-            {/* <div dangerouslySetInnerHTML={{__html: }}></div> */}            
-            <div dangerouslySetInnerHTML={{__html: assignment.content}}></div>
-
+                        
+            <Markup content={assignment.content}/>
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement?
                     assignment.textField ? 
@@ -96,7 +96,7 @@ function AssignmentDetails () {
                         <div>
                             <label> Upload Video Here</label>
                             <input 
-                                type='text'
+                                type='url'
                                 required   //dont cause 'cant be null error' 
                                             // if video submission != null set val, else set as empty string
                                 value={videoSubmission ? videoSubmission : ''}  
@@ -110,9 +110,7 @@ function AssignmentDetails () {
                 <input type="submit" />
             </form>
             
-        </>
-            
-
+        </>            
     )
 }
 
