@@ -168,7 +168,7 @@ router.get('/series/:seriesId', rejectUnauthenticated, (req, res) => {
     console.log('in GET assignment by series:', req.params.seriesId);
     
     const sqlText=`
-    SELECT "assignments".id, "assignments"."name", "assignments".community, "assignments".content, "assignments"."createdDate", "assignments".feedback, "assignments".file, "assignments".media, "assignments"."postClass", "assignments"."textField", "assignments".video, "modules"."seriesId"
+    SELECT "assignments".id, "assignments"."name", "assignments".community, "assignments".content, "assignments"."createdDate", "assignments".feedback, "assignments".file, "assignments".media, "assignments"."postClass", "assignments"."textField", "assignments".video,"assignments"."moduleId", "modules"."seriesId"
     FROM "assignments"
     JOIN "modules" ON "modules".id = "assignments"."moduleId"
     WHERE "modules"."seriesId" = $1;

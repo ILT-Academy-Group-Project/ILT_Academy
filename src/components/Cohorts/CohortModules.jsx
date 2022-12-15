@@ -28,6 +28,9 @@ function CohortModules() {
 
     const modules = useSelector(store => store.modules); //modules for THIS series 
     const cohortModules = useSelector(store => store.cohortModules);
+    const assignments = useSelector(store => store.assignments.seriesAssignmentReducer)
+
+    console.log('ASSIGNMENTS FOR THIS SERIES ', assignments);
 
     //create new variable for modules assigned to this cohort
     
@@ -67,7 +70,7 @@ function CohortModules() {
             type:'FETCH_SERIES_ASSIGNMENTS',
             payload: params.seriesId
         })
-        
+
     },[params.cohortId])
 
     let arrayToCheck = [];
@@ -132,25 +135,26 @@ function CohortModules() {
                                             <StyledTableCell align="right">Feedback</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
-                                    {/* <TableBody>
+                                     <TableBody>
                                         {assignments.map(assignment => {
-                                            if (assignment.moduleId === module.id) {
+                                            if (assignment.moduleId == publishedModule.moduleId) {
+                                                console.log('TRUE')
                                                 let pre = ''
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
                                                     <StyledTableRow key={assignment.id}>
-                                                        {/* <StyledTableCell component="th" scope="row">
+                                                        <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
-                                                        </StyledTableCell> */}
-                                                        {/* <StyledTableCell align="right">{assignment.name}</StyledTableCell>
+                                                        </StyledTableCell> 
+                                                         <StyledTableCell align="right">{assignment.name}</StyledTableCell>
                                                         <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
                                                         <StyledTableCell align="right">{pre}</StyledTableCell>
                                                         <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
-                                                    </StyledTableRow>
+                                                     </StyledTableRow>
                                                 )
                                             }
                                         })}
-                                    {/* </TableBody> */}  
+                                     </TableBody>  
                                 </Table>
                             </TableContainer>
                             <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
