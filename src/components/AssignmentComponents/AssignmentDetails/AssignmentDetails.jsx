@@ -96,13 +96,11 @@ function AssignmentDetails () {
                         <div>
                             <label> Upload Video Here</label>
                             <input 
-                                required
-                                title=' '
-                                type='file' 
-                                name="post_img" 
-                                className='inputBtn'
-                                accept='video/*'
-                                onChange = {(evt)=>{setVideoSubmission(evt.target.files[0])}}
+                                type='text'
+                                required   //dont cause 'cant be null error' 
+                                            // if video submission != null set val, else set as empty string
+                                value={videoSubmission ? videoSubmission : ''}  
+                                onChange = {(evt)=>{setVideoSubmission(evt.target.value)}}
                             />
                         </div>
                     :
