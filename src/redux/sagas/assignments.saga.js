@@ -82,6 +82,18 @@ function* fetchSelectedAssignment(action){
 
 }
 
+function* deleteAssignment(action){
+    // console.log('in deleteAssignment SAGA with payload of:', action.payload);
+
+    try {
+        //send id via axios delete request
+        yield axios.delete(`/api/assignments/${action.payload}`)
+    } catch (err) {
+        console.error('in deleteAssignment SAGA with error:', err);
+    }
+
+}
+
 function* assignmentsSaga() {
   yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments)
 
@@ -90,6 +102,9 @@ function* assignmentsSaga() {
 
   //fetch selected assignment for details view
   yield takeEvery('FETCH_SELECTED_ASSIGMENT', fetchSelectedAssignment)
+
+  //DELETE assignment
+  yield takeEvery('DELETE_ASSIGNMENT', deleteAssignment);
 
 }
 

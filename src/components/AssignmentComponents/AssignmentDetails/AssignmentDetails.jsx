@@ -51,11 +51,19 @@ function AssignmentDetails () {
     }
 
     const deleteLesson = () => {
-        console.log('IN DELETELESSON FN');
+        // console.log('IN DELETELESSON FN');
+        dispatch({
+            type: 'DELETE_ASSIGNMENT',
+            payload: params.id,
+        });
     }
 
     const editLesson = () => {
         console.log('IN EDITLESSON FN');
+    }
+
+    if(!assignment.name){
+        return <h1>404</h1>
     }
 
     return(

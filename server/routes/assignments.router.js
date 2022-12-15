@@ -125,15 +125,33 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         res.sendStatus(403);
     }});
 
-/**
- * GET:ID route 
- */
-
 
 
 /**
  * DELETE route 
  */
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in delete assignment with id of', req.params);
+    //set query text
+    const sqlText = `
+        DELETE FROM "assignments"
+        WHERE "id" = $1;
+    `;
+    //query to DB
+    pool.query(sqlText, [req.params.id])
+        .then(dbRes => {
+            res.sendStatus(200);
+        })
+        .catch(err => {
+            console.error('in delete assignment error', err);
+            res.sendStatus(500);
+        });
+    
+})
+
+
+//get selected assignment
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     // console.log('in GET assignment by ID route with payload of:', req.params.id);
