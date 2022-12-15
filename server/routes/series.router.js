@@ -31,7 +31,7 @@ router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
       	WHERE "cohorts".id = $1
         ;`;
         const sqlParams = req.params.cohortId
-        console.log('req.user.cohortId is ', req.params.cohortId);
+        // console.log('req.user.cohortId is ', req.params.cohortId);
         let dbResult = await pool.query(sqlText,[sqlParams]);
         res.send(dbResult.rows);
 

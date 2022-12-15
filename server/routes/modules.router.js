@@ -24,15 +24,18 @@ router.get('/:seriesId', rejectUnauthenticated, async (req, res) => {
     }
 })
 
-//GET published modules for specific cohort
-router.get('/cohort/:cohortId', rejectUnauthenticated, async (req, res) => {
+//GET published modules for specific cohort and series
+router.get('/cohort/:cohortId/:seriesId', rejectUnauthenticated, async (req, res) => {
     try{
         const sqlText = 
-            `SELECT * FROM "cohorts_modules"
-            WHERE "cohortId" = $1 
-            ;
+            `SELECT "cohorts_modules".id AS "cohorts_modules_join_id", "cohorts_modules"."cohortId", "cohorts_modules"."assignedDate", "cohorts_modules"."dueDate", "cohorts_modules"."moduleId", JSON_agg("modules"."seriesId") AS "seriesId", JSON_agg("modules".name) AS "moduleName"
+            FROM "cohorts_modules"
+            JOIN "modules" ON "modules".id = "cohorts_modules"."moduleId"
+            WHERE "cohorts_modules"."cohortId" = $1 AND "modules"."seriesId" = $2
+            GROUP BY "cohorts_modules_join_id";
             `;
-        const sqlParams = [req.params.cohortId];
+        const sqlParams = [req.params.cohortId, req.params.seriesId];
+        console.log('get cohort modules params  ', sqlParams);
 
         let dbResult = await pool.query(sqlText, sqlParams);
         res.send(dbResult.rows);

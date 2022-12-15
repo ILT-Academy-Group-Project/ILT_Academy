@@ -1,3 +1,4 @@
+import { array } from 'prop-types';
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,15 +9,14 @@ function CohortModules() {
     const history = useHistory();
     const params = useParams();
 
-    const modules = useSelector(store => store.modules);
+    const modules = useSelector(store => store.modules); //modules for THIS series 
+    const cohortModules = useSelector(store => store.cohortModules);
 
     //create new variable for modules assigned to this cohort
-    let newModulesObject = modules;
-    // for(let i=0; i<newModulesObject.length; i++){
-    //     if(cohortModules[i]){
-    //         newModulesObject[i].cohortId = cohortModules[i].cohortId
-    //     }
-    // }
+    
+    
+    
+   
 
     useEffect(() => {
         // dispatch({
@@ -45,11 +45,41 @@ function CohortModules() {
                 seriesId:params.seriesId
             }
         })
-
-
     },[params.cohortId])
 
-    return <h1>Cohort Modules Here</h1>
+    let arrayToCheck = [];
+    cohortModules.map(publishedModule => {
+        arrayToCheck.push(publishedModule.moduleId)
+        console.log('array to check is ', arrayToCheck)
+    })
+
+
+    return (
+        <>
+        {/* published modules */}
+        {cohortModules.map(publishedModule =>{
+            return(
+                <h1
+                key={publishedModule.moduleName}>
+                    {publishedModule.moduleName[0]}</h1>
+            )
+        })}
+        {
+              modules.map(module => {
+                if(arrayToCheck.includes(module.id)){
+                    return true
+                }
+                else{
+                    console.log('unpublished module ', module.name)
+                    return(
+                        <h3>{module.name}</h3>
+                    )
+                }
+            })
+        }
+
+        </>
+    )
 }
 
 export default CohortModules;

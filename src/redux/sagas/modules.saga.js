@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* fetchModules(action) {
-    console.log(`🔴 action.payload is `, action.payload); //action.payload is series id
+    // console.log(`🔴 action.payload is `, action.payload); //action.payload is series id
     try{
         let modules =  yield axios.get(`api/modules/${action.payload}`) //get modules from database
          console.log('feature GET response', modules)
@@ -21,7 +21,7 @@ function* fetchCohortModules(action) {
     let cohortId = action.payload.cohortId;
     let seriesId = action.payload.seriesId;
     try{
-        let cohortModules =  yield axios.get(`api/modules/cohort/${cohortId}`) //get modules from database
+        let cohortModules =  yield axios.get(`api/modules/cohort/${cohortId}/${seriesId}`) //get modules from database
          console.log('feature GET response', cohortModules)
  
          yield put({
