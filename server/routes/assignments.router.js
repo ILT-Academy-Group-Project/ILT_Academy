@@ -132,9 +132,11 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
  */
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in delete assignment with id of', req.params);
+    // console.log('in delete assignment with id of', req.params);
     //set query text
-    const sqlText = `
+
+    if(req.user.accessLevel === 2){
+        const sqlText = `
         DELETE FROM "assignments"
         WHERE "id" = $1;
     `;
@@ -147,6 +149,10 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
             console.error('in delete assignment error', err);
             res.sendStatus(500);
         });
+    }
+    else{
+        res.sendStatus(403);
+    }
     
 })
 
