@@ -21,6 +21,7 @@ function AboutPage() {
           </Box>
         </Grid2>
         <Grid2 item xs={6} className='cohortCard'>
+          {/* <h1>Cohorts</h1> */}
           <Cohorts />
         </Grid2>
         <Grid2 item xs={3}>

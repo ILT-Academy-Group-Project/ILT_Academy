@@ -23,7 +23,11 @@ import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
+
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
+
+import OrientationCreate from '../Orientation/OrientationCreate';
+
 
 import './App.css';
 
@@ -85,6 +89,14 @@ function App() {
             exact
             path="/admin/modules/:seriesId">              
             { user.accessLevel === 2 ? <Modules /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
+
+          {/* admin orientation creation page */}
+          <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/orientation">              
+            { user.accessLevel === 2 ? <OrientationCreate /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
             {/* LOGIN */}
