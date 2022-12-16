@@ -40,6 +40,28 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
   }
 })
 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    // console.log('in GET assignment by ID route with payload of:', req.params.id);
+    
+    //create sqlText for db query
+    const sqlText=`
+        SELECT * FROM "assignments"
+        WHERE "id" = $1;
+    `;
+    //query DB
+    pool.query(sqlText, [req.params.id])
+        .then(dbRes => {
+            // console.log('dbRes.rows', dbRes.rows[0]);
+            res.send(dbRes.rows[0]);
+        })
+        .catch(err => {
+            console.error('in GET assignment by ID error:', err);
+            res.sendStatus(500);
+        })
+
+
+});
+
 
 router.post('/imagefield',  rejectUnauthenticated, upload.single('image'), (req,res) => {
 
@@ -63,10 +85,6 @@ else{
     res.sendStatus(403);
 }});
 
-
-/**
- * POST route template
- */
 router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, res) => {
     // POST route code here
     // console.log('in assignment Post route! YAY, req.file:', req.file, 'req.body', req.body);
@@ -125,12 +143,6 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         res.sendStatus(403);
     }});
 
-
-
-/**
- * DELETE route 
- */
-
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // console.log('in delete assignment with id of', req.params);
     //set query text
@@ -156,31 +168,62 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     
 })
 
+ router.put('/', rejectUnauthenticated, upload.single('media'), (req, res) => {
+    // console.log('in assignmentsPut route with payload of:', req.body, req.file);
+    //insure route only available to Admin users
+    if (req.user.accessLevel === 2){
+        let data=req.body;
+        let media;
+        
+        // if the media value is still a file path set value to that
+        if(typeof req.body.media === 'string'){
+            media=req.body.media;
+        }//else set file path of new file
+        else{
+            media='/files/'+req.file.filename;
+        }
+        //set SQL text
 
-//get selected assignment
+        const sqlText =`
+            UPDATE "assignments"
+            SET
+                "createdDate" = CURRENT_TIMESTAMP,
+                "content" = $1,
+                "media" = $2,
+                "textField" = $3,
+                "file" = $4,
+                "video" = $5,
+                "postClass" = $6,
+                "name" = $7
+            WHERE
+                "id"=$8;
+        `;
 
-router.get('/:id', rejectUnauthenticated, (req, res) => {
-    // console.log('in GET assignment by ID route with payload of:', req.params.id);
-    
-    //create sqlText for db query
-    const sqlText=`
-        SELECT * FROM "assignments"
-        WHERE "id" = $1;
-    `;
-    //query DB
-    pool.query(sqlText, [req.params.id])
-        .then(dbRes => {
-            // console.log('dbRes.rows', dbRes.rows[0]);
-            res.send(dbRes.rows[0]);
-        })
-        .catch(err => {
-            console.error('in GET assignment by ID error:', err);
-            res.sendStatus(500);
-        })
+        const sqlParams = [
+            data.content,
+            media,
+            data.textField,
+            data.file,
+            data.video,
+            data.postClass,
+            data.name,
+            data.id
+        ];
 
+        pool.query(sqlText, sqlParams)
+            .then(dbRes => {
+                res.sendStatus(201);
+            })
+            .catch( err => {
+                console.error('in assignment PUT route error:', err);
+                res.sendStatus(500);
+            })
+    }
+    else {
+        res.sendStatus(403);
+    }
 
-});
-
+ })
 
 /**
  * PUT route 

@@ -112,6 +112,35 @@ function* fetchEditAssignment(action){
     }
 }
 
+function* updateAssignment(action){
+    // console.log('in updateAssignment with a payload of:', action.payload);
+    
+    //assign payload to data
+    let data = action.payload;
+    //new formdata
+    let formData = new FormData;
+    formData.append('id', data.id);
+    formData.append('media', data.media);
+    formData.append('name', data.name);
+    formData.append('content', data.content);
+    formData.append('postClass', data.postClass);
+    formData.append('textField', data.textField);
+    formData.append('file', data.file);
+    formData.append('video', data.video);
+    
+    try{
+        //send updates to the server
+        yield axios.put('/api/assignments', formData, {
+            
+            headers:{
+                headers: { "Content-Type": "multipart/form-data" },
+            }
+        })
+    } catch (err){
+        console.error('in editAssignment SAGA put route:', err);
+    }
+}
+
 function* assignmentsSaga() {
     yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments);
 
@@ -126,6 +155,9 @@ function* assignmentsSaga() {
 
     //FETCH EDIT ASSIGNMENT
     yield takeEvery('FETCH_EDIT_ASSIGNMENT', fetchEditAssignment);
+
+    // EDIT ASSIGNMENT
+    yield takeEvery('UPDATE_ASSIGNMENT', updateAssignment);
 
 }
 

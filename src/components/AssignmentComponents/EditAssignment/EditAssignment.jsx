@@ -30,12 +30,18 @@ useEffect(() => {
 
 const submitEditAssignment = (evt) => {
     evt.preventDefault();
-    console.log('in submit edit assignment');
+    // console.log('in submit edit assignment');
     //ensure there is content in the WYSIWYG
     if(editAssignment.content.length <=10){
         alert('Must put content into the assignment');
         return
     }
+
+    //dispatch updated assignment to saga for axios.put
+    dispatch({
+        type: 'UPDATE_ASSIGNMENT', 
+        payload: editAssignment
+    });
 
     //dispatch to the SAGA for serverpost route
     // dispatch({
@@ -92,7 +98,7 @@ const submitEditAssignment = (evt) => {
             type: 'UPDATE_EDIT_ASSIGNMENT',
             payload: { media: evt.target.files[0] }
         });
-        setVideoUrl({imageUrl: URL.createObjectURL(evt.target.files[0])})
+        // setVideoUrl({imageUrl: URL.createObjectURL(evt.target.files[0])})
 
     }
 
@@ -218,7 +224,7 @@ const submitEditAssignment = (evt) => {
                 ></input>
                 <label>Video</label>
                 <input 
-                    onChange={ ()=>{       
+                    onClick={ ()=>{       
                         dispatch({
                             type: 'UPDATE_EDIT_ASSIGNMENT',
                             payload: { video: !editAssignment.video }
