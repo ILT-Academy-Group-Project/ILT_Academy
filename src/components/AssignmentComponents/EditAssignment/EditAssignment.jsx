@@ -17,6 +17,8 @@ const params = useParams();
 const history = useHistory();
 const editAssignment = useSelector(store => store.assignments.editAssignmentReducer);
 
+//default checked values
+
 useEffect(() => {
     dispatch ({
         type: 'FETCH_EDIT_ASSIGNMENT',
@@ -24,20 +26,6 @@ useEffect(() => {
     });
 },[]);
 
-
-// console.log(user.accessLevel)
-// import useState and create state for selected file on video upload
-const [assignmentVideo, setAssignmentVideo] = useState('');
-//use usestate to track content of WYSIWYG
-const [assignmentContent, setAssignmentContent] = useState('');
-//useState to track assignment title
-const [assignmentTitle, setAssignmentTitle] = useState('');
-
-//submission types
-const [textField, setTextField] = useState(false);
-const [fileSubmission, setFileSubmission] = useState(false);
-const [postClass, setPostClass] = useState(false);
-const [videoSubmission, setVideoSubmission] = useState(false);
 
 const submitEditAssignment = (evt) => {
     evt.preventDefault();
@@ -70,8 +58,12 @@ const submitEditAssignment = (evt) => {
 
 }
 
-
-// console.log('assignmentcontent', assignmentContent);
+    const handleChange = (content) => {
+        dispatch({
+            type: 'UPDATE_EDIT_ASSIGNMENT',
+            payload: {content: content}
+        })
+    }
 
 
     const handleImageUploadBefore= (files, info, uploadHandler) => {
@@ -94,9 +86,9 @@ const submitEditAssignment = (evt) => {
 
     }
 
-    const handleChange = (content) => {
-        setAssignmentContent(content);
-    }
+    // const handleChange = (content) => {
+    //     setAssignmentContent(content);
+    // }
 
 //testing logs
 // console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission);
@@ -110,14 +102,21 @@ const submitEditAssignment = (evt) => {
 
         
             <form onSubmit={submitEditAssignment}>
-                <label>Upload Video
-                    
-                    {editAssignment.media ? <video src={editAssignment.media}/> : null}
+                {/* if there is a video display it */}
+                {editAssignment.media ? 
+                    <video width="640" height="480" controls src={editAssignment.media}></video> 
+                : 
+                    null}
+
+                <label>Upload New Video
                     <input 
                         accept="video/*"               
                         type='file' 
-                        name="selectedVideo"
-                        onChange = {(evt) => setAssignmentVideo(evt.target.files[0])}
+                        name="selectedVideo"                                               
+                        onChange={()=>dispatch({
+                            type: 'UPDATE_EDIT_ASSIGNMENT',
+                            payload: {media: evt.target.files[0]}
+                        })}
 
                     />
                 </label>
@@ -125,9 +124,13 @@ const submitEditAssignment = (evt) => {
                     required
                     type='text' 
                     placeholder="Assignment Name"
-                    onChange={(evt)=>setAssignmentTitle(evt.target.value)}
+                    value={editAssignment.name}
+                    onChange={()=>dispatch({
+                        type: 'UPDATE_EDIT_ASSIGNMENT',
+                        payload: {name: evt.target.value}
+                    })}
                 />
-                <SunEditor 
+                <SunEditor                 
                 onChange={handleChange}
                 setOptions={{
                     height: 200,
@@ -142,23 +145,59 @@ const submitEditAssignment = (evt) => {
                     ]                                        
                 }}
                 onImageUploadBefore={handleImageUploadBefore} 
-                //  setContents={content}
+
+                setContents={editAssignment.content}
             />
             
             <div>
+
                 <label>Pre Class</label>
-                <input defaultChecked onClick={()=>setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
+                <input 
+                    // if preclass default checked
+                    defaultChecked = {editAssignment && !editAssignment.postClass} 
+                    // onClick={()=>setPostClass(false)} 
+                    type="radio" 
+                    name="classType" 
+                    className="valueRadio">
+                </input>
+
                 <label>Post Class</label>
-                <input onClick={()=>setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>
+                <input 
+                    //if postclass default checked
+                    defaultChecked = {editAssignment && editAssignment.postClass}
+                    // onClick={()=>setPostClass(true)} 
+                    type="radio" 
+                    name="classType" 
+                    className="valueRadio">                    
+                </input>
+
             </div>
             <div>
                 <h3>Submission type</h3>
                 <label>Textfield</label>
-                <input  onClick={()=>setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
+                <input  
+                    // onClick={()=>setTextField(!textField)} 
+                    checked={editAssignment.textField}
+                    type="checkbox" 
+                    name="textField" 
+                    className="valueRadio"
+                ></input>
                 <label>File</label>
-                <input onClick={()=>setFileSubmission(!fileSubmission)}type="checkbox" name="fileSubmission" className="valueRadio"></input>
+                <input 
+                    // onClick={()=>setFileSubmission(!fileSubmission)}
+                    checked={editAssignment.file}
+                    type="checkbox" 
+                    name="fileSubmission" 
+                    className="valueRadio"
+                ></input>
                 <label>Video</label>
-                <input onClick={()=>setVideoSubmission(!videoSubmission)}type="checkbox" name="fileSubmission" className="valueRadio"></input>
+                <input 
+                    // onClick={()=>setVideoSubmission(!videoSubmission)}
+                    checked={editAssignment.video}
+                    type="checkbox" 
+                    name="fileSubmission" 
+                    className="valueRadio"
+                ></input>
             </div>
                 
 
@@ -170,3 +209,23 @@ const submitEditAssignment = (evt) => {
 };
 
 export default EditAssignment;
+
+
+
+
+//----------reference code----------------------------------------------------------------------
+//old post dispatch for reference//
+
+// console.log(user.accessLevel)
+// // import useState and create state for selected file on video upload
+// const [assignmentVideo, setAssignmentVideo] = useState('');
+// //use usestate to track content of WYSIWYG
+// const [assignmentContent, setAssignmentContent] = useState('');
+// //useState to track assignment title
+// const [assignmentTitle, setAssignmentTitle] = useState('');
+
+// //submission types
+// const [textField, setTextField] = useState(false);
+// const [fileSubmission, setFileSubmission] = useState(false);
+// const [postClass, setPostClass] = useState(false);
+// const [videoSubmission, setVideoSubmission] = useState(false);
