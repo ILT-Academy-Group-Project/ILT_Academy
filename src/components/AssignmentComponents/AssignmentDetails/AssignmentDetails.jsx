@@ -70,7 +70,7 @@ function AssignmentDetails () {
         if (result.isConfirmed) {
             Swal.fire(
             'Deleted!',
-            'Your post has been deleted.'
+            'Assignment has been deleted.'
             )
             //dispatch delete request to saga
             dispatch({
@@ -78,7 +78,7 @@ function AssignmentDetails () {
                 payload: params.id,
             });
             //after delete head home
-            history.push('/home');
+            history.push(`/admin/modules/${assignment.seriesId}`)
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -118,7 +118,8 @@ function AssignmentDetails () {
             </header>
 
             {
-            assignment.media ? <video width="640" height="480" controls src={assignment.media}></video>
+            typeof assignment.media==='string' && assignment.media !== 'null' ? 
+            <video width="640" height="480" controls src={assignment.media}></video>
             :
             null
             }

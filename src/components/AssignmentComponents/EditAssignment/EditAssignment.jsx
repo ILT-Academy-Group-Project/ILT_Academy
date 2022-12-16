@@ -105,10 +105,14 @@ const submitEditAssignment = (evt) => {
         
 <form onSubmit={submitEditAssignment}>
                 {/* if there is a video display it */}
-                { typeof editAssignment.media === 'string' ? 
+                { typeof editAssignment.media === 'string' && editAssignment.media !== 'null' ? 
                     <video width="640" height="480" controls src={editAssignment.media}></video> 
                 : 
                     null}
+                <button type='button' onClick={(evt)=>dispatch({
+                        type: 'UPDATE_EDIT_ASSIGNMENT',
+                        payload: {media: null}
+                    })}>Delete Video</button>
 
                 <label>Upload New Video
                     <input 
@@ -227,7 +231,7 @@ const submitEditAssignment = (evt) => {
             </div>
                 
 
-            <button type="submit">Create Assignment</button>
+            <button type="submit">Edit Assignment</button>
             </form>
         </>
 )

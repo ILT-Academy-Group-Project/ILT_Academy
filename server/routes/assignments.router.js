@@ -169,7 +169,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 })
 
  router.put('/', rejectUnauthenticated, upload.single('media'), (req, res) => {
-    // console.log('in assignmentsPut route with payload of:', req.body, req.file);
+    console.log('in assignmentsPut route with payload of:', req.body, req.file);
     //insure route only available to Admin users
     if (req.user.accessLevel === 2){
         let data=req.body;
@@ -178,7 +178,8 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         // if the media value is still a file path set value to that
         if(typeof req.body.media === 'string'){
             media=req.body.media;
-        }//else set file path of new file
+        }
+        //else set file path of new file
         else{
             media='/files/'+req.file.filename;
         }
