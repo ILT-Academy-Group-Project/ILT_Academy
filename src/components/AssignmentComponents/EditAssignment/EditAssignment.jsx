@@ -17,7 +17,8 @@ const params = useParams();
 const history = useHistory();
 const editAssignment = useSelector(store => store.assignments.editAssignmentReducer);
 
-//default checked values
+//video url for display
+const [videoUrl, setVideoUrl] = useState(null);
 
 useEffect(() => {
     dispatch ({
@@ -31,7 +32,7 @@ const submitEditAssignment = (evt) => {
     evt.preventDefault();
     console.log('in submit edit assignment');
     //ensure there is content in the WYSIWYG
-    if(assignmentContent.length <=10){
+    if(editAssignment.content.length <=10){
         alert('Must put content into the assignment');
         return
     }
@@ -86,9 +87,14 @@ const submitEditAssignment = (evt) => {
 
     }
 
-    // const handleChange = (content) => {
-    //     setAssignmentContent(content);
-    // }
+    const videoChange = (evt) => {
+        dispatch({
+            type: 'UPDATE_EDIT_ASSIGNMENT',
+            payload: { media: evt.target.files[0] }
+        });
+        setVideoUrl({imageUrl: URL.createObjectURL(evt.target.files[0])})
+
+    }
 
 //testing logs
 // console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission);
@@ -112,12 +118,8 @@ const submitEditAssignment = (evt) => {
                     <input 
                         accept="video/*"               
                         type='file' 
-                        name="selectedVideo"                                               
-                        onChange={(evt)=>dispatch({
-                            type: 'UPDATE_EDIT_ASSIGNMENT',
-                            payload: {media: evt.target.files[0]}
-                        })}
-
+                        name="selectedVideo"
+                        onChange={videoChange}                                            
                     />
                 </label>
                 <input 
@@ -191,24 +193,37 @@ const submitEditAssignment = (evt) => {
                 <h3>Submission type</h3>
                 <label>Textfield</label>
                 <input  
-                    // onClick={()=>setTextField(!textField)} 
-                    checked={editAssignment.textField}
+                    onClick={ () => {        
+                        dispatch({
+                            type: 'UPDATE_EDIT_ASSIGNMENT',
+                            payload: { textField: !editAssignment.textField }
+                        })}}
+                    defaultChecked={editAssignment.textField}
                     type="checkbox" 
                     name="textField" 
                     className="valueRadio"
                 ></input>
                 <label>File</label>
                 <input 
-                    // onClick={()=>setFileSubmission(!fileSubmission)}
-                    checked={editAssignment.file}
+                    onClick={() => {        
+                        dispatch({
+                            type: 'UPDATE_EDIT_ASSIGNMENT',
+                            payload: { file: !editAssignment.file}
+                        })}}
+                    defaultChecked={editAssignment.file}
+                    value={editAssignment}
                     type="checkbox" 
                     name="fileSubmission" 
                     className="valueRadio"
                 ></input>
                 <label>Video</label>
                 <input 
-                    // onClick={()=>setVideoSubmission(!videoSubmission)}
-                    checked={editAssignment.video}
+                    onChange={ ()=>{       
+                        dispatch({
+                            type: 'UPDATE_EDIT_ASSIGNMENT',
+                            payload: { video: !editAssignment.video }
+                        })}}
+                    defaultChecked={editAssignment.video}
                     type="checkbox" 
                     name="fileSubmission" 
                     className="valueRadio"
