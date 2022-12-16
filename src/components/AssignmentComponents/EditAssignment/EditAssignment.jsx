@@ -39,9 +39,9 @@ const [fileSubmission, setFileSubmission] = useState(false);
 const [postClass, setPostClass] = useState(false);
 const [videoSubmission, setVideoSubmission] = useState(false);
 
-const submitAssignment = (evt) => {
+const submitEditAssignment = (evt) => {
     evt.preventDefault();
-    console.log('in submit assignment');
+    console.log('in submit edit assignment');
     //ensure there is content in the WYSIWYG
     if(assignmentContent.length <=10){
         alert('Must put content into the assignment');
@@ -49,22 +49,24 @@ const submitAssignment = (evt) => {
     }
 
     //dispatch to the SAGA for serverpost route
-    dispatch({
-        type: 'CREATE_ASSIGNMENT',
-        payload: {
-            assignmentVideo,
-            assignmentContent,
-            assignmentTitle,
-            moduleId: params.moduleId,
-            postClass,
-            textField,
-            // name to match database, lef as submission so there isnt confusion on this page
-            file: fileSubmission,
-            video: videoSubmission,
-        }
-    })
+    // dispatch({
+    //     type: 'CREATE_ASSIGNMENT',
+    //     payload: {
+    //         assignmentVideo,
+    //         assignmentContent,
+    //         assignmentTitle,
+    //         moduleId: params.moduleId,
+    //         postClass,
+    //         textField,
+    //         // name to match database, lef as submission so there isnt confusion on this page
+    //         file: fileSubmission,
+    //         video: videoSubmission,
+    //     }
+    // })
     //push to modules view
-    history.push(`/admin/modules/${params.seriesId}`)
+
+    //------------------------todo update this push::::::---------------------------
+    // history.push(`/admin/modules/${params.seriesId}`)
 
 }
 
@@ -107,8 +109,10 @@ const submitAssignment = (evt) => {
             </video> */}
 
         
-            <form onSubmit={submitAssignment}>
+            <form onSubmit={submitEditAssignment}>
                 <label>Upload Video
+                    
+                    {editAssignment.media ? <video src={editAssignment.media}/> : null}
                     <input 
                         accept="video/*"               
                         type='file' 

@@ -22,6 +22,11 @@ const editAssignmentReducer = ( state={}, action ) => {
     switch(action.type) {
         case 'SET_EDIT_ASSIGNMENT':
             return action.payload;
+        case 'UPDATE_EDIT_ASSIGNMENT':
+            return {
+                ...state,
+                ...action.payload,
+            };
         default:
             return state;
     }

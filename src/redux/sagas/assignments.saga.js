@@ -23,7 +23,6 @@ function* fetchAssignments() {
      }
 }
 
-
 function* createAssignment(action) {
     // console.log('in createAssignment SAGA with payload of:', action.payload);
      

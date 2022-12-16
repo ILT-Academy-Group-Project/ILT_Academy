@@ -4,6 +4,8 @@ import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
 import { Markup } from 'interweave';
+//sweet alert import
+const Swal = require('sweetalert2')
 
 function AssignmentDetails () {
 
@@ -50,12 +52,43 @@ function AssignmentDetails () {
         });
     }
 
+
     const deleteLesson = () => {
-        // console.log('IN DELETELESSON FN');
-        dispatch({
-            type: 'DELETE_ASSIGNMENT',
-            payload: params.id,
-        });
+
+        //sweet alert for delete
+        Swal.fire({
+            title: 'Are you sure you want to delete this post?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            iconColor: 'red',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: 'red',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            'Deleted!',
+            'Your post has been deleted.'
+            )
+            //dispatch delete request to saga
+            dispatch({
+                type: 'DELETE_ASSIGNMENT',
+                payload: params.id,
+            });
+            //after delete head home
+            history.push('/home');
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            Swal.fire(
+            'Cancelled'
+            )
+        }
+        })
+
         // history.push('')
     }
 

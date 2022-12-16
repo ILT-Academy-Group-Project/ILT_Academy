@@ -5,6 +5,8 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
 import axios from "axios";
 import FormData from "form-data";
+const Swal = require('sweetalert2');
+
 
 function CreateAssignment(){
     //import user
@@ -53,7 +55,11 @@ function CreateAssignment(){
             }
         })
         //push to modules view
-        history.push(`/admin/modules/${params.seriesId}`)
+        Swal.fire('Success!')
+        .then((result) => {
+            history.push(`/admin/modules/${params.seriesId}`);
+          })
+        
 
     }
 
