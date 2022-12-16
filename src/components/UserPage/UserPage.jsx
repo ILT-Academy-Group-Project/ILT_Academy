@@ -9,16 +9,17 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import OrientationStep from '../Orientation/OrientationStep'
 
 function UserPage() {
 
-  
+
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const orientation = useSelector((store) => store.orientation);
   const [activeStep, setActiveStep] = useState(user.oriented);
   const [completed, setCompleted] = useState({});
-  
+
 
   useEffect(() => {
     dispatch({
@@ -60,7 +61,7 @@ function UserPage() {
     setActiveStep(step);
   };
 
- 
+
 
   const handleComplete = () => {
     const newCompleted = completed;
@@ -74,7 +75,7 @@ function UserPage() {
         id: user.id
       }
     })
-  
+
     console.log('USER ORIENTATION STEP', user.oriented);
   };
 
@@ -89,6 +90,10 @@ function UserPage() {
       }
     })
   };
+
+  // const orientationStep = () => {
+
+  // }
 
   return (
     <div className="container">
@@ -140,11 +145,11 @@ function UserPage() {
                     </Typography>
                   ) : (
                     <Button onClick={handleComplete} disabled={user.oriented != activeStep} >
-                      
+
                       {completedSteps() === totalSteps() - 1
                         ? 'Finish'
                         : 'Complete Step'}
-                        
+
                     </Button>
                   ))}
               </Box>
@@ -152,6 +157,8 @@ function UserPage() {
           )}
         </div>
       </Box>
+      {/* {orientationStep(user.oriented)} */}
+      <OrientationStep step={activeStep}/>
       <LogOutButton className="btn" />
     </div>
 

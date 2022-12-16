@@ -32,9 +32,10 @@ function Cohorts() {
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
+            
             {cohorts.map(cohort => (
                 <Grid2 item xs={6} sx={{}} className='cohortCard'>
-                    <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                    <Card sx={{ maxWidth: 345, mt: 5, mb: 'auto', mr: 'auto', ml: 'auto', backgroundColor: 'secondary.light' }} >
                         <CardActionArea>
                             <CardMedia
                                 component="img"
