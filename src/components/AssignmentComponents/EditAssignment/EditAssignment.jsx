@@ -103,7 +103,7 @@ const submitEditAssignment = (evt) => {
         
             <form onSubmit={submitEditAssignment}>
                 {/* if there is a video display it */}
-                {editAssignment.media ? 
+                { typeof editAssignment.media === 'string' ? 
                     <video width="640" height="480" controls src={editAssignment.media}></video> 
                 : 
                     null}
@@ -113,7 +113,7 @@ const submitEditAssignment = (evt) => {
                         accept="video/*"               
                         type='file' 
                         name="selectedVideo"                                               
-                        onChange={()=>dispatch({
+                        onChange={(evt)=>dispatch({
                             type: 'UPDATE_EDIT_ASSIGNMENT',
                             payload: {media: evt.target.files[0]}
                         })}
@@ -125,7 +125,7 @@ const submitEditAssignment = (evt) => {
                     type='text' 
                     placeholder="Assignment Name"
                     value={editAssignment.name}
-                    onChange={()=>dispatch({
+                    onChange={(evt)=>dispatch({
                         type: 'UPDATE_EDIT_ASSIGNMENT',
                         payload: {name: evt.target.value}
                     })}
@@ -158,7 +158,15 @@ const submitEditAssignment = (evt) => {
                     // onClick={()=>setPostClass(false)} 
                     type="radio" 
                     name="classType" 
-                    className="valueRadio">
+                    className="valueRadio"
+                    onChange={()=>{
+                        dispatch({
+                            type:'UPDATE_EDIT_ASSIGNMENT',
+                            payload: {postClass: false}
+                        })
+                    }}  
+                    >
+                        
                 </input>
 
                 <label>Post Class</label>
@@ -168,7 +176,14 @@ const submitEditAssignment = (evt) => {
                     // onClick={()=>setPostClass(true)} 
                     type="radio" 
                     name="classType" 
-                    className="valueRadio">                    
+                    className="valueRadio"
+                    onChange={()=>{
+                        dispatch({
+                            type:'UPDATE_EDIT_ASSIGNMENT',
+                            payload: {postClass: true}
+                        })
+                    }}    
+                >                    
                 </input>
 
             </div>
