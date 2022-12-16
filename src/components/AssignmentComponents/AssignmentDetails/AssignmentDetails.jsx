@@ -29,7 +29,7 @@ function AssignmentDetails () {
     //useEffect for getting assignment by id
     useEffect(() => {
         dispatch({
-            type: 'FETCH_SELECTED_ASSIGMENT',
+            type: 'FETCH_SELECTED_ASSIGNMENT',
             payload: params.id
         });
     },[params.id]);

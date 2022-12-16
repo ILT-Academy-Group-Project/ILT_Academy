@@ -4,7 +4,9 @@ import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
 import { Markup } from 'interweave';
-
+//sweet alert import
+const Swal = require('sweetalert2')
+import axios from 'axios';
 
 
 // ROUTE: /admin/assignment/edit/:id
@@ -43,22 +45,10 @@ const submitEditAssignment = (evt) => {
         payload: editAssignment
     });
 
-    //dispatch to the SAGA for serverpost route
-    // dispatch({
-    //     type: 'CREATE_ASSIGNMENT',
-    //     payload: {
-    //         assignmentVideo,
-    //         assignmentContent,
-    //         assignmentTitle,
-    //         moduleId: params.moduleId,
-    //         postClass,
-    //         textField,
-    //         // name to match database, lef as submission so there isnt confusion on this page
-    //         file: fileSubmission,
-    //         video: videoSubmission,
-    //     }
-    // })
-    //push to modules view
+    Swal.fire('Success!')
+        .then((result) => {
+            history.push(`/admin/modules/${editAssignment.seriesId}`);
+          })
 
     //------------------------todo update this push::::::---------------------------
     // history.push(`/admin/modules/${params.seriesId}`)
@@ -113,7 +103,7 @@ const submitEditAssignment = (evt) => {
             </video> */}
 
         
-            <form onSubmit={submitEditAssignment}>
+<form onSubmit={submitEditAssignment}>
                 {/* if there is a video display it */}
                 { typeof editAssignment.media === 'string' ? 
                     <video width="640" height="480" controls src={editAssignment.media}></video> 

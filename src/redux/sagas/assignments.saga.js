@@ -62,7 +62,7 @@ function* createAssignment(action) {
 }
 
 function* fetchSelectedAssignment(action){
-    // console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
+    console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
     try{
         //get selectedAssignment from server
         const selectedAssignment = yield axios.get(`/api/assignments/${action.payload}`);
@@ -135,6 +135,11 @@ function* updateAssignment(action){
             headers:{
                 headers: { "Content-Type": "multipart/form-data" },
             }
+        })
+
+        //update redux
+        yield put ({
+            type: 'FETCH_ASSIGNMENTS',
         })
     } catch (err){
         console.error('in editAssignment SAGA put route:', err);
