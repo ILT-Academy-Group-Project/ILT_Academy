@@ -32,7 +32,7 @@ function CreateAssignment() {
 
     const submitAssignment = (evt) => {
         evt.preventDefault();
-        console.log('in submit assignment');
+        console.log('in create orientation');
         //ensure there is content in the WYSIWYG
         if (assignmentContent.length <= 10) {
             alert('Must put content into the assignment');
@@ -40,34 +40,34 @@ function CreateAssignment() {
         }
 
         // if (orientation === true) {
-        //     dispatch({
-        //         type: 'CREATE_ORIENTATION',
-        //         payload: {
-        //             assignmentVideo,
-        //             assignmentContent,
-        //             assignmentTitle,
-        //             textField
-        //         }
-        //     })
-
-        // } else {
-            //dispatch to the SAGA for serverpost route
             dispatch({
-                type: 'CREATE_ASSIGNMENT',
+                type: 'CREATE_ORIENTATION',
                 payload: {
                     assignmentVideo,
                     assignmentContent,
                     assignmentTitle,
-                    moduleId: params.moduleId,
-                    postClass,
-                    textField,
-                    // name to match database, lef as submission so there isnt confusion on this page
-                    file: fileSubmission,
-                    video: videoSubmission,
+                    textField
                 }
             })
-            //push to modules view
-            history.push(`/admin/modules/${params.seriesId}`)
+
+        // } else {
+        //     //dispatch to the SAGA for serverpost route
+        //     dispatch({
+        //         type: 'CREATE_ASSIGNMENT',
+        //         payload: {
+        //             assignmentVideo,
+        //             assignmentContent,
+        //             assignmentTitle,
+        //             moduleId: params.moduleId,
+        //             postClass,
+        //             textField,
+        //             // name to match database, lef as submission so there isnt confusion on this page
+        //             file: fileSubmission,
+        //             video: videoSubmission,
+        //         }
+        //     })
+        //     //push to modules view
+        //     history.push(`/admin/modules/${params.seriesId}`)
         // }
     }
 
@@ -147,10 +147,10 @@ function CreateAssignment() {
                 />
 
                 <div>
-                    <label>Pre Class</label>
+                    {/* <label>Pre Class</label>
                     <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
                     <label>Post Class</label>
-                    <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>
+                    <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input> */}
                     {/* <label>Orientation</label>
                     <input onClick={() => setOrientation(true)} type="radio" name="classType" className="valueRadio"></input> */}
                 </div>
@@ -158,10 +158,10 @@ function CreateAssignment() {
                     <h3>Submission type</h3>
                     <label>Textfield</label>
                     <input onClick={() => setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
-                    <label>File</label>
+                    {/* <label>File</label>
                     <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
                     <label>Video</label>
-                    <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
+                    <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input> */}
                 </div>
 
 
