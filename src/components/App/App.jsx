@@ -23,7 +23,11 @@ import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
+
+import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
+
 import OrientationCreate from '../Orientation/OrientationCreate';
+
 
 import './App.css';
 
@@ -153,7 +157,15 @@ function App() {
             exact
             path="/admin/create/assignment/:seriesId/:moduleId">
               { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
-          </ProtectedRoute>
+            </ProtectedRoute>
+            {/*  */}
+            <ProtectedRoute
+            // logged in admin can edit assignment
+            exact
+            path="/admin/assignment/edit/:id">
+              { user.accessLevel === 2 ? <EditAssignment /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
+
 
             {/* STUDENT BELOW HERE _______________________________ */}
 

@@ -5,11 +5,12 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
 import axios from "axios";
 import FormData from "form-data";
+const Swal = require('sweetalert2');
+
 
 function CreateAssignment() {
     //import user
     const user = useSelector(store => store.user);
-
     //setup
     const dispatch = useDispatch();
     const params = useParams();
@@ -39,36 +40,26 @@ function CreateAssignment() {
             return
         }
 
-        // if (orientation === true) {
-        //     dispatch({
-        //         type: 'CREATE_ORIENTATION',
-        //         payload: {
-        //             assignmentVideo,
-        //             assignmentContent,
-        //             assignmentTitle,
-        //             textField
-        //         }
-        //     })
-
-        // } else {
-            //dispatch to the SAGA for serverpost route
-            dispatch({
-                type: 'CREATE_ASSIGNMENT',
-                payload: {
-                    assignmentVideo,
-                    assignmentContent,
-                    assignmentTitle,
-                    moduleId: params.moduleId,
-                    postClass,
-                    textField,
-                    // name to match database, lef as submission so there isnt confusion on this page
-                    file: fileSubmission,
-                    video: videoSubmission,
-                }
-            })
-            //push to modules view
-            history.push(`/admin/modules/${params.seriesId}`)
-        // }
+        //dispatch to the SAGA for serverpost route
+        dispatch({
+            type: 'CREATE_ASSIGNMENT',
+            payload: {
+                assignmentVideo,
+                assignmentContent,
+                assignmentTitle,
+                moduleId: params.moduleId,
+                postClass,
+                textField,
+                // name to match database, lef as submission so there isnt confusion on this page
+                file: fileSubmission,
+                video: videoSubmission,
+            }
+        })
+        //push to modules view
+        Swal.fire('Success!')
+        .then((result) => {
+            history.push(`/admin/modules/${params.seriesId}`);
+          })
     }
 
 
