@@ -53,6 +53,7 @@ function CreateAssignment() {
                 // name to match database, lef as submission so there isnt confusion on this page
                 file: fileSubmission,
                 video: videoSubmission,
+                seriesId: params.seriesId
             }
         })
         //push to modules view

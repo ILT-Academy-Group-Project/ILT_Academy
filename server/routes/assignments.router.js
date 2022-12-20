@@ -132,9 +132,9 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
 
             sqlText = `
                 INSERT INTO "assignments"
-                    ("name", "moduleId", "content", "media", "textField", "file", "video")
+                    ("name", "moduleId", "content", "media", "textField", "file", "video", "seriesId")
                 VALUES
-                    ($1, $2, $3, $4, $5, $6, $7);
+                    ($1, $2, $3, $4, $5, $6, $7, $8);
             `;
             sqlParams = [
                 data.assignmentTitle,
@@ -143,16 +143,17 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
                 filePath,
                 data.textField,
                 data.file,
-                data.video
+                data.video,
+                data.seriesId
             ];
         }
         //else create assignment without a video file
         else{
             sqlText=`
                 INSERT INTO "assignments"
-                    ("name", "moduleId", "content", "textField", "file", "video")
+                    ("name", "moduleId", "content", "textField", "file", "video", "seriesId")
                 VALUES
-                    ($1, $2, $3, $4, $5, $6);
+                    ($1, $2, $3, $4, $5, $6, $7);
             `;
             sqlParams=[
                 data.assignmentTitle,
@@ -161,6 +162,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
                 data.textField,
                 data.file,
                 data.video,
+                data.seriesId
             ];
         }
         //pool to DB
@@ -202,8 +204,8 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     
 })
 
- router.put('/', rejectUnauthenticated, upload.single('media'), (req, res) => {
-    console.log('in assignmentsPut route with payload of:', req.body, req.file);
+ router.put('/', rejectUnauthenticated, upload.single('media'), async (req, res) => {
+    // console.log('in assignmentsPut route with payload of:', req.body, req.file);
     //insure route only available to Admin users
     if (req.user.accessLevel === 2){
         let data=req.body;
@@ -215,7 +217,12 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         }
         //else set file path of new file
         else{
-            media='/files/'+req.file.filename;
+            media=await uploadImage(req.file);
+
+            //after image in S3 bucket delete the file
+            fs.unlink(req.file.path,()=>{
+                console.log('file deleted');
+            });
         }
         //set SQL text
 
