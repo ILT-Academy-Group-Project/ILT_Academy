@@ -3,6 +3,7 @@ import Cohorts from '../Cohorts/Cohorts';
 import Series from '../Series/Series';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { Card, Box } from '@mui/material';
+import CalendarList from '../Calendar/CalendarList/CalendarList';
 
 
 // This is one of our simplest components
@@ -23,6 +24,9 @@ function AdminDashboard (){
         <Grid2 item xs={3}>
             <h1>Anouncements</h1>
             <Box sx={{ backgroundColor: 'grey', minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
+            </Box>
+            <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
+                <CalendarList />
             </Box>
         </Grid2>
         <Grid2 item xs={6} className='cohortCard'>
