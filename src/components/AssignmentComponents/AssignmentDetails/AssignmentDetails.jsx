@@ -165,6 +165,7 @@ function AssignmentDetails () {
                             <label> Upload Video Here</label>
                             <input 
                                 type='url'
+                                placeholder="Include https://"
                                 required   //dont cause 'cant be null error' 
                                             // if video submission != null set val, else set as empty string
                                 value={videoSubmission ? videoSubmission : ''}  
