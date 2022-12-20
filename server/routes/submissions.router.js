@@ -2,6 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const path = require('path');
+const uploadImage= require('../Util/s3Upload');
+const fs = require('fs');
 //reject unauthenticated
     const {
         rejectUnauthenticated,
@@ -35,7 +37,7 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', rejectUnauthenticated, upload.single('file'), (req, res) => {
+router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) => {
     console.log('req.body', req.body, req.body.assignmentId);
     let sub=req.body;
 //  console.log('req.files', req.files);
@@ -46,7 +48,17 @@ router.post('/', rejectUnauthenticated, upload.single('file'), (req, res) => {
     let sqlText;
     let sqlParams;
 
-    {req.file ? file='submissions/'+req.file.filename: file=null};
+    if(req.file){
+            //call s3 route as async to get file path
+    file = await uploadImage(req.file);
+
+    //after image in S3 bucket delete the file
+    fs.unlink(req.file.path,()=>{
+        console.log('file deleted');
+    });
+    }
+    else{file=null};
+
     {sub.video !== 'null' ? video=sub.video: video=null};
     {sub.textSubmission ? text=sub.textSubmission: text=null};
 

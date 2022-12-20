@@ -2,6 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const path = require('path');
+const uploadImage= require('../Util/s3Upload');
+const fs = require('fs');
+// const AWS = require('aws-sdk');
+// const fs = require('fs');
+// require('dotenv').config();
 //reject unauthenticated
 const {
   rejectUnauthenticated,
@@ -24,7 +29,17 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
 });
+// //AWS S3 BUCKET VARIABLES
+// const bucketName = process.env.AWS_BUCKET_NAME
+// const region = process.env.AWS_BUCKET_REGION
+// const accessKeyId = process.env.AWS_ACCESS_KEY
+// const secretAccessKey = process.env.AWS_SECRET_KEY
 
+// const s3 = new AWS.S3({
+//     accessKeyId: accessKeyId,
+//     secretAccessKey: secretAccessKey,
+//     region:region
+// });
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
   try{
@@ -63,16 +78,23 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
-router.post('/imagefield',  rejectUnauthenticated, upload.single('image'), (req,res) => {
+router.post('/imagefield',  rejectUnauthenticated, upload.single('image'), async (req,res) => {
 
 // console.log('in /imagefield', req.file);
 //ensure that this route is only available for admin users
 if (req.user.accessLevel === 2){
-    const url = 'files/'+req.file.filename;
+        //call s3 route as async to get file path
+    const filePath = await uploadImage(req.file);
+
+    //after image in S3 bucket delete the file
+    fs.unlink(req.file.path,()=>{
+        console.log('file deleted');
+    });
+    //send photo info to suneditor
     const response = {
         "result": [
             {
-                "url":`${url}`,
+                "url":`${filePath}`,
                 "name": req.file.filename,
                 "size": req.file.size
             }
@@ -85,17 +107,29 @@ else{
     res.sendStatus(403);
 }});
 
-router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, res) => {
+router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async (req, res) => {
     // POST route code here
     // console.log('in assignment Post route! YAY, req.file:', req.file, 'req.body', req.body);
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
     let data=req.body;
     if(req.user.accessLevel === 2){
+        //call s3 route as async to get file path
+
+
+
         //sql text for the insert
         let sqlText;
         let sqlParams;
         //if there is a file assign the sql query info to incllude a media file (video)
         if(req.file){
+
+            const filePath = await uploadImage(req.file);
+
+            //after image in S3 bucket delete the file
+            fs.unlink(req.file.path,()=>{
+                console.log('file deleted');
+            });
+
             sqlText = `
                 INSERT INTO "assignments"
                     ("name", "moduleId", "content", "media", "textField", "file", "video")
@@ -106,7 +140,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
                 data.assignmentTitle,
                 data.moduleId,
                 data.assignmentContent,
-                'files/'+req.file.filename,
+                filePath,
                 data.textField,
                 data.file,
                 data.video

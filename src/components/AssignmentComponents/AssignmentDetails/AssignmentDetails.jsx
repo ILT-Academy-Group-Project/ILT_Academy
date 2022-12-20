@@ -116,7 +116,7 @@ function AssignmentDetails () {
                     null
                 }
             </header>
-
+                
             {
             typeof assignment.media==='string' && assignment.media !== 'null' ? 
             <video width="640" height="480" controls src={assignment.media}></video>
