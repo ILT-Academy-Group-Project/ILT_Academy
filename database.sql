@@ -9,8 +9,6 @@ CREATE TABLE "cohorts" (
 	"accessCode" VARCHAR NOT NULL UNIQUE
 );
 
-
-
 CREATE TABLE "user" (
 	"id" SERIAL PRIMARY KEY,
 	"firstName" VARCHAR(255),
@@ -27,7 +25,7 @@ CREATE TABLE "user" (
 	"hustlerSkill" INT DEFAULT 0,
 	"accessLevel" INT DEFAULT 1,
 	"cohortId" INT REFERENCES "cohorts",
-	"oriented" BOOL DEFAULT 'false',
+	"oriented" INT DEFAULT 0,
 	"aboutMe" VARCHAR
 );
 
@@ -78,7 +76,8 @@ CREATE TABLE "assignments" (
 	"video" BOOL DEFAULT 'false',
 	"community" BOOL DEFAULT 'false',
 	"postClass" BOOL DEFAULT 'false',
-    "feedback" VARCHAR
+    "feedback" VARCHAR,
+    "seriesId" INT REFERENCES "series" ON DELETE CASCADE
 );
 
 
@@ -115,6 +114,16 @@ CREATE TABLE "announcements" (
 );
 
 
+CREATE TABLE "orientation" (
+	"id" SERIAL PRIMARY KEY,
+	"name" VARCHAR(255) NOT NULL,
+	"step" INT NOT NULL UNIQUE,
+	"content" VARCHAR,
+	"media" VARCHAR,
+	"submission" BOOL DEFAULT 'false'
+);
+
+
 --TEST DATA
 
 INSERT INTO "cohorts"
@@ -138,7 +147,7 @@ VALUES
 	('2', '201');
 	
 INSERT INTO "assignments"
-	("name", "moduleId", "content", "textField", "file", "video", "postClass")
+	("name", "moduleId", "content", "textField", "file", "video", "postClass", "seriesId")
 VALUES
 	('Plant a tree',
 	'1',
@@ -146,14 +155,16 @@ VALUES
 	'true',
 	'true',
 	'false',
-	'true'),
+	'true',
+    1),
 	('Dance a jig',
 	'1',
 	'turn on some Mylie and throw your hands up, make sure to party like you just dont care',
 	'false',
 	'false',
 	'true',
-	'false');
+	'false',
+    2);
 	
 INSERT INTO "announcements"
 	("title", "content")

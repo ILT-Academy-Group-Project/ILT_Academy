@@ -34,11 +34,14 @@ function Cohorts() {
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
+            
             {cohorts.map(cohort => (
+
                 <Grid2 item xs={6} sx={{}} className='cohortCard'
                     key={cohort.id}>
                     <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
                         <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
+
                             <CardMedia
                                 component="img"
                                 // height="140"

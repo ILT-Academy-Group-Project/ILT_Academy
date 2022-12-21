@@ -26,6 +26,11 @@ import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 import CohortModules from '../Cohorts/CohortModules';
 
+import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
+
+import OrientationCreate from '../Orientation/OrientationCreate';
+
+
 import './App.css';
 
 function App() {
@@ -86,6 +91,14 @@ function App() {
             exact
             path="/admin/modules/:seriesId">              
             { user.accessLevel === 2 ? <Modules /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
+
+          {/* admin orientation creation page */}
+          <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/orientation">              
+            { user.accessLevel === 2 ? <OrientationCreate /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
             {/* LOGIN */}
@@ -164,7 +177,15 @@ function App() {
             exact
             path="/admin/create/assignment/:seriesId/:moduleId">
               { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
-          </ProtectedRoute>
+            </ProtectedRoute>
+            {/*  */}
+            <ProtectedRoute
+            // logged in admin can edit assignment
+            exact
+            path="/admin/assignment/edit/:id">
+              { user.accessLevel === 2 ? <EditAssignment /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
+
 
             {/* STUDENT BELOW HERE _______________________________ */}
 

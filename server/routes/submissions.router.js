@@ -35,28 +35,20 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', rejectUnauthenticated, upload.any(), (req, res) => {
+router.post('/', rejectUnauthenticated, upload.single('file'), (req, res) => {
     console.log('req.body', req.body, req.body.assignmentId);
     let sub=req.body;
 //  console.log('req.files', req.files);
     //set up all variables for submissions
-    let video=null;
-    let file=null;
-    let text=null;
+    let video;
+    let file;
+    let text;
     let sqlText;
     let sqlParams;
-    //seperate files and assign to associated variable (video or file)
-    for (let i=0; i<req.files.length; i++){
-    //check if the file at index i is the pdf file or the video file (need this to assign to db)
-    if(req.files[i].fieldname === 'file'){
-        file = 'submissions/'+req.files[i].filename;
-    }
-    else if (req.files[i].fieldname === 'video'){
-        video = 'submissions/'+req.files[i].filename;
-    }
-    }; 
 
-    {sub.textSubmission ? text=sub.textSubmission: null};
+    {req.file ? file='submissions/'+req.file.filename: file=null};
+    {sub.video !== 'null' ? video=sub.video: video=null};
+    {sub.textSubmission ? text=sub.textSubmission: text=null};
 
     //sql text for insert including all possible values (WILL BE NULL IF NOT REASSIGNED ⤴️)
     sqlText = `
@@ -107,7 +99,18 @@ module.exports = router;
 
     
 
-
+//if we need to use file upload again use upload.any() and 
+    //seperate files and assign to associated variable (video or file)
+    // console.log('reqfile,', req.file);
+    // for (let i=0; i<req.files.length; i++){
+    // //check if the file at index i is the pdf file or the video file (need this to assign to db)
+    // if(req.files[i].fieldname === 'file'){
+    //     file = 'submissions/'+req.files[i].filename;
+    // }
+    // else if (req.files[i].fieldname === 'video'){
+    //     video = 'submissions/'+req.files[i].filename;
+    // }
+    // }; 
 
 
 

@@ -48,22 +48,39 @@ function Series() {
     return (
 
         <>
-        <ThemeProvider theme={PrimaryMainTheme}>
-        <h1>Series</h1>
-            {series.map(serial => (
-                <Grid2 direction='column'
-                key={serial.seriesName}>
-                    <Button
-                    sx={{minHeight: 100, fontSize: 60}}
-                    
-                    color='primary'
-                    fullWidth={true}
-                        variant='outlined'
-                        onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}
-                    </ Button>
-                </Grid2>
 
-            ))}
+            <ThemeProvider theme={PrimaryMainTheme}>
+                <Grid2 container spacing={2}>
+                    <Grid2 direction='column'>
+                        <h1>Series</h1>
+                        <Button
+                            sx={{ minHeight: 100, fontSize: 35 }}
+                            color='primary'
+                            fullWidth='true'
+                            variant='outlined'
+                            onClick={() => history.push(`/admin/orientation`)}>Orientation
+                        </ Button>
+                        {series.map(serial => (
+
+                            <Button
+                                sx={{ minHeight: 100, fontSize: 60, mt: 2}}
+                                color='primary'
+                                fullWidth='true'
+                                variant='outlined'
+                                onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}
+                            </ Button>
+
+
+                        ))}
+                        <Button
+                            sx={{ minHeight: 100, fontSize: 35, mt: 2 }}
+                            color='primary'
+                            fullWidth='true'
+                            variant='outlined'
+                            onClick={() => history.push(`/admin/modules/${serial.id}`)}>Add Series
+                        </ Button>
+                    </Grid2>
+                </Grid2>
             </ThemeProvider>
             <Button
             variant='outlined'
