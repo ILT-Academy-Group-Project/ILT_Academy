@@ -22,7 +22,9 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
+import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
+import CohortModules from '../Cohorts/CohortModules';
 
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 
@@ -147,7 +149,25 @@ function App() {
 
             {/* Admin Home  /admin */}
 
-            {/* Admin cohort view of individual cohort   /admin/:id (cohort id)  */}
+            {/* Admin cohort view of individual cohort   /admin/cohort/:id (cohort id)  */}
+          <ProtectedRoute
+            exact 
+            path="/admin/cohort/:cohortId">
+            {user.accessLevel === 2 ? 
+            <CohortDetails /> 
+            :
+            <LoginPage />}
+          </ProtectedRoute>
+
+          {/* Admin can view cohort's modules within selected series  /admin/cohort/molues/:id (series id) */}
+          <ProtectedRoute
+            exact 
+            path="/admin/cohort/modules/:cohortId/:seriesId">
+            {user.accessLevel === 2 ? 
+            <CohortModules /> 
+            :
+            <LoginPage />}
+          </ProtectedRoute>
 
             {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
 
@@ -186,7 +206,6 @@ function App() {
 
 
             {/* profile  /studentportal/profile/:username */}
-          
           
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

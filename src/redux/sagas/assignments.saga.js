@@ -81,6 +81,26 @@ function* fetchSelectedAssignment(action){
 
 }
 
+function* fetchSeriesAssignments(action){
+    //get all assignments from series with id of action.payload (seriesId)
+    try{
+        //get assignments in series from server
+        const seriesAssignments = yield axios.get(`/api/assignments/series/${action.payload}`);
+        console.log('response from GET assignment by series', seriesAssignments.data);
+
+        //send results to redux store
+        yield put ({
+            type: 'SET_SERIES_ASSIGNMENTS',
+            payload: seriesAssignments.data
+        });
+
+    } catch (err) {
+        //error route tested
+        console.error('in fetchSelectedAssignment error', err);
+    }
+}
+
+
 function* deleteAssignment(action){
     // console.log('in deleteAssignment SAGA with payload of:', action.payload);
 
@@ -146,6 +166,7 @@ function* updateAssignment(action){
     }
 }
 
+
 function* assignmentsSaga() {
     yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments);
 
@@ -161,8 +182,12 @@ function* assignmentsSaga() {
     //FETCH EDIT ASSIGNMENT
     yield takeEvery('FETCH_EDIT_ASSIGNMENT', fetchEditAssignment);
 
+
+    yield takeLatest('FETCH_SERIES_ASSIGNMENTS', fetchSeriesAssignments);
+
     // EDIT ASSIGNMENT
     yield takeEvery('UPDATE_ASSIGNMENT', updateAssignment);
+
 
 }
 
