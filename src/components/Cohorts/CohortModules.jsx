@@ -134,7 +134,7 @@ function CohortModules() {
             type: 'FETCH_MODULES', 
             payload: params.seriesId
         })
-        
+
         dispatch({
             type:'FETCH_COHORT_MODULES',
             payload: {
@@ -151,7 +151,12 @@ function CohortModules() {
 
     return (
         <>
-        {/* PUBLISHED modules */}
+      
+        <Button
+            onClick={()=> history.push(`/admin/cohort/${params.cohortId}`)} >
+            Back to Series
+        </Button>
+          {/* PUBLISHED modules */}
         {cohortModules.map(publishedModule =>{
             return(
                 <>
@@ -200,7 +205,7 @@ function CohortModules() {
                                      </TableBody>  
                                 </Table>
                             </TableContainer>
-                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button>
                         </AccordionDetails>
 
                  </Accordion>
