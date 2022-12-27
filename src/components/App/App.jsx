@@ -25,6 +25,7 @@ import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAss
 import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 import CohortModules from '../Cohorts/CohortModules';
+import CohortSubmissions from '../Submissions/CohortSubmissions';
 
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 
@@ -197,6 +198,14 @@ function App() {
               { user.accessLevel === 2 ? <EditAssignment /> : <Redirect exact to="/login" />}
             </ProtectedRoute>
 
+            <ProtectedRoute
+            //logged in admin shows cohort submissions for assignment
+            exact
+            path="/admin/view/submissions/:cohortId/:assignmentId">
+              { user.accessLevel === 2 ? <CohortSubmissions/> : <Redirect exact to="/login" />}
+            
+
+            </ProtectedRoute>
 
             {/* STUDENT BELOW HERE _______________________________ */}
 

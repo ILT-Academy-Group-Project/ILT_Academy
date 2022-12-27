@@ -194,7 +194,12 @@ function CohortModules() {
                                                         {/* <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
                                                         </StyledTableCell>  */}
-                                                         <StyledTableCell align="center">{assignment.name}</StyledTableCell>
+                                                         <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/admin/view/submissions/${params.cohortId}/${assignment.id}`)}>
+                                                            {assignment.name}
+                                                            </Button>
+                                                        </StyledTableCell>
                                                         <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
                                                         <StyledTableCell align="center">{pre}</StyledTableCell>
                                                         <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
