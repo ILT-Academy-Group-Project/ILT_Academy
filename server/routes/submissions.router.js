@@ -92,6 +92,20 @@ router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) 
 /**
  * GET:ID route 
  */
+router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = `
+        SELECT "submissions".id, "submissions"."userId", "submissions"."assignmentId", "submissions".completed, "submissions".file, "submissions"."submissionDate", "submissions"."textInput", "submissions".video, "user"."cohortId" FROM "submissions"
+        JOIN "user" ON "user".id = "submissions"."userId"
+        WHERE "assignmentId" = $1 AND "user"."cohortId" = $2 ;
+        `;
+        const sqlParams = [req.params.assignmentId, req.params.cohortId]
+        console.log('sqlParams for submissions GET are ', sqlParams);
+    } catch(err) {
+        console.error('submissions.router GET error ', err.message);
+        res.sendStatus(500);
+    }
+})
 
 
 
