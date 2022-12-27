@@ -46,5 +46,20 @@ router.get('/cohort/:cohortId/:seriesId', rejectUnauthenticated, async (req, res
     }
 })
 
+router.post('/publish/:cohortId/:moduleId', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = `
+        INSERT INTO "cohorts_modules"("cohortId", "moduleId")
+        VALUES($1, $2);
+        `;
+        const sqlParams = [req.params.cohortId, req.params.moduleId]
+        console.log('🎅 module post sqlParams are', sqlParams);
+        await pool.query(sqlText, sqlParams);
+        res.sendStatus(201);
+    } catch(err) {
+        console.error('modules.router POST publish error ', err.message);
+    }
+})
+
 
 module.exports = router
