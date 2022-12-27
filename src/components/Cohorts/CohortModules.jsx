@@ -129,10 +129,10 @@ function CohortModules() {
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>
-                                            <StyledTableCell align="right">Name</StyledTableCell>
-                                            <StyledTableCell align="right">Date Created</StyledTableCell>
-                                            <StyledTableCell align="right">Pre/Post Class</StyledTableCell>
-                                            <StyledTableCell align="right">Feedback</StyledTableCell>
+                                            <StyledTableCell align="center">Name</StyledTableCell>
+                                            <StyledTableCell align="center">Date Created</StyledTableCell>
+                                            <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
+                                            <StyledTableCell align="center">Feedback</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                      <TableBody>
@@ -143,13 +143,13 @@ function CohortModules() {
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
                                                     <StyledTableRow key={assignment.id}>
-                                                        <StyledTableCell component="th" scope="row">
+                                                        {/* <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
-                                                        </StyledTableCell> 
-                                                         <StyledTableCell align="right">{assignment.name}</StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
-                                                        <StyledTableCell align="right">{pre}</StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
+                                                        </StyledTableCell>  */}
+                                                         <StyledTableCell align="center">{assignment.name}</StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        <StyledTableCell align="center">{pre}</StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
                                                      </StyledTableRow>
                                                 )
                                             }
