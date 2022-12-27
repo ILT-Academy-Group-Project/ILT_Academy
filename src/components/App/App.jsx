@@ -30,6 +30,7 @@ import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignmen
 
 import OrientationCreate from '../Orientation/OrientationCreate';
 
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
 
 import './App.css';
 
@@ -109,8 +110,8 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
+              // redirect to the /home page
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -125,7 +126,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -137,17 +138,27 @@ function App() {
             exact
             path="/home"
           >
-            {user.id ?
+            {user.accessLevel === 2 ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <AdminDashboard/>
+              :
+              user.accessLevel === 1 ?
+              <UserPage />  
+            //   Change to user dashboard
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <Redirect to ="/registration"/>
             }
           </Route>
 
-            {/* Admin Home  /admin */}
+            {/* Admin Home Dashboard /admin */}
+            <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin">              
+            { user.accessLevel === 2 ?  <AdminDashboard/>: <Redirect exact to="/login" />}
+          </ProtectedRoute>
 
             {/* Admin cohort view of individual cohort   /admin/cohort/:id (cohort id)  */}
           <ProtectedRoute

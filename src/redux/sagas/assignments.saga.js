@@ -44,6 +44,7 @@ function* createAssignment(action) {
     formData.append('textField', data.textField);
     formData.append('file', data.file);
     formData.append('video', data.video);
+    formData.append('seriesId', data.seriesId);
 //post to server
 
     try{

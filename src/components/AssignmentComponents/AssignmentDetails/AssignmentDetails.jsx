@@ -116,7 +116,7 @@ function AssignmentDetails () {
                     null
                 }
             </header>
-
+                
             {
             typeof assignment.media==='string' && assignment.media !== 'null' ? 
             <video width="640" height="480" controls src={assignment.media}></video>
@@ -165,6 +165,7 @@ function AssignmentDetails () {
                             <label> Upload Video Here</label>
                             <input 
                                 type='url'
+                                placeholder="Include https://"
                                 required   //dont cause 'cant be null error' 
                                             // if video submission != null set val, else set as empty string
                                 value={videoSubmission ? videoSubmission : ''}  
