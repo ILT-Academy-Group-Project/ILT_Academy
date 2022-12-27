@@ -23,6 +23,9 @@ const seriesAssignmentReducer = ( state=[], action ) => {
     switch(action.type) {
         case 'SET_SERIES_ASSIGNMENTS':
             return action.payload;
+    };
+    return state;
+};
 
 const editAssignmentReducer = ( state={}, action ) => {
     switch(action.type) {
@@ -43,5 +46,5 @@ export default combineReducers({
     selectedAssignmentReducer,
     assignmentsReducer,
     seriesAssignmentReducer,
-    editAssignmentReducer,
+    editAssignmentReducer
 })
