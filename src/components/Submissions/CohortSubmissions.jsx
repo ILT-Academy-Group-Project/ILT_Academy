@@ -25,7 +25,11 @@ function CohortSubmissions() {
     },[])
 
     const columns = [
-       
+        {
+            field: 'status',
+            headerName: 'Status',
+            width: 150,
+          },
         {
           field: 'firstName',
           headerName: 'First name',
@@ -80,15 +84,30 @@ function CohortSubmissions() {
       submissions.map(submission => {
 
           console.log('submission is ', submission)
-        let studentSubmission =  {
-            id: submission.studentId,
-            firstName: submission.firstName,
-            lastName: submission.lastName,
-            file: submission.file,
-            text: submission.text,
-            video: submission.video
-          } 
-        rows.push(studentSubmission) 
+          if(submission.assignmentId === 1 ){
+            let studentSubmission =  {
+                id: submission.studentId,
+                status: '✅',
+                firstName: submission.firstName,
+                lastName: submission.lastName,
+                file: submission.file,
+                text: submission.text,
+                video: submission.video
+              } 
+            rows.push(studentSubmission) 
+          } else if(submission.assignmentId === null){
+            let missingSubmission =  {
+                id: submission.studentId,
+                status: '❌',
+                firstName: submission.firstName,
+                lastName: submission.lastName,
+                file: submission.file,
+                text: submission.text,
+                video: submission.video
+              } 
+            rows.push(missingSubmission)
+          }
+       
       })
 
     return(
