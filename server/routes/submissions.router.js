@@ -101,6 +101,8 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
         `;
         const sqlParams = [req.params.assignmentId, req.params.cohortId]
         console.log('sqlParams for submissions GET are ', sqlParams);
+        let dbResult = await pool.query(sqlText, sqlParams);
+        res.send(dbResult.rows);
     } catch(err) {
         console.error('submissions.router GET error ', err.message);
         res.sendStatus(500);
