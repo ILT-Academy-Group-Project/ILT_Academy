@@ -38,7 +38,7 @@ function CohortDetails() {
 
     },[params.cohortId])
 
-    console.log('🎈Cohort Details params.id is ', params.cohortId);
+    // console.log('🎈Cohort Details params.id is ', params.cohortId);
 
     const cohortParam = Number(params.cohortId)
 
@@ -49,12 +49,12 @@ function CohortDetails() {
         };
     };
 
-    console.log('newSeries Object', newSeriesObject);
+    // console.log('newSeries Object', newSeriesObject);
 
 
     // assign series to cohort
     function publish(seriesId) {
-        console.log('PUBLISH')
+        // console.log('PUBLISH')
         dispatch({
             type: 'PUBLISH_SERIES',
             payload: {
@@ -62,13 +62,13 @@ function CohortDetails() {
                 cohortParam: cohortParam,
             }
         })
-        dispatch({
-            type: 'FETCH_COHORT_SERIES',
-            payload: params.cohortId
-        })
-        dispatch({
-            type: 'FETCH_SERIES'
-        })
+        // dispatch({
+        //     type: 'FETCH_COHORT_SERIES',
+        //     payload: params.cohortId
+        // })
+        // dispatch({
+        //     type: 'FETCH_SERIES'
+        // })
 
     }
 
@@ -121,7 +121,7 @@ function CohortDetails() {
                                 </ Button>
                                 <FormControlLabel  control={<Switch />} 
                                     label="Publish Series"
-                                    onChange={(event) => publish(series.id, cohortParam)}
+                                    onClick={(event) => publish(series.id, cohortParam)}
                                     />
 
                             </Grid2>

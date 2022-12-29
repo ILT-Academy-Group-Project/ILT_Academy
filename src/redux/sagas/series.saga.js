@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchSeries() {
     try{
         let series =  yield axios.get('api/series') //get cohorts from database
-         console.log('feature GET response', series)
+        //  console.log('feature GET response', series)
  
          yield put({
              type: 'SET_SERIES', //dispatch to cohorts.reducer
@@ -24,6 +24,7 @@ function* fetchCohortSeries(action){
             type: 'SET_COHORT_SERIES',
             payload: cohortSeries.data
         })
+
     } catch{
         console.log('error in cohort.saga fetchCohortSeries')
     }
@@ -36,10 +37,15 @@ function* publishCohortSeries(action) {
     console.log('cohort variable', cohort);
     console.log('📰 publish cohort series action.payload is ', action.payload)
     try{
-        axios.post(`api/series/publish/${cohort}/${series}`)
+        yield axios.post(`api/series/publish/${cohort}/${series}`)
 
-    } catch{
-        console.log('error in cohort.saga publishCohortSeries')
+        yield put({
+            type: 'FETCH_COHORT_SERIES',
+            payload: cohort
+        })
+
+    } catch (err){
+        console.log('error in cohort.saga publishCohortSeries', err);
     }
 }
 
