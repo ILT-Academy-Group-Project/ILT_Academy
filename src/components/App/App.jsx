@@ -27,12 +27,10 @@ import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/Assignm
 import CohortModules from '../Cohorts/CohortModules';
 import CohortSubmissions from '../Submissions/CohortSubmissions';
 import UserDashboard from '../UserDashboard/UserDashboard';
-
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
-
 import OrientationCreate from '../Orientation/OrientationCreate';
-
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import StudentModules from '../StudentModules/StudentModules';
 
 import './App.css';
 
@@ -213,9 +211,20 @@ function App() {
             {/* orientation   /studentportal/orientation (maybe /:page) */}
 
             {/* student dashboard  /studentportal */}
-
+            {/* *****This is here so we can let the admin visit the student dashboard to view it */}
+            <ProtectedRoute
+            //logged in admin shows cohort submissions for assignment
+            exact
+            path="/studentportal">
+              { user.id ? <UserDashboard /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
             {/* student portal moddules  /studentportal/modules/:id  (series id) */}
-
+            <ProtectedRoute
+                exact
+                path='/studentportal/modules/:id'
+            >
+                <StudentModules />
+            </ProtectedRoute>
             {/* individual lesson boy id (viewable by admin and student)  /lesson/:id (lesson id) */}
 
             <ProtectedRoute

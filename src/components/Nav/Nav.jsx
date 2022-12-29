@@ -38,7 +38,7 @@ function Nav() {
             user.accessLevel === 1 ? 
             publishedSeries.map((series, i) =>{
                 return(
-                    <Link key={i} className='navLink' to="/home">{series.seriesName}</Link>
+                    <Link key={i} className='navLink' to={`/studentportal/modules/${series.seriesId}`}>{series.seriesName}</Link>
                 )
             })
             :
