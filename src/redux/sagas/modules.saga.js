@@ -33,9 +33,22 @@ function* fetchCohortModules(action) {
      }
 }
 
+function* publishCohortModule(action) {
+    console.log(`🍍 action.payload is `, action.payload);
+    let cohortId = action.payload.cohortId;
+    let moduleId = action.payload.moduleId;
+
+    try{
+        axios.post(`api/modules/publish/${cohortId}/${moduleId}`)
+    } catch{
+        console.log('error in modules.sage publishCohortModule')
+    }
+}
+
 function* modulesSaga() {
   yield takeLatest('FETCH_MODULES', fetchModules);
   yield takeLatest('FETCH_COHORT_MODULES', fetchCohortModules);
+  yield takeLatest('PUBLISH_MODULE', publishCohortModule);
 }
 
 export default modulesSaga;

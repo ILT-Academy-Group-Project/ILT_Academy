@@ -13,6 +13,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@mui/styled-engine-sc": "^5.10.16",
+    "@mui/x-data-grid": "^5.17.17",
     "aws-sdk": "^2.1278.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",

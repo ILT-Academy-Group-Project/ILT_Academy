@@ -42,9 +42,24 @@ function* createSubmission(action){
 
 }
 
+function* fetchAssignmentSubmissions(action){
+   let cohortId = action.payload.cohortId;
+   let assignmentId = action.payload.assignmentId;
+    console.log('📰 in FETCH assignment submissions at submissions.saga', cohortId, assignmentId)
+    try{
+        let submissions = yield axios.get(`api/submissions/${cohortId}/${assignmentId}`) //GET submissions for assignment by cohort
+        yield put({
+            type: 'SET_COHORT_ASSIGNMENT_SUBMISSIONS',
+            payload: submissions.data
+        })
+    } catch{
+        console.log('error in submissions.saga in fetchAssignmentSubmissions')
+    }
+}
 
 function* submissionsSaga() {
     yield takeEvery('CREATE_SUBMISSION', createSubmission);
+    yield takeLatest('FETCH_ASSIGNMENT_SUBMISSIONS', fetchAssignmentSubmissions);
 }
 
 export default submissionsSaga;

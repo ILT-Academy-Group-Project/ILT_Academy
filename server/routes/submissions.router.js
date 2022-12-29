@@ -92,6 +92,24 @@ router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) 
 /**
  * GET:ID route 
  */
+//GET all assignments and users in cohort in order to show submitted and unsubmitted user status
+//will narrow down to specific assignment on front end for now but keeping params in url to not make things too messy
+router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = `
+        SELECT "submissions".id, "submissions"."userId", "submissions"."assignmentId", "submissions".completed, "submissions".file, "submissions"."submissionDate", "submissions"."textInput", "submissions".video, "user"."cohortId", "user"."firstName", "user"."lastName", "user".id AS "studentId" FROM "submissions"
+        RIGHT JOIN "user" ON "user".id = "submissions"."userId"
+        WHERE "user"."cohortId" = $1;
+        `;
+        const sqlParams = [req.params.cohortId]
+        console.log('sqlParams for submissions GET are ', sqlParams);
+        let dbResult = await pool.query(sqlText, sqlParams);
+        res.send(dbResult.rows);
+    } catch(err) {
+        console.error('submissions.router GET error ', err.message);
+        res.sendStatus(500);
+    }
+})
 
 
 

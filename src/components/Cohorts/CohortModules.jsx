@@ -18,7 +18,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import { Button, FormControlLabel, Switch } from '@mui/material';
 
 function CohortModules() {
     const dispatch = useDispatch();
@@ -107,9 +107,56 @@ function CohortModules() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    function submissionDetails(assignment){
+        console.log(`submit this assignment! ${assignment}`)
+    }
+
+    function publishModule(moduleId){
+        console.log(`🍭 publish module ${moduleId} for cohort ${params.cohortId}`)
+        dispatch({
+            type: 'PUBLISH_MODULE',
+            payload: {
+                moduleId:moduleId,
+                cohortId: params.cohortId
+            }
+        })
+
+        dispatch({
+            type: 'FETCH_COHORT_SERIES',
+            payload: params.cohortId
+        })
+
+        dispatch({
+            type: 'FETCH_SERIES'
+        });
+
+        dispatch({
+            type: 'FETCH_MODULES', 
+            payload: params.seriesId
+        })
+
+        dispatch({
+            type:'FETCH_COHORT_MODULES',
+            payload: {
+                cohortId:params.cohortId,
+                seriesId:params.seriesId
+            }
+        })
+
+        dispatch({
+            type:'FETCH_SERIES_ASSIGNMENTS',
+            payload: params.seriesId
+        })
+    }
+
     return (
         <>
-        {/* PUBLISHED modules */}
+      
+        <Button
+            onClick={()=> history.push(`/admin/cohort/${params.cohortId}`)} >
+            Back to Series
+        </Button>
+          {/* PUBLISHED modules */}
         {cohortModules.map(publishedModule =>{
             return(
                 <>
@@ -129,10 +176,10 @@ function CohortModules() {
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>
-                                            <StyledTableCell align="right">Name</StyledTableCell>
-                                            <StyledTableCell align="right">Date Created</StyledTableCell>
-                                            <StyledTableCell align="right">Pre/Post Class</StyledTableCell>
-                                            <StyledTableCell align="right">Feedback</StyledTableCell>
+                                            <StyledTableCell align="center">Name</StyledTableCell>
+                                            <StyledTableCell align="center">Date Created</StyledTableCell>
+                                            <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
+                                            <StyledTableCell align="center">Feedback</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                      <TableBody>
@@ -142,22 +189,28 @@ function CohortModules() {
                                                 let pre = ''
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
-                                                    <StyledTableRow key={assignment.id}>
-                                                        <StyledTableCell component="th" scope="row">
+                                                    <StyledTableRow key={assignment.id}
+                                                        >
+                                                        {/* <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
-                                                        </StyledTableCell> 
-                                                         <StyledTableCell align="right">{assignment.name}</StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
-                                                        <StyledTableCell align="right">{pre}</StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
+                                                        </StyledTableCell>  */}
+                                                         <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/admin/view/submissions/${params.cohortId}/${assignment.id}`)}>
+                                                            {assignment.name}
+                                                            </Button>
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        <StyledTableCell align="center">{pre}</StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
                                                      </StyledTableRow>
                                                 )
-                                            }
+                                            } 
                                         })}
                                      </TableBody>  
                                 </Table>
                             </TableContainer>
-                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button>
                         </AccordionDetails>
 
                  </Accordion>
@@ -172,9 +225,49 @@ function CohortModules() {
                     return true
                 }
                 else{
-                    console.log('unpublished module ', module.name)
                     return(
-                        <h3>{module.name}</h3>
+                        <>
+                            <Accordion 
+                            key={module.id} 
+                            expanded={expanded === `panel${module.id}`} 
+                            onChange={handleChange(`panel${module.id}`)}
+                            sx={{ backgroundColor: 'gray' }}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1bh-content"
+                                    id="panel1bh-header"
+                                    
+                                    >
+                                    <Typography sx={{ width: '33%', flexShrink: 0}}>
+                                        {module.name}
+                                    </Typography>
+                                    {/* toggle to publish this module */}
+                                    <FormControlLabel  control={<Switch />} 
+                                        label="Publish Module"
+                                        onChange={(event) => publishModule(module.id)}
+                                        />
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                        <TableContainer component={Paper}>
+                                            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        <StyledTableCell align="center">Name</StyledTableCell>
+                                                        <StyledTableCell align="center">Date Created</StyledTableCell>
+                                                        <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
+                                                        <StyledTableCell align="center">Feedback</StyledTableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    
+                                                </TableBody>  
+                                            </Table>
+                                        </TableContainer>
+                                        <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+                                    </AccordionDetails>
+
+                            </Accordion>
+                </>
                     )
                 }
             })
