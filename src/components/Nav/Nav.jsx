@@ -9,7 +9,7 @@ function Nav() {
     const user = useSelector((store) => store.user);
     const publishedSeries = useSelector((store)=> store.cohortSeries)
     const dispatch = useDispatch();
-    console.log('publishedSeries', publishedSeries, 'cohortId:', user);
+    // console.log('publishedSeries', publishedSeries, 'cohortId:', user);
 
     useEffect(() => {
         //get assigned series for the render;

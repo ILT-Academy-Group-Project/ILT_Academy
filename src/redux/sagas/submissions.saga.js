@@ -57,9 +57,26 @@ function* fetchAssignmentSubmissions(action){
     }
 }
 
+function* fetchUserSubmissions(action){
+    console.log('in fetchusersubmissions saga:', action.payload);
+    try {
+        //get user's submissions from the database
+        let response = yield axios.get(`/api/submissions/${action.payload}`)
+        // console.log('userSubmissions response =', response.data);
+        yield put({
+            type: 'SET_USER_SUBMISSIONS',
+            payload: response.data
+        })
+    } catch (err){
+        console.error('in fetchUserSubmissions saga error', err);
+    }
+}
+
+
 function* submissionsSaga() {
     yield takeEvery('CREATE_SUBMISSION', createSubmission);
     yield takeLatest('FETCH_ASSIGNMENT_SUBMISSIONS', fetchAssignmentSubmissions);
+    yield takeEvery('FETCH_USER_SUBMISSIONS', fetchUserSubmissions);
 }
 
 export default submissionsSaga;

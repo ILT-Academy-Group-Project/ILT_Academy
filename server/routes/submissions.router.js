@@ -111,7 +111,27 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
     }
 })
 
+/*
+GET by userid route
+*/
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
+    // console.log('inside get by userid assignment submissions');
 
+    //setup query
+    let sqlText = `
+    SELECT * FROM "submissions" 
+    WHERE "userId" = $1;
+    `;
+
+    try{
+        //get info from the database
+        const dbRes = await pool.query(sqlText, [req.params.id])
+        //send to client
+        res.send(dbRes.rows);
+    } catch (err){
+        console.error('in submissions GET by userid error', err);
+    }
+})
 
 /**
  * DELETE route 

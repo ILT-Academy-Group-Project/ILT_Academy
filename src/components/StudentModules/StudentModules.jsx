@@ -36,9 +36,11 @@ function StudentModules (){
     //redux store grab
     const modules = useSelector(store => store.modules); //modules for THIS series 
     const cohortModules = useSelector(store => store.cohortModules);
-    const assignments = useSelector(store => store.assignments.seriesAssignmentReducer)
+    const assignments = useSelector(store => store.assignments.seriesAssignmentReducer);
     const user = useSelector((store) => store.user);
+    const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
 
+    console.log('submissions', submissions);
 
     //set up preclass post class arrays to seperately render in module
     const preClass = assignments.filter(assignment => assignment.postClass === false);
@@ -67,6 +69,7 @@ function StudentModules (){
         //     payload: params.seriesId
         // })
 
+        //get the modules assigned for this user
         dispatch({
             type:'FETCH_COHORT_MODULES',
             payload: {
@@ -75,10 +78,17 @@ function StudentModules (){
             }
         })
 
+        //get the list of assignments for this series in preparation for the render
         dispatch({
             type:'FETCH_SERIES_ASSIGNMENTS',
             payload: params.id
         })
+
+        //get the assignments that have been submitted for this user
+        dispatch({
+            type: 'FETCH_USER_SUBMISSIONS',
+            payload: user.id,
+        });
 
     },[params.cohortId])
 
@@ -110,7 +120,7 @@ function StudentModules (){
     
     return (
         <>
-          {/* PUBLISHED modules */}
+          {/* Map the modules user has access to */}
         {cohortModules.map((publishedModule, i) =>{
             return(               
                  <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
@@ -129,6 +139,7 @@ function StudentModules (){
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>
+                                            <StyledTableCell align="center">Completed?</StyledTableCell>
                                             <StyledTableCell align="center">Name</StyledTableCell>
                                             <StyledTableCell align="center">Date Created</StyledTableCell>
                                             {/* <StyledTableCell align="center">Pre/Post Class</StyledTableCell> */}
@@ -139,19 +150,20 @@ function StudentModules (){
                                         <TableRow>
                                             <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
                                         </TableRow>
+                                        {/* Display all pre-class assignments here */}
                                         {preClass.map((assignment, i) => {
                                             if (assignment.moduleId == publishedModule.moduleId) {                                                
                                                 return (
                                                     <StyledTableRow key={i}
-                                                        >
-                                                        {/* <StyledTableCell component="th" scope="row">
-                                                            {assignment.name}
-                                                        </StyledTableCell>  */}
+                                                        >                                                            
+                                                        <StyledTableCell>
+                                                        {submissions.some(sub => sub.assignmentId === assignment.id) ? <p>Completed</p> : null}
+                                                        </StyledTableCell> 
                                                          <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>
                                                             {assignment.name}
-                                                            </Button>
+                                                            </Button>                                                            
                                                         </StyledTableCell>
                                                         <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
@@ -163,6 +175,7 @@ function StudentModules (){
                                         <TableRow>
                                             <StyledTableCell align="center">POST-CLASS</StyledTableCell>
                                         </TableRow>
+                                        {/* display all postclass assignments here */}
                                         {postClass.map((assignment, i)  => {
                                             if (assignment.moduleId == publishedModule.moduleId) {
                                                 // console.log('TRUE')
@@ -171,9 +184,9 @@ function StudentModules (){
                                                 return (
                                                     <StyledTableRow key={i}
                                                         >
-                                                        {/* <StyledTableCell component="th" scope="row">
-                                                            {assignment.name}
-                                                        </StyledTableCell>  */}
+                                                        <StyledTableCell>
+                                                            {submissions.some(sub => sub.assignmentId === assignment.id) ? <p>Completed</p> : null}
+                                                        </StyledTableCell>
                                                          <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>

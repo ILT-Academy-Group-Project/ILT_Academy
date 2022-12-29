@@ -12,8 +12,15 @@ const cohortSubmissionsReducer = (state = [], action) => {
     }
 }
 
-
+const userSubmissionsReducer = (state =[], action) => {
+    switch(action.type) {
+        case 'SET_USER_SUBMISSIONS':
+            return action.payload;
+    }
+    return state;
+}
 
 export default combineReducers({
    cohortSubmissionsReducer,
+   userSubmissionsReducer,
 });
