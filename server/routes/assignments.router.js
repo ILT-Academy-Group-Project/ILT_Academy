@@ -132,7 +132,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
 
             sqlText = `
                 INSERT INTO "assignments"
-                    ("name", "moduleId", "content", "media", "textField", "file", "video", "seriesId")
+                    ("name", "moduleId", "content", "media", "textField", "file", "video", "postClass", "seriesId")
                 VALUES
                     ($1, $2, $3, $4, $5, $6, $7, $8);
             `;
@@ -144,6 +144,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
                 data.textField,
                 data.file,
                 data.video,
+                data.postClass,
                 data.seriesId
             ];
         }

@@ -131,12 +131,15 @@ function StudentModules (){
                                         <TableRow>
                                             <StyledTableCell align="center">Name</StyledTableCell>
                                             <StyledTableCell align="center">Date Created</StyledTableCell>
-                                            <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
+                                            {/* <StyledTableCell align="center">Pre/Post Class</StyledTableCell> */}
                                             <StyledTableCell align="center">Feedback</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                      <TableBody>
-                                        {assignments.map(assignment => {
+                                        <TableRow>
+                                            <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {preClass.map(assignment => {
                                             if (assignment.moduleId == publishedModule.moduleId) {
                                                 // console.log('TRUE')
                                                 let pre = ''
@@ -154,7 +157,34 @@ function StudentModules (){
                                                             </Button>
                                                         </StyledTableCell>
                                                         <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
-                                                        <StyledTableCell align="center">{pre}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                     </StyledTableRow>
+                                                )
+                                            } 
+                                        })}
+                                        <TableRow>
+                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {postClass.map(assignment => {
+                                            if (assignment.moduleId == publishedModule.moduleId) {
+                                                // console.log('TRUE')
+                                                let pre = ''
+                                                assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+                                                return (
+                                                    <StyledTableRow key={assignment.id}
+                                                        >
+                                                        {/* <StyledTableCell component="th" scope="row">
+                                                            {assignment.name}
+                                                        </StyledTableCell>  */}
+                                                         <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
+                                                            {assignment.name}
+                                                            </Button>
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
                                                         <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
                                                      </StyledTableRow>
                                                 )
