@@ -26,6 +26,7 @@ import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 import CohortModules from '../Cohorts/CohortModules';
 import CohortSubmissions from '../Submissions/CohortSubmissions';
+import UserDashboard from '../UserDashboard/UserDashboard';
 
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 
@@ -145,11 +146,11 @@ function App() {
               <AdminDashboard/>
               :
               user.accessLevel === 1 ?
-              <UserPage />  
+              <UserDashboard />  
             //   Change to user dashboard
               :
               // Otherwise, show the Landing page
-              <Redirect to ="/registration"/>
+              <Redirect to ="/login"/>
             }
           </Route>
 

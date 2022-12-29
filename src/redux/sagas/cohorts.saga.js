@@ -33,7 +33,6 @@ function* fetchCohortStudents(action){
 function* cohortsSaga() {
   yield takeLatest('FETCH_COHORTS', fetchCohorts);
   yield takeLatest('FETCH_COHORT_STUDENTS', fetchCohortStudents);
-
 }
 
 export default cohortsSaga;
