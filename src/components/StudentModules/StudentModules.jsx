@@ -39,6 +39,14 @@ function StudentModules (){
     const assignments = useSelector(store => store.assignments.seriesAssignmentReducer)
     const user = useSelector((store) => store.user);
 
+
+    //set up preclass post class arrays
+    const preClass = assignments.filter(assignment => assignment.postClass === false);
+    const postClass = assignments.filter(assignment => assignment.postClass === true);
+
+    console.log('preclass assignments:', preClass);
+    console.log('postclass assignments:', postClass);
+
     useEffect(() => {
         // dispatch({
         //     type:'FETCH_COHORT_STUDENTS',
@@ -130,7 +138,7 @@ function StudentModules (){
                                      <TableBody>
                                         {assignments.map(assignment => {
                                             if (assignment.moduleId == publishedModule.moduleId) {
-                                                console.log('TRUE')
+                                                // console.log('TRUE')
                                                 let pre = ''
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
