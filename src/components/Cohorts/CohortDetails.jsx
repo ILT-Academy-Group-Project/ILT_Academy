@@ -59,14 +59,13 @@ function CohortDetails() {
         //series being checked in this loop iteration (for series 1 check for same id in all published series in this cohort)
         //if === then add the cohort id to the object for render
         for(let publishedSeries of cohortSeries){
-
             if(publishedSeries.seriesId === newSeries.id){
                 newSeries.cohortId = publishedSeries.cohortId;
             }
         }
-    }
-    
-    console.error('newSeriesObject', newSeriesObject);
+    };
+
+    // console.error('newSeriesObject', newSeriesObject);
     
 
 

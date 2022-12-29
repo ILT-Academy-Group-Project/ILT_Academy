@@ -10,14 +10,14 @@ function UserDashboard(){
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(() => {
-        //get assigned series for the render;
-        dispatch({
-            type: 'FETCH_COHORT_SERIES',
-            payload: user.cohortId
-        })
+    // useEffect(() => {
+    //     //get assigned series for the render;
+    //     dispatch({
+    //         type: 'FETCH_COHORT_SERIES',
+    //         payload: user.cohortId
+    //     })
 
-    },[])
+    // },[])
 
 
     return(
