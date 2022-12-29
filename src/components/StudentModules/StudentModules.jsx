@@ -40,12 +40,12 @@ function StudentModules (){
     const user = useSelector((store) => store.user);
 
 
-    //set up preclass post class arrays
+    //set up preclass post class arrays to seperately render in module
     const preClass = assignments.filter(assignment => assignment.postClass === false);
     const postClass = assignments.filter(assignment => assignment.postClass === true);
 
-    console.log('preclass assignments:', preClass);
-    console.log('postclass assignments:', postClass);
+    // console.log('preclass assignments:', preClass);
+    // console.log('postclass assignments:', postClass);
 
     useEffect(() => {
         // dispatch({
@@ -107,13 +107,13 @@ function StudentModules (){
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+    
     return (
         <>
           {/* PUBLISHED modules */}
-        {cohortModules.map(publishedModule =>{
-            return(
-                <>
-                 <Accordion key={publishedModule.moduleId} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
+        {cohortModules.map((publishedModule, i) =>{
+            return(               
+                 <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"
@@ -124,7 +124,7 @@ function StudentModules (){
                             {publishedModule.moduleName}
                         </Typography>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails key={i+1}>
                             <TableContainer component={Paper}>
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
@@ -139,13 +139,10 @@ function StudentModules (){
                                         <TableRow>
                                             <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
                                         </TableRow>
-                                        {preClass.map(assignment => {
-                                            if (assignment.moduleId == publishedModule.moduleId) {
-                                                // console.log('TRUE')
-                                                let pre = ''
-                                                assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+                                        {preClass.map((assignment, i) => {
+                                            if (assignment.moduleId == publishedModule.moduleId) {                                                
                                                 return (
-                                                    <StyledTableRow key={assignment.id}
+                                                    <StyledTableRow key={i}
                                                         >
                                                         {/* <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
@@ -166,13 +163,13 @@ function StudentModules (){
                                         <TableRow>
                                             <StyledTableCell align="center">POST-CLASS</StyledTableCell>
                                         </TableRow>
-                                        {postClass.map(assignment => {
+                                        {postClass.map((assignment, i)  => {
                                             if (assignment.moduleId == publishedModule.moduleId) {
                                                 // console.log('TRUE')
                                                 let pre = ''
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
-                                                    <StyledTableRow key={assignment.id}
+                                                    <StyledTableRow key={i}
                                                         >
                                                         {/* <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
@@ -193,11 +190,9 @@ function StudentModules (){
                                      </TableBody>  
                                 </Table>
                             </TableContainer>
-                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button>
                         </AccordionDetails>
 
                  </Accordion>
-                </>
             )
         })}
 
