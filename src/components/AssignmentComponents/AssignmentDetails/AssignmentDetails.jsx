@@ -50,6 +50,8 @@ function AssignmentDetails () {
                 assignmentId: assignment.id,
             }
         });
+
+        history.push(`/studentportal/modules/${assignment.seriesId}`);
     }
 
 
@@ -115,6 +117,7 @@ function AssignmentDetails () {
                     :
                     null
                 }
+                <button onClick={()=>history.goBack()}>Go Back</button>
             </header>
                 
             {
@@ -127,7 +130,7 @@ function AssignmentDetails () {
             <Markup content={assignment.content}/>
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement?
-                    assignment.textField ? 
+                    assignment.textField  && user.accessLevel !== 2  ? 
                         <div>
                             <textarea
                                 id='textSubmission'
@@ -144,7 +147,7 @@ function AssignmentDetails () {
                     null
                 }
                 {   //is there a file submission requirement?
-                    assignment.file ? 
+                    assignment.file  && user.accessLevel !== 2 ? 
                         <div>
                             <label>Upload PDF Here</label>
                             <input 
@@ -160,7 +163,7 @@ function AssignmentDetails () {
                     null
                 }
                 { //is there a video upload requirement?
-                    assignment.video ?
+                    assignment.video && user.accessLevel !== 2 ?
                         <div>
                             <label> Upload Video Here</label>
                             <input 
@@ -176,7 +179,15 @@ function AssignmentDetails () {
                     null
                 }
 
-                <input type="submit" />
+                {
+                user.accessLevel===1 && assignment.video || assignment.file || assignment.textField ? 
+                <button type="submit">Submit</button>
+                :
+                user.accessLevel === 2 ?
+                null
+                :
+                <button type="submit">Mark Complete</button>
+                }
             </form>
             
         </>            
