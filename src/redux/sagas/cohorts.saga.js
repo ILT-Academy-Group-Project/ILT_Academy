@@ -28,11 +28,25 @@ function* fetchCohortStudents(action){
     }
 }
 
+function* fetchCohort(action) {
+    try{
+        const cohortData = yield axios.get(`api/cohorts/name/${action.payload}`)
+            console.log('get cohort info by cohort ID', cohortData);
+        yield put({
+            type: 'SET_COHORT', 
+            payload: cohortData.data[0]
+        })
+    } catch{
+        console.log('error in cohort.saga fetch cohort name')
+    }
+}
+
 
 
 function* cohortsSaga() {
   yield takeLatest('FETCH_COHORTS', fetchCohorts);
   yield takeLatest('FETCH_COHORT_STUDENTS', fetchCohortStudents);
+  yield takeLatest('FETCH_COHORT', fetchCohort);
 
 }
 

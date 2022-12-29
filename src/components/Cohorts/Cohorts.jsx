@@ -20,7 +20,7 @@ import './Cohorts.css'
 function Cohorts() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const cohorts = useSelector(store => store.cohorts);
+    const cohorts = useSelector(store => store.cohorts.cohortReducer);
     // FETCH cohorts
     useEffect(() => {
         dispatch({
@@ -33,8 +33,8 @@ function Cohorts() {
 
     return (
         <>
+        
         <ThemeProvider theme={PrimaryMainTheme}>
-            
             {cohorts.map(cohort => (
 
                 <Grid2 item xs={6} sx={{}} className='cohortCard'

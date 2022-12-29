@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { DataGrid, GridToolbar} from '@mui/x-data-grid'
 import { Box, Button } from '@mui/material'
+import moment from "moment/moment";
 
 
 
@@ -12,8 +13,10 @@ function CohortSubmissions() {
     const history = useHistory();
     const params = useParams();
     const submissions = useSelector(store => store.submissions.cohortSubmissionsReducer);
+    const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
+    const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
 
-    console.log('💜submissions for cohort are ', submissions.cohortSubmissionsReducer);
+    console.log('cohortInfo is', cohortInfo);
 
     useEffect(() => {
         dispatch({
@@ -22,6 +25,14 @@ function CohortSubmissions() {
                 cohortId:params.cohortId,
                 assignmentId:params.assignmentId
             }
+        })
+        dispatch({
+            type: 'FETCH_SELECTED_ASSIGNMENT',
+            payload: params.assignmentId
+        })
+        dispatch({
+            type: 'FETCH_COHORT',
+            payload: params.cohortId
         })
     },[])
 
@@ -59,12 +70,9 @@ function CohortSubmissions() {
             width: 110,
           },
         {
-          field: 'notes',
-          headerName: 'Notes',
-          description: 'This column has a value getter and is not sortable.',
-          sortable: false,
+          field: 'dateSubmitted',
+          headerName: 'Date Submitted',
           width: 250,
-          editable: true,
         },
       ];
       
@@ -81,7 +89,8 @@ function CohortSubmissions() {
                 lastName: submission.lastName,
                 file: submission.file,
                 text: submission.text,
-                video: submission.video
+                video: submission.video,
+                dateSubmitted: moment(submission.submissionDate).format('MMMM Do YYYY, h:mm:ss a')
               } 
             rows.push(studentSubmission) 
           } else if(submission.assignmentId == null){
@@ -100,11 +109,11 @@ function CohortSubmissions() {
       })
 
     return(
-        <>
-            <h1>Submissions</h1>
-            {submissions.map( submission => {
-                <a href={submission.file}></a>
-            })}
+
+            <>
+            <h1>{assignment.name}</h1>
+            <h3>{cohortInfo.cohortName}</h3>
+            
             <Box sx={{ height: 400, width: '90%', margin: 10 }}>
             <DataGrid
               rows={rows}
@@ -116,10 +125,11 @@ function CohortSubmissions() {
               }} 
             />
             </Box>
+            </>
             
-        </>
+      
 
-    )
+            )
 }
 
 export default CohortSubmissions;

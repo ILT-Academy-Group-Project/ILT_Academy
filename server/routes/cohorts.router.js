@@ -40,5 +40,24 @@ router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
     }
 })
 
+router.get('/name/:cohortId', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = 
+        `SELECT * FROM "cohorts"
+        WHERE "cohorts"."id" = $1`
+
+        const sqlParams = [req.params.cohortId]
+
+        let dbResult = await pool.query(sqlText, sqlParams);
+        res.send(dbResult.rows);
+        console.log('COHORT NAME INFO ', dbResult.rows[0]);
+
+    } catch(err) {
+        console.error('cohorts.router GET error', err.message);
+        res.sendStatus(500);
+    }
+
+})
+
 
 module.exports = router
