@@ -30,7 +30,7 @@ const fs = require('fs');
 /**
  * GET route template
  */
-router.get('/user/assignment/:assignmentId', (req, res) => {
+router.get('/user/assignments/:assignmentId', (req, res) => {
   // GET route code here
 });
 

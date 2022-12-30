@@ -48,32 +48,22 @@ function AssignmentDetails () {
         // console.log('video file', videoSubmission);
         // console.log('text file', textSubmission);
         //dispatch to SAGA for post to server
-        
-        
-        if(!completed){
-            console.log('in not completed yet ')
-        //     dispatch({
-        //     type: 'CREATE_SUBMISSION',
-        //     payload: {
-        //         pdfSubmission,
-        //         videoSubmission,
-        //         textSubmission,
-        //         assignmentId: assignment.id,
-        //     }
-        // });
-    }
-        else{
-            console.log('edit submission in fn')
-        }
+    
+            dispatch({
+            type: 'CREATE_SUBMISSION',
+            payload: {
+                pdfSubmission,
+                videoSubmission,
+                textSubmission,
+                assignmentId: assignment.id,
+            }
+        });
+
         //confirm assignment is completed
         Swal.fire('Assignment Completed!')
         .then((result) => {
             history.push(`/studentportal/modules/${assignment.seriesId}`);
           })   
-    }
-
-    const populateIfComplete = async() => {
-        // console.log('in populateIfComplete')
     }
 
     const deleteLesson = () => {
@@ -125,12 +115,7 @@ function AssignmentDetails () {
     if(!assignment.name){
         return <h1>404</h1>
     }
-    const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
-    //check if this assignment has been submitted already by the logged in user and then get fields to populate
-    if(completed){
-        //call the populate field to get this submission and then populate the fields
-        populateIfComplete();
-    }
+    // 
     // console.log('completed?', completed);
     return(
         <>
@@ -156,6 +141,7 @@ function AssignmentDetails () {
             :
             null
             }
+                {/* TODO REPLACE!!!! */}
                 <div dangerouslySetInnerHTML={{__html: assignment.content}}/>
             {/* <Markup content={assignment.content}/> */}
             <form onSubmit={handleSubmission}>
@@ -243,3 +229,12 @@ export default AssignmentDetails;
             // defaultValue={'<p>&nbsp;&nbsp;&nbsp;&nbsp;Sam TEST 1Sam TEST 1Sam TEST 1Sam TEST 1<br></p>'}
             //  setContents={content}
         /> */}
+
+
+
+        // const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
+    // //check if this assignment has been submitted already by the logged in user and then get fields to populate
+    // if(completed){
+    //     //call the populate field to get this submission and then populate the fields
+    //     populateIfComplete();
+    // }
