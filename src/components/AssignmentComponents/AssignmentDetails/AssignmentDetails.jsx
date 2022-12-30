@@ -23,9 +23,9 @@ function AssignmentDetails () {
     const singleSubmission= useSelector(store => store.submissions.singleSubmissionReducer);
 
     //usestate to keep files
-    const [pdfSubmission, setPdfSubmission] = useState(null);
-    const [videoSubmission, setVideoSubmission] = useState(null);
-    const [textSubmission, setTextSubmission] = useState(null);
+    // const [pdfSubmission, setPdfSubmission] = useState(null);
+    // const [videoSubmission, setVideoSubmission] = useState(null);
+    // const [textSubmission, setTextSubmission] = useState(null);
 
     //check if this assignment has been submitted already by the logged in user and then get fields to populate
    
@@ -60,13 +60,8 @@ function AssignmentDetails () {
         //dispatch to SAGA for post to server
     
             dispatch({
-            type: 'CREATE_SUBMISSION',
-            payload: {
-                pdfSubmission,
-                videoSubmission,
-                textSubmission,
-                assignmentId: assignment.id,
-            }
+            type: 'CREATE_SUBMISSION',   //add in the assignment id if this is a new submission
+            payload: {...singleSubmission, assignmentId: assignment.id}
         });
 
         //confirm assignment is completed
