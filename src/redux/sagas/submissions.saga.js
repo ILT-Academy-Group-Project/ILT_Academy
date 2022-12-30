@@ -6,7 +6,8 @@ import FormData from 'form-data';
 
 
 //ENDPOINT: /api/submissions
-
+// {singleSubmission.textinput ? singleSubmission.textinput: ''}
+// {singleSubmission.video ? singleSubmission.video : ''}
 //createSubmission
 function* createSubmission(action){
     console.log('in createSubmission SAGA with payload:', action.payload)
@@ -15,17 +16,17 @@ function* createSubmission(action){
     try{
         let formData = new FormData;
         //APPEND TEXT AND BOTH FILES will conditionalize the query to DB server side
-        formData.append('file', data.pdfSubmission);
-        formData.append('video', data.videoSubmission);
+        formData.append('file', data.file);
+        formData.append('video', data.video);
         //make sure it only sends textfield if it exists, otherwise
         //there is an error where formdata converts null to 'null'as a string
-        {data.textSubmission ? 
-            formData.append('textSubmission', data.textSubmission)
-        :
-            null
-        };
-        
+        //append textfield
+        formData.append('textSubmission', data.textInput)
+        //append assignment id
         formData.append('assignmentId', data.assignmentId);
+        //append id if it exists
+        formData.append('id', data.id);
+
 
         yield axios.post('/api/submissions', formData, {
             //must include this header, it is what Multer uses to id file

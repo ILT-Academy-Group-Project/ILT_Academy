@@ -23,10 +23,12 @@ function AssignmentDetails () {
     const singleSubmission= useSelector(store => store.submissions.singleSubmissionReducer);
 
     //usestate to keep files
-    const [pdfSubmission, setPdfSubmission] = useState(null);
-    const [videoSubmission, setVideoSubmission] = useState(null);
-    const [textSubmission, setTextSubmission] = useState(null);
+    // const [pdfSubmission, setPdfSubmission] = useState(null);
+    // const [videoSubmission, setVideoSubmission] = useState(null);
+    // const [textSubmission, setTextSubmission] = useState(null);
 
+    //check if this assignment has been submitted already by the logged in user and then get fields to populate
+   
 
     //useEffect for getting assignment by id
     useEffect(() => {
@@ -40,6 +42,13 @@ function AssignmentDetails () {
             type: 'FETCH_USER_SUBMISSIONS',
             payload: user.id,
         });
+        //check if user has completed this assignment and set it to redux
+        
+            dispatch({
+                type: 'FETCH_SINGLE_SUBMISSION',
+                payload: params.id
+            });
+        
     },[params.id]);
 
     //handle file submission
@@ -51,13 +60,8 @@ function AssignmentDetails () {
         //dispatch to SAGA for post to server
     
             dispatch({
-            type: 'CREATE_SUBMISSION',
-            payload: {
-                pdfSubmission,
-                videoSubmission,
-                textSubmission,
-                assignmentId: assignment.id,
-            }
+            type: 'CREATE_SUBMISSION',   //add in the assignment id if this is a new submission
+            payload: {...singleSubmission, assignmentId: assignment.id}
         });
 
         //confirm assignment is completed
@@ -113,28 +117,17 @@ function AssignmentDetails () {
     }
 
     //populate Fields if assignment is complete
-    const populateIfComplete = () => {
-        // console.log('completed!');
-        dispatch({
-            type: 'FETCH_SINGLE_SUBMISSION',
-            payload: params.id
-        });
 
-    }
-
-    const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
-    //check if this assignment has been submitted already by the logged in user and then get fields to populate
-    if(completed){
-        //call the populate field to get this submission and then populate the fields
-        populateIfComplete();
-    }
+    
+   
+    
 
     //if there is no assignment at the url with this id return 404
     if(!assignment.name){
         return <h1>404</h1>
     }
     // 
-    // console.log('completed?', completed);
+
     return(
         <>
             <header>
@@ -173,8 +166,13 @@ function AssignmentDetails () {
                                 // value={story} 
                                 // // update local state
                                 //If text submission is null have it be an empty string, otherwise = value
-                                value={textSubmission ? textSubmission : ''}
-                                onChange={(evt)=>setTextSubmission(evt.target.value)}
+                                value={singleSubmission.textInput ? singleSubmission.textInput: ''}
+                                onChange = {(evt)=>{
+                                    dispatch({
+                                        type: 'UPDATE_SINGLE_SUBMISSION',
+                                        payload: { textInput: evt.target.value }
+                                    })
+                                }}
                             />
                         </div>
                     :
@@ -190,7 +188,12 @@ function AssignmentDetails () {
                                 type='file' 
                                 name="fileSubmission"                         
                                 accept='.pdf'
-                                onChange = {(evt)=>{setPdfSubmission(evt.target.files[0])}}
+                                onChange = {(evt)=>{
+                                    dispatch({
+                                        type: 'UPDATE_SINGLE_SUBMISSION',
+                                        payload: { file: evt.target.files[0] }
+                                    })
+                                }}
                             />
                         </div>
                     :
@@ -205,8 +208,13 @@ function AssignmentDetails () {
                                 placeholder="Include https://"
                                 required   //dont cause 'cant be null error' 
                                             // if video submission != null set val, else set as empty string
-                                value={videoSubmission ? videoSubmission : ''}  
-                                onChange = {(evt)=>{setVideoSubmission(evt.target.value)}}
+                                value={singleSubmission.video ? singleSubmission.video : ''}  
+                                onChange = {(evt)=>{
+                                    dispatch({
+                                        type: 'UPDATE_SINGLE_SUBMISSION',
+                                        payload: { video: evt.target.value }
+                                    })
+                                }}
                             />
                         </div>
                     :
