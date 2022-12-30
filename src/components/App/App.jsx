@@ -234,13 +234,14 @@ function App() {
             >
                 <AssignmentDetails />
             </ProtectedRoute>
-                {/* Assignment resubmission path */}
+          
+                {/* Assignment resubmission path
             <ProtectedRoute
                 exact
                 path='/assignment/update/:id'
             >
                 <ReSubmitAssignment />
-            </ProtectedRoute>
+            </ProtectedRoute> */}
 
 
             {/* profile  /studentportal/profile/:username */}

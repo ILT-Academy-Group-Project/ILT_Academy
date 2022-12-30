@@ -111,6 +111,23 @@ function AssignmentDetails () {
         history.push(`/admin/assignment/edit/${params.id}`);
     }
 
+    //populate Fields if assignment is complete
+    const populateIfComplete = () => {
+        // console.log('completed!');
+        // dispatch({
+        //     type: 'FETCH_UPDATE_SUBMISSION',
+        //     payload: params.id
+        // });
+
+    }
+
+    const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
+    //check if this assignment has been submitted already by the logged in user and then get fields to populate
+    if(completed){
+        //call the populate field to get this submission and then populate the fields
+        populateIfComplete();
+    }
+
     //if there is no assignment at the url with this id return 404
     if(!assignment.name){
         return <h1>404</h1>
@@ -201,10 +218,10 @@ function AssignmentDetails () {
                 <button type="submit">Submit</button>
                 :
                 // if user is admin include no button
-                user.accessLevel === 2 ?
+                user.accessLevel===2 ?
                 null
                 :
-                //if user is a student and their are no submissions required show mark complete button
+                //if user is a student and their are no submissions required show mark complete button            
                 <button type="submit">Mark Complete</button>
                 }
             </form>
@@ -232,9 +249,4 @@ export default AssignmentDetails;
 
 
 
-        // const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
-    // //check if this assignment has been submitted already by the logged in user and then get fields to populate
-    // if(completed){
-    //     //call the populate field to get this submission and then populate the fields
-    //     populateIfComplete();
-    // }
+        
