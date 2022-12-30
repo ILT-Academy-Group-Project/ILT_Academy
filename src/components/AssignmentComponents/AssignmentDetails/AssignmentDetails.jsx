@@ -121,6 +121,9 @@ function AssignmentDetails () {
             </header>
                 
             {
+                // check if their is a video url included
+                //TODO: fix db query bug where null is sent as string
+                //although this fix works for now, it is a hard coded fix
             typeof assignment.media==='string' && assignment.media !== 'null' ? 
             <video width="640" height="480" controls src={assignment.media}></video>
             :
@@ -129,7 +132,7 @@ function AssignmentDetails () {
             
             <Markup content={assignment.content}/>
             <form onSubmit={handleSubmission}>
-                {  //is there a text submission requirement?
+                {  //is there a text submission requirement for the student?
                     assignment.textField  && user.accessLevel !== 2  ? 
                         <div>
                             <textarea
@@ -146,7 +149,7 @@ function AssignmentDetails () {
                     :
                     null
                 }
-                {   //is there a file submission requirement?
+                {   //is there a file submission requirement for the student?
                     assignment.file  && user.accessLevel !== 2 ? 
                         <div>
                             <label>Upload PDF Here</label>
@@ -162,7 +165,7 @@ function AssignmentDetails () {
                     :
                     null
                 }
-                { //is there a video upload requirement?
+                { //is there a video upload requirement for the student?
                     assignment.video && user.accessLevel !== 2 ?
                         <div>
                             <label> Upload Video Here</label>
@@ -179,13 +182,16 @@ function AssignmentDetails () {
                     null
                 }
 
-                {
+                { 
+                // if the user is a student and there is a submission requirement show submit button
                 user.accessLevel===1 && assignment.video || assignment.file || assignment.textField ? 
                 <button type="submit">Submit</button>
                 :
+                // if user is admin include no button
                 user.accessLevel === 2 ?
                 null
                 :
+                //if user is a student and their are no submissions required show mark complete button
                 <button type="submit">Mark Complete</button>
                 }
             </form>

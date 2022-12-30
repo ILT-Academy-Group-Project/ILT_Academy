@@ -35,12 +35,16 @@ function StudentModules (){
 
     //redux store grab
     const modules = useSelector(store => store.modules); //modules for THIS series 
+    //available modules for the students cohort
     const cohortModules = useSelector(store => store.cohortModules);
+    //assignments to render in associated modules
     const assignments = useSelector(store => store.assignments.seriesAssignmentReducer);
+    //user info
     const user = useSelector((store) => store.user);
+    //user's submissions to check if assignments are completed
     const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
 
-    console.log('submissions', submissions);
+    // console.log('submissions', submissions);
 
     //set up preclass post class arrays to seperately render in module
     const preClass = assignments.filter(assignment => assignment.postClass === false);

@@ -26,11 +26,11 @@ import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 import CohortModules from '../Cohorts/CohortModules';
 import CohortSubmissions from '../Submissions/CohortSubmissions';
-import UserDashboard from '../UserDashboard/UserDashboard';
+import UserDashboard from '../StudentSpecificComponents/UserDashboard/UserDashboard';
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 import OrientationCreate from '../Orientation/OrientationCreate';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
-import StudentModules from '../StudentModules/StudentModules';
+import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
 
 import './App.css';
 
