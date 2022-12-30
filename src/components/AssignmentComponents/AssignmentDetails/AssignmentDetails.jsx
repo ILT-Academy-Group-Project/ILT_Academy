@@ -20,6 +20,7 @@ function AssignmentDetails () {
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
     //user's submissions to check if assignments are
     const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
+    const singleSubmission= useSelector(store => store.submissions.singleSubmissionReducer);
 
     //usestate to keep files
     const [pdfSubmission, setPdfSubmission] = useState(null);
