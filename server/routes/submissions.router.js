@@ -30,7 +30,7 @@ const fs = require('fs');
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/user/assignment/:assignmentId', (req, res) => {
   // GET route code here
 });
 
@@ -89,9 +89,7 @@ router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) 
         });
 });
 
-/**
- * GET:ID route 
- */
+
 //GET all assignments and users in cohort in order to show submitted and unsubmitted user status
 //will narrow down to specific assignment on front end for now but keeping params in url to not make things too messy
 router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) => {
@@ -102,7 +100,7 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
         WHERE "user"."cohortId" = $1;
         `;
         const sqlParams = [req.params.cohortId]
-        console.log('sqlParams for submissions GET are ', sqlParams);
+        // console.log('sqlParams for submissions GET are ', sqlParams);
         let dbResult = await pool.query(sqlText, sqlParams);
         res.send(dbResult.rows);
     } catch(err) {
@@ -114,7 +112,8 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
 /*
 GET by userid route
 */
-router.get('/:id', rejectUnauthenticated, async (req, res) => {
+//get all assignments for the logged in user
+router.get('/user', rejectUnauthenticated, async (req, res) => {
     // console.log('inside get by userid assignment submissions');
 
     //setup query
@@ -125,11 +124,11 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
 
     try{
         //get info from the database
-        const dbRes = await pool.query(sqlText, [req.params.id])
+        const dbRes = await pool.query(sqlText, [req.user.id])
         //send to client
         res.send(dbRes.rows);
     } catch (err){
-        console.error('in submissions GET by userid error', err);
+        console.error('in submissions GET by userid error', err.message);
     }
 })
 

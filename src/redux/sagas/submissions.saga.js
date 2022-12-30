@@ -61,7 +61,7 @@ function* fetchUserSubmissions(action){
     console.log('in fetchusersubmissions saga:', action.payload);
     try {
         //get user's submissions from the database
-        let response = yield axios.get(`/api/submissions/${action.payload}`)
+        let response = yield axios.get(`/api/submissions/user`)
         // console.log('userSubmissions response =', response.data);
         yield put({
             type: 'SET_USER_SUBMISSIONS',

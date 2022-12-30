@@ -41,7 +41,7 @@ function StudentModules (){
     const assignments = useSelector(store => store.assignments.seriesAssignmentReducer);
     //user info
     const user = useSelector((store) => store.user);
-    //user's submissions to check if assignments are completed
+    //user's submissions to check if assignments are
     const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
 
     // console.log('submissions', submissions);

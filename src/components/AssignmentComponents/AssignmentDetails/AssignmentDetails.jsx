@@ -18,7 +18,8 @@ function AssignmentDetails () {
     //import user
     const user = useSelector(store => store.user);
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
-    // console.log('assignment is:', assignment);
+    //user's submissions to check if assignments are
+    const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
 
     //usestate to keep files
     const [pdfSubmission, setPdfSubmission] = useState(null);
@@ -28,9 +29,15 @@ function AssignmentDetails () {
 
     //useEffect for getting assignment by id
     useEffect(() => {
+        //fetch the assignment to display on this page using params
         dispatch({
             type: 'FETCH_SELECTED_ASSIGNMENT',
             payload: params.id
+        });
+        //get the user's submissions to see if they have submitted this assignment already
+        dispatch({
+            type: 'FETCH_USER_SUBMISSIONS',
+            payload: user.id,
         });
     },[params.id]);
 
@@ -41,23 +48,37 @@ function AssignmentDetails () {
         // console.log('video file', videoSubmission);
         // console.log('text file', textSubmission);
         //dispatch to SAGA for post to server
-        dispatch({
-            type: 'CREATE_SUBMISSION',
-            payload: {
-                pdfSubmission,
-                videoSubmission,
-                textSubmission,
-                assignmentId: assignment.id,
-            }
-        });
-
-        history.push(`/studentportal/modules/${assignment.seriesId}`);
+        
+        
+        if(!completed){
+            console.log('in not completed yet ')
+        //     dispatch({
+        //     type: 'CREATE_SUBMISSION',
+        //     payload: {
+        //         pdfSubmission,
+        //         videoSubmission,
+        //         textSubmission,
+        //         assignmentId: assignment.id,
+        //     }
+        // });
+    }
+        else{
+            console.log('edit submission in fn')
+        }
+        //confirm assignment is completed
+        Swal.fire('Assignment Completed!')
+        .then((result) => {
+            history.push(`/studentportal/modules/${assignment.seriesId}`);
+          })   
     }
 
+    const populateIfComplete = async() => {
+        // console.log('in populateIfComplete')
+    }
 
     const deleteLesson = () => {
 
-        //sweet alert for delete
+        //sweet alert for delete confirmation
         Swal.fire({
             title: 'Are you sure you want to delete this post?',
             text: "You won't be able to revert this!",
@@ -96,16 +117,21 @@ function AssignmentDetails () {
 
     const editLesson = () => {
         // console.log('IN EDITLESSON FN');
-
+        //go to the edit url
         history.push(`/admin/assignment/edit/${params.id}`);
-
     }
 
+    //if there is no assignment at the url with this id return 404
     if(!assignment.name){
         return <h1>404</h1>
     }
-    
-
+    const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
+    //check if this assignment has been submitted already by the logged in user and then get fields to populate
+    if(completed){
+        //call the populate field to get this submission and then populate the fields
+        populateIfComplete();
+    }
+    // console.log('completed?', completed);
     return(
         <>
             <header>
