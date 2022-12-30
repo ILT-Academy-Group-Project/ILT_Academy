@@ -121,6 +121,17 @@ function StudentModules (){
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    //function to route user to either the assignment details or the resubmission page
+                        //id to check
+    const submissionRoute = (assignmentId) => {
+    //check if this assignment has been submitted already by the logged in user and then get fields to populate
+    const completed = submissions.some(submission => {return submission.assignmentId === Number(assignmentId)});
+    
+    console.log('in submission route with id of:', assignmentId, 'and completed:', completed);
+    // ()=>history.push(`/assignment/${assignment.id}`)
+   
+    }
     
     return (
         <>
@@ -165,7 +176,7 @@ function StudentModules (){
                                                         </StyledTableCell> 
                                                          <StyledTableCell align="center">
                                                             <Button
-                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
+                                                                onClick={() => submissionRoute(assignment.id)}>
                                                             {assignment.name}
                                                             </Button>                                                            
                                                         </StyledTableCell>
@@ -193,7 +204,7 @@ function StudentModules (){
                                                         </StyledTableCell>
                                                          <StyledTableCell align="center">
                                                             <Button
-                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
+                                                                onClick={() => submissionRoute(assignment.id)}>
                                                             {assignment.name}
                                                             </Button>
                                                         </StyledTableCell>

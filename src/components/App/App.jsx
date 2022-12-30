@@ -31,6 +31,7 @@ import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignmen
 import OrientationCreate from '../Orientation/OrientationCreate';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
+import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
 
 import './App.css';
 
@@ -232,6 +233,13 @@ function App() {
                 path='/assignment/:id'
             >
                 <AssignmentDetails />
+            </ProtectedRoute>
+                {/* Assignment resubmission path */}
+            <ProtectedRoute
+                exact
+                path='/assignment/update/:id'
+            >
+                <ReSubmitAssignment />
             </ProtectedRoute>
 
 
