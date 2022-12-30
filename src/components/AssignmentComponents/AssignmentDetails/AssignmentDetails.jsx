@@ -104,6 +104,7 @@ function AssignmentDetails () {
     if(!assignment.name){
         return <h1>404</h1>
     }
+    
 
     return(
         <>
@@ -129,8 +130,8 @@ function AssignmentDetails () {
             :
             null
             }
-            
-            <Markup content={assignment.content}/>
+                <div dangerouslySetInnerHTML={{__html: assignment.content}}/>
+            {/* <Markup content={assignment.content}/> */}
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement for the student?
                     assignment.textField  && user.accessLevel !== 2  ? 
