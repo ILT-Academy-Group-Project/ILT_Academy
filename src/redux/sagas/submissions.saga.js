@@ -6,7 +6,8 @@ import FormData from 'form-data';
 
 
 //ENDPOINT: /api/submissions
-
+// {singleSubmission.textinput ? singleSubmission.textinput: ''}
+// {singleSubmission.video ? singleSubmission.video : ''}
 //createSubmission
 function* createSubmission(action){
     console.log('in createSubmission SAGA with payload:', action.payload)

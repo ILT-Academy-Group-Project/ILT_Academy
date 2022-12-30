@@ -43,13 +43,12 @@ function AssignmentDetails () {
             payload: user.id,
         });
         //check if user has completed this assignment and set it to redux
-        if(submissions.some(submission => {return submission.assignmentId === Number(params.id)})){
-            //call the populate field to get this submission and then populate the fields
+        
             dispatch({
                 type: 'FETCH_SINGLE_SUBMISSION',
                 payload: params.id
             });
-        }
+        
     },[params.id]);
 
     //handle file submission
@@ -172,8 +171,13 @@ function AssignmentDetails () {
                                 // value={story} 
                                 // // update local state
                                 //If text submission is null have it be an empty string, otherwise = value
-                                value={textSubmission ? textSubmission : ''}
-                                onChange={(evt)=>setTextSubmission(evt.target.value)}
+                                value={singleSubmission.textInput ? singleSubmission.textInput: ''}
+                                onChange = {(evt)=>{
+                                    dispatch({
+                                        type: 'UPDATE_SINGLE_SUBMISSION',
+                                        payload: { textInput: evt.target.value }
+                                    })
+                                }}
                             />
                         </div>
                     :
@@ -189,7 +193,12 @@ function AssignmentDetails () {
                                 type='file' 
                                 name="fileSubmission"                         
                                 accept='.pdf'
-                                onChange = {(evt)=>{setPdfSubmission(evt.target.files[0])}}
+                                onChange = {(evt)=>{
+                                    dispatch({
+                                        type: 'UPDATE_SINGLE_SUBMISSION',
+                                        payload: { file: evt.target.files[0] }
+                                    })
+                                }}
                             />
                         </div>
                     :
@@ -204,8 +213,13 @@ function AssignmentDetails () {
                                 placeholder="Include https://"
                                 required   //dont cause 'cant be null error' 
                                             // if video submission != null set val, else set as empty string
-                                value={videoSubmission ? videoSubmission : ''}  
-                                onChange = {(evt)=>{setVideoSubmission(evt.target.value)}}
+                                value={singleSubmission.video ? singleSubmission.video : ''}  
+                                onChange = {(evt)=>{
+                                    dispatch({
+                                        type: 'UPDATE_SINGLE_SUBMISSION',
+                                        payload: { video: evt.target.value }
+                                    })
+                                }}
                             />
                         </div>
                     :
