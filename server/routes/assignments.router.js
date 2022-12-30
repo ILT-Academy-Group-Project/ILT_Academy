@@ -132,9 +132,9 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
 
             sqlText = `
                 INSERT INTO "assignments"
-                    ("name", "moduleId", "content", "media", "textField", "file", "video", "seriesId")
+                    ("name", "moduleId", "content", "media", "textField", "file", "video", "postClass", "seriesId")
                 VALUES
-                    ($1, $2, $3, $4, $5, $6, $7, $8);
+                    ($1, $2, $3, $4, $5, $6, $7, $8, $9);
             `;
             sqlParams = [
                 data.assignmentTitle,
@@ -144,6 +144,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
                 data.textField,
                 data.file,
                 data.video,
+                data.postClass,
                 data.seriesId
             ];
         }
@@ -151,9 +152,9 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
         else{
             sqlText=`
                 INSERT INTO "assignments"
-                    ("name", "moduleId", "content", "textField", "file", "video", "seriesId")
+                    ("name", "moduleId", "content", "textField", "file", "video", "postClass", "seriesId")
                 VALUES
-                    ($1, $2, $3, $4, $5, $6, $7);
+                    ($1, $2, $3, $4, $5, $6, $7, $8);
             `;
             sqlParams=[
                 data.assignmentTitle,
@@ -162,6 +163,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), async 
                 data.textField,
                 data.file,
                 data.video,
+                data.postClass,
                 data.seriesId
             ];
         }

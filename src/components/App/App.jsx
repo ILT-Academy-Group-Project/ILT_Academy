@@ -26,12 +26,12 @@ import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 import CohortModules from '../Cohorts/CohortModules';
 import CohortSubmissions from '../Submissions/CohortSubmissions';
-
+import UserDashboard from '../StudentSpecificComponents/UserDashboard/UserDashboard';
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
-
 import OrientationCreate from '../Orientation/OrientationCreate';
-
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
+import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
 
 import './App.css';
 
@@ -145,11 +145,11 @@ function App() {
               <AdminDashboard/>
               :
               user.accessLevel === 1 ?
-              <UserPage />  
+              <UserDashboard />  
             //   Change to user dashboard
               :
               // Otherwise, show the Landing page
-              <Redirect to ="/registration"/>
+              <Redirect to ="/login"/>
             }
           </Route>
 
@@ -212,9 +212,20 @@ function App() {
             {/* orientation   /studentportal/orientation (maybe /:page) */}
 
             {/* student dashboard  /studentportal */}
-
+            {/* *****This is here so we can let the admin visit the student dashboard to view it */}
+            <ProtectedRoute
+            //logged in admin shows cohort submissions for assignment
+            exact
+            path="/studentportal">
+              { user.id ? <UserDashboard /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
             {/* student portal moddules  /studentportal/modules/:id  (series id) */}
-
+            <ProtectedRoute
+                exact
+                path='/studentportal/modules/:id'
+            >
+                <StudentModules />
+            </ProtectedRoute>
             {/* individual lesson boy id (viewable by admin and student)  /lesson/:id (lesson id) */}
 
             <ProtectedRoute
@@ -223,6 +234,14 @@ function App() {
             >
                 <AssignmentDetails />
             </ProtectedRoute>
+          
+                {/* Assignment resubmission path
+            <ProtectedRoute
+                exact
+                path='/assignment/update/:id'
+            >
+                <ReSubmitAssignment />
+            </ProtectedRoute> */}
 
 
             {/* profile  /studentportal/profile/:username */}

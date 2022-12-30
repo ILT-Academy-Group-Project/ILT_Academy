@@ -144,7 +144,14 @@ const submitEditAssignment = (evt) => {
                         ['underline'],
                         ['video'],
                         ['image'],                                       
-                    ]                                        
+                    ]               ,
+                    videoHeightShow: false,
+                    videoWidthShow: false,
+                    videoFileInput: false,
+                    videoUrlInput: false,
+                    videoRatioShow: false,
+                    videoWidth: "603px",
+                    videoHeight: "339px",                         
                 }}
                 onImageUploadBefore={handleImageUploadBefore} 
 

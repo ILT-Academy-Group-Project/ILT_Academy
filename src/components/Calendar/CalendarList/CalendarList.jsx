@@ -23,9 +23,9 @@ function CalendarList(){
             <h1>Events</h1>
             {/* MAP EVENTS */}
             <ul>
-                {events.map(event =>{
+                {events.map((event, i) =>{
                     return (
-                        <CalendarItem key={event.etag} event={event}/>
+                        <CalendarItem key={i} event={event}/>
                     )
                 })}
             </ul>

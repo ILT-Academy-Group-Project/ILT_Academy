@@ -123,7 +123,7 @@ function CreateAssignment() {
                 <SunEditor
                     onChange={handleChange}
                     setOptions={{
-                        height: 200,
+                        height: 1000,
                         buttonList: [
                             ['font', 'align'],
                             ['fontSize'],
@@ -132,7 +132,19 @@ function CreateAssignment() {
                             ['underline'],
                             ['video'],
                             ['image'],
-                        ]
+                        ],
+                        // videoResizing: false,
+                        videoHeightShow: false,
+                        videoWidthShow: false,
+                        videoFileInput: false,
+                        videoUrlInput: false,
+                        videoRatioShow: false,
+                        videoWidth: "603px",
+                        videoHeight: "339px",
+                        // videoPadding: "0px",
+                        // videoIframeAttrs: {
+                        //     style: "max-width: 900px; padding-bottom: -339px;"
+                        // },
                     }}
                     onImageUploadBefore={handleImageUploadBefore}
                 //  setContents={content}

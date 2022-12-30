@@ -57,9 +57,47 @@ function* fetchAssignmentSubmissions(action){
     }
 }
 
+function* fetchUserSubmissions(action){
+    // console.log('in fetchusersubmissions saga:', action.payload);
+    try {
+        //get user's submissions from the database
+        let response = yield axios.get(`/api/submissions/user`)
+        // console.log('userSubmissions response =', response.data);
+        yield put({
+            type: 'SET_USER_SUBMISSIONS',
+            payload: response.data
+        })
+    } catch (err){
+        console.error('in fetchUserSubmissions saga error', err);
+    }
+}
+    //get a singleSubmission to use in redux as the editable submission
+function* fetchSingleSubmission(action){
+    // console.log('in fetchSingleSubmission');
+    try {
+        //get user's submissions from the database
+        let response = yield axios.get(`/api/submissions/user/assignment/${action.payload}`);
+        // console.log('response from server is:', response.data);
+
+        //update redux selectedsubmission
+        yield put ({
+            type: 'SET_SINGLE_SUBMISSION',
+            payload: response.data
+        });
+
+    } catch (err){
+        console.error('in fetchSingleSubmission saga error', err);
+    }
+
+
+}
+
+
 function* submissionsSaga() {
     yield takeEvery('CREATE_SUBMISSION', createSubmission);
     yield takeLatest('FETCH_ASSIGNMENT_SUBMISSIONS', fetchAssignmentSubmissions);
+    yield takeEvery('FETCH_USER_SUBMISSIONS', fetchUserSubmissions);
+    yield takeEvery('FETCH_SINGLE_SUBMISSION', fetchSingleSubmission)
 }
 
 export default submissionsSaga;
