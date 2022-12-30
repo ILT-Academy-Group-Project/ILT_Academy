@@ -27,6 +27,8 @@ function AssignmentDetails () {
     const [videoSubmission, setVideoSubmission] = useState(null);
     const [textSubmission, setTextSubmission] = useState(null);
 
+    //check if this assignment has been submitted already by the logged in user and then get fields to populate
+   
 
     //useEffect for getting assignment by id
     useEffect(() => {
@@ -40,6 +42,14 @@ function AssignmentDetails () {
             type: 'FETCH_USER_SUBMISSIONS',
             payload: user.id,
         });
+        //check if user has completed this assignment and set it to redux
+        if(submissions.some(submission => {return submission.assignmentId === Number(params.id)})){
+            //call the populate field to get this submission and then populate the fields
+            dispatch({
+                type: 'FETCH_SINGLE_SUBMISSION',
+                payload: params.id
+            });
+        }
     },[params.id]);
 
     //handle file submission
@@ -113,28 +123,17 @@ function AssignmentDetails () {
     }
 
     //populate Fields if assignment is complete
-    const populateIfComplete = () => {
-        // console.log('completed!');
-        dispatch({
-            type: 'FETCH_SINGLE_SUBMISSION',
-            payload: params.id
-        });
 
-    }
-
-    const completed = submissions.some(submission => {return submission.assignmentId === Number(params.id)});
-    //check if this assignment has been submitted already by the logged in user and then get fields to populate
-    if(completed){
-        //call the populate field to get this submission and then populate the fields
-        populateIfComplete();
-    }
+    
+   
+    
 
     //if there is no assignment at the url with this id return 404
     if(!assignment.name){
         return <h1>404</h1>
     }
     // 
-    // console.log('completed?', completed);
+
     return(
         <>
             <header>
