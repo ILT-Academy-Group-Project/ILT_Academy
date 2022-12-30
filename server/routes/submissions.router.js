@@ -129,9 +129,30 @@ router.get('/user', rejectUnauthenticated, async (req, res) => {
         res.send(dbRes.rows);
     } catch (err){
         console.error('in submissions GET by userid error', err.message);
+        res.sendStatus(500);
     }
 })
 
+
+/**
+ Get single submission for this one assignment
+ */
+router.get('/user/assignment/:assignmentId', rejectUnauthenticated, async (req, res) => {
+    // console.log('in GET single submission by user and assignmentID with id of', req.params.assignmentId);
+    //get the assignment info for the selected assignment where this user submitted it
+    const sqlText=`
+    SELECT * FROM "submissions"
+    WHERE "userId" = $1 AND "assignmentId" = $2;
+    `;
+
+    try{
+        const dbRes = await pool.query(sqlText, [req.user.id, req.params.assignmentId])
+        res.send(dbRes.rows[0]);
+    } catch (err) {
+        console.log('error in get single submission', err);
+        res.sendStatus(500);
+    }
+  });
 /**
  * DELETE route 
  */

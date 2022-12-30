@@ -20,7 +20,16 @@ const userSubmissionsReducer = (state =[], action) => {
     return state;
 }
 
+const singleSubmissionReducer = (state = {}, action) => {
+    switch(action.type) {
+        case 'SET_SINGLE_SUBMISSION':
+            return action.payload;
+    }
+    return state;
+}
+
 export default combineReducers({
    cohortSubmissionsReducer,
    userSubmissionsReducer,
+   singleSubmissionReducer
 });

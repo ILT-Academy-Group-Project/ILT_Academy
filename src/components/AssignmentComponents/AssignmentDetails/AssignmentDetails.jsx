@@ -114,10 +114,10 @@ function AssignmentDetails () {
     //populate Fields if assignment is complete
     const populateIfComplete = () => {
         // console.log('completed!');
-        // dispatch({
-        //     type: 'FETCH_UPDATE_SUBMISSION',
-        //     payload: params.id
-        // });
+        dispatch({
+            type: 'FETCH_SINGLE_SUBMISSION',
+            payload: params.id
+        });
 
     }
 
