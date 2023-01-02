@@ -264,7 +264,7 @@ function CohortModules() {
                                                 </TableBody>  
                                             </Table>
                                         </TableContainer>
-                                        <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+                                        {/* <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button> */}
                                     </AccordionDetails>
 
                             </Accordion>

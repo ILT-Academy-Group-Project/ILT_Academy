@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import announcments from './announcements.reducer';
+import announcements from './announcements.reducer';
 import events from './events.reducer';
 import submissions from './submissions.reducer';
 import cohorts from './cohorts.reducer';
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
   cohortSeries,
   orientation,
   cohortModules,
-//   announcments,
+  announcements,
 //   assignments,
   events,
   submissions,
