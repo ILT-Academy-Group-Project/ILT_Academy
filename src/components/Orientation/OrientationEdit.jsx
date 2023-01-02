@@ -11,6 +11,8 @@ import './Orientation.css'
 function OrientationEdit() {
 
     const params = useParams();
+    const dispatch = useDispatch();
+    const editOrientation = useSelector(store => store.orientation.editOrientationReducer);
 
     useEffect(() => {
         dispatch({
@@ -18,6 +20,68 @@ function OrientationEdit() {
             payload: params.id
         });
     }, []);
+
+    const submitEditAssignment = (evt) => {
+        evt.preventDefault();
+        // console.log('in submit edit assignment');
+        //ensure there is content in the WYSIWYG
+        if(editOrientation.content.length <=10){
+            alert('Must put content into the assignment');
+            return
+        }
+    
+        //dispatch updated assignment to saga for axios.put
+        dispatch({
+            type: 'UPDATE_ASSIGNMENT', 
+            payload: editOrientation
+        });
+    
+        Swal.fire('Success!')
+            .then((result) => {
+                history.push(`/admin/orientation/list`);
+              })
+    
+        //------------------------todo update this push::::::---------------------------
+        // history.push(`/admin/modules/${params.seriesId}`)
+    
+    }
+    
+        const handleChange = (content) => {
+            dispatch({
+                type: 'UPDATE_EDIT_ORIENTATION',
+                payload: {content: content}
+            })
+        }
+    
+    
+        const handleImageUploadBefore= (files, info, uploadHandler) => {
+            // uploadHandler is a function
+            // console.log(files, info)
+            
+            const callBack = async () => { 
+            let formData = new FormData();
+            formData.append('image', files[0]);
+            const response = await axios.post('/api/orientation/imagefield', formData, {
+                //must include this header, it is what Multer uses to id file
+                headers:{
+                    headers: { "Content-Type": "multipart/form-data" },
+                }});
+            console.log('response', response.data);
+            uploadHandler(response.data);}
+    
+            callBack();
+            // uploadHandler();
+    
+        }
+    
+        const videoChange = (evt) => {
+            dispatch({
+                type: 'UPDATE_EDIT_ORIENTATION',
+                payload: { media: evt.target.files[0] }
+            });
+            // setVideoUrl({imageUrl: URL.createObjectURL(evt.target.files[0])})
+    
+        }
 
     return (
 
@@ -27,7 +91,7 @@ function OrientationEdit() {
             </video> */}
 
             {/* <OrientationStep /> */}
-            <form onSubmit={submitAssignment}>
+            <form onSubmit={submitEditAssignment}>
                 <label>Upload Video
                     <input
                         accept="video/*"
@@ -40,13 +104,13 @@ function OrientationEdit() {
                 <input
                     required
                     type='text'
-                    placeholder="Assignment Name"
+                    placeholder={editOrientation.name}
                     onChange={(evt) => setTitle(evt.target.value)}
                 />
                 <input
                     required
                     type='text'
-                    placeholder="Step"
+                    placeholder={editOrientation.step}
                     onChange={(evt) => setStep(evt.target.value)}
                 />
                 <SunEditor
@@ -70,7 +134,7 @@ function OrientationEdit() {
                         videoWidth: "960px",
                     }}
                     onImageUploadBefore={handleImageUploadBefore}
-                    setContents={content}
+                    setContents={editOrientation.content}
                 />
 
                 <div>

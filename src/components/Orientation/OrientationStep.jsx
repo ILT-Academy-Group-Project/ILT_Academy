@@ -18,6 +18,7 @@ import OrientationDetails from './OrientationDetails';
 
 function OrientationStep() {
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
     const orientation = useSelector((store) => store.orientation.orientationReducer);
@@ -79,15 +80,16 @@ function OrientationStep() {
         setCompleted(newCompleted);
 
         handleNext();
+
         dispatch({
             type: 'EDIT_CURRENT_STEP',
             payload: {
                 step: activeStep + 1,
                 id: user.id
             }
-        })
+        });
 
-        console.log('USER ORIENTATION STEP', user.oriented);
+        
     };
 
     const handleStudent = () => {
@@ -155,13 +157,14 @@ function OrientationStep() {
                     <div>
                         {allStepsCompleted() ? (
                             <>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
+                                {/* <Typography sx={{ mt: 2, mb: 1 }}>
                                     All steps completed - you&apos;re finished
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Box sx={{ flex: '1 1 auto' }} />
                                     <Button onClick={handleStudent}>Student Portal</Button>
-                                </Box>
+                                </Box> */}
+                                {history.push(`/hipster/hacker/hustler`)}
                             </>
                         ) : (
                             <>

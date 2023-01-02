@@ -34,7 +34,7 @@ import OrientationEdit from '../Orientation/OrientationEdit';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
 import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
-
+import Hacker from '../Hacker/Hacker';
 
 import './App.css';
 
@@ -228,6 +228,12 @@ function App() {
             {/* STUDENT BELOW HERE _______________________________ */}
 
             {/* orientation   /studentportal/orientation (maybe /:page) */}
+            <ProtectedRoute
+            //logged in admin shows cohort submissions for assignment
+            exact
+            path="/hipster/hacker/hustler">
+              { user.id ? <Hacker /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
 
             {/* student dashboard  /studentportal */}
             {/* *****This is here so we can let the admin visit the student dashboard to view it */}

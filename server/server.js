@@ -18,6 +18,7 @@ const seriesRouter = require('./routes/series.router');
 const modulesRouter = require('./routes/modules.router');
 const orientationRouter = require('./routes/orientation.router');
 const orientationStepRouter = require('./routes/orientationStep.router');
+const hackerRouter = require('./routes/hacker.router');
 
 
 // Body parser middleware
@@ -42,6 +43,7 @@ app.use('/api/series', seriesRouter);
 app.use('/api/modules', modulesRouter);
 app.use('/api/orientation', orientationRouter);
 app.use('/api/orientation/step', orientationStepRouter);
+app.use('/api/hipster/hacker/hustler', hackerRouter);
 
 
 // Serve static files
