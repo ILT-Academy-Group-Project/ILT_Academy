@@ -150,7 +150,7 @@ INSERT INTO "assignments"
 	("name", "moduleId", "content", "textField", "file", "video", "postClass", "seriesId")
 VALUES
 	('Plant a tree',
-	'1',
+	1,
 	'take an acorn and put it 6" deep and mulch above it',
 	'true',
 	'true',
@@ -158,13 +158,13 @@ VALUES
 	'true',
     1),
 	('Dance a jig',
-	'1',
+	1,
 	'turn on some Mylie and throw your hands up, make sure to party like you just dont care',
 	'false',
 	'false',
 	'true',
 	'false',
-    2);
+    1);
 	
 INSERT INTO "announcements"
 	("title", "content")

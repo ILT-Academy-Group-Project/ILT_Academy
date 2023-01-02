@@ -62,20 +62,19 @@ function CreateAnnouncement(){
                     <Grid item sm={2}></Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                    <Grid item sm={2}></Grid>
-                    <Grid item sm={8}>
+                    <Grid item sm={.25}></Grid>
+                    <Grid item sm={11.5}>
                         <textarea
                                 className='announcementTextArea'
                                 required
                                 placeholder="Announcement"
                                 value={content} // update local state                        
                                 onChange={evt => setContent(evt.target.value)}
-                        />
-                        
-                        <button type='submit'>Create Announcement</button>
+                        />                                                
                     </Grid>
-                    <Grid item sm={2}></Grid>
+                    <Grid item sm={.25}></Grid>                
                 </Grid>
+                <button type='submit'>Create Announcement</button>
             </form>
     )
 }

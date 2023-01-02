@@ -116,14 +116,3 @@ input {
     padding-bottom: 0px !important;
 }
 
-.announcementTextArea {
-    width: 75%;
-    height: 300px;
-    font-size: 24px;
-}
-
-.announcementContentField {
-    width: 75%;
-    height: 300px;
-    font-size: 24px;
-}
