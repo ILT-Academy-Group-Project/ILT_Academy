@@ -162,6 +162,8 @@ function CohortDetails() {
 
     return(
         <>
+        <Button
+        onClick={() => history.push(`/home`)}>Back to Dashboard</Button>
         <h1>{cohortInfo.cohortName}</h1>
 
             {newSeriesObject.map(series => {
