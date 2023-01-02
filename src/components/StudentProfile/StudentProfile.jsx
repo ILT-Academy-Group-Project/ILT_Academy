@@ -23,9 +23,12 @@ function StudentProfile() {
             type: 'FETCH_COHORT',
             payload: params.cohortId
         });
-
         dispatch({
             type: 'FETCH_STUDENT',
+            payload: params.username
+        })
+        dispatch({
+            type:'FETCH_STUDENT_ASSIGNMENTS',
             payload: params.username
         })
 

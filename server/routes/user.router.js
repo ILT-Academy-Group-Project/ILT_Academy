@@ -22,7 +22,6 @@ router.get('/:username', rejectUnauthenticated, async (req, res) => {
         WHERE "user".username = $1;
         `;
         const sqlParams = [req.params.username]
-        console.log('sqlparams is ', sqlParams)
     
         let dbResult = await pool.query(sqlText,sqlParams)
         res.send(dbResult.rows[0]);
