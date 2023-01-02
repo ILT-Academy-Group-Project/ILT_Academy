@@ -164,7 +164,7 @@ VALUES
 	'false',
 	'true',
 	'false',
-    2);
+    1);
 	
 INSERT INTO "announcements"
 	("title", "content")
