@@ -63,6 +63,9 @@ function Cohorts() {
                 accessCode
             }
         })
+        //empty fields
+        setAccessCode('');
+        setCohortName('');
         handleClose();
     }
 
@@ -117,7 +120,7 @@ function Cohorts() {
                 </Card>
             </Grid2>
         </ThemeProvider>
-        {/* ADD SERIES MODAL */}
+        {/* ADD COHORT MODAL */}
         <Modal 
             open={open}
             onClose={handleClose}>

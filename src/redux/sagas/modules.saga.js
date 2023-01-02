@@ -65,10 +65,30 @@ function* publishCohortModule(action) {
     }
 }
 
+//make a new module
+function* createModule(action) {
+    // console.log('in createModule SAGA', action.payload);
+
+    try{
+        //send new module to server
+        yield axios.post('/api/modules', action.payload);
+
+        //update redux
+        yield put({
+            type: 'FETCH_MODULES'
+        });
+
+    } catch (err) {
+        console.error('in createModule SAGA error:', err.message);
+    }
+
+}
+
 function* modulesSaga() {
   yield takeLatest('FETCH_MODULES', fetchModules);
   yield takeLatest('FETCH_COHORT_MODULES', fetchCohortModules);
   yield takeLatest('PUBLISH_MODULE', publishCohortModule);
+  yield takeLatest('CREATE_MODULE', createModule);
 }
 
 export default modulesSaga;

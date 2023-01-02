@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { useHistory, useParams } from 'react-router-dom';
@@ -19,6 +19,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
+import { Input } from '@mui/material';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 
 
 
@@ -30,7 +33,26 @@ function Modules() {
     const assignments = useSelector(store => store.assignments.assignmentsReducer);
     const [expanded, setExpanded] = React.useState(false);
 
+    //modal controls, opens and handles close
+    const [open, setOpen] = useState(false);
+    const handleClose = () => setOpen(false);
     // console.log('🍏 params.id is THIS ', params.seriesId) 
+
+    //state for form
+    const [name, setName] = useState('');
+
+    //modal style
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 300,
+        bgcolor: 'white',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        };
 
 
 
@@ -71,10 +93,25 @@ function Modules() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const createModule = (evt) => {
+        evt.preventDefault();
+        // console.log('in createModule');
+        //dispatch to SAGA for axios to server/db
+        dispatch({
+            type: 'CREATE_MODULE',
+            payload:{
+                name,
+                seriesId: params.seriesId
+            }
+        })
+        //empty fields
+        setName('')
+        //close modal
+        handleClose();
+    }
 
     return (
         <>
-
             {modules.map(module => (
                 <>
                     <Accordion expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
@@ -120,13 +157,40 @@ function Modules() {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
+                            {/* CREATE A NEW ASSIGNMENT */}
                             <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
-
+                    
                 </>
             ))}
+            {/* CREATE A NEW MODULE */}
+            <Button
+                onClick={()=>setOpen(!open)}
+                sx={{ minHeight: 100, fontSize: 35 }}
+                color='primary'
+                variant='outlined'
+            >
+                    Create New Module
+            </ Button>
+            
+            <Modal 
+            open={open}
+            onClose={handleClose}>
+                <Box sx={style} >
+                    <form onSubmit={createModule}>
+                        <label>Module Name</label>
+                        <Input 
+                            type='text' 
+                            placeholder='Module Name'
+                            value={name}
+                            onChange={(evt)=>setName(evt.target.value)}
+                        />
+                        <Button type='submit'>Create Module</Button>
+                    </form>
+                </Box>
+            </Modal>
         </>
     )
 }
