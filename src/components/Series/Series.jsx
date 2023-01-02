@@ -58,7 +58,7 @@ function Series() {
                             color='primary'
                             fullWidth='true'
                             variant='outlined'
-                            onClick={() => history.push(`/admin/orientation`)}>Orientation
+                            onClick={() => history.push(`/admin/orientation/list`)}>Orientation
                         </ Button>
                         {series.map(serial => (
 
