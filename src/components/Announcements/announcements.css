@@ -1,0 +1,12 @@
+.announcementTextArea {
+    height: 300px;
+    font-size: 17px;
+    width: 100%;
+}
+
+.announcementContentField>p {
+    margin: 15px;
+    width: 95%;
+    height: 100px;
+    font-size: 20px;
+}

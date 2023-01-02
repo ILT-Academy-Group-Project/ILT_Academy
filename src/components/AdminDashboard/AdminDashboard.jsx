@@ -4,6 +4,7 @@ import Series from '../Series/Series';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { Card, Box } from '@mui/material';
 import CalendarList from '../Calendar/CalendarList/CalendarList';
+import Announcements from '../Announcements/Announcements';
 
 
 // This is one of our simplest components
@@ -22,16 +23,16 @@ function AdminDashboard (){
         <Box sx={{ flexGrow: 1 }}>
         <Grid2 container spacing={2} >
         <Grid2 item xs={3}>
-            <h1>Anouncements</h1>
-            <Box sx={{ backgroundColor: 'grey', minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
-            </Box>
             <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
                 <CalendarList />
             </Box>
         </Grid2>
         <Grid2 item xs={6} className='cohortCard'>
             {/* <h1>Cohorts</h1> */}
-            <Cohorts />
+            <Cohorts />            
+            <Box sx={{ backgroundColor: 'grey', minWidth: 200, width: 1, minHeight: 400, margin: 'auto'}}>
+            <Announcements />
+            </Box>
         </Grid2>
         <Grid2 item xs={3}>
             <Series />

@@ -17,30 +17,30 @@ function AnnouncementItems({announcement}){
 
     //case editMode = true
     return(
-        <>
+        <div className='announcementContentField'>
             <Grid container spacing ={2}>
-                <Grid item sm={2}></Grid>
-                <Grid item sm={8}>
+                <Grid item sm={.5}></Grid>
+                <Grid item sm={11}>
                     <h3>{announcement.title}</h3>  
                     <p>{announcement.createdDate}</p>
                 </Grid>
-                <Grid item sm={2}>
+                <Grid item sm={.5}>
                 </Grid>
             </Grid>
             <Grid container spacing={2}>
-                <Grid item sm={2}></Grid>
-                <Grid item sm={8}>
+                <Grid item sm={1}></Grid>
+                <Grid item sm={10}>
                     
-                    <div className='announcementContentField'>
-                        <p>
+                    <div>
+                        <p className='announcementContent'>
                             {announcement.content}
                         </p>
                     </div>
                     
                 </Grid>
-                <Grid item sm={2}></Grid>
+                <Grid item sm={1}></Grid>
             </Grid>
-        </>
+        </div>
         )
 }
 

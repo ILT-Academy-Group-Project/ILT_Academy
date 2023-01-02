@@ -7,6 +7,9 @@ import CreateAnnouncement from './CreateAnnouncement';
 //sweet alert import
 const Swal = require('sweetalert2')
 
+//css
+import './announcements.css';
+
 
 //MUI imports
 import {
