@@ -257,7 +257,7 @@ function App() {
             {/* student AND admin view of student profile  /profile/:username */}
             <ProtectedRoute
               exact
-              path='/profile/:username'>
+              path='/profile/:username/:cohortId'>
                 <StudentProfile />
             </ProtectedRoute>
           

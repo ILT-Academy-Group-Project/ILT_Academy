@@ -44,7 +44,7 @@ function* publishCohortSeries(action) {
         })
 
     } catch (err){
-        console.log('error in cohort.saga publishCohortSeries', err);
+        console.log('error in series.saga publishCohortSeries', err);
     }
 }
 

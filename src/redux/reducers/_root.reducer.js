@@ -12,6 +12,7 @@ import orientation from './orientation.reducer';
 import cohortStudents from './cohort.student.reducer';
 import cohortSeries from './cohort.series.reducer';
 import cohortModules from './cohort.modules.reducer';
+import student from './student.reducer';
 
 
 
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
 //   assignments,
   events,
   submissions,
+  student,
 });
 
 export default rootReducer;

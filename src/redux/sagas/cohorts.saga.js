@@ -32,7 +32,7 @@ function* fetchCohortStudents(action){
 function* fetchCohort(action) {
     try{
         const cohortData = yield axios.get(`api/cohorts/name/${action.payload}`)
-            console.error('get cohort info by cohort ID', cohortData.data[0]);
+            console.log('get cohort info by cohort ID', cohortData.data[0]);
         yield put({
             type: 'SET_COHORT', 
             payload: cohortData.data[0]

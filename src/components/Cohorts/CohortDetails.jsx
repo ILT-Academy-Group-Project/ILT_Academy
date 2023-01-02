@@ -100,7 +100,9 @@ function CohortDetails() {
             lastName: student.lastName,
             email: student.email,
             username: student.username,
-            viewStudent: RenderButton(student.username)
+            viewStudent: RenderButton(student.username),
+            cohortId: student.cohortId
+
 
             
         }
@@ -130,6 +132,11 @@ function CohortDetails() {
             width: 150,
             renderCell: RenderButton
             
+          },
+          {
+            field: 'cohortId',
+            headerName: 'Cohort ID',
+            width: 80,
           }
     ];
 
@@ -137,11 +144,11 @@ function CohortDetails() {
         return `${params.row.firstName || ''} ${params.row.lastName || ''}`
     }
 
-    function RenderButton(username) {
+    function RenderButton(params) {
       
         return (
             <Button
-              onClick={()=> handleClick(username)}
+              onClick={()=> handleClick(params)}
               component="button"
               variant="contained"
               size="small"
@@ -153,9 +160,10 @@ function CohortDetails() {
     };
 
     function handleClick(params){
-        console.log('CLICKETY CLICK username', params.row.username);
+        console.log('CLICKETY CLICK params.row', params.row);
         let username = params.row.username
-        history.push(`/profile/${username}`)
+        let cohortId = params.row.cohortId
+        history.push(`/profile/${username}/${cohortId}`)
     }
     
  
