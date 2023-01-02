@@ -76,7 +76,8 @@ CREATE TABLE "assignments" (
 	"video" BOOL DEFAULT 'false',
 	"community" BOOL DEFAULT 'false',
 	"postClass" BOOL DEFAULT 'false',
-    "feedback" VARCHAR
+    "feedback" VARCHAR,
+    "seriesId" INT REFERENCES "series" ON DELETE CASCADE
 );
 
 
@@ -146,7 +147,7 @@ VALUES
 	('2', '201');
 	
 INSERT INTO "assignments"
-	("name", "moduleId", "content", "textField", "file", "video", "postClass")
+	("name", "moduleId", "content", "textField", "file", "video", "postClass", "seriesId")
 VALUES
 	('Plant a tree',
 	'1',
@@ -154,14 +155,16 @@ VALUES
 	'true',
 	'true',
 	'false',
-	'true'),
+	'true',
+    1),
 	('Dance a jig',
 	'1',
 	'turn on some Mylie and throw your hands up, make sure to party like you just dont care',
 	'false',
 	'false',
 	'true',
-	'false');
+	'false',
+    2);
 	
 INSERT INTO "announcements"
 	("title", "content")

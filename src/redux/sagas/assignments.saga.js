@@ -23,7 +23,6 @@ function* fetchAssignments() {
      }
 }
 
-
 function* createAssignment(action) {
     // console.log('in createAssignment SAGA with payload of:', action.payload);
      
@@ -45,6 +44,7 @@ function* createAssignment(action) {
     formData.append('textField', data.textField);
     formData.append('file', data.file);
     formData.append('video', data.video);
+    formData.append('seriesId', data.seriesId);
 //post to server
 
     try{
@@ -63,7 +63,7 @@ function* createAssignment(action) {
 }
 
 function* fetchSelectedAssignment(action){
-    // console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
+    console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
     try{
         //get selectedAssignment from server
         const selectedAssignment = yield axios.get(`/api/assignments/${action.payload}`);
@@ -82,14 +82,113 @@ function* fetchSelectedAssignment(action){
 
 }
 
+function* fetchSeriesAssignments(action){
+    //get all assignments from series with id of action.payload (seriesId)
+    try{
+        //get assignments in series from server
+        const seriesAssignments = yield axios.get(`/api/assignments/series/${action.payload}`);
+        // console.log('response from GET assignment by series', seriesAssignments.data);
+
+        //send results to redux store
+        yield put ({
+            type: 'SET_SERIES_ASSIGNMENTS',
+            payload: seriesAssignments.data
+        });
+
+    } catch (err) {
+        //error route tested
+        console.error('in fetchSelectedAssignment error', err);
+    }
+}
+
+
+function* deleteAssignment(action){
+    // console.log('in deleteAssignment SAGA with payload of:', action.payload);
+
+    try {
+        //send id via axios delete request
+        yield axios.delete(`/api/assignments/${action.payload}`)
+    } catch (err) {
+        console.error('in deleteAssignment SAGA with error:', err);
+    }
+
+}
+
+function* fetchEditAssignment(action){
+    console.log('in fetchEditAssignment saga with payload of:', action.payload);
+    try{
+        //get selectedAssignment from server
+        const editAssignment = yield axios.get(`/api/assignments/${action.payload}`);
+        
+        console.log('in fetchEditAssignments with response of:', editAssignment.data);
+
+        //send results to redux store
+        yield put ({
+            type: 'SET_EDIT_ASSIGNMENT',
+            payload: editAssignment.data
+        });
+    } catch (err) {
+        //error route tested
+        console.error('in fetchEditAssignment error', err);
+    }
+}
+
+function* updateAssignment(action){
+    // console.log('in updateAssignment with a payload of:', action.payload);
+    
+    //assign payload to data
+    let data = action.payload;
+    //new formdata
+    let formData = new FormData;
+    formData.append('id', data.id);
+    formData.append('media', data.media);
+    formData.append('name', data.name);
+    formData.append('content', data.content);
+    formData.append('postClass', data.postClass);
+    formData.append('textField', data.textField);
+    formData.append('file', data.file);
+    formData.append('video', data.video);
+    
+    try{
+        //send updates to the server
+        yield axios.put('/api/assignments', formData, {
+            
+            headers:{
+                headers: { "Content-Type": "multipart/form-data" },
+            }
+        })
+
+        //update redux
+        yield put ({
+            type: 'FETCH_ASSIGNMENTS',
+        })
+    } catch (err){
+        console.error('in editAssignment SAGA put route:', err);
+    }
+}
+
+
 function* assignmentsSaga() {
-  yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments)
+    yield takeLatest('FETCH_ASSIGNMENTS', fetchAssignments);
 
-  //CREATE Assignment
-  yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
+    //CREATE Assignment
+    yield takeEvery('CREATE_ASSIGNMENT', createAssignment);
 
-  //fetch selected assignment for details view
-  yield takeEvery('FETCH_SELECTED_ASSIGMENT', fetchSelectedAssignment)
+    //fetch selected assignment for details view
+    yield takeEvery('FETCH_SELECTED_ASSIGNMENT', fetchSelectedAssignment);
+
+    //DELETE assignment
+    yield takeEvery('DELETE_ASSIGNMENT', deleteAssignment);
+
+    //FETCH EDIT ASSIGNMENT
+    yield takeEvery('FETCH_EDIT_ASSIGNMENT', fetchEditAssignment);
+
+
+    yield takeLatest('FETCH_SERIES_ASSIGNMENTS', fetchSeriesAssignments);
+
+    // EDIT ASSIGNMENT
+    yield takeEvery('UPDATE_ASSIGNMENT', updateAssignment);
+
 
 }
 

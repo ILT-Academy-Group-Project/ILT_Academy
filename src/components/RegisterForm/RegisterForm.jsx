@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function RegisterForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
     const [accessCode, setAccessCode] = useState('');
     const errors = useSelector((store) => store.errors);
     const dispatch = useDispatch();
@@ -12,14 +13,18 @@ function RegisterForm() {
     const registerUser = (event) => {
     event.preventDefault();
 
-    dispatch({
+    if(password===password2)
+    {dispatch({
         type: 'REGISTER',
         payload: {
         username: username,
         password: password,
         accessCode: accessCode,
         },
-    });
+    });}
+    else{
+        alert('Passwords Do Not Match!');
+    }
     }; // end registerUser
 
     //accessCode test log
@@ -54,6 +59,18 @@ function RegisterForm() {
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
+            />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="password">
+            Confirm Password:
+            <input
+            type="password"
+            name="password"
+            value={password2}
+            required
+            onChange={(event) => setPassword2(event.target.value)}
             />
         </label>
         </div>

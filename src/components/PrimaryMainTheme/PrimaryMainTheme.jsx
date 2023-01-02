@@ -7,7 +7,10 @@ const PrimaryMainTheme = createTheme({
     },
     secondary: {
       main: '#333333'
-    }
+    },
+    unpublished: {
+      main: '#808080'
+    },
   }
 });
 

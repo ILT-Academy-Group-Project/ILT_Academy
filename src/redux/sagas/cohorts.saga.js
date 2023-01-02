@@ -15,8 +15,24 @@ function* fetchCohorts() {
      }
 }
 
+function* fetchCohortStudents(action){
+    try{
+        let cohortStudents = yield axios.get(`api/cohorts/${action.payload}`) //get students and cohort info from specific cohort
+            console.log('cohort students in cohorts.saga are ', cohortStudents)
+        yield put({
+            type: 'SET_COHORT_STUDENTS',
+            payload: cohortStudents.data
+        })
+    } catch{
+        console.log('error in cohort.saga')
+    }
+}
+
+
+
 function* cohortsSaga() {
   yield takeLatest('FETCH_COHORTS', fetchCohorts);
+  yield takeLatest('FETCH_COHORT_STUDENTS', fetchCohortStudents);
 }
 
 export default cohortsSaga;

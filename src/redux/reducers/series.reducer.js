@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+
 
 //Series reducer
 
@@ -10,5 +10,7 @@ const seriesReducer = (state = [], action ) => {
             return state;
     }
 }
+
+
 
 export default seriesReducer;

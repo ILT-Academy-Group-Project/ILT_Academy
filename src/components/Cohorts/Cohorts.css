@@ -2,3 +2,11 @@
     display : flex;
     flex-wrap: wrap;
 }
+
+.published{
+    color: black;
+}
+
+.unpublished {
+    color:#808080;
+}
