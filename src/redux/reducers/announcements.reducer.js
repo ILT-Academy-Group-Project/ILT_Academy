@@ -11,17 +11,6 @@ const announcementsReducer = ( state=[], action ) => {
     return state;
 };
 
-const editAnnouncementReducer = (state={}, action) => {
-    // console.log('action.payload', action.payload)
-    switch(action.type) {
-        case 'SET_SINGLE_ANNOUNCEMENT':
-            return action.payload;
-        case 'UPDATE_ANNOUNCEMENT':
-            return {...state, ...action.payload}
-    };
-    return state;
-}
-
 
 //PUT announcements?
 
@@ -37,5 +26,4 @@ const editAnnouncementReducer = (state={}, action) => {
 
 export default combineReducers({
    announcementsReducer,
-   editAnnouncementReducer,
 });

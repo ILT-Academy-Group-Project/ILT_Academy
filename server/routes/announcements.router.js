@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 //query text
 const sqlText = `
     SELECT * FROM "announcements"
-    ORDER BY "createdDate"
+    ORDER BY "createdDate" DESC
     LIMIT 2;
 `;
 
@@ -34,8 +34,25 @@ try {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
-  
+router.post('/', rejectUnauthenticated, async (req, res) => {
+    console.log('in announcement POST route', req.body);
+
+    try{
+        const sqlText=`
+            INSERT INTO "announcements"
+                ("title", "content")
+            VALUES
+                ($1, $2);
+        `;
+
+        const sqlParams=[req.body.title, req.body.content];
+        //query to db
+        await pool.query(sqlText, sqlParams);
+
+        res.sendStatus(201);
+    } catch (err){
+        res.sendStatus(500);
+    }
 });
 
 /**

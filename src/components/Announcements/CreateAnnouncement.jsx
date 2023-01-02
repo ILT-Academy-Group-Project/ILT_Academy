@@ -21,21 +21,30 @@ function CreateAnnouncement(){
 
     //callbacks
     const history = useHistory();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const submitAnnouncement = (announcement) => {
+    //use state for form inputs
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+
+    const submitAnnouncement = (evt) => {
+        evt.preventDefault();
         // console.log('in submitAnnouncement fn');
-        //send announcement to DB
-        console.log('announcement', announcement);
+        //send announcemento SAGA for axios request
             dispatch({
                 type: 'CREATE_ANNOUNCEMENT',
-                payload: announcement
-            })
+                payload: {
+                    title,
+                    content
+                }
+            });
+            setTitle('');
+            setContent('');
     }
 
 
     return(
-        <form>
+        <form  onSubmit={submitAnnouncement}>
                 <h3>Make New Announcement</h3>
                 <Grid container spacing ={2}>
                     <Grid item sm={2}></Grid>
@@ -44,15 +53,8 @@ function CreateAnnouncement(){
                             type='Text' 
                             placeholder='Announcement' 
                             style={{ width: 200, fontSize:20, height: 30}}
-                            // value={announcementToEdit.title} // update local state                        
-                            // onChange={evt => {
-                            //     dispatch({
-                            //         type: 'UPDATE_ANNOUNCEMENT',
-                            //         payload:{
-                            //             title: evt.target.value
-                            //         }
-                            //     })
-                            // }} 
+                            value={title} // update local state                        
+                            onChange={evt => setTitle(evt.target.value)}
                             required
                         />
                         
@@ -66,11 +68,11 @@ function CreateAnnouncement(){
                                 className='announcementTextArea'
                                 required
                                 placeholder="Announcement"
-                                // value={announcementToEdit.content} // update local state                        
-                                
+                                value={content} // update local state                        
+                                onChange={evt => setContent(evt.target.value)}
                         />
                         
-                        <button onClick={() => submitAnnouncement()}>Create Announcement</button>
+                        <button type='submit'>Create Announcement</button>
                     </Grid>
                     <Grid item sm={2}></Grid>
                 </Grid>

@@ -20,8 +20,25 @@ function* fetchAnnouncements(){
     }
 }
 
+function* createAnnouncement(action){
+    // console.log('in createAnnouncement SAGA,', action.payload);
+    try{
+        //axios to endpoint for DB post
+        yield axios.post('/api/announcements', action.payload);
+
+        //update state
+        yield put({
+            type:"FETCH_ANNOUNCEMENTS",            
+        });
+
+    } catch (err){
+        console.error('in createAnnouncement SAGA error', err.message);
+    }
+}
+
 function* announcementsSaga() {
-    yield takeEvery("FETCH_ANNOUNCEMENTS", fetchAnnouncements)
+    yield takeEvery("FETCH_ANNOUNCEMENTS", fetchAnnouncements);
+    yield takeEvery('CREATE_ANNOUNCEMENT', createAnnouncement);
 }
 
 export default announcementsSaga;

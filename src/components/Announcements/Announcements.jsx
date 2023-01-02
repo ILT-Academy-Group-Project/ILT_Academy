@@ -38,7 +38,6 @@ function Announcements() {
     },[]);
 
     return (
-        
         <div>
             <header>
                 <h3>Announcements</h3>         
