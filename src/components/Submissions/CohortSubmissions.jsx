@@ -109,8 +109,9 @@ function CohortSubmissions() {
       })
 
     return(
-
             <>
+            <Button
+            onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}/${params.assignmentId}`)}>Back to Assignments</Button>
             <h1>{assignment.name}</h1>
             <h3>{cohortInfo.cohortName}</h3>
             
