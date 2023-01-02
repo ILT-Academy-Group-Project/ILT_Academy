@@ -30,7 +30,7 @@ export default function* rootSaga() {
     assignmentsSaga(),
     orientationSaga(),
     stepSaga(),
-    // announcementsSaga(),
+    announcementsSaga(),
     // eventsSaga(),
     // assignmentsSaga(),
     eventsSaga(),
