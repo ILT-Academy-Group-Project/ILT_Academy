@@ -24,7 +24,7 @@ CREATE TABLE "user" (
 	"hustlerInterest" INT DEFAULT 0,
 	"hustlerSkill" INT DEFAULT 0,
 	"accessLevel" INT DEFAULT 1,
-	"cohortId" INT REFERENCES "cohorts",
+	"cohortId" INT REFERENCES "cohorts" ON DELETE SET NULL,
 	"oriented" INT DEFAULT 0,
 	"aboutMe" VARCHAR
 );

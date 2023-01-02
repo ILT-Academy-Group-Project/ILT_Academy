@@ -40,7 +40,7 @@ function* createCohort(action){
             type: 'FETCH_COHORTS'
         });
         if(response.data.includes('already exists')){
-            alert('AccessCode already exists');
+            alert('AccessCode or Cohort Name already exists');
         }
 
     } catch (err){

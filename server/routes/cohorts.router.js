@@ -62,7 +62,7 @@ router.post('/', rejectUnauthenticated, async(req, res) => {
 
     } catch (err) {
         if(err.detail.includes('already exists')){
-            res.send('accessCode already exists');
+            res.send('accessCode or cohortname already exists');
         } 
         else{
             res.sendStatus(500);
