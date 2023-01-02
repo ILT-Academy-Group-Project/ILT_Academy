@@ -7,8 +7,6 @@ const announcementsReducer = ( state=[], action ) => {
     switch(action.type) {
         case 'SET_ANNOUNCEMENTS':
             return action.payload;
-        case 'UPDATE_ANNOUNCEMENTS':
-            return {...state[action.payload.i], ...action.payload}
     };
     return state;
 };

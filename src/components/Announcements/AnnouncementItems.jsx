@@ -13,7 +13,7 @@ import {
     Grid
 } from '@mui/material'
 
-function AnnouncementItems({submitAnnouncement, announcement}){
+function AnnouncementItems({submitAnnouncement, updateMode, setUpdateMode, announcement}){
     //state
     const [editMode, setEditMode] = useState(false)
     
@@ -24,8 +24,10 @@ function AnnouncementItems({submitAnnouncement, announcement}){
     
     //settheedit function
     const chooseEditAnnouncement = () => {
-        setEditMode(!editMode)
+        setEditMode(!editMode);
+        setUpdateMode(!updateMode);
     }
+
 
 
     //case editMode = true
@@ -41,9 +43,8 @@ function AnnouncementItems({submitAnnouncement, announcement}){
                         value={announcement.title} // update local state                        
                         onChange={evt => {
                             dispatch({
-                                type: 'UPDATE_ANNOUNCEMENTS',
+                                type: 'UPDATE_ANNOUNCEMENT',
                                 payload:{
-                                    i,
                                     title: evt.target.value
                                 }
                             })
@@ -52,7 +53,7 @@ function AnnouncementItems({submitAnnouncement, announcement}){
                     />
                     
                 </Grid>
-                <Grid item sm={2}><button onClick={()=>}>Cancel Update</button></Grid>
+                <Grid item sm={2}><button onClick={chooseEditAnnouncement}>Cancel Update</button></Grid>
             </Grid>
             <Grid container spacing={2}>
                 <Grid item sm={2}></Grid>
@@ -88,7 +89,13 @@ function AnnouncementItems({submitAnnouncement, announcement}){
                     <h3>{announcement.title}</h3>  
                                       
                 </Grid>
-                <Grid item sm={2}><button onClick={chooseEditAnnouncement}>Update</button></Grid>
+                <Grid item sm={2}>
+                    {
+                        !updateMode ? <button onClick={chooseEditAnnouncement}>Update</button>
+                        :
+                        null
+                    }
+                </Grid>
             </Grid>
             <Grid container spacing={2}>
                 <Grid item sm={2}></Grid>

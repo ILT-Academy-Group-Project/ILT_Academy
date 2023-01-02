@@ -25,6 +25,8 @@ function Announcements() {
     //state
     const announcements = useSelector(store => store.announcements.announcementsReducer)
 
+    //useState to track if an announcement is being edited
+    const [updateMode, setUpdateMode] = useState(false)
     //callbacks
     const history = useHistory();
     const dispatch = useDispatch()
@@ -56,6 +58,9 @@ function Announcements() {
                                 submitAnnouncement={submitAnnouncement}
                                 //pass state
                                 announcement={announcement}
+                                //pass setEditMode
+                                setUpdateMode={setUpdateMode}
+                                updateMode={updateMode}
                             />
                         )}                        
             </form>
