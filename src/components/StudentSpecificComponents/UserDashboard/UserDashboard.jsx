@@ -15,6 +15,8 @@ function UserDashboard(){
     const dispatch = useDispatch();
     const history = useHistory();
 
+    
+
     // useEffect(() => {
     //     //get assigned series for the render;
     //     dispatch({
@@ -25,17 +27,16 @@ function UserDashboard(){
     // },[])
 
 
-
+;
     return(
         // <div className="container">
         <Box sx={{ flexGrow: 1 }}>
         <Grid2 container spacing={2} >
             <Grid2 item xs={4}>
                 <Box sx={{ minWidth: 200, maxWidth: 325, maxHeight: 500, margin: 'auto', }}>
-                    <p><b>Profile Bit</b></p>
-                    <p>Unsername</p>
-                    <p>Cohort</p>
-                    <p>HHH score</p>
+                    <p><b>Profile</b></p>
+                    <p>{user.username}</p>
+                    <p>Hacker (todo: connect this to usertable!)</p>
                 </Box>
                 <Box sx={{ backgroundColor: 'grey', maxHeight: 400, width: .8, maxHeight: 400, marginLeft: 'auto', marginRight: 'auto', marginTop:0, padding:1}}>
                     <h2>Office Hours</h2>
