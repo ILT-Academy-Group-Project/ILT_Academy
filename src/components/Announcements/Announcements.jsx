@@ -1,3 +1,7 @@
+import React from 'react';
+
+
+
 function Announcements() {
     console.log('in announcements');
 
@@ -8,4 +12,4 @@ function Announcements() {
     );
 }
 
-def
+export default Announcements;
