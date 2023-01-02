@@ -25,7 +25,7 @@ function* fetchCohortStudents(action){
             payload: cohortStudents.data
         })
     } catch (err){
-        console.error('error in cohort.saga', err.message)
+        console.log('error in cohort.saga', err.message)
     }
 }
 

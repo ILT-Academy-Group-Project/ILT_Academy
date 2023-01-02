@@ -33,6 +33,7 @@ import OrientationList from '../Orientation/OrientationList';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
 import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
+import StudentProfile from '../StudentProfile/StudentProfile';
 
 
 import './App.css';
@@ -190,7 +191,7 @@ function App() {
             <LoginPage />}
           </ProtectedRoute>
 
-            {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
+            {/* Admin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
 
             {/* create lesson */}
             <ProtectedRoute
@@ -253,7 +254,12 @@ function App() {
             </ProtectedRoute> */}
 
 
-            {/* profile  /studentportal/profile/:username */}
+            {/* student AND admin view of student profile  /profile/:username */}
+            <ProtectedRoute
+              exact
+              path='/profile/:username'>
+                <StudentProfile />
+            </ProtectedRoute>
           
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
