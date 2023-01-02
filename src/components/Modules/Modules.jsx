@@ -22,8 +22,9 @@ import Checkbox from '@mui/material/Checkbox';
 import { Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-
-
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+//sweet alert import
+const Swal = require('sweetalert2')
 
 function Modules() {
     const dispatch = useDispatch();
@@ -110,6 +111,44 @@ function Modules() {
         handleClose();
     }
 
+    const deleteModule = (moduleId) =>{
+        console.log('in delete module with id of:', moduleId);
+        
+        Swal.fire({
+            title: 'Are you sure you want to delete this post?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            iconColor: 'red',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: 'red',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            'Deleted!',
+            'Your post has been deleted.'
+            )
+            //dispatch delete request to saga
+            // dispatch({
+            //     type:'DELETE_POST',
+            //     payload: {post_id: post.id, user_id: post.user_id}
+            // });
+            //after delete head home
+            // history.push('/home');
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            Swal.fire(
+            'Cancelled'
+            )
+        }
+        })
+        
+    }
+
     return (
         <>
             {modules.map(module => (
@@ -123,7 +162,8 @@ function Modules() {
                             <Typography sx={{ width: '33%', flexShrink: 0 }}>
                                 {module.name}
                             </Typography>
-                            <Typography sx={{ color: 'text.secondary' }}>Something? Maybe no Info?</Typography>
+                            <Typography sx={{ width: '33%', color: 'text.secondary' }}>Something? Maybe no Info?</Typography> 
+                                                       
                         </AccordionSummary>
                         <AccordionDetails>
                             <TableContainer component={Paper}>
@@ -158,7 +198,25 @@ function Modules() {
                                 </Table>
                             </TableContainer>
                             {/* CREATE A NEW ASSIGNMENT */}
-                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+                            <Grid2 container spacing={2}>
+                                <Grid2 item sm={9}>
+                                    <Button 
+                                        onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}
+                                    >
+                                        Add assignment
+                                    </Button>
+                                </Grid2>
+                                <Grid2 item sm={3}>
+                                    <Button 
+                                            sx={{ textAlign:'right'}} 
+                                            variant='contained' 
+                                            color='error'
+                                            onClick={()=>deleteModule(module.id)}
+                                        >
+                                        Delete Module
+                                    </Button>
+                                </Grid2>
+                            </Grid2>
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
