@@ -14,7 +14,7 @@ const announcementsReducer = ( state=[], action ) => {
 const editAnnouncementReducer = (state={}, action) => {
     // console.log('action.payload', action.payload)
     switch(action.type) {
-        case 'SET_EDIT_ANNOUNCEMENT':
+        case 'SET_SINGLE_ANNOUNCEMENT':
             return action.payload;
         case 'UPDATE_ANNOUNCEMENT':
             return {...state, ...action.payload}

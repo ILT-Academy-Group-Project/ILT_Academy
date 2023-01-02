@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AnnouncementItems from './AnnouncementItems';
+import CreateAnnouncement from './CreateAnnouncement';
 //sweet alert import
 const Swal = require('sweetalert2')
+
 
 //MUI imports
 import {
@@ -23,14 +25,11 @@ function Announcements() {
     // console.log('in announcements');
 
     //state
+    const user = useSelector((store) => store.user);
     const announcements = useSelector(store => store.announcements.announcementsReducer)
 
-    //useState to track if an announcement is being edited
-    const [updateMode, setUpdateMode] = useState(false)
-    //callbacks
-    const history = useHistory();
-    const dispatch = useDispatch()
 
+    const dispatch = useDispatch()
     //useEffect
     useEffect(()=>{
         dispatch ({
@@ -38,32 +37,25 @@ function Announcements() {
         });
     },[]);
 
-    const submitAnnouncement = () => {
-        console.log('in submitAnnouncement fn');
-
-    }
-
     return (
         
         <div>
             <header>
                 <h3>Announcements</h3>         
             </header>
-            <form>
-                        {announcements.map((announcement, i) => 
-                            <AnnouncementItems 
-                            //assign key
-                                key={i}
-                                //pass fn through props                            
-                                submitAnnouncement={submitAnnouncement}
-                                //pass state
-                                announcement={announcement}
-                                //pass setEditMode
-                                setUpdateMode={setUpdateMode}
-                                updateMode={updateMode}
-                            />
-                        )}                        
-            </form>
+                {announcements.map((announcement, i) => 
+                    <AnnouncementItems 
+                    //assign key
+                    key={i}
+                    //pass state
+                    announcement={announcement}
+                    />
+                )}                        
+            {user.accessLevel ===2 ?
+            <CreateAnnouncement />
+            :
+            null
+            }
         </div>
   
   

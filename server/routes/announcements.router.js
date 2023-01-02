@@ -15,7 +15,9 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 //   console.log('in get Announcements');
 //query text
 const sqlText = `
-    SELECT * FROM "announcements";
+    SELECT * FROM "announcements"
+    ORDER BY "createdDate"
+    LIMIT 2;
 `;
 
 try {
