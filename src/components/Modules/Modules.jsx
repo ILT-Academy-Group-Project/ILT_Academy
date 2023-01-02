@@ -34,10 +34,16 @@ function Modules() {
     const assignments = useSelector(store => store.assignments.assignmentsReducer);
     const [expanded, setExpanded] = React.useState(false);
 
+    //set up preclass post class arrays to seperately render in module
+    const preClass = assignments.filter(assignment => assignment.postClass === false);
+    const postClass = assignments.filter(assignment => assignment.postClass === true);
+
     //modal controls, opens and handles close
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
     // console.log('🍏 params.id is THIS ', params.seriesId) 
+
+
 
     //state for form
     const [name, setName] = useState('');
@@ -115,7 +121,7 @@ function Modules() {
         // console.log('in delete module with id of:', moduleId);
         
         Swal.fire({
-            title: 'Are you sure you want to delete this post?',
+            title: 'Are you sure you want to delete this module?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             iconColor: 'red',
@@ -172,31 +178,61 @@ function Modules() {
                             <TableContainer component={Paper}>
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
-                                        <TableRow>
-                                            <StyledTableCell align="right">Name</StyledTableCell>
-                                            <StyledTableCell align="right">Date Created</StyledTableCell>
-                                            <StyledTableCell align="right">Pre/Post Class</StyledTableCell>
-                                            <StyledTableCell align="right">Feedback</StyledTableCell>
+                                        <TableRow>                                        
+                                            <StyledTableCell align="center">Name</StyledTableCell>
+                                            <StyledTableCell align="center">Date Created</StyledTableCell>                                            
+                                            <StyledTableCell align="center">Feedback</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {assignments.map(assignment => {
-                                            if (assignment.moduleId === module.id) {
+                                    <TableRow>
+                                            <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {/* Display all pre-class assignments here */}
+                                        {preClass.map((assignment, i) => {
+                                            if (assignment.moduleId == module.id) {                                                
+                                                return (
+                                                    <StyledTableRow key={i}
+                                                        >                                                            
+                                                         <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
+                                                            {assignment.name}
+                                                            </Button>                                                            
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                     </StyledTableRow>
+                                                )
+                                            } 
+                                        })}
+                                        <TableRow>
+                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {/* display all postclass assignments here */}
+                                        {postClass.map((assignment, i)  => {
+                                            if (assignment.moduleId == module.id) {
+                                                // console.log('TRUE')
                                                 let pre = ''
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
-                                                    <StyledTableRow key={assignment.id}>
-                                                        {/* <StyledTableCell component="th" scope="row">
+                                                    <StyledTableRow key={i}
+                                                        >
+                                                        <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
                                                             {assignment.name}
-                                                        </StyledTableCell> */}
-                                                        <StyledTableCell align="right"><Link to={`/assignment/${assignment.id}`}>{assignment.name}</Link></StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
-                                                        <StyledTableCell align="right">{pre}</StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
-                                                    </StyledTableRow>
+                                                            </Button>
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                     </StyledTableRow>
                                                 )
-                                            }
+                                            } 
                                         })}
+                                       
                                     </TableBody>
                                 </Table>
                             </TableContainer>
@@ -258,3 +294,22 @@ function Modules() {
 }
 
 export default Modules;
+
+//saved code in case pre/post class render created a bug
+// {assignments.map(assignment => {
+//     if (assignment.moduleId === module.id) {
+//         let pre = ''
+//         assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+//         return (
+//             <StyledTableRow key={assignment.id}>
+//                 {/* <StyledTableCell component="th" scope="row">
+//                     {assignment.name}
+//                 </StyledTableCell> */}
+//                 <StyledTableCell align="right"><Link to={`/assignment/${assignment.id}`}>{assignment.name}</Link></StyledTableCell>
+//                 <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
+//                 <StyledTableCell align="right">{pre}</StyledTableCell>
+//                 <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
+//             </StyledTableRow>
+//         )
+//     }
+// })}

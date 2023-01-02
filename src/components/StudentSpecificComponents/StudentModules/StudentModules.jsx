@@ -50,9 +50,6 @@ function StudentModules (){
     const preClass = assignments.filter(assignment => assignment.postClass === false);
     const postClass = assignments.filter(assignment => assignment.postClass === true);
 
-    // console.log('preclass assignments:', preClass);
-    // console.log('postclass assignments:', postClass);
-
     useEffect(() => {
         // dispatch({
         //     type:'FETCH_COHORT_STUDENTS',
