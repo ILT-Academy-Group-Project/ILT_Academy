@@ -30,12 +30,14 @@ import UserDashboard from '../StudentSpecificComponents/UserDashboard/UserDashbo
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 import OrientationCreate from '../Orientation/OrientationCreate';
 import OrientationList from '../Orientation/OrientationList';
+import OrientationEdit from '../Orientation/OrientationEdit';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
 import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
 
 
 import './App.css';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -104,6 +106,13 @@ function App() {
             path="/admin/orientation/create">              
             { user.accessLevel === 2 ? <OrientationCreate /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in admin can edit assignment
+            exact
+            path="/admin/orientation/edit/:id">
+              { user.accessLevel === 2 ? <OrientationEdit /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
 
           <ProtectedRoute
           // logged in admin shows Modules within selected Series

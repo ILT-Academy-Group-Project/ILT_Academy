@@ -57,6 +57,25 @@ function* createOrientation(action) {
     }    
 }
 
+function* fetchEditOrientation(action){
+    console.log('in fetchEditOrientation saga with payload of:', action.payload);
+    try{
+        //get selectedAssignment from server
+        const editOrientation = yield axios.get(`/api/orientation/${action.payload}`);
+        
+        console.log('in fetchEditOrientation with response of:', editOrientation.data);
+
+        //send results to redux store
+        yield put ({
+            type: 'SET_EDIT_ORIENTATION',
+            payload: editOrientation.data
+        });
+    } catch (err) {
+        //error route tested
+        console.error('in fetchEditOrientation error', err);
+    }
+}
+
 // function* editCurrentStep(action) {
 //     console.log('CURRENT STEP', action.payload)
 // }
@@ -64,6 +83,7 @@ function* createOrientation(action) {
 function* orientationSaga() {
   yield takeLatest('FETCH_ORIENTATION', fetchOrientation);
   yield takeLatest('CREATE_ORIENTATION', createOrientation);
+  yield takeLatest('FETCH_EDIT_ORIENTATION', fetchEditOrientation);
 //   yield takeLatest('EDIT_CURRENT_STEP', editCurrentStep);
 }
 
