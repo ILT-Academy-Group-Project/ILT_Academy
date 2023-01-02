@@ -52,7 +52,7 @@ function Series() {
             <ThemeProvider theme={PrimaryMainTheme}>
                 <Grid2 container spacing={2}>
                     <Grid2 direction='column'>
-                        <h1>Series</h1>
+                        <h1>Curriculum Creation</h1>
                         <Button
                             sx={{ minHeight: 100, fontSize: 35 }}
                             color='primary'
