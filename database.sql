@@ -44,7 +44,8 @@ CREATE TABLE "series" (
 CREATE TABLE "cohorts_series" (
 	"id" SERIAL PRIMARY KEY,
 	"cohortId" INT REFERENCES "cohorts" ON DELETE CASCADE,
-	"seriesId" INT REFERENCES "series" ON DELETE CASCADE
+	"seriesId" INT REFERENCES "series" ON DELETE CASCADE,
+    UNIQUE ("cohortId", "seriesId")
 );
 
 
@@ -60,7 +61,8 @@ CREATE TABLE "cohorts_modules" (
 	"cohortId" INT REFERENCES "cohorts" ON DELETE CASCADE,
 	"moduleId" INT REFERENCES "modules" ON DELETE CASCADE,
 	"assignedDate" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	"dueDate" TIMESTAMP
+	"dueDate" TIMESTAMP,
+    UNIQUE ("cohortId", "moduleId")
 );
 
 
