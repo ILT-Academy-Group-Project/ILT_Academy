@@ -22,11 +22,22 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import Modules from '../Modules/Modules';
 import Series from '../Series/Series';
 import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
+import CohortDetails from '../Cohorts/CohortDetails';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
+import CohortModules from '../Cohorts/CohortModules';
+import CohortSubmissions from '../Submissions/CohortSubmissions';
+import UserDashboard from '../StudentSpecificComponents/UserDashboard/UserDashboard';
+import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 import OrientationCreate from '../Orientation/OrientationCreate';
 import OrientationList from '../Orientation/OrientationList';
+import OrientationEdit from '../Orientation/OrientationEdit';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
+import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
+
 
 import './App.css';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -97,6 +108,13 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in admin can edit assignment
+            exact
+            path="/admin/orientation/edit/:id">
+              { user.accessLevel === 2 ? <OrientationEdit /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
+
+          <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
             path="/admin/orientation/list">              
@@ -111,8 +129,8 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
+              // redirect to the /home page
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -127,7 +145,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -139,19 +157,47 @@ function App() {
             exact
             path="/home"
           >
-            {user.id ?
+            {user.accessLevel === 2 ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <AdminDashboard/>
+              :
+              user.accessLevel === 1 ?
+              <UserDashboard />  
+            //   Change to user dashboard
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <Redirect to ="/login"/>
             }
           </Route>
 
-            {/* Admin Home  /admin */}
+            {/* Admin Home Dashboard /admin */}
+            <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin">              
+            { user.accessLevel === 2 ?  <AdminDashboard/>: <Redirect exact to="/login" />}
+          </ProtectedRoute>
 
-            {/* Admin cohort view of individual cohort   /admin/:id (cohort id)  */}
+            {/* Admin cohort view of individual cohort   /admin/cohort/:id (cohort id)  */}
+          <ProtectedRoute
+            exact 
+            path="/admin/cohort/:cohortId">
+            {user.accessLevel === 2 ? 
+            <CohortDetails /> 
+            :
+            <LoginPage />}
+          </ProtectedRoute>
+
+          {/* Admin can view cohort's modules within selected series  /admin/cohort/molues/:id (series id) */}
+          <ProtectedRoute
+            exact 
+            path="/admin/cohort/modules/:cohortId/:seriesId">
+            {user.accessLevel === 2 ? 
+            <CohortModules /> 
+            :
+            <LoginPage />}
+          </ProtectedRoute>
 
             {/* Amin submissions views by lesson  /admin/submissions/:id  (submission id)  */}
 
@@ -161,16 +207,43 @@ function App() {
             exact
             path="/admin/create/assignment/:seriesId/:moduleId">
               { user.accessLevel === 2 ? <CreateAssignment /> : <Redirect exact to="/login" />}
-          </ProtectedRoute>
+            </ProtectedRoute>
+            {/*  */}
+            <ProtectedRoute
+            // logged in admin can edit assignment
+            exact
+            path="/admin/assignment/edit/:id">
+              { user.accessLevel === 2 ? <EditAssignment /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
+
+            <ProtectedRoute
+            //logged in admin shows cohort submissions for assignment
+            exact
+            path="/admin/view/submissions/:cohortId/:assignmentId">
+              { user.accessLevel === 2 ? <CohortSubmissions/> : <Redirect exact to="/login" />}
+            
+
+            </ProtectedRoute>
 
             {/* STUDENT BELOW HERE _______________________________ */}
 
             {/* orientation   /studentportal/orientation (maybe /:page) */}
 
             {/* student dashboard  /studentportal */}
-
+            {/* *****This is here so we can let the admin visit the student dashboard to view it */}
+            <ProtectedRoute
+            //logged in admin shows cohort submissions for assignment
+            exact
+            path="/studentportal">
+              { user.id ? <UserDashboard /> : <Redirect exact to="/login" />}
+            </ProtectedRoute>
             {/* student portal moddules  /studentportal/modules/:id  (series id) */}
-
+            <ProtectedRoute
+                exact
+                path='/studentportal/modules/:id'
+            >
+                <StudentModules />
+            </ProtectedRoute>
             {/* individual lesson boy id (viewable by admin and student)  /lesson/:id (lesson id) */}
 
             <ProtectedRoute
@@ -179,10 +252,17 @@ function App() {
             >
                 <AssignmentDetails />
             </ProtectedRoute>
+          
+                {/* Assignment resubmission path
+            <ProtectedRoute
+                exact
+                path='/assignment/update/:id'
+            >
+                <ReSubmitAssignment />
+            </ProtectedRoute> */}
 
 
             {/* profile  /studentportal/profile/:username */}
-          
           
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

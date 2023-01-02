@@ -9,7 +9,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Assignment, AssignmentSharp } from '@mui/icons-material';
-
+import {Link} from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -109,7 +109,7 @@ function Modules() {
                                                         {/* <StyledTableCell component="th" scope="row">
                                                             {assignment.name}
                                                         </StyledTableCell> */}
-                                                        <StyledTableCell align="right">{assignment.name}</StyledTableCell>
+                                                        <StyledTableCell align="right"><Link to={`/assignment/${assignment.id}`}>{assignment.name}</Link></StyledTableCell>
                                                         <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
                                                         <StyledTableCell align="right">{pre}</StyledTableCell>
                                                         <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>

@@ -11,4 +11,23 @@ const orientationReducer = (state = [], action ) => {
     }
 }
 
-export default orientationReducer;
+const editOrientationReducer = ( state={}, action ) => {
+    switch(action.type) {
+        case 'SET_EDIT_ORIENTATION':
+            return action.payload;
+        case 'UPDATE_EDIT_ORIENTATION':
+            return {
+                ...state,
+                ...action.payload,
+            };
+
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    orientationReducer,
+    editOrientationReducer
+})
+ 

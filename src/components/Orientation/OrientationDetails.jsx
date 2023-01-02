@@ -16,7 +16,7 @@ function OrientationDetails({ step }) {
     const params = useParams();
 
     //get selected assignment for the render
-    const assignment = useSelector(store => store.orientation);
+    const assignment = useSelector(store => store.orientation.orientationReducer);
     // console.log('assignment is:', assignment);
 
     //usestate to keep files

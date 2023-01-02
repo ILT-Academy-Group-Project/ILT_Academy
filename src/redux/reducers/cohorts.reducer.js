@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+
 
 //Cohorts reducer
 

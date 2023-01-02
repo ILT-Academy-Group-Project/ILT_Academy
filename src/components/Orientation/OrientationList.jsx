@@ -20,7 +20,7 @@ import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import './Orientation.css';
 
 function OrientationList(){
-    const orientationList = useSelector((store) => store.orientation);
+    const orientationList = useSelector((store) => store.orientation.orientationReducer);
     const dispatch = useDispatch();
     const history = useHistory();
 

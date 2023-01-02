@@ -20,11 +20,7 @@ function OrientationStep() {
 
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
-
-    // console.log('STEP TO MY MFIN LOO', step.step)
-    // console.log('ORIENTATION', orientation[2].step)
-
-    const orientation = useSelector((store) => store.orientation);
+    const orientation = useSelector((store) => store.orientation.orientationReducer);
     const [activeStep, setActiveStep] = useState(user.oriented);
     const [completed, setCompleted] = useState({});
 

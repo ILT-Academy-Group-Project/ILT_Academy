@@ -110,3 +110,8 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+
+#react-root .se-video-container>figure{
+    padding-bottom: 0px !important;
+}

@@ -11,7 +11,7 @@ import './Orientation.css'
 function CreateAssignment() {
     //import user
     const user = useSelector(store => store.user);
-    const orientationArray = useSelector((store) => store.orientation);
+    const orientationArray = useSelector((store) => store.orientation.orientationReducer);
 
     //setup
     const dispatch = useDispatch();
