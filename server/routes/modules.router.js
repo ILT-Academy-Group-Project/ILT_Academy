@@ -86,4 +86,25 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     }
 })
 
+
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+    console.log('in Modules DELETE rte with id of:', req.params.id);
+
+    //query time
+    try{
+        const sqlText = `
+            DELETE FROM "modules"
+            WHERE "id" = $1;
+        `;
+        await pool.query(sqlText, [req.params.id]);
+
+        res.sendStatus(200);
+
+    } catch (err) {
+        console.error('error in modules DELETE rte', err.message)
+        res.sendStatus(500);
+    }
+
+})
+
 module.exports = router

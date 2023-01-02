@@ -112,7 +112,7 @@ function Modules() {
     }
 
     const deleteModule = (moduleId) =>{
-        console.log('in delete module with id of:', moduleId);
+        // console.log('in delete module with id of:', moduleId);
         
         Swal.fire({
             title: 'Are you sure you want to delete this post?',
@@ -126,15 +126,17 @@ function Modules() {
             reverseButtons: true
         }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-            'Deleted!',
-            'Your post has been deleted.'
+            Swal.fire(            
+            'The Module has been deleted!'
             )
             //dispatch delete request to saga
-            // dispatch({
-            //     type:'DELETE_POST',
-            //     payload: {post_id: post.id, user_id: post.user_id}
-            // });
+            dispatch({
+                type:'DELETE_MODULE',
+                payload: {
+                    id: moduleId,
+                    seriesId: params.seriesId
+                }
+            });
             //after delete head home
             // history.push('/home');
         } else if (
@@ -151,9 +153,10 @@ function Modules() {
 
     return (
         <>
-            {modules.map(module => (
-                <>
-                    <Accordion expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
+            {modules.map((module, i) => (
+                
+                <div key={i}>
+                    <Accordion key={i} expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1bh-content"
@@ -163,7 +166,7 @@ function Modules() {
                                 {module.name}
                             </Typography>
                             <Typography sx={{ width: '33%', color: 'text.secondary' }}>Something? Maybe no Info?</Typography> 
-                                                       
+                                                        
                         </AccordionSummary>
                         <AccordionDetails>
                             <TableContainer component={Paper}>
@@ -220,8 +223,9 @@ function Modules() {
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
+                </div>
                     
-                </>
+                
             ))}
             {/* CREATE A NEW MODULE */}
             <Button
