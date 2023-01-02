@@ -75,7 +75,8 @@ function* createModule(action) {
 
         //update redux
         yield put({
-            type: 'FETCH_MODULES'
+            type: 'FETCH_MODULES',
+            payload: action.payload.seriesId
         });
 
     } catch (err) {
