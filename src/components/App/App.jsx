@@ -24,6 +24,7 @@ import Series from '../Series/Series';
 import CreateAssignment from '../AssignmentComponents/CreateAssignment/CreateAssignment';
 import AssignmentDetails from '../AssignmentComponents/AssignmentDetails/AssignmentDetails';
 import OrientationCreate from '../Orientation/OrientationCreate';
+import OrientationList from '../Orientation/OrientationList';
 
 import './App.css';
 
@@ -91,8 +92,15 @@ function App() {
           <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/orientation">              
+            path="/admin/orientation/create">              
             { user.accessLevel === 2 ? <OrientationCreate /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/orientation/list">              
+            { user.accessLevel === 2 ? <OrientationList /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
             {/* LOGIN */}
