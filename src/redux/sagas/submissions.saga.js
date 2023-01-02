@@ -52,8 +52,8 @@ function* fetchAssignmentSubmissions(action){
             type: 'SET_COHORT_ASSIGNMENT_SUBMISSIONS',
             payload: submissions.data
         })
-    } catch{
-        console.log('error in submissions.saga in fetchAssignmentSubmissions')
+    } catch (err){
+        console.error('error in submissions.saga in fetchAssignmentSubmissions', err);
     }
 }
 

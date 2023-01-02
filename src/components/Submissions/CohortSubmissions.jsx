@@ -14,7 +14,7 @@ function CohortSubmissions() {
     const params = useParams();
     const submissions = useSelector(store => store.submissions.cohortSubmissionsReducer);
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
-    const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
+    // const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
 
     console.log('cohortInfo is', cohortInfo);
 
@@ -34,7 +34,8 @@ function CohortSubmissions() {
             type: 'FETCH_COHORT',
             payload: params.cohortId
         })
-    },[])
+        console.log('params.cohortId is ', params.cohortId);
+    },[params.cohortId, params.assignmentId])
 
     const columns = [
         {
@@ -107,13 +108,16 @@ function CohortSubmissions() {
           }
        
       })
-
+    if(!cohortInfo.cohortName){
+        return(<>loading...</>);
+    }
     return(
             <>
             <Button
-            onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}/${params.assignmentId}`)}>Back to Assignments</Button>
+            // onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}`)}
+            >Back to Assignments</Button>
             <h1>{assignment.name}</h1>
-            <h3>{cohortInfo.cohortName}</h3>
+            {/* <h3>{cohortInfo.cohortName}</h3> */}
             
             <Box sx={{ height: 400, width: '90%', margin: 10 }}>
             <DataGrid

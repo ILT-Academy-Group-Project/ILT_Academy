@@ -16,6 +16,7 @@ function* fetchCohorts() {
 }
 
 function* fetchCohortStudents(action){
+    console.log('🚗 action.payload in cohorts.saga ', action.payload)
     try{
         let cohortStudents = yield axios.get(`api/cohorts/${action.payload}`) //get students and cohort info from specific cohort
             console.log('cohort students in cohorts.saga are ', cohortStudents)
@@ -23,8 +24,8 @@ function* fetchCohortStudents(action){
             type: 'SET_COHORT_STUDENTS',
             payload: cohortStudents.data
         })
-    } catch{
-        console.log('error in cohort.saga')
+    } catch (err){
+        console.error('error in cohort.saga', err.message)
     }
 }
 

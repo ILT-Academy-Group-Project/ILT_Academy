@@ -21,6 +21,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
 router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
     //GET all series assigned to cohort 
+    // console.log('SERIES ROUTER GET cohort id ', req.params.cohortId)
     try{
         const sqlText = `
         SELECT * FROM "cohorts"
