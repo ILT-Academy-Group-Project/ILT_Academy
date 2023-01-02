@@ -5,7 +5,7 @@
 
 CREATE TABLE "cohorts" (
 	"id" SERIAL PRIMARY KEY,
-	"cohortName" VARCHAR(255) NOT NULL,
+	"cohortName" VARCHAR(255) NOT NULL UNIQUE,
 	"accessCode" VARCHAR NOT NULL UNIQUE
 );
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 function* fetchCohorts() {
     try{
@@ -28,11 +28,33 @@ function* fetchCohortStudents(action){
     }
 }
 
+function* createCohort(action){
+    // console.log('in createCohort SAGA')
+
+    try{
+        //axios to server
+        const response = yield axios.post('/api/cohorts', action.payload);
+        //reGET cohorts
+        console.log('response:', response);
+        yield put({
+            type: 'FETCH_COHORTS'
+        });
+        if(response.data.includes('already exists')){
+            alert('AccessCode already exists');
+        }
+
+    } catch (err){
+        console.error('in createCohort SAGA error:', err.message);
+    }
+
+}
+
 
 
 function* cohortsSaga() {
   yield takeLatest('FETCH_COHORTS', fetchCohorts);
   yield takeLatest('FETCH_COHORT_STUDENTS', fetchCohortStudents);
+  yield takeEvery('CREATE_COHORT', createCohort);
 }
 
 export default cohortsSaga;

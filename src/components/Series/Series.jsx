@@ -22,7 +22,7 @@ function Series() {
     const dispatch = useDispatch();
     const history = useHistory();
     const series = useSelector(store => store.series);
-    //Create Series Modal state 
+    //Create Series Modal state and fn
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
 

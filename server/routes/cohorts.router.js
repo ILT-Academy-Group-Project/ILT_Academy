@@ -40,5 +40,36 @@ router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
     }
 })
 
+// POST COHORT
+
+router.post('/', rejectUnauthenticated, async(req, res) => {
+    // console.log('in Cohorts POST route', req.body);
+
+    try {
+        //sql text for query
+        const sqlText = `
+            INSERT INTO "cohorts"
+                ("cohortName", "accessCode")
+            VALUES
+                ($1, $2);
+        `;
+        //sql parameters for query
+        const sqlParams = [req.body.cohortName, req.body.accessCode];
+
+        await pool.query(sqlText, sqlParams);
+
+        res.sendStatus(201);
+
+    } catch (err) {
+        if(err.detail.includes('already exists')){
+            res.send('accessCode already exists');
+        } 
+        else{
+            res.sendStatus(500);
+            console.error('in POST cohort route error', err);
+        }    
+    }
+})
+
 
 module.exports = router
