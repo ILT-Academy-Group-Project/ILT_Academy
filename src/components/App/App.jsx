@@ -29,9 +29,11 @@ import CohortSubmissions from '../Submissions/CohortSubmissions';
 import UserDashboard from '../StudentSpecificComponents/UserDashboard/UserDashboard';
 import EditAssignment from '../AssignmentComponents/EditAssignment/EditAssignment';
 import OrientationCreate from '../Orientation/OrientationCreate';
+import OrientationList from '../Orientation/OrientationList';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import StudentModules from '../StudentSpecificComponents/StudentModules/StudentModules';
 import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
+
 
 import './App.css';
 
@@ -99,8 +101,15 @@ function App() {
           <ProtectedRoute
           // logged in admin shows Modules within selected Series
             exact
-            path="/admin/orientation">              
+            path="/admin/orientation/create">              
             { user.accessLevel === 2 ? <OrientationCreate /> : <Redirect exact to="/login" />}
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          // logged in admin shows Modules within selected Series
+            exact
+            path="/admin/orientation/list">              
+            { user.accessLevel === 2 ? <OrientationList /> : <Redirect exact to="/login" />}
           </ProtectedRoute>
 
             {/* LOGIN */}
