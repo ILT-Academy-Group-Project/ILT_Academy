@@ -36,11 +36,8 @@ function CohortDetails() {
         });
 
 
+
     },[params.cohortId])
-
-    // console.log('🎈Cohort Details params.id is ', params.cohortId);
-
-    console.error('cohortSeries is:', cohortSeries);
     
 
     const cohortParam = Number(params.cohortId)
@@ -79,6 +76,11 @@ function CohortDetails() {
                 cohortParam: cohortParam,
             }
         })
+
+        dispatch({
+            type: 'FETCH_COHORT',
+            payload: params.id
+        })
         // dispatch({
         //     type: 'FETCH_COHORT_SERIES',
         //     payload: params.cohortId
@@ -92,7 +94,7 @@ function CohortDetails() {
 
     return(
         <>
-        <h1></h1>
+        <h1>TODO PUT COHORT NAME HERE!</h1>
 
             {newSeriesObject.map(series => {
                 if(series.cohortId){
