@@ -30,7 +30,7 @@ const fs = require('fs');
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/user/assignments/:assignmentId', (req, res) => {
   // GET route code here
 });
 
@@ -38,7 +38,9 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) => {
-    console.log('req.body', req.body, req.body.assignmentId);
+    console.log('req.body', req.body);
+   
+    
     let sub=req.body;
 //  console.log('req.files', req.files);
     //set up all variables for submissions
@@ -50,6 +52,7 @@ router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) 
 
     if(req.file){
             //call s3 route as async to get file path
+                //rename this Fn
     file = await uploadImage(req.file);
 
     //after image in S3 bucket delete the file
@@ -59,25 +62,47 @@ router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) 
     }
     else{file=null};
 
-    {sub.video !== 'null' ? video=sub.video: video=null};
-    {sub.textSubmission ? text=sub.textSubmission: text=null};
+    {sub.video !== 'undefined' ? video=sub.video: video=null};
+    {sub.textSubmission !== 'undefined' ? text=sub.textSubmission: text=null};
 
     //sql text for insert including all possible values (WILL BE NULL IF NOT REASSIGNED ⤴️)
-    sqlText = `
+
+    //if this is an edited submission(has id) update in db
+    if(req.body.id !== 'undefined'){
+        sqlText = `
+            UPDATE "submissions"
+            SET
+                "textInput" = $1,
+                "file" = $2,
+                "video" = $3
+            WHERE
+                "id" = $4;
+        `;
+        sqlParams =[
+            text,
+            file,
+            video,
+            req.body.id
+        ]
+    }
+        //ifthis is a new submission (i.e. no ID) post to DB
+    else {sqlText = `
         INSERT INTO "submissions"
             ("userId", "assignmentId", "textInput", "file", "video", "completed")
         VALUES
             ($1, $2, $3, $4, $5, $6);
     `;
-    //sql params (will send null if it doesnt exist)
-    sqlParams =[
-        req.user.id,
-        sub.assignmentId,
-        text,
-        file,
-        video,
-        true
-    ];
+        //sql params (will send null if it doesnt exist)
+        sqlParams =[
+            req.user.id,
+            sub.assignmentId,
+            text,
+            file,
+            video,
+            true
+        ];
+    }   
+    
 
     pool.query(sqlText, sqlParams)
         .then(dbres => {
@@ -89,9 +114,7 @@ router.post('/', rejectUnauthenticated, upload.single('file'), async (req, res) 
         });
 });
 
-/**
- * GET:ID route 
- */
+
 //GET all assignments and users in cohort in order to show submitted and unsubmitted user status
 //will narrow down to specific assignment on front end for now but keeping params in url to not make things too messy
 router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) => {
@@ -102,7 +125,7 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
         WHERE "user"."cohortId" = $1;
         `;
         const sqlParams = [req.params.cohortId]
-        console.log('sqlParams for submissions GET are ', sqlParams);
+        // console.log('sqlParams for submissions GET are ', sqlParams);
         let dbResult = await pool.query(sqlText, sqlParams);
         res.send(dbResult.rows);
     } catch(err) {
@@ -111,8 +134,50 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
     }
 })
 
+/*
+GET by userid route
+*/
+//get all assignments for the logged in user
+router.get('/user', rejectUnauthenticated, async (req, res) => {
+    // console.log('inside get by userid assignment submissions');
+
+    //setup query
+    let sqlText = `
+    SELECT * FROM "submissions" 
+    WHERE "userId" = $1;
+    `;
+
+    try{
+        //get info from the database
+        const dbRes = await pool.query(sqlText, [req.user.id])
+        //send to client
+        res.send(dbRes.rows);
+    } catch (err){
+        console.error('in submissions GET by userid error', err.message);
+        res.sendStatus(500);
+    }
+})
 
 
+/**
+ Get single submission for this one assignment
+ */
+router.get('/user/assignment/:assignmentId', rejectUnauthenticated, async (req, res) => {
+    // console.log('in GET single submission by user and assignmentID with id of', req.params.assignmentId);
+    //get the assignment info for the selected assignment where this user submitted it
+    const sqlText=`
+    SELECT * FROM "submissions"
+    WHERE "userId" = $1 AND "assignmentId" = $2;
+    `;
+
+    try{
+        const dbRes = await pool.query(sqlText, [req.user.id, req.params.assignmentId])
+        res.send(dbRes.rows[0]);
+    } catch (err) {
+        console.log('error in get single submission', err);
+        res.sendStatus(500);
+    }
+  });
 /**
  * DELETE route 
  */

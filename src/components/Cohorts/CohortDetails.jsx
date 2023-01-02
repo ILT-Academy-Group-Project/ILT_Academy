@@ -38,23 +38,40 @@ function CohortDetails() {
 
     },[params.cohortId])
 
-    console.log('🎈Cohort Details params.id is ', params.cohortId);
+    // console.log('🎈Cohort Details params.id is ', params.cohortId);
+
+    console.error('cohortSeries is:', cohortSeries);
+    
 
     const cohortParam = Number(params.cohortId)
-
     let newSeriesObject = series;
-    for (let i = 0; i<newSeriesObject.length ; i++){
-        if (cohortSeries[i]){
-            newSeriesObject[i].cohortId = cohortSeries[i].cohortId
-        };
+    // for (let i = 0; i<newSeriesObject.length ; i++){
+    //     if (cohortSeries[i]){
+    //         newSeriesObject[i].cohortId = cohortSeries[i].cohortId
+    //     };
+    // };
+
+    //FIX
+    //loop through newseries object to check existing series against series published
+    //for this cohort
+    for(let newSeries of newSeriesObject){
+        //loop through the published series in this cohort and check each against the id of the 
+        //series being checked in this loop iteration (for series 1 check for same id in all published series in this cohort)
+        //if === then add the cohort id to the object for render
+        for(let publishedSeries of cohortSeries){
+            if(publishedSeries.seriesId === newSeries.id){
+                newSeries.cohortId = publishedSeries.cohortId;
+            }
+        }
     };
 
-    console.log('newSeries Object', newSeriesObject);
+    // console.error('newSeriesObject', newSeriesObject);
+    
 
 
     // assign series to cohort
     function publish(seriesId) {
-        console.log('PUBLISH')
+        // console.log('PUBLISH')
         dispatch({
             type: 'PUBLISH_SERIES',
             payload: {
@@ -62,13 +79,13 @@ function CohortDetails() {
                 cohortParam: cohortParam,
             }
         })
-        dispatch({
-            type: 'FETCH_COHORT_SERIES',
-            payload: params.cohortId
-        })
-        dispatch({
-            type: 'FETCH_SERIES'
-        })
+        // dispatch({
+        //     type: 'FETCH_COHORT_SERIES',
+        //     payload: params.cohortId
+        // })
+        // dispatch({
+        //     type: 'FETCH_SERIES'
+        // })
 
     }
 
@@ -121,7 +138,7 @@ function CohortDetails() {
                                 </ Button>
                                 <FormControlLabel  control={<Switch />} 
                                     label="Publish Series"
-                                    onChange={(event) => publish(series.id, cohortParam)}
+                                    onClick={(event) => publish(series.id, cohortParam)}
                                     />
 
                             </Grid2>

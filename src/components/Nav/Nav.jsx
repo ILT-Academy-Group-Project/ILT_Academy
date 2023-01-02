@@ -2,12 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function Nav() {
-  const user = useSelector((store) => store.user);
+    const user = useSelector((store) => store.user);
+    const publishedSeries = useSelector((store)=> store.cohortSeries)
+    const dispatch = useDispatch();
+    // console.log('publishedSeries', publishedSeries, 'cohortId:', user);
 
-  return (
+    useEffect(() => {
+        //get assigned series for the render;
+        dispatch({
+            type: 'FETCH_COHORT_SERIES',
+            payload: user.cohortId
+        })
+
+    },[user.id]);
+
+    return (
     <div className="nav">
       <Link to="/home">
         <h2 className="nav-title">Prime Solo Project</h2>
@@ -21,6 +34,17 @@ function Nav() {
           </Link>
         )}
 
+        {
+            user.accessLevel === 1 ? 
+            publishedSeries.map((series, i) =>{
+                return(
+                    <Link key={i} className='navLink' to={`/studentportal/modules/${series.seriesId}`}>{series.seriesName}</Link>
+                )
+            })
+            :
+            null
+        }
+        
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>

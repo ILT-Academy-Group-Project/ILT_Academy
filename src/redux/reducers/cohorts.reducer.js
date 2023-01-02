@@ -11,7 +11,7 @@ const cohortReducer = (state = [], action ) => {
     }
 }
 
-const singleCohortReducer = (state = [], action ) => {
+const singleCohortReducer = (state = {}, action ) => {
     switch(action.type) {
         case 'SET_COHORT':
             return action.payload;
@@ -23,5 +23,4 @@ const singleCohortReducer = (state = [], action ) => {
 export default combineReducers({
     cohortReducer,
     singleCohortReducer,
-
   });

@@ -5,10 +5,13 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
 import axios from "axios";
 import FormData from "form-data";
+import OrientationStep from "./OrientationStep";
+import './Orientation.css'
 
 function CreateAssignment() {
     //import user
     const user = useSelector(store => store.user);
+    const orientationArray = useSelector((store) => store.orientation);
 
     //setup
     const dispatch = useDispatch();
@@ -17,38 +20,38 @@ function CreateAssignment() {
 
     // console.log(user.accessLevel)
     // import useState and create state for selected file on video upload
-    const [assignmentVideo, setAssignmentVideo] = useState('');
+    const [video, setVideo] = useState('');
     //use usestate to track content of WYSIWYG
-    const [assignmentContent, setAssignmentContent] = useState('');
+    const [content, setContent] = useState('');
     //useState to track assignment title
-    const [assignmentTitle, setAssignmentTitle] = useState('');
+    const [title, setTitle] = useState('');
 
     //submission types
-    const [textField, setTextField] = useState(false);
-    const [fileSubmission, setFileSubmission] = useState(false);
-    const [postClass, setPostClass] = useState(false);
-    const [videoSubmission, setVideoSubmission] = useState(false);
+    const [submission, setSubmission] = useState(false);
     const [orientation, setOrientation] = useState(false);
+
+    const [step, setStep] = useState(0)
 
     const submitAssignment = (evt) => {
         evt.preventDefault();
         console.log('in create orientation');
         //ensure there is content in the WYSIWYG
-        if (assignmentContent.length <= 10) {
+        if (content.length <= 10) {
             alert('Must put content into the assignment');
             return
         }
 
         // if (orientation === true) {
-            dispatch({
-                type: 'CREATE_ORIENTATION',
-                payload: {
-                    assignmentVideo,
-                    assignmentContent,
-                    assignmentTitle,
-                    textField
-                }
-            })
+        dispatch({
+            type: 'CREATE_ORIENTATION',
+            payload: {
+                video,
+                content,
+                title,
+                submission,
+                step
+            }
+        })
 
         // } else {
         //     //dispatch to the SAGA for serverpost route
@@ -82,7 +85,7 @@ function CreateAssignment() {
         const callBack = async () => {
             let formData = new FormData();
             formData.append('image', files[0]);
-            const response = await axios.post('/api/assignments/imagefield', formData, {
+            const response = await axios.post('/api/orientation/imagefield', formData, {
                 //must include this header, it is what Multer uses to id file
                 headers: {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -98,7 +101,7 @@ function CreateAssignment() {
     }
 
     const handleChange = (content) => {
-        setAssignmentContent(content);
+        setContent(content);
     }
 
     //testing logs
@@ -111,14 +114,14 @@ function CreateAssignment() {
             
             </video> */}
 
-
+            {/* <OrientationStep /> */}
             <form onSubmit={submitAssignment}>
                 <label>Upload Video
                     <input
                         accept="video/*"
                         type='file'
                         name="selectedVideo"
-                        onChange={(evt) => setAssignmentVideo(evt.target.files[0])}
+                        onChange={(evt) => setVideo(evt.target.files[0])}
 
                     />
                 </label>
@@ -126,12 +129,18 @@ function CreateAssignment() {
                     required
                     type='text'
                     placeholder="Assignment Name"
-                    onChange={(evt) => setAssignmentTitle(evt.target.value)}
+                    onChange={(evt) => setTitle(evt.target.value)}
+                />
+                <input
+                    required
+                    type='text'
+                    placeholder="Step"
+                    onChange={(evt) => setStep(evt.target.value)}
                 />
                 <SunEditor
                     onChange={handleChange}
                     setOptions={{
-                        height: 200,
+                        height: 500,
                         buttonList: [
                             ['font', 'align'],
                             ['fontSize'],
@@ -140,7 +149,13 @@ function CreateAssignment() {
                             ['underline'],
                             ['video'],
                             ['image'],
-                        ]
+                        ],
+                        videoFileInput: false,
+                        videoUrlInput: false,
+                        videoRatioShow: false,
+                        constrainProportions: false,
+                        videoHeight: "540px",
+                        videoWidth: "960px",
                     }}
                     onImageUploadBefore={handleImageUploadBefore}
                 //  setContents={content}
@@ -157,7 +172,7 @@ function CreateAssignment() {
                 <div>
                     <h3>Submission type</h3>
                     <label>Textfield</label>
-                    <input onClick={() => setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
+                    <input onClick={() => setSubmission(!submission)} type="checkbox" name="textField" className="valueRadio"></input>
                     {/* <label>File</label>
                     <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
                     <label>Video</label>

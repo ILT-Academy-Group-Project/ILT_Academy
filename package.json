@@ -23,6 +23,7 @@
     "form-data": "^4.0.0",
     "gapi-script": "^1.2.0",
     "googleapis": "^109.0.1",
+    "html-react-parser": "^3.0.6",
     "interweave": "^13.0.0",
     "moment": "^2.29.4",
     "multer": "^1.4.5-lts.1",

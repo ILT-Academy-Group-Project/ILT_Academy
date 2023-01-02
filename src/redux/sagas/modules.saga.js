@@ -37,9 +37,29 @@ function* publishCohortModule(action) {
     console.log(`🍍 action.payload is `, action.payload);
     let cohortId = action.payload.cohortId;
     let moduleId = action.payload.moduleId;
+    let seriesId = action.payload.seriesId;
 
     try{
-        axios.post(`api/modules/publish/${cohortId}/${moduleId}`)
+        yield axios.post(`api/modules/publish/${cohortId}/${moduleId}`)
+
+        //update cohort modules redux
+
+        yield put({
+            type:'FETCH_COHORT_MODULES',
+            payload: {
+                cohortId: cohortId,
+                seriesId: seriesId
+            }
+        });
+
+        //fetch assignment for series for render
+
+        yield put({
+            type:'FETCH_SERIES_ASSIGNMENTS',
+            payload: seriesId
+        });
+
+
     } catch{
         console.log('error in modules.sage publishCohortModule')
     }

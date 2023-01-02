@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { DataGrid, GridToolbar} from '@mui/x-data-grid'
+import { DataGrid, GridToolbar, GridRenderCellParams} from '@mui/x-data-grid'
 import { Box, Button } from '@mui/material'
 import moment from "moment/moment";
 
@@ -14,9 +14,9 @@ function CohortSubmissions() {
     const params = useParams();
     const submissions = useSelector(store => store.submissions.cohortSubmissionsReducer);
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
-    // const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
+    const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
 
-    console.log('cohortInfo is', cohortInfo);
+    // console.log('cohortInfo is', cohortInfo);
 
     useEffect(() => {
         dispatch({
@@ -37,6 +37,9 @@ function CohortSubmissions() {
         console.log('params.cohortId is ', params.cohortId);
     },[params.cohortId, params.assignmentId])
 
+    const RenderFile = () => {
+        
+    }
     const columns = [
         {
             field: 'status',
@@ -59,6 +62,23 @@ function CohortSubmissions() {
           field: 'file',
           headerName: 'File',
           width: 110,
+          
+        //   valueFormatter: (params) => {
+        //     console.log('💚 params.value', params.value)
+        //     if (params.value == null){
+                
+        //         return '';
+        //     }
+        //     const valueFormatted = () => {
+        //         return (
+        //             <a>${params.value}</a>
+        //         )
+        //     }
+        //     return (
+        //         valueFormatted()
+        //     )
+        //   }
+          
         },
         {
             field: 'text',
@@ -108,16 +128,16 @@ function CohortSubmissions() {
           }
        
       })
-    if(!cohortInfo.cohortName){
-        return(<>loading...</>);
-    }
+    // if(!cohortInfo.cohortName){
+    //     return(<>loading...</>);
+    // }
     return(
             <>
             <Button
-            // onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}`)}
+            onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}/${assignment.seriesId}`)}
             >Back to Assignments</Button>
             <h1>{assignment.name}</h1>
-            {/* <h3>{cohortInfo.cohortName}</h3> */}
+            <h3>{cohortInfo.cohortName}</h3>
             
             <Box sx={{ height: 400, width: '90%', margin: 10 }}>
             <DataGrid

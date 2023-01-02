@@ -23,20 +23,21 @@ function* createOrientation(action) {
      
     //create payload object
     let data=action.payload;
+    console.log('THIS IS DATA', data)
     //new formdata for payload to multer and router
     let formData = new FormData();
 
     // console.log('video', data.assignmentVideo);
     // console.log('video[0]', data.assignmentVideo);
     //req.file
-    formData.append('assignmentVideo', data.assignmentVideo);
+    formData.append('video', data.video);
 
     //req.body
-    formData.append('assignmentTitle', data.assignmentTitle);
-    formData.append('assignmentContent', data.assignmentContent);
-    // formData.append('moduleId', data.moduleId);
+    formData.append('title', data.title);
+    formData.append('content', data.content);
+    formData.append('step', data.step);
     // formData.append('postClass', data.postClass);
-    formData.append('textField', data.textField);
+    formData.append('submission', data.submission);
     // formData.append('file', data.file);
     // formData.append('video', data.video);
 //post to server

@@ -87,7 +87,7 @@ function* fetchSeriesAssignments(action){
     try{
         //get assignments in series from server
         const seriesAssignments = yield axios.get(`/api/assignments/series/${action.payload}`);
-        console.log('response from GET assignment by series', seriesAssignments.data);
+        // console.log('response from GET assignment by series', seriesAssignments.data);
 
         //send results to redux store
         yield put ({

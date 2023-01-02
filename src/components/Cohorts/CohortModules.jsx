@@ -45,14 +45,14 @@ function CohortModules() {
         // })
         console.log('💞 COHORTMODULES params.cohortId', params.cohortId)
 
-        dispatch({
-            type: 'FETCH_COHORT_SERIES',
-            payload: params.cohortId
-        })
+        // dispatch({
+        //     type: 'FETCH_COHORT_SERIES',
+        //     payload: params.cohortId
+        // });
 
-        dispatch({
-            type: 'FETCH_SERIES'
-        });
+        // dispatch({
+        //     type: 'FETCH_SERIES'
+        // });
 
         dispatch({
             type: 'FETCH_MODULES', 
@@ -118,36 +118,37 @@ function CohortModules() {
             type: 'PUBLISH_MODULE',
             payload: {
                 moduleId:moduleId,
-                cohortId: params.cohortId
+                cohortId: params.cohortId,
+                seriesId: params.seriesId                
             }
         })
 
-        dispatch({
-            type: 'FETCH_COHORT_SERIES',
-            payload: params.cohortId
-        })
+        // dispatch({
+        //     type: 'FETCH_COHORT_SERIES',
+        //     payload: params.cohortId
+        // })
 
-        dispatch({
-            type: 'FETCH_SERIES'
-        });
+        // dispatch({
+        //     type: 'FETCH_SERIES'
+        // });
 
-        dispatch({
-            type: 'FETCH_MODULES', 
-            payload: params.seriesId
-        })
+        // dispatch({
+        //     type: 'FETCH_MODULES', 
+        //     payload: params.seriesId
+        // })
 
-        dispatch({
-            type:'FETCH_COHORT_MODULES',
-            payload: {
-                cohortId:params.cohortId,
-                seriesId:params.seriesId
-            }
-        })
+        // dispatch({
+        //     type:'FETCH_COHORT_MODULES',
+        //     payload: {
+        //         cohortId:params.cohortId,
+        //         seriesId:params.seriesId
+        //     }
+        // })
 
-        dispatch({
-            type:'FETCH_SERIES_ASSIGNMENTS',
-            payload: params.seriesId
-        })
+        // dispatch({
+        //     type:'FETCH_SERIES_ASSIGNMENTS',
+        //     payload: params.seriesId
+        // })
     }
 
     return (
@@ -211,7 +212,7 @@ function CohortModules() {
                                      </TableBody>  
                                 </Table>
                             </TableContainer>
-                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button>
+                            {/* <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button> */}
                         </AccordionDetails>
 
                  </Accordion>
