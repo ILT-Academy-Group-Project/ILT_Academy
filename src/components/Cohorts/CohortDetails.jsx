@@ -97,22 +97,7 @@ function CohortDetails() {
             email: student.email,
             username: student.username,
             viewStudent: RenderButton(student.username),
-            cohortId: student.cohortId
-
-        dispatch({
-            type: 'FETCH_COHORT',
-            payload: params.id
-        })
-        // dispatch({
-        //     type: 'FETCH_COHORT_SERIES',
-        //     payload: params.cohortId
-        // })
-        // dispatch({
-        //     type: 'FETCH_SERIES'
-        // })
-
-
-            
+            cohortId: student.cohortId 
         }
         rows.push(studentObject);
     })
