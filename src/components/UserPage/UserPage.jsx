@@ -9,11 +9,14 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import OrientationStep from '../Orientation/OrientationStep'
+import OrientationStep from '../Orientation/OrientationStep';
+import HHHimage from '../Hacker/HHHimage';
 
 function UserPage() {
 
   const user = useSelector((store) => store.user);
+
+  
   
 
   return (
@@ -23,6 +26,7 @@ function UserPage() {
       <OrientationStep/>
       
       <LogOutButton className="btn" />
+      {/* //<HHHimage/> */}
     </div>
 
   );
