@@ -11,6 +11,7 @@ import Announcements from '../../Announcements/Announcements';
 function UserDashboard(){
     //get user info for cohortId
     const user = useSelector((store) => store.user);
+    const orientationList = useSelector((store) => store.orientation.orientationReducer);
     //setup dispatch and useHistory
     const dispatch = useDispatch();
     const history = useHistory();
@@ -18,15 +19,25 @@ function UserDashboard(){
     let username = user.username;
     let cohortId = user.cohortId;
     
+    //reroute to hipster hacker hustler / orientation if it isnt complete
+    {
+        user.oriented <= orientationList.length 
+        && user.hipsterInterest === 0 
+        && user.hipsterSkill === 0 
+        && user.hackerInterest === 0 
+        && user.hackerSkill === 0 
+        && user.hustlerInterest === 0 
+        && user.hustlerSkill === 0
+        ? history.push('/user') 
+        : null
+    };
 
-    // useEffect(() => {
-    //     //get assigned series for the render;
-    //     dispatch({
-    //         type: 'FETCH_COHORT_SERIES',
-    //         payload: user.cohortId
-    //     })
-
-    // },[])
+    useEffect(() => {
+        //get assigned series for the render;
+        dispatch({
+            type: 'FETCH_ORIENTATION'
+        });
+    },[])
 
 
 ;
