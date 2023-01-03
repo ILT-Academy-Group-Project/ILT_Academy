@@ -33,14 +33,18 @@ function OrientationStep() {
             // payload: user.oriented
         })
 
+        orientation.length > 0 ?
         user.accessLevel === 2 ? history.push('/admin/dashboard') 
-        : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null;
+        : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null : null
 
     }, []);
 
     const totalSteps = () => {
         // console.log('orientation length', orientation.length)
-        return orientation.length;
+        if(orientation.length > 0){
+            return orientation.length;
+        }
+        
     };
 
     const completedSteps = () => {
