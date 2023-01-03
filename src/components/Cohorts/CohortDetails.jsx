@@ -43,11 +43,8 @@ function CohortDetails() {
         });
 
 
+
     },[params.cohortId])
-
-    // console.log('🎈Cohort Details params.id is ', params.cohortId);
-
-    console.error('cohortSeries is:', cohortSeries);
     
 
     const cohortParam = Number(params.cohortId)
@@ -86,7 +83,6 @@ function CohortDetails() {
                 cohortParam: cohortParam,
             }
         })
-       
 
     }
 
@@ -102,6 +98,18 @@ function CohortDetails() {
             username: student.username,
             viewStudent: RenderButton(student.username),
             cohortId: student.cohortId
+
+        dispatch({
+            type: 'FETCH_COHORT',
+            payload: params.id
+        })
+        // dispatch({
+        //     type: 'FETCH_COHORT_SERIES',
+        //     payload: params.cohortId
+        // })
+        // dispatch({
+        //     type: 'FETCH_SERIES'
+        // })
 
 
             
@@ -170,6 +178,7 @@ function CohortDetails() {
 
     return(
         <>
+
         <Button
         onClick={() => history.push(`/home`)}>Back to Dashboard</Button>
         <h1>{cohortInfo.cohortName}</h1>

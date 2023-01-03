@@ -20,7 +20,7 @@ function CalendarList(){
 
     return (
         <>
-            <h1>Events</h1>
+            <h1>Upcoming Events</h1>
             {/* MAP EVENTS */}
             <ul>
                 {events.map((event, i) =>{

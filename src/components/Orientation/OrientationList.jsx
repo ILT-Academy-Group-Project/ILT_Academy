@@ -20,8 +20,9 @@ import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import './Orientation.css';
 
 function OrientationList(){
-    const orientationList = useSelector((store) => store.orientation);
+    const orientationList = useSelector((store) => store.orientation.orientationReducer);
     const dispatch = useDispatch();
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -36,7 +37,7 @@ function OrientationList(){
             {orientationList.map(step => (
                 <Grid2 item xs={6} sx={{}} className='cohortCard'>
                     <Card sx={{ maxWidth: 345, mt: 5, mb: 'auto', mr: 'auto', ml: 'auto', backgroundColor: 'secondary.light' }} >
-                        <CardActionArea>
+                        <CardActionArea onClick={() => history.push(`/admin/orientation/edit/${step.id}`)}>
                             <CardMedia
                                 component="img"
                                 // height="140"
@@ -53,9 +54,11 @@ function OrientationList(){
                             </CardContent>
                         </CardActionArea>
                     </Card>
+                    
                 </Grid2>
 
             ))}
+            <Button onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
             </ThemeProvider>
     )
 

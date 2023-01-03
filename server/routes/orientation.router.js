@@ -37,6 +37,28 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     }
 });
 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    // console.log('in GET assignment by ID route with payload of:', req.params.id);
+    
+    //create sqlText for db query
+    const sqlText=`
+        SELECT * FROM "orientation"
+        WHERE "id" = $1;
+    `;
+    //query DB
+    pool.query(sqlText, [req.params.id])
+        .then(dbRes => {
+            // console.log('dbRes.rows', dbRes.rows[0]);
+            res.send(dbRes.rows[0]);
+        })
+        .catch(err => {
+            console.error('in GET assignment by ID error:', err);
+            res.sendStatus(500);
+        })
+
+
+});
+
 router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, res) => {
     // POST route code here
     // console.log('in assignment Post route! YAY, req.file:', req.file, 'req.body', req.body);

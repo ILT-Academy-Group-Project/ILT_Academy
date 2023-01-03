@@ -11,7 +11,7 @@ function* fetchAssignments() {
     try{
       console.log('IN FETCH MODULES ASSIGNMENTS 🖇️')
         let assignments =  yield axios.get(`api/assignments`) //get assignments from database
-         console.log('feature GET response', assignments)
+        //  console.log('feature GET response', assignments.data)
  
          yield put({
              type: 'SET_ASSIGNMENTS', //dispatch to assignments.reducer

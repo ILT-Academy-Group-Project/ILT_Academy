@@ -8,114 +8,90 @@ import FormData from "form-data";
 import OrientationStep from "./OrientationStep";
 import './Orientation.css'
 
-function CreateAssignment() {
-    //import user
-    const user = useSelector(store => store.user);
-    const orientationArray = useSelector((store) => store.orientation.orientationReducer);
+function OrientationEdit() {
 
-    //setup
-    const dispatch = useDispatch();
     const params = useParams();
-    const history = useHistory();
+    const dispatch = useDispatch();
+    const editOrientation = useSelector(store => store.orientation.editOrientationReducer);
 
-    // console.log(user.accessLevel)
-    // import useState and create state for selected file on video upload
-    const [video, setVideo] = useState('');
-    //use usestate to track content of WYSIWYG
-    const [content, setContent] = useState('');
-    //useState to track assignment title
-    const [title, setTitle] = useState('');
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_EDIT_ORIENTATION',
+            payload: params.id
+        });
+    }, []);
 
-    //submission types
-    const [submission, setSubmission] = useState(false);
-    const [orientation, setOrientation] = useState(false);
-
-    const [step, setStep] = useState(0)
-
-    const submitAssignment = (evt) => {
+    const submitEditAssignment = (evt) => {
         evt.preventDefault();
-        console.log('in create orientation');
+        // console.log('in submit edit assignment');
         //ensure there is content in the WYSIWYG
-        if (content.length <= 10) {
+        if(editOrientation.content.length <=10){
             alert('Must put content into the assignment');
             return
         }
-
-        // if (orientation === true) {
+    
+        //dispatch updated assignment to saga for axios.put
         dispatch({
-            type: 'CREATE_ORIENTATION',
-            payload: {
-                video,
-                content,
-                title,
-                submission,
-                step
-            }
-        })
-
-        // } else {
-        //     //dispatch to the SAGA for serverpost route
-        //     dispatch({
-        //         type: 'CREATE_ASSIGNMENT',
-        //         payload: {
-        //             assignmentVideo,
-        //             assignmentContent,
-        //             assignmentTitle,
-        //             moduleId: params.moduleId,
-        //             postClass,
-        //             textField,
-        //             // name to match database, lef as submission so there isnt confusion on this page
-        //             file: fileSubmission,
-        //             video: videoSubmission,
-        //         }
-        //     })
-        //     //push to modules view
-        //     history.push(`/admin/modules/${params.seriesId}`)
-        // }
+            type: 'UPDATE_ASSIGNMENT', 
+            payload: editOrientation
+        });
+    
+        Swal.fire('Success!')
+            .then((result) => {
+                history.push(`/admin/orientation/list`);
+              })
+    
+        //------------------------todo update this push::::::---------------------------
+        // history.push(`/admin/modules/${params.seriesId}`)
+    
     }
-
-
-    // console.log('assignmentcontent', assignmentContent);
-
-
-    const handleImageUploadBefore = (files, info, uploadHandler) => {
-        // uploadHandler is a function
-        // console.log(files, info)
-
-        const callBack = async () => {
+    
+        const handleChange = (content) => {
+            dispatch({
+                type: 'UPDATE_EDIT_ORIENTATION',
+                payload: {content: content}
+            })
+        }
+    
+    
+        const handleImageUploadBefore= (files, info, uploadHandler) => {
+            // uploadHandler is a function
+            // console.log(files, info)
+            
+            const callBack = async () => { 
             let formData = new FormData();
             formData.append('image', files[0]);
             const response = await axios.post('/api/orientation/imagefield', formData, {
                 //must include this header, it is what Multer uses to id file
-                headers: {
+                headers:{
                     headers: { "Content-Type": "multipart/form-data" },
-                }
-            });
+                }});
             console.log('response', response.data);
-            uploadHandler(response.data);
+            uploadHandler(response.data);}
+    
+            callBack();
+            // uploadHandler();
+    
+        }
+    
+        const videoChange = (evt) => {
+            dispatch({
+                type: 'UPDATE_EDIT_ORIENTATION',
+                payload: { media: evt.target.files[0] }
+            });
+            // setVideoUrl({imageUrl: URL.createObjectURL(evt.target.files[0])})
+    
         }
 
-        callBack();
-        // uploadHandler();
-
-    }
-
-    const handleChange = (content) => {
-        setContent(content);
-    }
-
-    //testing logs
-    // console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission);
-    // console.log('pre class should be false:', postClass);
-    // console.log('video submission', videoSubmission);
     return (
+
         <>
             {/* <video width="320" height="240" controls src="/videos/assignmentVideo1670963030995.mov">
             
             </video> */}
 
             {/* <OrientationStep /> */}
-            <form onSubmit={submitAssignment}>
+            <form onSubmit={submitEditAssignment}>
                 <label>Upload Video
                     <input
                         accept="video/*"
@@ -128,13 +104,13 @@ function CreateAssignment() {
                 <input
                     required
                     type='text'
-                    placeholder="Assignment Name"
+                    placeholder={editOrientation.name}
                     onChange={(evt) => setTitle(evt.target.value)}
                 />
                 <input
                     required
                     type='text'
-                    placeholder="Step"
+                    placeholder={editOrientation.step}
                     onChange={(evt) => setStep(evt.target.value)}
                 />
                 <SunEditor
@@ -158,7 +134,7 @@ function CreateAssignment() {
                         videoWidth: "960px",
                     }}
                     onImageUploadBefore={handleImageUploadBefore}
-                //  setContents={content}
+                    setContents={editOrientation.content}
                 />
 
                 <div>
@@ -182,42 +158,9 @@ function CreateAssignment() {
 
                 <button type="submit">Create Assignment</button>
             </form>
+
         </>
     )
 }
 
-export default CreateAssignment
-
-
-
-
-
-
-// const getVideo = () => {
-//     navigator.mediaDevices
-//       .getUserMedia({ video: { width: 300 } })
-//       .then(stream => {
-//         let video = videoRef.current;
-//         video.srcObject = stream;
-//         video.play();
-//       })
-//       .catch(err => {
-//         console.error("error:", err);
-//       });
-//   };
-
-//   const videoRef = useRef(null);
-
-
-// <button>Take selfie</button>
-//                 <video ref={videoRef}></video>
-//                 <input 
-//                     capture="camera"                
-//                     type='file' 
-//                     name="assignment_video"
-//                     // onChange = {changeHandler}
-//                 />
-
-//                 useEffect(() => {
-//                     getVideo();
-//                   }, [videoRef]);
+export default OrientationEdit;
