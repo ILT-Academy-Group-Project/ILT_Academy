@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { DataGrid, GridToolbar} from '@mui/x-data-grid'
 import { Box, Button, Link, Popper, Paper } from '@mui/material'
 import moment from "moment/moment";
+import HHHimage from "../Hacker/HHHimage";
 
 function StudentProfile() {
     const dispatch = useDispatch();
@@ -111,7 +112,7 @@ function StudentProfile() {
         
         <h1>{student.firstName} {student.lastName}</h1>
         <h2>{cohortInfo.cohortName}</h2>
-        <h3>Hipster/Hacker/Hustler Here</h3>
+        <HHHimage/>
         <p>About Me Here</p>
 
         {/* student's assignments */}

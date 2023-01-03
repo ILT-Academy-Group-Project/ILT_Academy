@@ -6,6 +6,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -29,13 +31,13 @@ function Hacker() {
 
     useEffect(() => {
 
-        user.accessLevel === 2 ? history.push('/home') 
-        : user.hipsterInterest !== 0 
-        && user.hipsterSkill !== 0 
-        && user.hackerInterest !== 0 
-        && user.hackerSkill !== 0 
-        && user.hustlerInterest !== 0 
-        && user.hustlerSkill !== 0 ? history.push('/home') : null;
+        user.accessLevel === 2 ? history.push('/home')
+            : user.hipsterInterest !== 0
+                && user.hipsterSkill !== 0
+                && user.hackerInterest !== 0
+                && user.hackerSkill !== 0
+                && user.hustlerInterest !== 0
+                && user.hustlerSkill !== 0 ? history.push('/home') : null;
 
     }, []);
 
@@ -116,17 +118,10 @@ function Hacker() {
             })
     }
 
-    const arr1 = [5, 8, 7]
-    const arr2 = [1, 9, 9]
-
-    const result = Math.max(...arr2)
-    
-    console.log('MATH>MAXXXXXXXX', result)
-
 
     return (
         <>
-        <HHHimage/>
+            <HHHimage />
             <h1>Please enter your name and email</h1>
             <input
                 required
@@ -146,85 +141,200 @@ function Hacker() {
                 placeholder="Email"
                 onChange={(evt) => setEmail(evt.target.value)}
             />
-            <h1>Dont enjoy</h1>
-            <h2>Hipstering</h2>
-            <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Hipster"
-                    defaultValue={1}
-                    getAriaValueText={setHipsterInterest}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
+            <Typography variant='h4'>
+                Step 01: Understanding the founder skills you enjoy
+            </Typography>
+            <Typography variant='subtitle1'>
+                On a scale of 1 to 10, 1 being, I don't enjoy to 10 being, I could do this all day long and never get sick of it.
+                It's important to understand and identify what elements of being a founder you enjoy from the elements you don't enjoy doing.
+            </Typography>
+            <Typography variant='h4'>Hipstering</Typography>
+            <Typography variant='subtitle1'>
+                Understanding the market place/industry well, developing the creatie vision, and sharing how this idea could work to serve the market needs.
+            </Typography>
+            <Box sx={{ width: 500 }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Don't Enjoy
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            aria-label="Hipster"
+                            defaultValue={1}
+                            getAriaValueText={setHipsterInterest}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Enjoy
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Box>
-            <h2>Hacking</h2>
-            <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Hacker"
-                    defaultValue={1}
-                    getAriaValueText={setHackerInterest}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
+
+            <Typography variant='h4'>Hacking</Typography>
+            <Typography variant='subtitle1'>
+                Finding ways to make this idea come to life. I enjoy building, tinkering and using tools / processes to build, create and can make products real.
+            </Typography>
+            <Box sx={{ width: 500 }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Don't Enjoy
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            aria-label="Hipster"
+                            defaultValue={1}
+                            getAriaValueText={setHackerInterest}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Enjoy
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Box>
-            <h2>Hustling</h2>
-            <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Hustler"
-                    defaultValue={1}
-                    getAriaValueText={setHustlerInterest}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
+            <Typography variant='h4'>Hustling</Typography>
+            <Typography variant='subtitle1'>
+                Selling the vision, bringing people together, finding the customers and partners and driving customer demand. This is all about getting people to say "yes!"
+            </Typography>
+            <Box sx={{ width: 500 }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Don't Enjoy
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            aria-label="Hipster"
+                            defaultValue={1}
+                            getAriaValueText={setHustlerInterest}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Enjoy
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Box>
-            <h1>Novice</h1>
-            <h2>Hipstering</h2>
-            <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Hipster"
-                    defaultValue={1}
-                    getAriaValueText={setHipsterSkill}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
+            <Typography variant='h4'>
+                Step 02: Unpacking your founder skill level
+            </Typography>
+            <Typography variant='subtitle1'>
+                On a scale of 1 to 10, 1 being, I have little experience or expertise to 10 being, I could do this in my sleep.
+                There is no wrong answer here. Many of the best startups were not founded by experts.
+            </Typography>
+            <Typography variant='h4'>Hipstering</Typography>
+            <Typography variant='subtitle1'>
+                My level of industry experience or expertise.
+            </Typography>
+            <Box sx={{ width: 500 }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Don't Enjoy
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            aria-label="Hipster"
+                            defaultValue={1}
+                            getAriaValueText={setHipsterSkill}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Enjoy
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Box>
-            <h2>Hacking</h2>
-            <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Hacker"
-                    defaultValue={1}
-                    getAriaValueText={setHackerSkill}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
+            <Typography variant='h4'>Hacking</Typography>
+            <Typography variant='subtitle'>
+                My knowledge and experience building prototypes and final versions of your idea
+            </Typography>
+            <Box sx={{ width: 500 }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Don't Enjoy
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            aria-label="Hipster"
+                            defaultValue={1}
+                            getAriaValueText={setHackerSkill}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Enjoy
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Box>
-            <h2>Hustling</h2>
-            <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Hustler"
-                    defaultValue={1}
-                    getAriaValueText={setHustlerSkill}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={10}
-                />
+            <Typography variant='h4'>Hustling</Typography>
+            <Typography variant='subtitle1'>
+                My experience in Sales / Marketing / Business
+            </Typography>
+            <Box sx={{ width: 500 }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Don't Enjoy
+                        </Typography>
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            aria-label="Hipster"
+                            defaultValue={1}
+                            getAriaValueText={setHustlerSkill}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={1}
+                            max={10}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Typography id="input-slider" gutterBottom>
+                            Enjoy
+                        </Typography>
+                    </Grid>
+                </Grid>
             </Box>
             <Button onClick={submit}>Submit</Button>
         </>
