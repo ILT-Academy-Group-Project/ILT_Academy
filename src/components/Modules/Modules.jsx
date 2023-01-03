@@ -119,7 +119,7 @@ function Modules() {
 
     const deleteModule = (moduleId) =>{
         // console.log('in delete module with id of:', moduleId);
-        
+        //confirm deletion
         Swal.fire({
             title: 'Are you sure you want to delete this module?',
             text: "You won't be able to revert this!",

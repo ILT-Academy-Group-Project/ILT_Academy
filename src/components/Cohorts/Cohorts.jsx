@@ -16,6 +16,8 @@ import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import './Cohorts.css';
 import { Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
+//sweet alerts import
+const Swal = require('sweetalert2')
 
 
 
@@ -71,10 +73,37 @@ function Cohorts() {
 
     const graduateCohort = (cohortId) => {
         // console.log('in deleteCohort', cohortId);
-        dispatch({
-            type: 'GRADUATE_COHORT',
-            payload: cohortId
-        })
+        //confirm deletion
+        Swal.fire({
+            title: 'Are you sure you want to graduate this cohort?',
+            text: '',
+            icon: 'warning',
+            iconColor: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, graduate the cohort!',
+            confirmButtonColor: 'orange',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+            html: "<h5 style='font-size:22px ;color:red'>You won't be able to revert this!</h5>"
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(            
+            'The Cohort Graduated!'
+            )
+            //dispatch delete/graduate cohort request to saga
+            dispatch({
+                type: 'GRADUATE_COHORT',
+                payload: cohortId
+            })
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            Swal.fire(
+            'Cancelled'
+            )
+        }
+        })        
     }
 
     return (
