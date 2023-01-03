@@ -15,6 +15,8 @@ function UserDashboard(){
     const dispatch = useDispatch();
     const history = useHistory();
 
+    let username = user.username;
+    let cohortId = user.cohortId;
     
 
     // useEffect(() => {
@@ -34,8 +36,10 @@ function UserDashboard(){
         <Grid2 container spacing={2} >
             <Grid2 item xs={4}>
                 <Box sx={{ minWidth: 200, maxWidth: 325, maxHeight: 500, margin: 'auto', }}>
-                    <p><b>Profile</b></p>
-                    <p>{user.username}</p>
+                    <Button
+                    variant='contained'
+                    onClick={() => history.push(`/profile/${username}/${cohortId}`)}
+                    >My Profile</Button>
                     <p>Hacker (todo: connect this to usertable!)</p>
                 </Box>
                 <Box sx={{ backgroundColor: 'grey', maxHeight: 400, width: .8, maxHeight: 400, marginLeft: 'auto', marginRight: 'auto', marginTop:0, padding:1}}>
@@ -56,18 +60,21 @@ function UserDashboard(){
             </Grid2>
         <Grid2 item xs={1.5}>
             <Button 
+            variant='outlined'
             onClick={()=> {
                 window.location.href = "https://gather.town/app/QUkwAkENtpBq8fvW/ILTAcademy"
             }}>
                 Live Virtual Academy
             </Button>
             <Button 
+             variant='outlined'
             onClick={()=> {
                 window.location.href = "https://app.mural.co/invitation/mural/iltstudios1127/1643835923197?sender=uad537750285006409c4e5090&key=41cede5b-6c1a-4e08-bafe-7f708491dcc2"
             }}>
                 Community Board
             </Button>
             <Button 
+             variant='outlined'
             onClick={()=> {
                 window.location.href = "https://iltacademy-founders.slack.com/"
             }}>
