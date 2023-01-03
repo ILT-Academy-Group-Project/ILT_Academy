@@ -9,6 +9,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import HHHimage from './HHHimage';
 const Swal = require('sweetalert2');
 
 function Hacker() {
@@ -103,10 +104,17 @@ function Hacker() {
             })
     }
 
+    const arr1 = [5, 8, 7]
+    const arr2 = [1, 9, 9]
+
+    const result = Math.max(...arr2)
+    
+    console.log('MATH>MAXXXXXXXX', result)
 
 
     return (
         <>
+        <HHHimage/>
             <h1>Please enter your name and email</h1>
             <input
                 required
