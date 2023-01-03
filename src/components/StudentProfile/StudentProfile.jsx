@@ -12,6 +12,9 @@ function StudentProfile() {
     const params = useParams();
     
     const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
+    const submissions = useSelector(store => store.assignments.studentAssignmentsReducer);
+    const student = useSelector(store => store.student);
+    const user = useSelector(store => store.user);
 
     //Name, Username, Cohort, HHH, Bio, Email, Orientation status, Submissions
     // user - firstName, lastName, username, cohortId, hipsterInterest, hackerInterest,  hustlerInterest, hipsterSkill, hackerSkill, hustlerSkill, oriented
@@ -32,26 +35,14 @@ function StudentProfile() {
             payload: params.username
         })
 
-    }, [params.username])
+    }, [params.username], [user.id])
 
 
     const columns = [
         {
-            field: 'status',
-            headerName: 'Status',
-            width: 80,
-          },
-        {
-          field: 'firstName',
-          headerName: 'First name',
-          width: 150,
-          editable: true,
-        },
-        {
-          field: 'lastName',
-          headerName: 'Last name',
-          width: 150,
-          editable: true,
+        field: 'assignmentName',
+        headerName: 'Assignment',
+        width: 150,
         },
         {
           field: 'file',
@@ -90,14 +81,58 @@ function StudentProfile() {
 
     const rows = [];
 
+    submissions.map(submission => {
+        let studentSubmissions = {
+            id: submission.submissionId,
+            assignmentName: submission.assignmentName,
+            file: submission.file,
+            text: submission.textInput,
+            video: submission.video,
+            dateSubmitted: moment(submission.submissionDate).format('MMMM Do YYYY, h:mm:ss a'),
+        }
+        rows.push(studentSubmissions)
+    })
+
     // map through student's assignments to display submitted/unsubmitted details
+
 
 
     return (
         <>
-        <h1>Student Profile</h1>
+        
+        {user.id ===1 ?
+        <Button
+        onClick={() => history.push(`/admin/cohort/${cohortInfo.id}`)}>Back to Cohort</Button>
+        :
+        <Button
+        onClick={() => history.push(`/studentportal`)}>Back to Dashboard</Button>
+        }
+            
+        
+        <h1>{student.firstName} {student.lastName}</h1>
+        <h2>{cohortInfo.cohortName}</h2>
+        <h3>Hipster/Hacker/Hustler Here</h3>
 
         {/* student's assignments */}
+        <Box sx={{ height: 400, width: '90%', margin: 10 }}>
+            <DataGrid
+             sx={{
+              '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' }, //this adds padding to 'auto' height
+              '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { py: '15px' },
+              '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '22px' },
+            }}
+              rows={rows}
+              columns={columns}
+              pageSize={8}
+              rowsPerPageOptions={[8]} 
+              getRowHeight={() => 'auto'}
+              components={{
+                Toolbar: GridToolbar
+              }} 
+            />
+            </Box>
+            
+            
 
         </>
     )
