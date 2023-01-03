@@ -112,6 +112,7 @@ function StudentProfile() {
         <h1>{student.firstName} {student.lastName}</h1>
         <h2>{cohortInfo.cohortName}</h2>
         <h3>Hipster/Hacker/Hustler Here</h3>
+        <p>About Me Here</p>
 
         {/* student's assignments */}
         <Box sx={{ height: 400, width: '90%', margin: 10 }}>
