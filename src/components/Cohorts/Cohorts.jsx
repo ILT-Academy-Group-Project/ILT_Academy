@@ -117,8 +117,8 @@ function Cohorts() {
 
                 <Grid2 item xs={6} sx={{}} className='cohortCard'
                     key={cohort.id}>
-                    <Card sx={{margin: 'auto', width: 1, backgroundColor: 'secondary.light'}}>
-                        <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                    <Card sx={{margin: 'auto', width: 1, backgroundColor: 'secondary'}}>
+                        <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary' }} >
                             <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
     
                                 <CardMedia
@@ -128,7 +128,7 @@ function Cohorts() {
                                     alt="something cool"
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
+                                    <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{}}>
                                     {cohort.cohortName}
                                     </Typography>
     
@@ -141,7 +141,7 @@ function Cohorts() {
                         <Button 
                                 sx={{ textAlign:'right', width: 1}} 
                                 variant='contained' 
-                                color='warning'
+                                color='primary'
                                 onClick={()=>graduateCohort(cohort.id)}
                             >
                             Graduate Cohort
@@ -153,7 +153,7 @@ function Cohorts() {
 
             {/* form section */}
             <Grid2 item xs={6} sx={{}} className='cohortCard'>
-                <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary' }} >
                     <CardActionArea onClick={()=>setOpen(!open)}>
                         <CardMedia
                             component="img"
@@ -162,7 +162,7 @@ function Cohorts() {
                             alt="something cool"
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h4" component="div" color='primary.light' sx={{}}>
+                            <Typography gutterBottom variant="h4" component="div" color='primary' sx={{}}>
                             Create Cohort
                             </Typography>
                         </CardContent>
