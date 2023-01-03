@@ -28,7 +28,6 @@ function Cohorts() {
     const cohorts = useSelector(store => store.cohorts.cohortReducer);
     // FETCH cohorts
 
-    const cohorts = useSelector(store => store.cohorts);
     //modal controls, opens and handles close
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
