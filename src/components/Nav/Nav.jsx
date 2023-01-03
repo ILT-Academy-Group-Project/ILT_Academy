@@ -11,14 +11,14 @@ function Nav() {
     const dispatch = useDispatch();
     // console.log('publishedSeries', publishedSeries, 'cohortId:', user);
 
-    // useEffect(() => {
-    //     //get assigned series for the render;
-    //     dispatch({
-    //         type: 'FETCH_COHORT_SERIES',
-    //         payload: user.cohortId
-    //     })
+    useEffect(() => {
+        //get assigned series for the render;
+        dispatch({
+            type: 'FETCH_COHORT_SERIES',
+            payload: user.cohortId
+        })
 
-    // },[user.id]);
+    },[user.id]);
 
     return (
     <div className="nav">

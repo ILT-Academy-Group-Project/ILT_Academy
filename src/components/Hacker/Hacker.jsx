@@ -29,7 +29,7 @@ function Hacker() {
 
     useEffect(() => {
 
-        user.accessLevel === 2 ? history.push('/admin/dashboard') 
+        user.accessLevel === 2 ? history.push('/home') 
         : user.hipsterInterest !== 0 
         && user.hipsterSkill !== 0 
         && user.hackerInterest !== 0 
