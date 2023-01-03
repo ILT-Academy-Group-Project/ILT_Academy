@@ -26,13 +26,15 @@ function OrientationStep() {
     const [completed, setCompleted] = useState({});
 
 
+    console.log(orientation)
     useEffect(() => {
         dispatch({
             type: 'FETCH_ORIENTATION',
             // payload: user.oriented
         })
 
-        // user.accessLevel === 2 ? setActiveStep(0) : setActiveStep(user.oriented);
+        user.accessLevel === 2 ? history.push('/admin/dashboard') 
+        : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null;
 
     }, []);
 
