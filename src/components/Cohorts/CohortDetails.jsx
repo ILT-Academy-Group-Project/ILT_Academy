@@ -99,10 +99,6 @@ function CohortDetails() {
             viewStudent: RenderButton(student.username),
             cohortId: student.cohortId
 
-        dispatch({
-            type: 'FETCH_COHORT',
-            payload: params.id
-        })
         // dispatch({
         //     type: 'FETCH_COHORT_SERIES',
         //     payload: params.cohortId
