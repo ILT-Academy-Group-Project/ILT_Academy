@@ -55,7 +55,7 @@ function Cohorts() {
 
     const createCohort = (evt) => {
         evt.preventDefault();
-        console.log('in createCohort');
+        // console.log('in createCohort');
         dispatch({
             type: 'CREATE_COHORT',
             payload:{
@@ -69,6 +69,14 @@ function Cohorts() {
         handleClose();
     }
 
+    const graduateCohort = (cohortId) => {
+        // console.log('in deleteCohort', cohortId);
+        dispatch({
+            type: 'GRADUATE_COHORT',
+            payload: cohortId
+        })
+    }
+
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
@@ -77,25 +85,35 @@ function Cohorts() {
 
                 <Grid2 item xs={6} sx={{}} className='cohortCard'
                     key={cohort.id}>
-                    <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary.light' }} >
-                        <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
-
-                            <CardMedia
-                                component="img"
-                                // height="140"
-                                image="/images/ilt.png"
-                                alt="something cool"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                {cohort.cohortName}
-                                </Typography>
-
-                                <Typography variant="body2" color="primary.main">
-                                Cohort Access Code: {cohort.accessCode}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
+                    <Card sx={{margin: 'auto', width: 1, backgroundColor: 'secondary.light'}}>
+                        <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                            <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
+    
+                                <CardMedia
+                                    component="img"
+                                    // height="140"
+                                    image="/images/ilt.png"
+                                    alt="something cool"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
+                                    {cohort.cohortName}
+                                    </Typography>
+    
+                                    <Typography variant="body2" color="primary.main">
+                                    Cohort Access Code: {cohort.accessCode}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                        <Button 
+                                sx={{ textAlign:'right', width: 1}} 
+                                variant='contained' 
+                                color='warning'
+                                onClick={()=>graduateCohort(cohort.id)}
+                            >
+                            Graduate Cohort
+                        </Button>
                     </Card>
                 </Grid2>
 
@@ -117,7 +135,7 @@ function Cohorts() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                </Card>
+                </Card>                
             </Grid2>
         </ThemeProvider>
         {/* ADD COHORT MODAL */}

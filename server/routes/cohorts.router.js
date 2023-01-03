@@ -72,4 +72,25 @@ router.post('/', rejectUnauthenticated, async(req, res) => {
 })
 
 
+//delete === graduate the cohort
+router.delete('/:id', rejectUnauthenticated, async(req, res) => {
+    // console.log('in delete/graduate cohort', req.params.id);
+
+    try{
+        //sql query setup
+        const sqlText = `
+            DELETE FROM "cohorts"
+            WHERE "id" = $1;
+        `;
+        //query DB
+        await pool.query(sqlText, [req.params.id]);
+        //send status OK
+        res.sendStatus(200);
+    } catch (err){
+        console.error('in graduate/DELETE cohort err', err.message);
+        //send status of server error
+        res.sendStatus(500);
+    }
+
+})
 module.exports = router

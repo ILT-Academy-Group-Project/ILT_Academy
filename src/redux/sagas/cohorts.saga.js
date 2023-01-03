@@ -48,13 +48,31 @@ function* createCohort(action){
     }
 
 }
+//GRADUATE THE COHORT ===delete the cohort assignment
+//turns assigned cohort for the student to 'null'
+function* graduateCohort(action){
+    // console.log('in graduateCohort with id', action.payload);
 
+    try{
+        //dispatch axios.delete to server for DB deletion
+        yield axios.delete(`/api/cohorts/${action.payload}`);
+
+        //refresh redux with new cohort list
+        yield put({
+            type:'FETCH_COHORTS'
+        });
+        
+    } catch (err){
+        console.error('in graduateCohort SAGA error', err.message);
+    }
+}
 
 
 function* cohortsSaga() {
   yield takeLatest('FETCH_COHORTS', fetchCohorts);
   yield takeLatest('FETCH_COHORT_STUDENTS', fetchCohortStudents);
   yield takeEvery('CREATE_COHORT', createCohort);
+  yield takeLatest('GRADUATE_COHORT', graduateCohort)
 }
 
 export default cohortsSaga;
