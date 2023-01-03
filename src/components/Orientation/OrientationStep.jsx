@@ -34,7 +34,7 @@ function OrientationStep() {
         })
 
         orientation.length > 0 ?
-        user.accessLevel === 2 ? history.push('/admin/dashboard') 
+        user.accessLevel === 2 ? history.push('/home') 
         : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null : null
 
     }, []);

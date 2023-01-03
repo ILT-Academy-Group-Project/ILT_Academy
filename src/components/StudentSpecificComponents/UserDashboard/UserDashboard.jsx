@@ -22,12 +22,12 @@ function UserDashboard(){
     //reroute to hipster hacker hustler / orientation if it isnt complete
     {
         user.oriented <= orientationList.length 
-        && user.hipsterInterest !== 0 
-        && user.hipsterSkill !== 0 
-        && user.hackerInterest !== 0 
-        && user.hackerSkill !== 0 
-        && user.hustlerInterest !== 0 
-        && user.hustlerSkill !== 0
+        && user.hipsterInterest === 0 
+        && user.hipsterSkill === 0 
+        && user.hackerInterest === 0 
+        && user.hackerSkill === 0 
+        && user.hustlerInterest === 0 
+        && user.hustlerSkill === 0
         ? history.push('/user') 
         : null
     };

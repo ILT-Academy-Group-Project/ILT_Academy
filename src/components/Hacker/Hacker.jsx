@@ -112,7 +112,7 @@ function Hacker() {
         //push to modules view
         Swal.fire('Success!')
             .then((result) => {
-                history.push(`/home`);
+                history.go(0);
             })
     }
 
