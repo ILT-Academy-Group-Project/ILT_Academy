@@ -9,8 +9,9 @@ const fs = require('fs');
 // require('dotenv').config();
 //reject unauthenticated
 const {
-  rejectUnauthenticated,
+  rejectUnauthenticated, rejectNotAdmin
 } = require('../modules/authentication-middleware');
+
 
 //import multer for file reciept
 const multer  = require('multer');
@@ -41,7 +42,8 @@ const upload = multer({
 //     region:region
 // });
 
-router.get('/', rejectUnauthenticated, async (req, res) => {
+//ONLY admin can see all assignments
+router.get('/', rejectUnauthenticated, rejectNotAdmin, async (req, res) => {
   try{
       const sqlText = 
           `SELECT * FROM "assignments"`;
@@ -55,16 +57,44 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
   }
 })
 
+//ONLY admin and students who are assigned assignment can see this
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     // console.log('in GET assignment by ID route with payload of:', req.params.id);
-    
+    let sqlText;
+    let sqlParams;
     //create sqlText for db query
-    const sqlText=`
-        SELECT * FROM "assignments"
-        WHERE "id" = $1;
-    `;
+    if(req.user.cohortId !== null){
+        console.log('🐍student access')
+        sqlText =`
+        SELECT "assignments".id, "assignments"."name", "assignments"."seriesId", "assignments"."content","assignments"."createdDate", "assignments".feedback, "assignments".media, "assignments".file, "assignments"."textField", "assignments".video, "assignments"."postClass" FROM "assignments"
+        JOIN "series" ON "assignments"."seriesId" = "series".id
+        JOIN "cohorts_series" ON "series".id = "cohorts_series"."seriesId"
+        JOIN "cohorts" ON "cohorts_series"."cohortId" = "cohorts".id
+        JOIN "cohorts_modules" ON "cohorts".id = "cohorts_modules"."cohortId"
+        WHERE "assignments".id = $1
+        AND "cohorts_modules"."cohortId" = $2 
+        GROUP BY "assignments".id;
+        `;
+
+        sqlParams = [req.params.id, req.user.cohortId];
+    } else if(req.user.cohortId == null) {
+        console.log('🦧admin access')
+        sqlText =`
+        SELECT "assignments".id, "assignments"."name", "assignments"."seriesId", "assignments"."content","assignments"."createdDate", "assignments".feedback, "assignments".media, "assignments".file, "assignments"."textField", "assignments".video, "assignments"."postClass" FROM "assignments"
+        JOIN "series" ON "assignments"."seriesId" = "series".id
+        JOIN "cohorts_series" ON "series".id = "cohorts_series"."seriesId"
+        JOIN "cohorts" ON "cohorts_series"."cohortId" = "cohorts".id
+        JOIN "cohorts_modules" ON "cohorts".id = "cohorts_modules"."cohortId"
+        WHERE "assignments".id = $1
+        GROUP BY "assignments".id;
+        `;
+
+        sqlParams = [req.params.id];
+    }
+    
+    console.log('TESTING PARAMS in get assignments by ID', sqlParams);
     //query DB
-    pool.query(sqlText, [req.params.id])
+    pool.query(sqlText, sqlParams)
         .then(dbRes => {
             // console.log('dbRes.rows', dbRes.rows[0]);
             res.send(dbRes.rows[0]);

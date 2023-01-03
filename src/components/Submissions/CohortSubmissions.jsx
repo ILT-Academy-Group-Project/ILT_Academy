@@ -15,6 +15,8 @@ function CohortSubmissions() {
     const submissions = useSelector(store => store.submissions.cohortSubmissionsReducer);
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
     const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer);
+    const cohortStudents = useSelector(store => store.cohortStudents)
+
 
     // console.log('cohortInfo is', cohortInfo);
 
@@ -33,6 +35,10 @@ function CohortSubmissions() {
         dispatch({
             type: 'FETCH_COHORT',
             payload: params.cohortId
+        })
+        dispatch({
+          type:'FETCH_COHORT_STUDENTS',
+          payload: params.cohortId
         })
         console.log('params.cohortId is ', params.cohortId);
     },[params.cohortId, params.assignmentId])
@@ -92,6 +98,34 @@ function CohortSubmissions() {
       
       const rows = [];
 
+     //array to contain student ids of submitted students
+     let submittedStudents = [];
+     cohortStudents.map(student => {
+      submissions.map(submission => {
+        if(student.id == submission.studentId){
+          console.log('TRUEEE BITCH')
+          submittedStudents.push(student.id);
+        }
+        
+      })
+      console.log('submittedStudents ', submittedStudents)
+     })
+
+     //check cohortStudents against submittedStudents 
+     let missingStudents = [];
+     cohortStudents.map(student => {
+      if(!submittedStudents.includes(student.id)){
+        console.log('NOT INCLUDED ', student.firstName)
+        missingStudents.push(student)
+      }
+      console.log('missingStudents are ', missingStudents);
+     })
+    
+
+
+
+      console.log('cohort students is ', cohortStudents);
+      //map through submissions and add to DataGrid rows array
       submissions.map(submission => {
 
           console.log('submission is ', submission)
@@ -107,23 +141,24 @@ function CohortSubmissions() {
                 dateSubmitted: moment(submission.submissionDate).format('MMMM Do YYYY, h:mm:ss a')
               } 
             rows.push(studentSubmission) 
-          } else if(submission.assignmentId == null){
-            let missingSubmission =  {
-                id: submission.studentId,
+            
+          }
+          
+      })
+      //map through missing submission students and add them to DataGrid row array
+      missingStudents.map(missing => {
+        let  missingSubmission =  {
+                id: missing.id,
                 status: '❌',
-                firstName: submission.firstName,
-                lastName: submission.lastName,
-                file: submission.file,
-                text: submission.textInput,
-                video: submission.video
+                firstName: missing.firstName,
+                lastName: missing.lastName,
+                file: null,
+                text: null,
+                video: null
               } 
             rows.push(missingSubmission)
-          }
-       
       })
-    // if(!cohortInfo.cohortName){
-    //     return(<>loading...</>);
-    // }
+  
     return(
             <>
             <Button

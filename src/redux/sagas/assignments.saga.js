@@ -65,7 +65,7 @@ function* createAssignment(action) {
 function* fetchSelectedAssignment(action){
     console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
     try{
-        //get selectedAssignment from server
+        //get selectedAssignment from server with assignmentId of... 
         const selectedAssignment = yield axios.get(`/api/assignments/${action.payload}`);
         // console.log('response from GET assignment by ID', selectedAssignment.data);
 
