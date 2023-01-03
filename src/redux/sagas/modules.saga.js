@@ -65,10 +65,49 @@ function* publishCohortModule(action) {
     }
 }
 
+//make a new module
+function* createModule(action) {
+    // console.log('in createModule SAGA', action.payload);
+
+    try{
+        //send new module to server
+        yield axios.post('/api/modules', action.payload);
+
+        //update redux
+        yield put({
+            type: 'FETCH_MODULES',
+            payload: action.payload.seriesId
+        });
+
+    } catch (err) {
+        console.error('in createModule SAGA error:', err.message);
+    }
+
+}
+
+function* deleteModule(action) {
+    // console.log('in deleteModule SAGA with payload of:', action.payload);
+    try{
+        //axios.delete to server
+        yield axios.delete(`/api/modules/${action.payload.id}`);
+
+        //update redux status
+        yield put({
+            type: 'FETCH_MODULES',
+            payload: action.payload.seriesId
+        });
+        
+    } catch (err){
+        console.error('error in deleteModule SAGA:', err.message)
+    }
+}
+
 function* modulesSaga() {
   yield takeLatest('FETCH_MODULES', fetchModules);
   yield takeLatest('FETCH_COHORT_MODULES', fetchCohortModules);
   yield takeLatest('PUBLISH_MODULE', publishCohortModule);
+  yield takeLatest('CREATE_MODULE', createModule);
+  yield takeLatest('DELETE_MODULE', deleteModule);
 }
 
 export default modulesSaga;

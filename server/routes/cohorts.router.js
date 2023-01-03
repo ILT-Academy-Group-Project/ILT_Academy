@@ -40,5 +40,57 @@ router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
     }
 })
 
+// POST COHORT
 
+router.post('/', rejectUnauthenticated, async(req, res) => {
+    // console.log('in Cohorts POST route', req.body);
+
+    try {
+        //sql text for query
+        const sqlText = `
+            INSERT INTO "cohorts"
+                ("cohortName", "accessCode")
+            VALUES
+                ($1, $2);
+        `;
+        //sql parameters for query
+        const sqlParams = [req.body.cohortName, req.body.accessCode];
+
+        await pool.query(sqlText, sqlParams);
+
+        res.sendStatus(201);
+
+    } catch (err) {
+        if(err.detail.includes('already exists')){
+            res.send('accessCode or cohortname already exists');
+        } 
+        else{
+            res.sendStatus(500);
+            console.error('in POST cohort route error', err);
+        }    
+    }
+})
+
+
+//delete === graduate the cohort
+router.delete('/:id', rejectUnauthenticated, async(req, res) => {
+    // console.log('in delete/graduate cohort', req.params.id);
+
+    try{
+        //sql query setup
+        const sqlText = `
+            DELETE FROM "cohorts"
+            WHERE "id" = $1;
+        `;
+        //query DB
+        await pool.query(sqlText, [req.params.id]);
+        //send status OK
+        res.sendStatus(200);
+    } catch (err){
+        console.error('in graduate/DELETE cohort err', err.message);
+        //send status of server error
+        res.sendStatus(500);
+    }
+
+})
 module.exports = router

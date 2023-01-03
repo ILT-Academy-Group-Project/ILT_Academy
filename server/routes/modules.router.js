@@ -61,5 +61,50 @@ router.post('/publish/:cohortId/:moduleId', rejectUnauthenticated, async (req, r
     }
 })
 
+//POST new module route
+router.post('/', rejectUnauthenticated, async (req, res) => {
+    // console.log('in POST new module with:', req.body);
+
+    try{
+        //inserting into the modules table to create a new module
+        const sqlText = `
+            INSERT INTO "modules"
+                ("seriesId", "name")
+            VALUES
+                ($1, $2)
+        `;
+
+        const sqlParams = [req.body.seriesId, req.body.name];
+        
+        await pool.query(sqlText, sqlParams);
+
+        res.sendStatus(201);
+
+    } catch (err) {
+        console.error('in POST new module route error', err);
+        res.sendStatus(500);
+    }
+})
+
+
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+    console.log('in Modules DELETE rte with id of:', req.params.id);
+
+    //query time
+    try{
+        const sqlText = `
+            DELETE FROM "modules"
+            WHERE "id" = $1;
+        `;
+        await pool.query(sqlText, [req.params.id]);
+
+        res.sendStatus(200);
+
+    } catch (err) {
+        console.error('error in modules DELETE rte', err.message)
+        res.sendStatus(500);
+    }
+
+})
 
 module.exports = router

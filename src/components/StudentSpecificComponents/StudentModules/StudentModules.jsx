@@ -50,9 +50,6 @@ function StudentModules (){
     const preClass = assignments.filter(assignment => assignment.postClass === false);
     const postClass = assignments.filter(assignment => assignment.postClass === true);
 
-    // console.log('preclass assignments:', preClass);
-    // console.log('postclass assignments:', postClass);
-
     useEffect(() => {
         // dispatch({
         //     type:'FETCH_COHORT_STUDENTS',
@@ -127,6 +124,7 @@ function StudentModules (){
     return (
         <>
           {/* Map the modules user has access to */}
+          <h1></h1>
         {cohortModules.map((publishedModule, i) =>{
             return(               
                  <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>

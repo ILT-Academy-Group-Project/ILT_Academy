@@ -5,7 +5,7 @@
 
 CREATE TABLE "cohorts" (
 	"id" SERIAL PRIMARY KEY,
-	"cohortName" VARCHAR(255) NOT NULL,
+	"cohortName" VARCHAR(255) NOT NULL UNIQUE,
 	"accessCode" VARCHAR NOT NULL UNIQUE
 );
 
@@ -24,7 +24,7 @@ CREATE TABLE "user" (
 	"hustlerInterest" INT DEFAULT 0,
 	"hustlerSkill" INT DEFAULT 0,
 	"accessLevel" INT DEFAULT 1,
-	"cohortId" INT REFERENCES "cohorts",
+	"cohortId" INT REFERENCES "cohorts" ON DELETE SET NULL,
 	"oriented" INT DEFAULT 0,
 	"aboutMe" VARCHAR
 );
@@ -44,7 +44,8 @@ CREATE TABLE "series" (
 CREATE TABLE "cohorts_series" (
 	"id" SERIAL PRIMARY KEY,
 	"cohortId" INT REFERENCES "cohorts" ON DELETE CASCADE,
-	"seriesId" INT REFERENCES "series" ON DELETE CASCADE
+	"seriesId" INT REFERENCES "series" ON DELETE CASCADE,
+    UNIQUE ("cohortId", "seriesId")
 );
 
 
@@ -60,7 +61,8 @@ CREATE TABLE "cohorts_modules" (
 	"cohortId" INT REFERENCES "cohorts" ON DELETE CASCADE,
 	"moduleId" INT REFERENCES "modules" ON DELETE CASCADE,
 	"assignedDate" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	"dueDate" TIMESTAMP
+	"dueDate" TIMESTAMP,
+    UNIQUE ("cohortId", "moduleId")
 );
 
 

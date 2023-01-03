@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { useHistory, useParams } from 'react-router-dom';
@@ -19,8 +19,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-
-
+import { Input } from '@mui/material';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+//sweet alert import
+const Swal = require('sweetalert2')
 
 function Modules() {
     const dispatch = useDispatch();
@@ -30,7 +34,32 @@ function Modules() {
     const assignments = useSelector(store => store.assignments.assignmentsReducer);
     const [expanded, setExpanded] = React.useState(false);
 
+    //set up preclass post class arrays to seperately render in module
+    const preClass = assignments.filter(assignment => assignment.postClass === false);
+    const postClass = assignments.filter(assignment => assignment.postClass === true);
+
+    //modal controls, opens and handles close
+    const [open, setOpen] = useState(false);
+    const handleClose = () => setOpen(false);
     // console.log('🍏 params.id is THIS ', params.seriesId) 
+
+
+
+    //state for form
+    const [name, setName] = useState('');
+
+    //modal style
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 300,
+        bgcolor: 'white',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+        };
 
 
 
@@ -71,13 +100,69 @@ function Modules() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const createModule = (evt) => {
+        evt.preventDefault();
+        // console.log('in createModule');
+        //dispatch to SAGA for axios to server/db
+        dispatch({
+            type: 'CREATE_MODULE',
+            payload:{
+                name,
+                seriesId: params.seriesId
+            }
+        })
+        //empty fields
+        setName('')
+        //close modal
+        handleClose();
+    }
+
+    const deleteModule = (moduleId) =>{
+        // console.log('in delete module with id of:', moduleId);
+        //confirm deletion
+        Swal.fire({
+            title: 'Are you sure you want to delete this module?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            iconColor: 'red',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: 'red',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(            
+            'The Module has been deleted!'
+            )
+            //dispatch delete request to saga
+            dispatch({
+                type:'DELETE_MODULE',
+                payload: {
+                    id: moduleId,
+                    seriesId: params.seriesId
+                }
+            });
+            //after delete head home
+            // history.push('/home');
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            Swal.fire(
+            'Cancelled'
+            )
+        }
+        })
+        
+    }
 
     return (
         <>
-
-            {modules.map(module => (
-                <>
-                    <Accordion expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
+            {modules.map((module, i) => (
+                
+                <div key={i}>
+                    <Accordion key={i} expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1bh-content"
@@ -86,49 +171,145 @@ function Modules() {
                             <Typography sx={{ width: '33%', flexShrink: 0 }}>
                                 {module.name}
                             </Typography>
-                            <Typography sx={{ color: 'text.secondary' }}>Something? Maybe no Info?</Typography>
+                            <Typography sx={{ width: '33%', color: 'text.secondary' }}>Something? Maybe no Info?</Typography> 
+                                                        
                         </AccordionSummary>
                         <AccordionDetails>
                             <TableContainer component={Paper}>
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
-                                        <TableRow>
-                                            <StyledTableCell align="right">Name</StyledTableCell>
-                                            <StyledTableCell align="right">Date Created</StyledTableCell>
-                                            <StyledTableCell align="right">Pre/Post Class</StyledTableCell>
-                                            <StyledTableCell align="right">Feedback</StyledTableCell>
+                                        <TableRow>                                        
+                                            <StyledTableCell align="center">Name</StyledTableCell>
+                                            <StyledTableCell align="center">Date Created</StyledTableCell>                                            
+                                            <StyledTableCell align="center">Feedback</StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {assignments.map(assignment => {
-                                            if (assignment.moduleId === module.id) {
+                                    <TableRow>
+                                            <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {/* Display all pre-class assignments here */}
+                                        {preClass.map((assignment, i) => {
+                                            if (assignment.moduleId == module.id) {                                                
+                                                return (
+                                                    <StyledTableRow key={i}
+                                                        >                                                            
+                                                         <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
+                                                            {assignment.name}
+                                                            </Button>                                                            
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                     </StyledTableRow>
+                                                )
+                                            } 
+                                        })}
+                                        <TableRow>
+                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {/* display all postclass assignments here */}
+                                        {postClass.map((assignment, i)  => {
+                                            if (assignment.moduleId == module.id) {
+                                                // console.log('TRUE')
                                                 let pre = ''
                                                 assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
                                                 return (
-                                                    <StyledTableRow key={assignment.id}>
-                                                        {/* <StyledTableCell component="th" scope="row">
+                                                    <StyledTableRow key={i}
+                                                        >
+                                                        <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
                                                             {assignment.name}
-                                                        </StyledTableCell> */}
-                                                        <StyledTableCell align="right"><Link to={`/assignment/${assignment.id}`}>{assignment.name}</Link></StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
-                                                        <StyledTableCell align="right">{pre}</StyledTableCell>
-                                                        <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
-                                                    </StyledTableRow>
+                                                            </Button>
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                     </StyledTableRow>
                                                 )
-                                            }
+                                            } 
                                         })}
+                                       
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button>
+                            {/* CREATE A NEW ASSIGNMENT */}
+                            <Grid2 container spacing={2}>
+                                <Grid2 item sm={9}>
+                                    <Button 
+                                        onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}
+                                    >
+                                        Add assignment
+                                    </Button>
+                                </Grid2>
+                                <Grid2 item sm={3}>
+                                    <Button 
+                                            sx={{ textAlign:'right'}} 
+                                            variant='contained' 
+                                            color='error'
+                                            onClick={()=>deleteModule(module.id)}
+                                        >
+                                        Delete Module
+                                    </Button>
+                                </Grid2>
+                            </Grid2>
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
-
-                </>
+                </div>
+                    
+                
             ))}
+            {/* CREATE A NEW MODULE */}
+            <Button
+                onClick={()=>setOpen(!open)}
+                sx={{ minHeight: 100, fontSize: 35 }}
+                color='primary'
+                variant='outlined'
+            >
+                    Create New Module
+            </ Button>
+            
+            <Modal 
+            open={open}
+            onClose={handleClose}>
+                <Box sx={style} >
+                    <form onSubmit={createModule}>
+                        <label>Module Name</label>
+                        <Input 
+                            type='text' 
+                            placeholder='Module Name'
+                            value={name}
+                            onChange={(evt)=>setName(evt.target.value)}
+                        />
+                        <Button type='submit'>Create Module</Button>
+                    </form>
+                </Box>
+            </Modal>
         </>
     )
 }
 
 export default Modules;
+
+//saved code in case pre/post class render created a bug
+// {assignments.map(assignment => {
+//     if (assignment.moduleId === module.id) {
+//         let pre = ''
+//         assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+//         return (
+//             <StyledTableRow key={assignment.id}>
+//                 {/* <StyledTableCell component="th" scope="row">
+//                     {assignment.name}
+//                 </StyledTableCell> */}
+//                 <StyledTableCell align="right"><Link to={`/assignment/${assignment.id}`}>{assignment.name}</Link></StyledTableCell>
+//                 <StyledTableCell align="right">{assignment.createdDate}</StyledTableCell>
+//                 <StyledTableCell align="right">{pre}</StyledTableCell>
+//                 <StyledTableCell align="right">{assignment.feedback}</StyledTableCell>
+//             </StyledTableRow>
+//         )
+//     }
+// })}
