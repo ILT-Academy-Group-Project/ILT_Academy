@@ -16,6 +16,7 @@ function* fetchCohorts() {
 }
 
 function* fetchCohortStudents(action){
+    console.log('🚗 action.payload in cohorts.saga ', action.payload)
     try{
         let cohortStudents = yield axios.get(`api/cohorts/${action.payload}`) //get students and cohort info from specific cohort
             console.log('cohort students in cohorts.saga are ', cohortStudents)
@@ -23,8 +24,21 @@ function* fetchCohortStudents(action){
             type: 'SET_COHORT_STUDENTS',
             payload: cohortStudents.data
         })
+    } catch (err){
+        console.log('error in cohort.saga', err.message)
+    }
+}
+
+function* fetchCohort(action) {
+    try{
+        const cohortData = yield axios.get(`api/cohorts/name/${action.payload}`)
+            console.log('get cohort info by cohort ID', cohortData.data[0]);
+        yield put({
+            type: 'SET_COHORT', 
+            payload: cohortData.data[0]
+        })
     } catch{
-        console.log('error in cohort.saga')
+        console.log('error in cohort.saga fetch cohort name')
     }
 }
 
@@ -71,6 +85,7 @@ function* graduateCohort(action){
 function* cohortsSaga() {
   yield takeLatest('FETCH_COHORTS', fetchCohorts);
   yield takeLatest('FETCH_COHORT_STUDENTS', fetchCohortStudents);
+  yield takeLatest('FETCH_COHORT', fetchCohort);
   yield takeEvery('CREATE_COHORT', createCohort);
   yield takeLatest('GRADUATE_COHORT', graduateCohort)
 }

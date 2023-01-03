@@ -24,6 +24,10 @@ const Swal = require('sweetalert2')
 function Cohorts() {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const cohorts = useSelector(store => store.cohorts.cohortReducer);
+    // FETCH cohorts
+
     const cohorts = useSelector(store => store.cohorts);
     //modal controls, opens and handles close
     const [open, setOpen] = useState(false);
@@ -47,6 +51,7 @@ function Cohorts() {
       };
 
     // FETCH cohorts for map fn
+
     useEffect(() => {
         dispatch({
             type: 'FETCH_COHORTS'
@@ -107,8 +112,8 @@ function Cohorts() {
 
     return (
         <>
+        
         <ThemeProvider theme={PrimaryMainTheme}>
-            
             {cohorts.map(cohort => (
 
                 <Grid2 item xs={6} sx={{}} className='cohortCard'

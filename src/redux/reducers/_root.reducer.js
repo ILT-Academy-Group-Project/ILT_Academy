@@ -12,6 +12,7 @@ import orientation from './orientation.reducer';
 import cohortStudents from './cohort.student.reducer';
 import cohortSeries from './cohort.series.reducer';
 import cohortModules from './cohort.modules.reducer';
+import student from './student.reducer';
 
 
 
@@ -24,7 +25,7 @@ import cohortModules from './cohort.modules.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  cohorts, //contains all cohorts
+  cohorts, //contains all cohorts and single cohort
   series, //contains all series
   modules,
   assignments,
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
 //   assignments,
   events,
   submissions,
+  student,
 });
 
 export default rootReducer;

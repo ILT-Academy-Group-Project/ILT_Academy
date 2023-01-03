@@ -43,6 +43,7 @@ function CohortModules() {
         //     type:'FETCH_COHORT_STUDENTS',
         //     payload: params.cohortId
         // })
+        console.log('💞 COHORTMODULES params.cohortId', params.cohortId)
 
         // dispatch({
         //     type: 'FETCH_COHORT_SERIES',

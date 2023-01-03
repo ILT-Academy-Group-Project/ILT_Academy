@@ -1,4 +1,4 @@
-
+import { combineReducers } from 'redux';
 
 //Cohorts reducer
 
@@ -11,4 +11,16 @@ const cohortReducer = (state = [], action ) => {
     }
 }
 
-export default cohortReducer;
+const singleCohortReducer = (state = {}, action ) => {
+    switch(action.type) {
+        case 'SET_COHORT':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    cohortReducer,
+    singleCohortReducer,
+  });

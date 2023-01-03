@@ -11,6 +11,7 @@ import modulesSaga from './modules.saga';
 import assignmentsSaga from './assignments.saga';
 import orientationSaga from './orientation.saga';
 import stepSaga from './step.saga';
+import studentSaga from './student.saga';
 import hackerSaga from './hacker.saga';
 
 // rootSaga is the primary saga.
@@ -36,6 +37,7 @@ export default function* rootSaga() {
     // assignmentsSaga(),
     eventsSaga(),
     submissionsSaga(),
+    studentSaga(),
     hackerSaga()
   ]);
 }

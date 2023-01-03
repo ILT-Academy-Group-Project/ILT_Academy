@@ -296,4 +296,29 @@ router.get('/series/:seriesId', rejectUnauthenticated, (req, res) => {
 
 });
 
+//GET assignments for single student by username
+router.get('/username/:username', rejectUnauthenticated, async (req, res) => {
+    try{
+        console.log('in GET assignments by USERNAME ', req.params.username);
+        const sqlText = `
+        SELECT "user".id as "userId", "user".username, "submissions".id as "submissionId", "submissions"."assignmentId", "submissions".completed, "submissions".file, "submissions"."textInput", "submissions".video, "submissions"."submissionDate", "assignments"."name" as "assignmentName"
+        FROM "user" 
+        JOIN "submissions" ON "user".id = "submissions"."userId"
+        JOIN "assignments" ON "submissions"."assignmentId" = "assignments".id
+        WHERE "user"."username" = $1;
+
+        `;
+        const sqlParams = [req.params.username];
+        console.log('🎋SQL PARAMS ', sqlParams);
+        let dbResult = await pool.query(sqlText, sqlParams);
+        res.send(dbResult.rows);
+        
+    } catch(err) {
+        console.error('assignments.router /:username error ', err.message);
+        res.sendStatus(500);
+    }
+    
+} 
+)
+
 module.exports = router;

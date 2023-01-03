@@ -1,11 +1,13 @@
-import { Publish, SwipeRightAltOutlined } from '@mui/icons-material';
+import { NestCamWiredStandTwoTone, Publish, SwipeRightAltOutlined } from '@mui/icons-material';
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ThemeProvider } from '@mui/system';
-import Button from '@mui/material/Button';
+import {Button, Box} from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { DataGrid, GridToolbar} from '@mui/x-data-grid'
+import PropTypes from 'prop-types';
 import { FormControlLabel, Switch } from '@mui/material';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 
@@ -19,6 +21,7 @@ function CohortDetails() {
     const students = useSelector(store => store.cohortStudents); //all students in selected cohort
     const cohortSeries = useSelector(store => store.cohortSeries); // all series which contains junction tables to compare against current cohort
     const series = useSelector(store => store.series);
+    const cohortInfo = useSelector(store => store.cohorts.singleCohortReducer)
 
     useEffect(() => {
         dispatch({
@@ -33,6 +36,10 @@ function CohortDetails() {
 
         dispatch({
             type: 'FETCH_SERIES'
+        });
+        dispatch({
+            type: 'FETCH_COHORT',
+            payload: params.cohortId
         });
 
 
@@ -77,6 +84,21 @@ function CohortDetails() {
             }
         })
 
+    }
+
+    const rows = [];
+
+    students.map(student => {
+        console.log('student is ', student);
+        let studentObject = {
+            id: student.id,
+            firstName: student.firstName,
+            lastName: student.lastName,
+            email: student.email,
+            username: student.username,
+            viewStudent: RenderButton(student.username),
+            cohortId: student.cohortId
+
         dispatch({
             type: 'FETCH_COHORT',
             payload: params.id
@@ -89,12 +111,77 @@ function CohortDetails() {
         //     type: 'FETCH_SERIES'
         // })
 
+
+            
+        }
+        rows.push(studentObject);
+    })
+    const columns = [
+
+          {
+            field: 'fullName',
+            headerName: 'Name',
+            width: 200,
+            valueGetter: getFullName,
+          },
+          {
+            field: 'email',
+            headerName: 'Email',
+            width: 250,
+          },
+          {
+            field: 'username',
+            headerName: 'Username',
+            width: 250,
+          },
+          {
+            field: 'viewStudent',
+            headerName: 'Details',
+            width: 150,
+            renderCell: RenderButton
+            
+          },
+          {
+            field: 'cohortId',
+            headerName: 'Cohort ID',
+            width: 80,
+          }
+    ];
+
+    function getFullName(params) {
+        return `${params.row.firstName || ''} ${params.row.lastName || ''}`
     }
 
+    function RenderButton(params) {
+      
+        return (
+            <Button
+              onClick={()=> handleClick(params)}
+              component="button"
+              variant="contained"
+              size="small"
+              style={{ marginLeft: 16 }}
+            >
+             Details
+            </Button>
+        );
+    };
+
+    function handleClick(params){
+        console.log('CLICKETY CLICK params.row', params.row);
+        let username = params.row.username
+        let cohortId = params.row.cohortId
+        history.push(`/profile/${username}/${cohortId}`)
+    }
+    
+ 
 
     return(
         <>
-        <h1>TODO PUT COHORT NAME HERE!</h1>
+
+        <Button
+        onClick={() => history.push(`/home`)}>Back to Dashboard</Button>
+        <h1>{cohortInfo.cohortName}</h1>
 
             {newSeriesObject.map(series => {
                 if(series.cohortId){
@@ -149,33 +236,19 @@ function CohortDetails() {
 
                     )
             }
-            })}
-
-            <table>
-            <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Slack</th>
-            </tr>
-                {/* MAP through and display all cohort students */}
-                {students.map(student => {
-                    return (
-                        <>
-                            <tr key={student.id}>
-                                <td>{student.firstName} {student.lastName}</td>
-                                <td>{student.username}</td>
-                                <td>{student.email}</td>
-                                <td>{student.slack}</td>
-                            </tr>
-                        </>
-
-                    )
-                    
+            })}   
                 
-                })}
-            </table> 
-          
+                        <Box sx={{ height: 400, width: '90%', margin: 10 }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            pageSize={8}
+                            rowsPerPageOptions={[8]} 
+                            components={{
+                            Toolbar: GridToolbar
+                            }} 
+                       />
+                        </Box>
        
         </>
     )

@@ -16,7 +16,7 @@ function* fetchSeries() {
 }
 
 function* fetchCohortSeries(action){
-    // console.log(`🫐 action.payload is `, action.payload);
+    console.log(`🫐 action.payload is `, action.payload);
     try{
         let cohortSeries = yield axios.get(`api/series/${action.payload}`) //get series info for cohort by id 
             // console.log('🥬Cohort series is ', cohortSeries)
@@ -24,9 +24,8 @@ function* fetchCohortSeries(action){
             type: 'SET_COHORT_SERIES',
             payload: cohortSeries.data
         })
-
-    } catch{
-        console.log('error in cohort.saga fetchCohortSeries')
+    } catch (err){
+        console.error('error in series.saga fetchCohortSeries', err.message);
     }
 
 }
@@ -45,7 +44,7 @@ function* publishCohortSeries(action) {
         })
 
     } catch (err){
-        console.log('error in cohort.saga publishCohortSeries', err);
+        console.log('error in series.saga publishCohortSeries', err);
     }
 }
 

@@ -14,6 +14,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+//Handles GET from student.saga 
+router.get('/:username', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = `
+        SELECT * FROM "user" 
+        WHERE "user".username = $1;
+        `;
+        const sqlParams = [req.params.username]
+    
+        let dbResult = await pool.query(sqlText,sqlParams)
+        res.send(dbResult.rows[0]);
+    } catch(err) {
+        console.error('user.router GET by username error ', err.message);
+        res.sendStatus(500);
+    }
+   
+})
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
