@@ -27,6 +27,18 @@ function Hacker() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
 
+    useEffect(() => {
+
+        user.accessLevel === 2 ? history.push('/admin/dashboard') 
+        : user.hipsterInterest !== 0 
+        && user.hipsterSkill !== 0 
+        && user.hackerInterest !== 0 
+        && user.hackerSkill !== 0 
+        && user.hustlerInterest !== 0 
+        && user.hustlerSkill !== 0 ? history.push('/home') : null;
+
+    }, []);
+
     function valuetext(value) {
         // console.log('value', value)
         return `${value}`;

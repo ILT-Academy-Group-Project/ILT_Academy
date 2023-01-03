@@ -15,6 +15,7 @@ import { CardActionArea } from '@mui/material';
 import { ThemeProvider } from '@mui/system';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import Stack from '@mui/material/Stack';
+
 const Swal = require('sweetalert2');
 
 function HHHimage() {
@@ -35,21 +36,24 @@ function HHHimage() {
     const [imageHHH, setHHH] = useState(0);
 
     const hip = {
-        image: 'something',
-        description: '',
-        title: 'Hipster'
+        image: "/images/hipster.png",
+        description:  `The Creative Vision of the company, its output, its culture, and above all its tone of voice. The Hipster doesn't just write the Style Guide, they live it.`,
+        title: 'Hipster',
+        imgalt: 'Hipster Icon'
     }
 
     const hack = {
-        image: 'something',
-        description: '',
-        title: 'Hipster'
+        image: "/images/hacker.png",
+        description: `The geek, the tinkerer, the techie, but more importantly, the Hacker is the innovation engine of your business. Innovation extends to the tools and processes your business deploy, as well as what it creates.`,
+        title: 'Hacker',
+        imgalt: 'Hacker Icon'
     }
 
     const hust = {
-        image: 'something',
-        description: '',
-        title: 'Hipster'
+        image: "/images/hustler.png",
+        description: `Ruthless Business acumen, Marketing intuition, and a silver sales tongue make the Hustler an indispensable partner. The Hustler walks the walk, and is the voice of your business.`,
+        title: 'Hustler',
+        imgalt: 'Hustler Icon'
     }
 
 
@@ -86,16 +90,15 @@ function HHHimage() {
                         <CardMedia
                             component="img"
                             // height="140"
-                            image="/images/hipster.png"
-                            alt="Hipster Icon"
+                            image={hip.image}
+                            alt={hip.imgalt}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                Hipster
+                                {hip.title}
                             </Typography>
                             <Typography variant="body2" color="primary.main">
-                                The Creative Vision of the company, its output, its culture, and above all its tone of voice.
-                                The Hipster doesn't just write the Style Guide, they live it.
+                                {hip.description}
                             </Typography>
                         </CardContent>
                     </Card>
@@ -106,16 +109,15 @@ function HHHimage() {
                             <CardMedia
                                 component="img"
                                 // height="140"
-                                image="/images/hacker.png"
-                                alt="Hacker Icon"
+                                image={hack.image}
+                                alt={hack.imgalt}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                    Hacker
+                                    {hack.title}
                                 </Typography>
                                 <Typography variant="body2" color="primary.main">
-                                    The geek, the tinkerer, the techie, but more importantly, the Hacker is the innovation engine of your business.
-                                    Innovation extends to the tools and processes your business deploy, as well as what it creates.
+                                    {hack.description}
                                 </Typography>
                             </CardContent>
                         </Card>
@@ -126,16 +128,15 @@ function HHHimage() {
                                 <CardMedia
                                     component="img"
                                     // height="140"
-                                    image="/images/hustler.png"
-                                    alt="Hustler Icon"
+                                    image={hust.image}
+                                    alt={hust.imgalt}
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                        Hustler
+                                        {hust.title}
                                     </Typography>
                                     <Typography variant="body2" color="primary.main">
-                                        Ruthless Business acumen, Marketing intuition, and a silver sales tongue make the Hustler an indispensable partner.
-                                        The Hustler walks the walk, and is the voice of your business.
+                                        {hust.description}
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -147,27 +148,25 @@ function HHHimage() {
                                         <CardMedia
                                             component="img"
                                             // height="140"
-                                            image="/images/hipster.png"
-                                            alt="Hipster Icon"
+                                            image={hip.image}
+                                            alt={hip.imgalt}
                                         />
                                         <CardMedia
                                             component="img"
                                             // height="140"
-                                            image="/images/hacker.png"
-                                            alt="Hacker Icon"
+                                            image={hack.image}
+                                            alt={hack.imgalt}
                                         />
                                     </Stack>
 
                                     <CardContent>
                                         <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                            Hipster / Hacker
+                                            {hip.title} / {hack.title}
                                         </Typography>
                                         <Typography variant="body2" color="primary.main">
-                                            The Creative Vision of the company, its output, its culture, and above all its tone of voice.
-                                            The Hipster doesn't just write the Style Guide, they live it.
+                                            {hip.description}
 
-                                            The geek, the tinkerer, the techie, but more importantly, the Hacker is the innovation engine of your business.
-                                            Innovation extends to the tools and processes your business deploy, as well as what it creates.
+                                            {hack.description}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -179,26 +178,24 @@ function HHHimage() {
                                             <CardMedia
                                                 component="img"
                                                 // height="140"
-                                                image="/images/hacker.png"
-                                                alt="Hipster Icon"
+                                                image={hack.image}
+                                                alt={hack.imgalt}
                                             />
                                             <CardMedia
                                                 component="img"
                                                 // height="140"
-                                                image="/images/hustler.png"
-                                                alt="Hacker Icon"
+                                                image={hust.image}
+                                                alt={hust.imgalt}
                                             />
                                         </Stack>
                                         <CardContent>
                                             <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                                Hacker / Hustler
+                                                {hack.title} / {hust.title}
                                             </Typography>
                                             <Typography variant="body2" color="primary.main">
-                                                The geek, the tinkerer, the techie, but more importantly, the Hacker is the innovation engine of your business.
-                                                Innovation extends to the tools and processes your business deploy, as well as what it creates.
+                                                {hack.description}
 
-                                                Ruthless Business acumen, Marketing intuition, and a silver sales tongue make the Hustler an indispensable partner.
-                                                The Hustler walks the walk, and is the voice of your business.
+                                                {hust.description}
                                             </Typography>
                                         </CardContent>
                                     </Card>
@@ -210,26 +207,24 @@ function HHHimage() {
                                                 <CardMedia
                                                     component="img"
                                                     // height="140"
-                                                    image="/images/hustler.png"
-                                                    alt="Hipster Icon"
+                                                    image={hust.image}
+                                                    alt={hust.imgalt}
                                                 />
                                                 <CardMedia
                                                     component="img"
                                                     // height="140"
-                                                    image="/images/hipster.png"
-                                                    alt="Hacker Icon"
+                                                    image={hip.image}
+                                                    alt={hip.imgalt}
                                                 />
                                             </Stack>
                                             <CardContent>
                                                 <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                                    Hustler / Hipster
+                                                    {hust.title} / {hip.title}
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
-                                                    Ruthless Business acumen, Marketing intuition, and a silver sales tongue make the Hustler an indispensable partner.
-                                                    The Hustler walks the walk, and is the voice of your business.
+                                                    {hust.description}
 
-                                                    The Creative Vision of the company, its output, its culture, and above all its tone of voice.
-                                                    The Hipster doesn't just write the Style Guide, they live it.
+                                                    {hip.description}
                                                 </Typography>
                                             </CardContent>
                                         </Card>
@@ -241,35 +236,32 @@ function HHHimage() {
                                                 <CardMedia
                                                     component="img"
                                                     // height="140"
-                                                    image="/images/hipster.png"
-                                                    alt="Hipster Icon"
+                                                    image={hip.image}
+                                                    alt={hip.imgalt}
                                                 />
                                                 <CardMedia
                                                     component="img"
                                                     // height="140"
-                                                    image="/images/hacker.png"
-                                                    alt="Hacker Icon"
+                                                    image={hack.image}
+                                                    alt={hack.imgalt}
                                                 />
                                                 <CardMedia
                                                     component="img"
                                                     // height="140"
-                                                    image="/images/hustler.png"
-                                                    alt="Hacker Icon"
+                                                    image={hust.image}
+                                                    alt={hust.imgalt}
                                                 />
                                             </Stack>
                                             <CardContent>
                                                 <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                                    Hipster / Hacker / Hustler
+                                                    {hip.title} / {hack.title} / {hust.title}
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
-                                                    The Creative Vision of the company, its output, its culture, and above all its tone of voice.
-                                                    The Hipster doesn't just write the Style Guide, they live it.
+                                                    {hip.description}
 
-                                                    The geek, the tinkerer, the techie, but more importantly, the Hacker is the innovation engine of your business.
-                                                    Innovation extends to the tools and processes your business deploy, as well as what it creates.
+                                                    {hack.description}
 
-                                                    Ruthless Business acumen, Marketing intuition, and a silver sales tongue make the Hustler an indispensable partner.
-                                                    The Hustler walks the walk, and is the voice of your business.
+                                                    {hust.description}
                                                 </Typography>
                                             </CardContent>
                                         </Card>
