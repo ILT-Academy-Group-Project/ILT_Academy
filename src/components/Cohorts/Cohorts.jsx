@@ -76,12 +76,11 @@ function Cohorts() {
         //confirm deletion
         Swal.fire({
             title: 'Are you sure you want to graduate this cohort?',
-            text: '',
             icon: 'warning',
-            iconColor: 'warning',
+            iconColor: 'red',
             showCancelButton: true,
             confirmButtonText: 'Yes, graduate the cohort!',
-            confirmButtonColor: 'orange',
+            confirmButtonColor: 'red',
             cancelButtonText: 'No, cancel!',
             reverseButtons: true,
             html: "<h5 style='font-size:22px ;color:red'>You won't be able to revert this!</h5>"
