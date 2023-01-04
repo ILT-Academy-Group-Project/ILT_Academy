@@ -81,11 +81,11 @@ function Cohorts() {
         
         <ThemeProvider theme={PrimaryMainTheme}>
         <Typography
-                     variant='h2'
-                     color='secondary.main'
-                     sx={{pl:20 , pr:20}}>
-                        Cohorts
-                    </Typography>
+            variant='h2'
+            color='secondary.main'
+            sx={{width:600}}>
+                Cohorts
+        </Typography>
             {cohorts.map((cohort, i) => {
                 return (
                     <CohortsItem key={i} cohort={cohort}/>
@@ -93,18 +93,16 @@ function Cohorts() {
             })}
 
             {/* form section */}
-     <Grid2 item xs={6} sx={{}} className='cohortCard'>
-                <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary' }} >
-                    <CardActionArea onClick={()=>setOpen(!open)}>
-                        
-                        <CardContent>
-                            <Typography gutterBottom variant="h4" component="div" color='primary' sx={{}}>
-                            Create Cohort
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>                
-            </Grid2>
+        <Grid2 item xs={6} sx={{}} className='cohortCard'>
+            <Button sx={{ maxWidth: 345, minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
+                onClick={()=>setOpen(!open)}
+                color='secondary'
+                fullWidth='true'
+                variant='contained'>
+                    
+                 Create Cohort
+            </Button>               
+        </Grid2>
      
         {/* ADD COHORT MODAL */}
         <Modal 

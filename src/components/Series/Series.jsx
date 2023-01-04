@@ -55,7 +55,7 @@ function Series() {
                         <Typography
                         variant='h2'
                         color='secondary.main'>
-                            Curriculum Creation
+                            Curriculum
                         </Typography>
                         <Button
                             sx={{ minHeight: 100 }}
@@ -63,7 +63,10 @@ function Series() {
                             fullWidth='true'
                             variant='contained'
                             onClick={() => history.push(`/admin/orientation/list`)}>
-                                Orientation
+                               <Typography
+                            variant='h3'>
+                            Orientation
+                            </Typography>
                         </ Button>
                         {series.map(serial => (
 
@@ -77,12 +80,16 @@ function Series() {
                             </ Button>
                         ))}
                         <Button
-                            sx={{ minHeight: 100, fontSize: 35, mt: 2 }}
+                            sx={{ minHeight: 100, mt: 2 }}
                             color='primary'
                             fullWidth='true'
                             variant='outlined'
                             onClick={() => setOpen(true)}
-                            >+ Add Series
+                            >
+                            <Typography
+                            variant='h3'>
+                            + Add Series
+                            </Typography>
                         </ Button>
                     </Grid2>
                 </Grid2>

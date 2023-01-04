@@ -22,7 +22,7 @@ function AdminDashboard (){
     return(
         // <div className="container">
     <ThemeProvider theme={PrimaryMainTheme}>
-        <Box sx={{ flexGrow: 1, bgcolor:'background.light' }}>
+        <Box sx={{ flexGrow: 1, bgcolor:'background.main', mt: -5 }}>
                 <Grid2 container spacing={2} sx={{m:5, }}>
                 <Grid2 item xs={3}>
                     <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
