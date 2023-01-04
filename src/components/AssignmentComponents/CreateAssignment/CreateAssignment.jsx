@@ -7,6 +7,20 @@ import axios from "axios";
 import FormData from "form-data";
 const Swal = require('sweetalert2');
 
+//MUI imports
+import { PrimaryMainTheme } from "../../PrimaryMainTheme/PrimaryMainTheme";
+import {
+    TextareaAutosize,
+    Typography,
+    Input,
+    Box,
+    InputLabel,
+    ThemeProvider,
+    MenuItem,
+    FormControl,
+    Select,
+    Grid2
+} from '@mui/material'
 
 function CreateAssignment() {
     //import user
@@ -53,7 +67,9 @@ function CreateAssignment() {
                 // name to match database, lef as submission so there isnt confusion on this page
                 file: fileSubmission,
                 video: videoSubmission,
-                seriesId: params.seriesId
+                seriesId: params.seriesId,
+                ThemeProvider,
+
             }
         })
         //push to modules view
@@ -98,80 +114,82 @@ function CreateAssignment() {
     // console.log('pre class should be false:', postClass);
     // console.log('video submission', videoSubmission);
     return (
-        <>
+        
             {/* <video width="320" height="240" controls src="/videos/assignmentVideo1670963030995.mov">
             
             </video> */}
 
 
-            <form onSubmit={submitAssignment}>
-                <label>Upload Video
+            <PrimaryMainTheme>
+                <form onSubmit={submitAssignment}>
+                    <label>Upload Video
+                        <input
+                            accept="video/*"
+                            type='file'
+                            name="selectedVideo"
+                            onChange={(evt) => setAssignmentVideo(evt.target.files[0])}
+    
+                        />
+                    </label>
                     <input
-                        accept="video/*"
-                        type='file'
-                        name="selectedVideo"
-                        onChange={(evt) => setAssignmentVideo(evt.target.files[0])}
-
+                        required
+                        type='text'
+                        placeholder="Assignment Name"
+                        onChange={(evt) => setAssignmentTitle(evt.target.value)}
                     />
-                </label>
-                <input
-                    required
-                    type='text'
-                    placeholder="Assignment Name"
-                    onChange={(evt) => setAssignmentTitle(evt.target.value)}
-                />
-                <SunEditor
-                    onChange={handleChange}
-                    setOptions={{
-                        height: 1000,
-                        buttonList: [
-                            ['font', 'align'],
-                            ['fontSize'],
-                            ['italic'],
-                            ['bold'],
-                            ['underline'],
-                            ['video'],
-                            ['image'],
-                        ],
-                        // videoResizing: false,
-                        videoHeightShow: false,
-                        videoWidthShow: false,
-                        videoFileInput: false,
-                        videoUrlInput: false,
-                        videoRatioShow: false,
-                        videoWidth: "603px",
-                        videoHeight: "339px",
-                        // videoPadding: "0px",
-                        // videoIframeAttrs: {
-                        //     style: "max-width: 900px; padding-bottom: -339px;"
-                        // },
-                    }}
-                    onImageUploadBefore={handleImageUploadBefore}
-                //  setContents={content}
-                />
-
-                <div>
-                    <label>Pre Class</label>
-                    <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
-                    <label>Post Class</label>
-                    <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>
-                    {/* <label>Orientation</label>
-                    <input onClick={() => setOrientation(true)} type="radio" name="classType" className="valueRadio"></input> */}
-                </div>
-                <div>
-                    <h3>Submission type</h3>
-                    <label>Textfield</label>
-                    <input onClick={() => setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
-                    <label>File</label>
-                    <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
-                    <label>Video</label>
-                    <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
-                </div>
-
-
-                <button type="submit">Create Assignment</button>
-            </form>
-        </>
+                    <SunEditor
+                        onChange={handleChange}
+                        setOptions={{
+                            height: 1000,
+                            buttonList: [
+                                ['font', 'align'],
+                                ['fontSize'],
+                                ['italic'],
+                                ['bold'],
+                                ['underline'],
+                                ['video'],
+                                ['image'],
+                            ],
+                            // videoResizing: false,
+                            videoHeightShow: false,
+                            videoWidthShow: false,
+                            videoFileInput: false,
+                            videoUrlInput: false,
+                            videoRatioShow: false,
+                            videoWidth: "603px",
+                            videoHeight: "339px",
+                            // videoPadding: "0px",
+                            // videoIframeAttrs: {
+                            //     style: "max-width: 900px; padding-bottom: -339px;"
+                            // },
+                        }}
+                        onImageUploadBefore={handleImageUploadBefore}
+                    //  setContents={content}
+                    />
+    
+                    <div>
+                        <label>Pre Class</label>
+                        <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
+                        <label>Post Class</label>
+                        <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>
+                        {/* <label>Orientation</label>
+                        <input onClick={() => setOrientation(true)} type="radio" name="classType" className="valueRadio"></input> */}
+                    </div>
+                    <div>
+                        <h3>Submission type</h3>
+                        <label>Textfield</label>
+                        <input onClick={() => setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
+                        <label>File</label>
+                        <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
+                        <label>Video</label>
+                        <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
+                    </div>
+    
+    
+                    <button type="submit">Create Assignment</button>
+                </form>
+            </PrimaryMainTheme>
+        
     )
 }
 
