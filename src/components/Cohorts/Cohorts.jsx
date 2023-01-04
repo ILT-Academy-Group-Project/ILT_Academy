@@ -121,12 +121,7 @@ function Cohorts() {
                         <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary' }} >
                             <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
     
-                                <CardMedia
-                                    component="img"
-                                    // height="140"
-                                    image="/images/ilt.png"
-                                    alt="something cool"
-                                />
+                              
                                 <CardContent>
                                     <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{}}>
                                     {cohort.cohortName}
@@ -155,12 +150,7 @@ function Cohorts() {
             <Grid2 item xs={6} sx={{}} className='cohortCard'>
                 <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary' }} >
                     <CardActionArea onClick={()=>setOpen(!open)}>
-                        <CardMedia
-                            component="img"
-                            // height="140"
-                            image="/images/ilt.png"
-                            alt="something cool"
-                        />
+                        
                         <CardContent>
                             <Typography gutterBottom variant="h4" component="div" color='primary' sx={{}}>
                             Create Cohort
