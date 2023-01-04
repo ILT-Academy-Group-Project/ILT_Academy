@@ -1,13 +1,13 @@
 
 /* LIGHT */
 @font-face {
-    font-family: 'circular';
+    font-family: 'circular-light';
     src: url('../BrandFonts/CircularXXTT-Light.woff');
     font-weight: light;
     font-style: normal;
 }
 @font-face {
-    font-family: 'circular';
+    font-family: 'circular-light';
     src: url('../BrandFonts/CircularXXTT-Light.woff2');
     font-weight: light;
     font-style: normal;
@@ -16,13 +16,13 @@
 
 /* REGULAR */
 @font-face {
-    font-family: 'circular';
+    font-family: 'circular-regular';
     src: url('../BrandFonts/CircularXXTT-Regular.woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
-    font-family: 'circular';
+    font-family: 'circular-regular';
     src: url('../BrandFonts/CircularXXTT-Regular.woff2');
     font-weight: normal;
     font-style: normal;

@@ -2,6 +2,9 @@ import { useState, useEffect, React,  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CalendarItem from "../CalendarItem/CalendarItem";
+import { PrimaryMainTheme } from "../../PrimaryMainTheme/PrimaryMainTheme";
+import { ThemeProvider } from '@mui/system';
+import { Typography } from '@mui/material'
 
 
 function CalendarList(){
@@ -20,7 +23,8 @@ function CalendarList(){
 
     return (
         <>
-            <h1>Upcoming Events</h1>
+        <ThemeProvider theme={PrimaryMainTheme}>
+        <Typography gutterBottom variant='h3' color='secondary.light'>Upcoming Events</Typography>
             {/* MAP EVENTS */}
             <ul>
                 {events.map((event, i) =>{
@@ -29,6 +33,7 @@ function CalendarList(){
                     )
                 })}
             </ul>
+        </ThemeProvider>
         </>
     )
 };
