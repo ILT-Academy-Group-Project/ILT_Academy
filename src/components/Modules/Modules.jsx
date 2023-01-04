@@ -23,6 +23,8 @@ import { Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ThemeProvider } from '@mui/system';
 //sweet alert import
 const Swal = require('sweetalert2')
 
@@ -159,6 +161,14 @@ function Modules() {
 
     return (
         <>
+        <ThemeProvider theme={PrimaryMainTheme}>
+
+            <Typography
+                variant="h2"
+                color='primary'
+                gutterBottom>
+                Series 100
+            </Typography>
             {modules.map((module, i) => (
                 
                 <div key={i}>
@@ -171,7 +181,7 @@ function Modules() {
                             <Typography sx={{ width: '33%', flexShrink: 0 }}>
                                 {module.name}
                             </Typography>
-                            <Typography sx={{ width: '33%', color: 'text.secondary' }}>Something? Maybe no Info?</Typography> 
+                           
                                                         
                         </AccordionSummary>
                         <AccordionDetails>
@@ -289,6 +299,7 @@ function Modules() {
                     </form>
                 </Box>
             </Modal>
+        </ThemeProvider>
         </>
     )
 }
