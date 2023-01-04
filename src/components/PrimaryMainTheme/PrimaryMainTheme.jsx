@@ -1,6 +1,10 @@
 import { createTheme, extendTheme } from "@mui/material/styles";
 import './style.css' ;
 
+const { palette } = createTheme();
+const { augmentColor } = palette;
+const createColor = (mainColor) => augmentColor({ color: { main: mainColor } });
+
 const PrimaryMainTheme = createTheme({
     palette: {
         primary: {
@@ -27,7 +31,11 @@ const PrimaryMainTheme = createTheme({
             dark: "#1d1d1d",
             main: "#f96b61",
             light: '#ffffff'
-        }
+        },
+        // use these for contained button colors 
+        btnLight: createColor('#ff9d8f'), //light coral
+        btnMain: createColor('#f96b61'), //coral
+        btnDark: createColor('#1d1d1d'), //main black
     },
     typography : {
        

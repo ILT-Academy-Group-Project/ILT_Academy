@@ -86,18 +86,19 @@ function CohortsItem({cohort}) {
         <ThemeProvider theme={PrimaryMainTheme}>
         <Grid2 item xs={6} sx={{}} className='cohortCard'
         key={cohort.id}>
-        <Card sx={{margin: 'auto', width: 1, backgroundColor: 'secondary'}}>
-            <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary' }} >
-                <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
+        <Card sx={{margin: 'auto', width: 1, }}>
+            <Card sx={{ width:1, margin: 'auto', }} >
+                <CardActionArea  sx={{bgcolor: 'primary.main'}}
+                onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
 
                   
                     <CardContent>
-                        <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{}}>
+                        <Typography gutterBottom variant="h3" component="div" color='tertiary.main' sx={{}}>
                         {cohort.cohortName}
                         </Typography>
 
-                        <Typography variant="body2" color="primary.main">
-                        Cohort Access Code: {cohort.accessCode}
+                        <Typography variant="body2" color="primary.contrastText">
+                        Code: {cohort.accessCode}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -105,10 +106,16 @@ function CohortsItem({cohort}) {
             <Button 
                     sx={{ textAlign:'right', width: 1}} 
                     variant='contained' 
-                    color='primary'
+                    color='btnLight'
                     onClick={()=>graduateCohort(cohort.id)}
                 >
-                Graduate Cohort
+                    <Typography
+                    variant='body1'
+                    fontWeight='bold'
+                    color='secondary.main'>
+                    Graduate
+                    </Typography>
+               
             </Button>
         </Card>
     </Grid2>
