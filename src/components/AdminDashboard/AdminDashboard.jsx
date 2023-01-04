@@ -2,10 +2,11 @@ import React from 'react';
 import Cohorts from '../Cohorts/Cohorts';
 import Series from '../Series/Series';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { Card, Box } from '@mui/material';
+import { Card, Box, Typography } from '@mui/material';
 import CalendarList from '../Calendar/CalendarList/CalendarList';
 import Announcements from '../Announcements/Announcements';
-
+import { PrimaryMainTheme } from "../PrimaryMainTheme/PrimaryMainTheme";
+import { ThemeProvider } from '@mui/system';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -20,25 +21,28 @@ function AdminDashboard (){
 
     return(
         // <div className="container">
-        <Box sx={{ flexGrow: 1 }}>
-        <Grid2 container spacing={2} >
-        <Grid2 item xs={3}>
-            <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
-                <CalendarList />
-            </Box>
-        </Grid2>
-        <Grid2 item xs={6} className='cohortCard'>
-            {/* <h1>Cohorts</h1> */}
-            <Cohorts />            
-            <Box sx={{ backgroundColor: 'grey', minWidth: 200, width: 1, minHeight: 400, margin: 'auto'}}>
-            <Announcements />
-            </Box>
-        </Grid2>
-        <Grid2 item xs={3}>
-            <Series />
-        </Grid2>
-        </Grid2>
+    <ThemeProvider theme={PrimaryMainTheme}>
+        <Box sx={{ flexGrow: 1, bgcolor:'background.main', mt: -5 }}>
+                <Grid2 container spacing={2} sx={{m:5, }}>
+                <Grid2 item xs={3}>
+                    <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
+                        <CalendarList />
+                    </Box>
+                </Grid2>
+                <Grid2 item xs={6} className='cohortCard'>
+                 
+                    <Cohorts />            
+                    <Box sx={{ backgroundColor: 'grey', minWidth: 200, width: 1, minHeight: 400, margin: 'auto'}}>
+                    <Announcements />
+                    </Box>
+                </Grid2>
+                <Grid2 item xs={3}>
+                    <Series />
+                </Grid2>
+                </Grid2>
         </Box>
+    </ThemeProvider>
+       
         // </div>
     )
 }
