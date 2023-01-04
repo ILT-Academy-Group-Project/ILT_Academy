@@ -121,10 +121,11 @@ router.get('/:cohortId/:assignmentId', rejectUnauthenticated, async (req, res) =
     try{
         const sqlText = `
         SELECT "submissions".id, "submissions"."userId", "submissions"."assignmentId", "submissions".completed, "submissions".file, "submissions"."submissionDate", "submissions"."textInput", "submissions".video, "user"."cohortId", "user"."firstName", "user"."lastName", "user".id AS "studentId" FROM "submissions"
-        RIGHT JOIN "user" ON "user".id = "submissions"."userId"
-        WHERE "user"."cohortId" = $1;
+        JOIN "user" ON "user".id = "submissions"."userId"
+        JOIN "assignments" ON "submissions"."assignmentId" = "assignments".id
+        WHERE "user"."cohortId" = $1 AND "submissions"."assignmentId" = $2 ;
         `;
-        const sqlParams = [req.params.cohortId]
+        const sqlParams = [req.params.cohortId, req.params.assignmentId]
         // console.log('sqlParams for submissions GET are ', sqlParams);
         let dbResult = await pool.query(sqlText, sqlParams);
         res.send(dbResult.rows);

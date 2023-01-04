@@ -1,3 +1,5 @@
+
+
 const rejectUnauthenticated = (req, res, next) => {
   // check if logged in
   if (req.isAuthenticated()) {
@@ -10,4 +12,14 @@ const rejectUnauthenticated = (req, res, next) => {
   }
 };
 
-module.exports = { rejectUnauthenticated };
+//will reject requests made by users without admin level clearance
+const rejectNotAdmin = (req, res, next) => {
+  console.log('IN REJECTNOTADMIN req.user.accessLevel is ', req.user.accessLevel);
+  if (req.user.accessLevel >= 2){
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+}
+
+module.exports = { rejectUnauthenticated, rejectNotAdmin };
