@@ -17,8 +17,10 @@ import {
     FormLabel,
     Radio,
     RadioGroup,
+    FormGroup,
     Input,
     Box,
+    Checkbox,
     OutlinedInput,
     InputLabel,
     MenuItem,
@@ -114,16 +116,16 @@ function CreateAssignment() {
         setAssignmentContent(content);
     }
 
-    console.log('postclass:', postClass);
+    // console.log('postclass:', postClass);
 
     //testing logs
-    // console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission);
+    console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission, 'video', videoSubmission);
     // console.log('pre class should be false:', postClass);
     // console.log('video submission', videoSubmission);
     return (
         <>
-            <ThemeProvider theme={PrimaryMainTheme}>
-                <Typography variant="h2" sx={{ textAlign: 'center' }}>Create New Assignment</Typography>
+            <ThemeProvider theme={PrimaryMainTheme} sx={{backgroundColor:'black'}}>
+                <Typography variant="h1" color='primary' sx={{ textAlign: 'center' }}>Create New Assignment</Typography>
                 <Box sx={{ backgroundColor: '#80808017', margin: '1rem', borderRadius: '10px' }}>
                     <form onSubmit={submitAssignment}>
                         <Grid2 container spacing={2}>
@@ -217,7 +219,7 @@ function CreateAssignment() {
 
                         </Grid2>
                         <FormControl>
-                            <FormLabel>Pre/Post-Class?</FormLabel>
+                            <FormLabel><Typography variant="h3" sx={{fontSize:'20px'}}>Pre/Post-Class?</Typography></FormLabel>
                             <RadioGroup
                                 aria-labelledby="demo-radio-buttons-group-label"
                                 defaultValue=""
@@ -235,12 +237,43 @@ function CreateAssignment() {
                                     control={<Radio required/>} 
                                     value={true}
                                     onChange={(evt) => setPostClass(evt.target.value)}
-                                    label="Post-Class" 
-                                    
+                                    label="Post-Class"                                     
                                 />
                             </RadioGroup>
-
                         </FormControl>
+                        <FormGroup sx={{display: 'inline'}}>
+                            <FormLabel>
+                                <Typography 
+                                    variant="h3" 
+                                    sx={{fontSize:'20px'}}
+                                >
+                                    Submission Type
+                                </Typography>
+                            </FormLabel>
+                            <FormControlLabel 
+                                control={<Checkbox required/>} 
+                                labelPlacement='top'
+                                value={true}
+                                onChange={() => setTextField(!textField)}
+                                label="Text Field"                                     
+                            />
+                            <FormControlLabel 
+                                control={<Checkbox required/>} 
+                                labelPlacement='top'
+                                value={true}
+                                onClick={() => setFileSubmission(!fileSubmission)}
+                                label="File"                                     
+                            />
+                            <FormControlLabel 
+                                control={<Checkbox required/>} 
+                                labelPlacement='top'
+                                value={true}
+                                onChange={() => setVideoSubmission(!videoSubmission)}
+                                label="Video"                                     
+                            />
+                            
+
+                        </FormGroup>
                         {/* <div>
                             <label>Pre Class</label>
                             <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
