@@ -1,4 +1,5 @@
 import { createTheme, extendTheme } from "@mui/material/styles";
+import './style.css' ;
 
 const PrimaryMainTheme = createTheme({
     palette: {
@@ -21,46 +22,66 @@ const PrimaryMainTheme = createTheme({
     },
     typography : {
         fontFamily: 'circular',
-        //Headline
-        h1: {
-            fontSize: 80,
-            fontWeight: 'bold',
-            letterSpacing: '-4pt',
-            // textTransform: 'uppercase',
-            lineHeight: '40px'
-        },
-        //SubHeadline
-        h2: {
-            fontSize: 40,
-            fontWeight: 'bold',
-            letterSpacing: '-1.6pt',
-            // textTransform: 'uppercase',
-            lineHeight: '21px'
-        },
-        // Eyebrow/callout
-        h3: {
-            fontSize: 28,
-            fontWeight: 'bold',
-            letterSpacing: '-1pt',
-            textTransform: 'uppercase',
-            lineHeight: '14px'
-        },
-        //body
-        body1: {
-            fontSize: 16,
-            fontWeight: 'medium',
-            letterSpacing: '-.5pt',
-            // textTransform: 'uppercase',
-            lineHeight: '10px'
-        },
-        //Body copy small
-        body2 :  {
-            fontSize: 11,
-            fontWeight: 'medium',
-            letterSpacing: '0pt',
-            // textTransform: 'uppercase',
-            lineHeight: '7.5px'
-        },
+       //Headline
+       h1: {
+        fontSize: 80,
+        fontWeight: 'bold',
+        letterSpacing: '-4pt',
+        // textTransform: 'uppercase',
+        // lineHeight: '40px',
+        paddingTop: '20px',
+        paddingBottom: '20px',
+        marginTop: '20px',
+        marginBottom: '20px',
+    },
+    //SubHeadline
+    h2: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        letterSpacing: '-1.6pt',
+        // textTransform: 'uppercase',
+        // lineHeight: '21px'
+        paddingTop: '11px',
+        paddingBottom: '11px',
+        marginTop: '10px',
+        marginBottom: '10px',
+    },
+    // Eyebrow/callout
+    h3: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        letterSpacing: '-1pt',
+        textTransform: 'uppercase',
+        // lineHeight: '14px'
+        paddingTop: '7px',
+        paddingBottom: '7px',
+        marginTop: '7px',
+        marginBottom: '7px',
+    },
+    //body
+    body1: {
+        fontSize: 16,
+        fontWeight: 'medium',
+        letterSpacing: '-.5pt',
+        // textTransform: 'uppercase',
+        // lineHeight: '10px',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        marginTop: '5px',
+        marginBottom: '5px',
+    },
+    //Body copy small
+    body2 :  {
+        fontSize: 11,
+        fontWeight: 'medium',
+        letterSpacing: '0pt',
+        // textTransform: 'uppercase',
+        // lineHeight: '7.5px'
+        paddingTop: '3.75px',
+        paddingBottom: '3.75px',
+        marginTop: '3.75px',
+        marginBottom: '3.75px',
+    },
         
     }
 });

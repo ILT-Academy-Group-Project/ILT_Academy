@@ -35,6 +35,7 @@ function Modules() {
     const modules = useSelector(store => store.modules);
     const assignments = useSelector(store => store.assignments.assignmentsReducer);
     const [expanded, setExpanded] = React.useState(false);
+    const series = useSelector(store => store.series);
 
     //set up preclass post class arrays to seperately render in module
     const preClass = assignments.filter(assignment => assignment.postClass === false);
@@ -45,7 +46,13 @@ function Modules() {
     const handleClose = () => setOpen(false);
     // console.log('🍏 params.id is THIS ', params.seriesId) 
 
-
+    //Get current series
+    let currentSeries;
+    series.map(series =>{
+        if(series.id == params.seriesId){
+            currentSeries = series.seriesName;
+        }
+    })
 
     //state for form
     const [name, setName] = useState('');
@@ -62,8 +69,6 @@ function Modules() {
         boxShadow: 24,
         p: 4,
         };
-
-
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -85,8 +90,6 @@ function Modules() {
         },
     }));
 
-
-
     useEffect(() => {
         dispatch({
             type: 'FETCH_MODULES',
@@ -95,6 +98,10 @@ function Modules() {
 
         dispatch({
             type: 'FETCH_ASSIGNMENTS'
+        })
+        dispatch({
+            type:'FETCH_SERIES',
+            payload: params.seriesId
         })
     }, [params.seriesId])
 
@@ -162,12 +169,17 @@ function Modules() {
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
+            <Button
+            onClick={()=> history.push(`/home`)}
+            variant='outlined'
 
+            >Back to Dashboard</Button>
+            
             <Typography
                 variant="h2"
                 color='primary'
                 gutterBottom>
-                Series 100
+                Series {currentSeries}
             </Typography>
             {modules.map((module, i) => (
                 

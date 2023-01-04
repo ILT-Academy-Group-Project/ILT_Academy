@@ -1,0 +1,57 @@
+
+/* LIGHT */
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Light.woff');
+    font-weight: light;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Light.woff2');
+    font-weight: light;
+    font-style: normal;
+}
+
+
+/* REGULAR */
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Regular.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* MEDIUM */
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Medium.woff');
+    font-weight: medium;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Medium.woff2');
+    font-weight: medium;
+    font-style: normal;
+}
+
+/* BOLD */
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Bold.woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'circular';
+    src: url('../BrandFonts/CircularXXTT-Bold.woff2');
+    font-weight: bold;
+    font-style: normal;
+}
