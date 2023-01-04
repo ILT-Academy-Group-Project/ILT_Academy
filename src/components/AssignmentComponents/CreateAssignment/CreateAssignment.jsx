@@ -26,8 +26,9 @@ import {
     MenuItem,
     FormControl,
     FormControlLabel,
-    Select
-} from '@mui/material'
+    Select,
+    Button
+} from '@mui/material';
 
 function CreateAssignment() {
     //import user
@@ -74,9 +75,7 @@ function CreateAssignment() {
                 // name to match database, lef as submission so there isnt confusion on this page
                 file: fileSubmission,
                 video: videoSubmission,
-                seriesId: params.seriesId,
-                ThemeProvider,
-
+                seriesId: params.seriesId,                
             }
         })
         //push to modules view
@@ -124,9 +123,20 @@ function CreateAssignment() {
     // console.log('video submission', videoSubmission);
     return (
         <>
-            <ThemeProvider theme={PrimaryMainTheme} sx={{backgroundColor:'black'}}>
-                <Typography variant="h1" color='primary' sx={{ textAlign: 'center' }}>Create New Assignment</Typography>
-                <Box sx={{ backgroundColor: '#80808017', margin: '1rem', borderRadius: '10px' }}>
+            <ThemeProvider theme={PrimaryMainTheme}>
+                <Typography 
+                    variant="h1" 
+                    color='primary' 
+                    sx={{ textAlign: 'center' }}
+                >
+                    Create New Assignment
+                </Typography>
+                <Box sx={{ 
+                    backgroundColor: '#80808017', 
+                    margin: '1rem', 
+                    borderRadius: '10px',
+                    paddingBottom: '2rem', 
+                }}>
                     <form onSubmit={submitAssignment}>
                         <Grid2 container spacing={2}>
                             <Grid2 item sm={1}></Grid2>
@@ -198,8 +208,7 @@ function CreateAssignment() {
                                             ['underline'],
                                             ['video'],
                                             ['image'],
-                                        ],
-                                        // videoResizing: false,
+                                        ],                                        
                                         videoHeightShow: false,
                                         videoWidthShow: false,
                                         videoFileInput: false,
@@ -207,91 +216,89 @@ function CreateAssignment() {
                                         videoRatioShow: false,
                                         videoWidth: "603px",
                                         videoHeight: "339px",
-                                        // videoPadding: "0px",
-                                        // videoIframeAttrs: {
-                                        //     style: "max-width: 900px; padding-bottom: -339px;"
-                                        // },
                                     }}
-                                    onImageUploadBefore={handleImageUploadBefore}
-                                //  setContents={content}
+                                    onImageUploadBefore={handleImageUploadBefore}                                
                                 />
                             </Grid2>
 
                         </Grid2>
-                        <FormControl>
-                            <FormLabel><Typography variant="h3" sx={{fontSize:'20px'}}>Pre/Post-Class?</Typography></FormLabel>
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue=""
-                                name="radio-buttons-group"
-                                require
-                            >
-                                <FormControlLabel                                 
-                                    control={<Radio required/>} 
-                                    value={false}
-                                    onChange={(evt) => setPostClass(evt.target.value)}
-                                    label="Pre-Class" 
-                                    
-                                />
-                                <FormControlLabel 
-                                    control={<Radio required/>} 
-                                    value={true}
-                                    onChange={(evt) => setPostClass(evt.target.value)}
-                                    label="Post-Class"                                     
-                                />
-                            </RadioGroup>
-                        </FormControl>
-                        <FormGroup sx={{display: 'inline'}}>
-                            <FormLabel>
-                                <Typography 
-                                    variant="h3" 
-                                    sx={{fontSize:'20px'}}
+                        <Grid2 container sx={{textAlign: 'center', alignContent: 'top'}} spacing={2}>
+                            <Grid2 item sm={2}></Grid2>
+                            <Grid2 item sm={4}>
+                                <FormControl>
+                                    <FormLabel><Typography variant="h3" sx={{ fontSize: '20px', marginTop: 0 }}>Pre/Post-Class?</Typography></FormLabel>
+                                    <RadioGroup
+                                        aria-labelledby="demo-radio-buttons-group-label"
+                                        defaultValue=""
+                                        name="radio-buttons-group"
+                                        require
+                                    >
+                                        <FormControlLabel
+                                            control={<Radio required />}
+                                            value={false}
+                                            onChange={(evt) => setPostClass(evt.target.value)}
+                                            label="Pre-Class"
+                                        />
+                                        <FormControlLabel
+                                            control={<Radio required />}
+                                            value={true}
+                                            onChange={(evt) => setPostClass(evt.target.value)}
+                                            label="Post-Class"
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid2>
+                            <Grid2 item sm={4}>
+                                <FormGroup sx={{ display: 'inline' }}>
+                                    <FormLabel>
+                                        <Typography
+                                            variant="h3"
+                                            sx={{ fontSize: '20px' }}
+                                        >
+                                            Submission Type
+                                        </Typography>
+                                    </FormLabel>
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        labelPlacement='top'
+                                        value={true}
+                                        onChange={() => setTextField(!textField)}
+                                        label="Text Field"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        labelPlacement='top'
+                                        value={true}
+                                        onClick={() => setFileSubmission(!fileSubmission)}
+                                        label="File"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        labelPlacement='top'
+                                        value={true}
+                                        onChange={() => setVideoSubmission(!videoSubmission)}
+                                        label="Video"
+                                        variant='body1'
+                                        color='primary'
+                                    />
+                                </FormGroup>
+                            </Grid2>
+                            <Grid2 item sm={2}></Grid2>
+                        </Grid2>
+                        <Grid2 container sx={{ textAlign: 'right'}} spacing={2}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={10}>
+                                <Button 
+                                    sx={{marginTop:'1rem'}}
+                                    size='large' 
+                                    type="submit" 
+                                    variant="contained"
                                 >
-                                    Submission Type
-                                </Typography>
-                            </FormLabel>
-                            <FormControlLabel 
-                                control={<Checkbox required/>} 
-                                labelPlacement='top'
-                                value={true}
-                                onChange={() => setTextField(!textField)}
-                                label="Text Field"                                     
-                            />
-                            <FormControlLabel 
-                                control={<Checkbox required/>} 
-                                labelPlacement='top'
-                                value={true}
-                                onClick={() => setFileSubmission(!fileSubmission)}
-                                label="File"                                     
-                            />
-                            <FormControlLabel 
-                                control={<Checkbox required/>} 
-                                labelPlacement='top'
-                                value={true}
-                                onChange={() => setVideoSubmission(!videoSubmission)}
-                                label="Video"                                     
-                            />
-                            
-
-                        </FormGroup>
-                        {/* <div>
-                            <label>Pre Class</label>
-                            <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
-                            <label>Post Class</label>
-                            <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>                            
-                        </div> */}
-                        <div>
-                            <h3>Submission type</h3>
-                            <label>Textfield</label>
-                            <input onClick={() => setTextField(!textField)} type="checkbox" name="textField" className="valueRadio"></input>
-                            <label>File</label>
-                            <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
-                            <label>Video</label>
-                            <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
-                        </div>
-
-
-                        <button type="submit">Create Assignment</button>
+                                    Create Assignment
+                                </Button>
+                            </Grid2>
+                            <Grid2 item sm={1}></Grid2>
+                        </Grid2>
                     </form>
                 </Box>
             </ThemeProvider>
