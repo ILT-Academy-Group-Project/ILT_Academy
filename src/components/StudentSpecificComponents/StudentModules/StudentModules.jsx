@@ -147,7 +147,7 @@ function StudentModules (){
                                             <StyledTableCell align="center">Name</StyledTableCell>
                                             <StyledTableCell align="center">Date Created</StyledTableCell>
                                             {/* <StyledTableCell align="center">Pre/Post Class</StyledTableCell> */}
-                                            <StyledTableCell align="center">Feedback</StyledTableCell>
+                                            {/* <StyledTableCell align="center">Feedback</StyledTableCell> */}
                                         </TableRow>
                                     </TableHead>
                                      <TableBody>

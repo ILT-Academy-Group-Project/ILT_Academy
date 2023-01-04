@@ -186,8 +186,8 @@ function Modules() {
                                     </TableHead>
                                     <TableBody>
                                     <TableRow>
-                                            <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
-                                        </TableRow>
+                                        <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                    </TableRow>
                                         {/* Display all pre-class assignments here */}
                                         {preClass.map((assignment, i) => {
                                             if (assignment.moduleId == module.id) {                                                
