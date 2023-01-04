@@ -6,15 +6,19 @@ const PrimaryMainTheme = createTheme({
         primary: {
             dark: "#c13937",
             main: "#f96b61",
-            light: "#ff9d8f"
+            light: "#ff9d8f",
+            contrastText:'#ffffff'
         },
         secondary: {
             dark: "#000000",
             main: '#1d1d1d',
-            light: "#444444"
+            light: "#444444",
+            contrastText:'#ffffff'
+
         },
         tertiary: {
-            main: "#ffffff"
+            main: "#ffffff",
+            contrastText:'#f96b61'
         },
         unpublished: {
             main: '#808080'

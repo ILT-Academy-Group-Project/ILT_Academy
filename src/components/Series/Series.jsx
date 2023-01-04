@@ -52,41 +52,41 @@ function Series() {
             <ThemeProvider theme={PrimaryMainTheme}>
                 <Grid2 container spacing={2}>
                     <Grid2 direction='column'>
-                        <h1>Curriculum Creation</h1>
+                        <Typography
+                        variant='h2'
+                        color='secondary.main'>
+                            Curriculum Creation
+                        </Typography>
                         <Button
-                            sx={{ minHeight: 100, fontSize: 35 }}
+                            sx={{ minHeight: 100 }}
                             color='primary'
                             fullWidth='true'
-                            variant='outlined'
-                            onClick={() => history.push(`/admin/orientation/list`)}>Orientation
+                            variant='contained'
+                            onClick={() => history.push(`/admin/orientation/list`)}>
+                                Orientation
                         </ Button>
                         {series.map(serial => (
 
                             <Button
                                 sx={{ minHeight: 100, fontSize: 60, mt: 2}}
-                                color='primary'
+                                color='secondary'
                                 fullWidth='true'
-                                variant='outlined'
-                                onClick={() => history.push(`/admin/modules/${serial.id}`)}>{serial.seriesName}
+                                variant='contained'
+                                onClick={() => history.push(`/admin/modules/${serial.id}`)}>
+                                    {serial.seriesName}
                             </ Button>
-
-
                         ))}
                         <Button
                             sx={{ minHeight: 100, fontSize: 35, mt: 2 }}
                             color='primary'
                             fullWidth='true'
                             variant='outlined'
-                            onClick={() => history.push(`/admin/modules/${serial.id}`)}>Add Series
+                            onClick={() => setOpen(true)}
+                            >+ Add Series
                         </ Button>
                     </Grid2>
                 </Grid2>
             </ThemeProvider>
-            <Button
-            variant='outlined'
-            onClick={() => setOpen(true)}
-             >+ Add Series
-            </Button>
 
             {/* ADD SERIES MODAL */}
             <Modal 
