@@ -9,6 +9,7 @@ import OrientationStep from "./OrientationStep";
 import './Orientation.css'
 
 function CreateAssignment() {
+
     //import user
     const user = useSelector(store => store.user);
     const orientationArray = useSelector((store) => store.orientation.orientationReducer);
@@ -52,6 +53,8 @@ function CreateAssignment() {
                 step
             }
         })
+
+        history.push('/admin/orientation/list')
 
         // } else {
         //     //dispatch to the SAGA for serverpost route

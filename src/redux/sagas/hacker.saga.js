@@ -3,8 +3,6 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 function* createHipster(action) {
 
-    console.log('HHHHHHHHH', action.payload)
-
     try{
         //send FormData to server for db query
         yield axios.put('/api/hipster/hacker/hustler', action.payload);

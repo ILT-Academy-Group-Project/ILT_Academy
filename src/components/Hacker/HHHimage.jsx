@@ -57,7 +57,7 @@ function HHHimage() {
         imgalt: 'Hustler Icon'
     }
 
-
+    
 
     useEffect(() => {
         // dispatch({
@@ -67,7 +67,7 @@ function HHHimage() {
 
     }, []);
 
-    const pickH = () => {
+    function pickH(){
 
         hipster > hacker && hipster > hustler ? setHHH(1)
             : hacker > hustler && hacker > hipster ? setHHH(2)
@@ -93,10 +93,10 @@ function HHHimage() {
                             alt={hip.imgalt}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
+                            <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{}}>
                                 {hip.title}
                             </Typography>
-                            <Typography variant="body2" color="primary.main">
+                            <Typography variant="body1" color="primary.light">
                                 {hip.description}
                             </Typography>
                         </CardContent>

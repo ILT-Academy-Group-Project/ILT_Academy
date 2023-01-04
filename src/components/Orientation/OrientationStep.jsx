@@ -3,6 +3,8 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { ThemeProvider } from '@mui/system';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -111,49 +113,14 @@ function OrientationStep() {
 
     return (
         <>
-            {/* {orientation.map(index => {
-                if (index.step === step.step) {
+            <ThemeProvider theme={PrimaryMainTheme}>
 
-                    return (
-                        <> */}
-            {/* <OrientationDetails step={step.step} />
-                        // <Card sx={{ maxWidth: 745 }}>
-                        //     <CardMedia
-                        //         component="video"
-                        //         alt="green iguana"
-                        //         height="140"
-                        //         src={index.video}
-                        //     />
-                        //     {console.log}
-                        //     <CardContent>
-                        //         <Typography gutterBottom variant="h5" component="div">
-                        //             {index.name}
-                        //         </Typography>
-                        //         <Typography variant="body2" color="text.secondary">
-                        //            {index.content}
-                        //         </Typography>
-                        //     </CardContent>
-                        //     <CardActions>
-                        //         <Button size="small">Share</Button>
-                        //         <Button size="small">Learn More</Button>
-                        //     </CardActions>
-                        // </Card> */}
-
-
-
-
-            {/* {orientationStep(user.oriented)} */}
-            {/* <OrientationStep step={activeStep} /> */}
-            {/* </>
-                    )
-
-                }
-            })} */}
+            
             <Box sx={{ width: '100%' }}>
                 <Stepper nonLinear activeStep={activeStep}>
                     {orientation.map((label, index) => (
                         <Step key={label.id} completed={completed[index]}>
-                            <StepButton color="inherit" onClick={handleStep(index)}>
+                            <StepButton variant='h3' color="primary" onClick={handleStep(index)}>
                                 {label.name}
                             </StepButton>
                         </Step>
@@ -181,7 +148,7 @@ function OrientationStep() {
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     
                                     <Button
-                                        color="inherit"
+                                        color="primary"
                                         disabled={activeStep === 0}
                                         onClick={handleBack}
                                         sx={{ mr: 1 }}
@@ -189,12 +156,12 @@ function OrientationStep() {
                                         Back
                                     </Button>
                                     <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleNext} sx={{ mr: 1 }}>
+                                    <Button color="primary" onClick={handleNext} sx={{ mr: 1 }}>
                                         Next
                                     </Button>
                                     {activeStep !== orientation.length &&
                                         (completed[activeStep] ? (
-                                            <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                                            <Typography variant="caption" color="secondary" sx={{ display: 'inline-block' }}>
                                                 Step {activeStep + 1} already completed
                                             </Typography>
                                         ) : (
@@ -213,6 +180,7 @@ function OrientationStep() {
                     </div> 
                     : <Button>Add Step</Button>}
             </Box>
+            </ThemeProvider>
         </>
     )
 }

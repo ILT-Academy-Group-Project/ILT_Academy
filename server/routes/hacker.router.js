@@ -19,9 +19,10 @@ router.put('/', rejectUnauthenticated, async (req,res) => {
                 "hackerInterest" = $6,
                 "hackerSkill" = $7,
                 "hustlerInterest" = $8,
-                "hustlerSkill" = $9
+                "hustlerSkill" = $9,
+                "aboutMe" = $10
             WHERE
-                "id"=$10;
+                "id"=$11;
         `;
         const sqlParams = [req.body.firstName, 
             req.body.lastName,
@@ -32,6 +33,7 @@ router.put('/', rejectUnauthenticated, async (req,res) => {
             req.body.hackerSkill, 
             req.body.hustlerInterest, 
             req.body.hustlerSkill,
+            req.body.about,
         req.body.id];
 
         console.log('🥤sqlParams are ', sqlParams);
