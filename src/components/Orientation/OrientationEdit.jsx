@@ -15,11 +15,12 @@ function OrientationEdit() {
     const editOrientation = useSelector(store => store.orientation.editOrientationReducer);
 
     useEffect(() => {
+
         dispatch({
             type: 'FETCH_EDIT_ORIENTATION',
             payload: params.id
         });
-    }, []);
+    }, [params.id]);
 
     const submitEditAssignment = (evt) => {
         evt.preventDefault();
