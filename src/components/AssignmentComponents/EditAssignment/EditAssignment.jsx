@@ -10,6 +10,7 @@ import axios from 'axios';
 
 //MUI imports
 import { PrimaryMainTheme } from "../../PrimaryMainTheme/PrimaryMainTheme";
+import { ThemeProvider } from '@mui/system';
 import {
     TextareaAutosize,
     Typography,
