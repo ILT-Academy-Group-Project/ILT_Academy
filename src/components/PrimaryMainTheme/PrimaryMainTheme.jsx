@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, extendTheme } from "@mui/material/styles";
 
 const PrimaryMainTheme = createTheme({
     palette: {
@@ -18,6 +18,50 @@ const PrimaryMainTheme = createTheme({
         unpublished: {
             main: '#808080'
         },
+    },
+    typography : {
+        fontFamily: 'circular',
+        //Headline
+        h1: {
+            fontSize: 80,
+            fontWeight: 'bold',
+            letterSpacing: '-4pt',
+            // textTransform: 'uppercase',
+            lineHeight: '40px'
+        },
+        //SubHeadline
+        h2: {
+            fontSize: 40,
+            fontWeight: 'bold',
+            letterSpacing: '-1.6pt',
+            // textTransform: 'uppercase',
+            lineHeight: '21px'
+        },
+        // Eyebrow/callout
+        h3: {
+            fontSize: 28,
+            fontWeight: 'bold',
+            letterSpacing: '-1pt',
+            textTransform: 'uppercase',
+            lineHeight: '14px'
+        },
+        //body
+        body1: {
+            fontSize: 16,
+            fontWeight: 'medium',
+            letterSpacing: '-.5pt',
+            // textTransform: 'uppercase',
+            lineHeight: '10px'
+        },
+        //Body copy small
+        body2 :  {
+            fontSize: 11,
+            fontWeight: 'medium',
+            letterSpacing: '0pt',
+            // textTransform: 'uppercase',
+            lineHeight: '7.5px'
+        },
+        
     }
 });
 
