@@ -19,6 +19,11 @@ const PrimaryMainTheme = createTheme({
         unpublished: {
             main: '#808080'
         },
+        background: {
+            dark: "#1d1d1d",
+            main: "#f96b61",
+            light: '#ffffff'
+        }
     },
     typography : {
        

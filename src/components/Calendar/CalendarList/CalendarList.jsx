@@ -24,15 +24,13 @@ function CalendarList(){
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
-        <Typography gutterBottom variant='h3' color='secondary.light'>Upcoming Events</Typography>
+        <Typography gutterBottom variant='h2' color='secondary.main'>Upcoming Events</Typography>
             {/* MAP EVENTS */}
-            <ul>
                 {events.map((event, i) =>{
                     return (
                         <CalendarItem key={i} event={event}/>
                     )
                 })}
-            </ul>
         </ThemeProvider>
         </>
     )

@@ -13,10 +13,10 @@ function CalendarItem ({event}){
                 <Typography 
                 variant='h3'
                 >
-                    <Link color='primary.light' href={event.htmlLink}>{event.summary}</Link>
+                    <Link color='primary.main' href={event.htmlLink}>{event.summary}</Link>
                 </Typography>
                 <Typography 
-                 color='secondary.light'
+                 color='primary.main'
                 className="dateTime"
                 variant='body1'
                 >

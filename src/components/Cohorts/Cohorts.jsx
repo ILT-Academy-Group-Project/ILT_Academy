@@ -16,6 +16,7 @@ import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import './Cohorts.css';
 import { Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import CohortsItem from './CohortsItem';
 //sweet alerts import
 const Swal = require('sweetalert2')
 
@@ -75,79 +76,24 @@ function Cohorts() {
         handleClose();
     }
 
-    const graduateCohort = (cohortId) => {
-        // console.log('in deleteCohort', cohortId);
-        //confirm deletion
-        Swal.fire({
-            title: 'Are you sure you want to graduate this cohort?',
-            icon: 'warning',
-            iconColor: 'red',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, graduate the cohort!',
-            confirmButtonColor: 'red',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true,
-            html: "<h5 style='font-size:22px ;color:red'>You won't be able to revert this!</h5>"
-        }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(            
-            'The Cohort Graduated!'
-            )
-            //dispatch delete/graduate cohort request to saga
-            dispatch({
-                type: 'GRADUATE_COHORT',
-                payload: cohortId
-            })
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            Swal.fire(
-            'Cancelled'
-            )
-        }
-        })        
-    }
-
     return (
         <>
         
         <ThemeProvider theme={PrimaryMainTheme}>
-            {cohorts.map(cohort => (
-
-                <Grid2 item xs={6} sx={{}} className='cohortCard'
-                    key={cohort.id}>
-                    <Card sx={{margin: 'auto', width: 1, backgroundColor: 'secondary'}}>
-                        <Card sx={{ width:1, margin: 'auto', backgroundColor: 'secondary' }} >
-                            <CardActionArea onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
-    
-                              
-                                <CardContent>
-                                    <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{}}>
-                                    {cohort.cohortName}
-                                    </Typography>
-    
-                                    <Typography variant="body2" color="primary.main">
-                                    Cohort Access Code: {cohort.accessCode}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                        <Button 
-                                sx={{ textAlign:'right', width: 1}} 
-                                variant='contained' 
-                                color='primary'
-                                onClick={()=>graduateCohort(cohort.id)}
-                            >
-                            Graduate Cohort
-                        </Button>
-                    </Card>
-                </Grid2>
-
-            ))}
+        <Typography
+                     variant='h2'
+                     color='secondary.main'
+                     sx={{pl:20 , pr:20}}>
+                        Cohorts
+                    </Typography>
+            {cohorts.map((cohort, i) => {
+                return (
+                    <CohortsItem key={i} cohort={cohort}/>
+                )
+            })}
 
             {/* form section */}
-            <Grid2 item xs={6} sx={{}} className='cohortCard'>
+     <Grid2 item xs={6} sx={{}} className='cohortCard'>
                 <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary' }} >
                     <CardActionArea onClick={()=>setOpen(!open)}>
                         
@@ -159,7 +105,7 @@ function Cohorts() {
                     </CardActionArea>
                 </Card>                
             </Grid2>
-        </ThemeProvider>
+     
         {/* ADD COHORT MODAL */}
         <Modal 
             open={open}
@@ -185,6 +131,7 @@ function Cohorts() {
                 </Box>
 
             </Modal>
+        </ThemeProvider>
         </>
     )
 }
