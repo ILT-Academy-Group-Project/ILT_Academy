@@ -22,6 +22,7 @@ function HHHimage() {
 
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+    const params = useParams();
 
     // const hipsterInterest = user.hipsterInterest;
     // const hackerInterest = user.hackerInterest;
@@ -37,7 +38,7 @@ function HHHimage() {
 
     const hip = {
         image: "/images/hipster.png",
-        description:  `The Creative Vision of the company, its output, its culture, and above all its tone of voice. The Hipster doesn't just write the Style Guide, they live it.`,
+        description: `The Creative Vision of the company, its output, its culture, and above all its tone of voice. The Hipster doesn't just write the Style Guide, they live it.`,
         title: 'Hipster',
         imgalt: 'Hipster Icon'
     }
@@ -79,9 +80,7 @@ function HHHimage() {
 
     return (
         <>
-            {console.log('HHH', imageHHH)}
             <ThemeProvider theme={PrimaryMainTheme}>
-
                 {/* {cohorts.map(cohort => ( */}
 
                 {hipster > hacker && hipster > hustler ?

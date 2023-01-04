@@ -22,6 +22,8 @@ function AssignmentDetails () {
     const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
     const singleSubmission= useSelector(store => store.submissions.singleSubmissionReducer);
 
+    const parse = require('html-react-parser');
+
     //usestate to keep files
     // const [pdfSubmission, setPdfSubmission] = useState(null);
     // const [videoSubmission, setVideoSubmission] = useState(null);
@@ -153,7 +155,8 @@ function AssignmentDetails () {
             null
             }
                 {/* TODO REPLACE!!!! */}
-                <div dangerouslySetInnerHTML={{__html: assignment.content}}/>
+                {/* <div dangerouslySetInnerHTML={{__html: assignment.content}}/> */}
+                {parse(assignment.content)}
             {/* <Markup content={assignment.content}/> */}
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement for the student?
