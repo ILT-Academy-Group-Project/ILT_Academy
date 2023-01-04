@@ -103,7 +103,6 @@ function CohortSubmissions() {
      cohortStudents.map(student => {
       submissions.map(submission => {
         if(student.id == submission.studentId){
-          console.log('TRUEEE BITCH')
           submittedStudents.push(student.id);
         }
         
@@ -115,7 +114,7 @@ function CohortSubmissions() {
      let missingStudents = [];
      cohortStudents.map(student => {
       if(!submittedStudents.includes(student.id)){
-        console.log('NOT INCLUDED ', student.firstName)
+        // console.log('NOT INCLUDED ', student.firstName)
         missingStudents.push(student)
       }
       console.log('missingStudents are ', missingStudents);
