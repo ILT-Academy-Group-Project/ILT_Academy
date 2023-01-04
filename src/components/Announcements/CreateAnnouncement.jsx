@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AnnouncementItems from './AnnouncementItems';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ThemeProvider } from '@mui/system';
 
 import {
     TextareaAutosize,
@@ -12,7 +14,8 @@ import {
     MenuItem,
     FormControl,
     Select,
-    Grid
+    Grid,
+    Typography
 } from '@mui/material'
 
 function CreateAnnouncement(){
@@ -44,8 +47,11 @@ function CreateAnnouncement(){
 
 
     return(
+        <>
+        <ThemeProvider theme={PrimaryMainTheme}>
         <form  onSubmit={submitAnnouncement}>
-                <h3>Make New Announcement</h3>
+                <Typography
+                variant='h3'>Make New Announcement</Typography>
                 <Grid container spacing ={2}>
                     <Grid item sm={2}></Grid>
                     <Grid item sm={8}>
@@ -76,6 +82,8 @@ function CreateAnnouncement(){
                 </Grid>
                 <button type='submit'>Create Announcement</button>
             </form>
+            </ThemeProvider>
+            </>
     )
 }
 

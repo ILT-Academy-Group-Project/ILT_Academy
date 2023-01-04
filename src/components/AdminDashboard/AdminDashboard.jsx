@@ -32,7 +32,7 @@ function AdminDashboard (){
                 <Grid2 item xs={6} className='cohortCard'>
                  
                     <Cohorts />            
-                    <Box sx={{ backgroundColor: 'grey', minWidth: 200, width: 1, minHeight: 400, margin: 'auto'}}>
+                    <Box sx={{  minWidth: 200, width: 1, minHeight: 400, margin: 'auto'}}>
                     <Announcements />
                     </Box>
                 </Grid2>

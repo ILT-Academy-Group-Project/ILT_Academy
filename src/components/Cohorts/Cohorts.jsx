@@ -97,7 +97,7 @@ function Cohorts() {
             <Button sx={{ maxWidth: 345, minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
                 onClick={()=>setOpen(!open)}
                 color='primary'
-                fullWidth='true'
+                // fullWidth='true'
                 variant='outlined'>
                 <Typography
                 variant='h3'>
