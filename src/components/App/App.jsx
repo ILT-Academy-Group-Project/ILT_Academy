@@ -218,6 +218,13 @@ function App() {
                     <ProtectedRoute
                         // logged in admin can edit assignment
                         exact
+                        // onLeave={
+                        //     console.error('PAGE LEAVE')                     
+                        //     // dispatch({
+                        //     //     type: 'SET_EDIT_ASSIGNMENT',
+                        //     //     payload: {}
+                        //     // })
+                        // }
                         path="/admin/assignment/edit/:id">
                         {user.accessLevel === 2 ? <EditAssignment /> : <Redirect exact to="/login" />}
                     </ProtectedRoute>

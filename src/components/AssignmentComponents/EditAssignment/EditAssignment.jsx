@@ -50,7 +50,7 @@ function EditAssignment() {
             type: 'FETCH_EDIT_ASSIGNMENT',
             payload: params.id
         });
-    }, []);
+    }, [dispatch]);
 
 
     const submitEditAssignment = (evt) => {
