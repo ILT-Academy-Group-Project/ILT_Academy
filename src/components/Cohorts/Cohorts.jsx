@@ -116,14 +116,14 @@ function Cohorts() {
                         <label>Cohort Name</label>
                         <Input 
                             type='text' 
-                            placeholder='cohortcode'
+                            placeholder=''
                             value={cohortName}
                             onChange={(evt)=>setCohortName(evt.target.value)}
                         />
                         <label>Cohort Code</label>
                         <Input 
                             type='text' 
-                            placeholder='cohortcode'
+                            placeholder=''
                             value={accessCode}
                             onChange={(evt)=>setAccessCode(evt.target.value)}
                         />

@@ -86,7 +86,8 @@ function CreateAnnouncement(){
                 </Grid>
                 <Button type='submit'
                 variant='contained'
-                ><Typography>
+                ><Typography
+                variant='body1'>
                     Create Announcement
                 </Typography></Button>
             </form>

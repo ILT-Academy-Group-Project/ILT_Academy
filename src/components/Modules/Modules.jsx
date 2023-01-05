@@ -25,6 +25,8 @@ import Box from '@mui/material/Box';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import { ThemeProvider } from '@mui/system';
+import {ArrowBack, DeleteOutline, Add } from '@mui/icons-material';
+import moment from "moment/moment";
 //sweet alert import
 const Swal = require('sweetalert2')
 
@@ -170,12 +172,13 @@ function Modules() {
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
+            <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:3, pr:3, pb: 20, pt:8, mb:-10, mt:-4,  }}>
             <Button
             onClick={()=> history.push(`/home`)}
-            variant='outlined'
-
-            >Back to Dashboard</Button>
-            
+            variant='contained'
+            >
+                <ArrowBack />
+                Dashboard</Button>
             <Typography
                 variant="h2"
                 color='primary'
@@ -191,25 +194,34 @@ function Modules() {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                            <Typography sx={{ width: '33%', flexShrink: 0 }}
+                            variant='h3'>
                                 {module.name}
                             </Typography>
                            
                                                         
                         </AccordionSummary>
-                        <AccordionDetails>
-                            <TableContainer component={Paper}>
+                        <AccordionDetails sx={{pb:5}}>
+                            <TableContainer component={Paper} sx={{mb:5}}>
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>                                        
-                                            <StyledTableCell align="center">Name</StyledTableCell>
-                                            <StyledTableCell align="center">Date Created</StyledTableCell>                                            
-                                            <StyledTableCell align="center">Feedback</StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3'>Name</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3'>Date Created</Typography>
+                                            </StyledTableCell>                                          
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3'>Notes</Typography>
+                                            </StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                     <TableRow>
-                                        <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <Typography variant='h3' sx={{fontSize: 22}}>PRE-CLASS</Typography>
+                                        </StyledTableCell>
                                     </TableRow>
                                         {/* Display all pre-class assignments here */}
                                         {preClass.map((assignment, i) => {
@@ -220,10 +232,16 @@ function Modules() {
                                                          <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            {assignment.name}
+                                                                    <Typography variant='body1'>
+                                                                    {assignment.name}
+                                                                    </Typography>
                                                             </Button>                                                            
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        <StyledTableCell align="center">
+                                                            <Typography variant='body2'>
+                                                            {moment(assignment.createdDate).format('MMMM D YYYY, h:mm:ss a')}
+                                                            </Typography>
+                                                        </StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
                                                         <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
                                                      </StyledTableRow>
@@ -231,7 +249,9 @@ function Modules() {
                                             } 
                                         })}
                                         <TableRow>
-                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3' sx={{fontSize: 22}}>POST-CLASS</Typography>
+                                            </StyledTableCell>
                                         </TableRow>
                                         {/* display all postclass assignments here */}
                                         {postClass.map((assignment, i)  => {
@@ -245,10 +265,16 @@ function Modules() {
                                                         <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            {assignment.name}
+                                                            <Typography variant='body1'>
+                                                                    {assignment.name}
+                                                                    </Typography>
                                                             </Button>
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        <StyledTableCell align="center">
+                                                            <Typography variant='body2'>
+                                                            {moment(assignment.createdDate).format('MMMM D YYYY, h:mm:ss a')}
+                                                            </Typography>
+                                                        </StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
                                                         <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
                                                      </StyledTableRow>
@@ -260,25 +286,32 @@ function Modules() {
                                 </Table>
                             </TableContainer>
                             {/* CREATE A NEW ASSIGNMENT */}
-                            <Grid2 container spacing={2}>
-                                <Grid2 item sm={9}>
+                           
+                                <Grid2 item sm={9} sx={{ display:'flex', justifyContent: 'space-between' }} >
                                     <Button 
+                                    variant='contained'
                                         onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}
                                     >
-                                        Add assignment
+                                    < Add />
+                                      <Typography
+                                      variant='body1'
+                                      fontWeight='bold'
+                                      color='tertiary.main'
+                                      >Add assignment</Typography>
                                     </Button>
-                                </Grid2>
-                                <Grid2 item sm={3}>
                                     <Button 
                                             sx={{ textAlign:'right'}} 
                                             variant='contained' 
-                                            color='error'
+                                            color='btnLight'
                                             onClick={()=>deleteModule(module.id)}
                                         >
-                                        Delete Module
+                                      
+                                            < DeleteOutline />
+                                            <Typography variant='body1'>
+                                            Delete Module
+                                            </Typography>
                                     </Button>
                                 </Grid2>
-                            </Grid2>
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
@@ -312,6 +345,7 @@ function Modules() {
                     </form>
                 </Box>
             </Modal>
+        </Box>
         </ThemeProvider>
         </>
     )
