@@ -187,12 +187,7 @@ function CreateAssignment() {
                                     color='primary'
                                 />
                             </Grid2>
-                        </Grid2>
-                        <Grid2 container spacing={2}>
-                            <Grid2 item sm={1}></Grid2>
-                            <Grid2 item sm={2}>
-                            </Grid2>
-                        </Grid2>
+                        </Grid2>                        
                         <Grid2 container spacing={2}>
                             <Grid2 item sm={1}></Grid2>
                             <Grid2 item sm={10}>
@@ -220,7 +215,7 @@ function CreateAssignment() {
                                     onImageUploadBefore={handleImageUploadBefore}                                
                                 />
                             </Grid2>
-
+                            <Grid2 item sm={1}></Grid2>
                         </Grid2>
                         <Grid2 container sx={{textAlign: 'center', alignContent: 'top'}} spacing={2}>
                             <Grid2 item sm={2}></Grid2>
