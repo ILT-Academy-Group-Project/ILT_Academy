@@ -17,6 +17,7 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 
 import OrientationDetails from './OrientationDetails';
+import { StepLabel } from '@mui/material';
 
 function OrientationStep() {
 
@@ -35,18 +36,18 @@ function OrientationStep() {
             // payload: user.oriented
         })
 
-        orientation.length > 0 ?
-        user.accessLevel === 2 ? history.push('/home') 
-        : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null : null
+        orientation.length >= 0 ?
+            user.accessLevel === 2 ? history.push('/home')
+                : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null : null
 
     }, []);
 
     const totalSteps = () => {
         // console.log('orientation length', orientation.length)
-        if(orientation.length > 0){
+        if (orientation.length > 0) {
             return orientation.length;
         }
-        
+
     };
 
     const completedSteps = () => {
@@ -97,7 +98,7 @@ function OrientationStep() {
             }
         });
 
-        
+
     };
 
     const handleStudent = () => {
@@ -114,72 +115,87 @@ function OrientationStep() {
     return (
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
+                <Box sx={{ width: '100%' }}>
+                    {/* <Box sx={{ width: '100%', padding: 2, backgroundColor: 'secondary.main' }}> */}
+                    <Stepper nonLinear activeStep={activeStep}>
+                        {orientation.map((label, index) => (
+                            <Step key={label.id} completed={completed[index]}>
+                                <StepButton color="primary" onClick={handleStep(index)}>
+                                    <Typography sx={{}} variant='body1' color="primary">
+                                        {label.name}
+                                    </Typography>
 
-            
-            <Box sx={{ width: '100%' }}>
-                <Stepper nonLinear activeStep={activeStep}>
-                    {orientation.map((label, index) => (
-                        <Step key={label.id} completed={completed[index]}>
-                            <StepButton variant='h3' color="primary" onClick={handleStep(index)}>
-                                {label.name}
-                            </StepButton>
-                        </Step>
-                    ))}
-                </Stepper>
-                {user.accessLevel === 1 ?
-                    <div>
-                        {allStepsCompleted() ? (
-                            <>
-                                {/* <Typography sx={{ mt: 2, mb: 1 }}>
+                                </StepButton>
+                            </Step>
+                        ))}
+                    </Stepper>
+                    {/* </Box> */}
+                    {user.accessLevel === 1 ?
+                        <div>
+                            {allStepsCompleted() ? (
+                                <>
+                                    {/* <Typography sx={{ mt: 2, mb: 1 }}>
                                     All steps completed - you&apos;re finished
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Box sx={{ flex: '1 1 auto' }} />
                                     <Button onClick={handleStudent}>Student Portal</Button>
                                 </Box> */}
-                                {history.push(`/hipster/hacker/hustler`)}
-                            </>
-                        ) : (
-                            <>
-                                {/* <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+                                    {history.push(`/hipster/hacker/hustler`)}
+                                </>
+                            ) : (
+                                <>
+                                    {/* <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                                     Step {activeStep + 1}
                                 </Typography> */}
-                                <OrientationDetails step={activeStep} />
-                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                    
-                                    <Button
-                                        color="primary"
-                                        disabled={activeStep === 0}
-                                        onClick={handleBack}
-                                        sx={{ mr: 1 }}
-                                    >
-                                        Back
-                                    </Button>
-                                    <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button color="primary" onClick={handleNext} sx={{ mr: 1 }}>
-                                        Next
-                                    </Button>
-                                    {activeStep !== orientation.length &&
-                                        (completed[activeStep] ? (
-                                            <Typography variant="caption" color="secondary" sx={{ display: 'inline-block' }}>
-                                                Step {activeStep + 1} already completed
-                                            </Typography>
-                                        ) : (
-                                            <Button onClick={handleComplete} disabled={user.oriented != activeStep} >
+                                    {/* <Box sx={{ width: '100%', padding: 3, }}> */}
+                                    <OrientationDetails step={activeStep} />
+                                    {/* </Box> */}
 
-                                                {completedSteps() === totalSteps() - 1
-                                                    ? 'Finish'
-                                                    : 'Complete Step'}
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
 
-                                            </Button>
-                                        ))}
-                                </Box>
-                            </>
-                        )}
-                        
-                    </div> 
-                    : <Button>Add Step</Button>}
-            </Box>
+                                        <Button
+                                            color="primary"
+                                            disabled={activeStep === 0}
+                                            onClick={handleBack}
+                                            sx={{ ml: 2 }}
+                                            variant='contained'
+                                        >
+                                            Back
+                                        </Button>
+                                        <Box />
+                                        <Button
+                                            color="primary"
+                                            onClick={handleNext}
+                                            sx={{ mr: 1, ml: 2 }}
+                                            variant='contained'
+                                        >
+                                            Next
+                                        </Button>
+                                        {activeStep !== orientation.length &&
+                                            (completed[activeStep] ? (
+                                                <Typography variant="caption" color="secondary" sx={{ display: 'inline-block' }}>
+                                                    Step {activeStep + 1} already completed
+                                                </Typography>
+                                            ) : (
+                                                <Button
+                                                    variant='contained'
+                                                    sx={{}}
+                                                    onClick={handleComplete} disabled={user.oriented != activeStep} >
+
+                                                    {completedSteps() === totalSteps() - 1
+                                                        ? 'Finish'
+                                                        : 'Complete Step'}
+
+                                                </Button>
+                                            ))}
+                                    </Box>
+                                </>
+                            )}
+
+                        </div>
+                        : <Button>Add Step</Button>}
+                </Box>
             </ThemeProvider>
         </>
     )

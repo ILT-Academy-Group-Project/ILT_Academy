@@ -37,7 +37,8 @@ router.get('/:cohortId', rejectUnauthenticated, async (req, res) => {
         res.send(dbResult.rows);
 
     } catch(err) {
-        console.error('series.router GET error', err.message);
+        console.log('req', req.params.cohortId)
+        console.error('series.router GET error this one', err.message);
         res.sendStatus(500);
     }
 })

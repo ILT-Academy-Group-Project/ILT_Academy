@@ -4,6 +4,15 @@ import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import { useParams, useHistory } from 'react-router-dom';
 import { Interweave, Markup } from 'interweave';
+import { ThemeProvider } from '@mui/system';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import './Orientation.css'
 
 const parse = require('html-react-parser');
@@ -98,19 +107,26 @@ function OrientationDetails({ step }) {
 
     return (
         <>
-            {assignment.map(orient => (
+            <ThemeProvider theme={PrimaryMainTheme}>
+                {assignment.map(orient => (
 
-                orient.step === step ?
-                    <>
-                    
-                        <h3>{orient.name}</h3>
-                        {/* <Markup content={orient.content} /> */}
-                        {parse(orient.content, {
-                            replace: ({ attribs }) => attribs && attribs.style === "width: 100%; height: 100%;" && "height: '50vh', width: '75%' "
-                        })}
+                    orient.step === step ?
+                        <>
+                            <Typography variant="h2" color="secondary.dark" sx={{ mt: 5, mb: 2 }} textAlign="center">
+                                {orient.name}
+                            </Typography>
 
-                    
-                        {/* {orient.video ? <iframe width="560" 
+                            {/* <Markup content={orient.content} /> */}
+
+                            <Box sx={{padding:2, backgroundColor: 'secondary.main'}}>
+                                <Box sx={{ padding:2, backgroundColor: 'tertiary.main'}} >
+                                    {parse(orient.content, {
+                                        replace: ({ attribs }) => attribs && attribs.style === "width: 100%; height: 100%;" && "height: '50vh', width: '75%' "
+                                    })}
+                                </Box>
+                            </Box>
+
+                            {/* {orient.video ? <iframe width="560" 
                             height="315" 
                             src={orient.video} 
                             title="YouTube video player" 
@@ -121,32 +137,32 @@ function OrientationDetails({ step }) {
 
 
 
-                        <form onSubmit={handleSubmission}>
-                            {  //is there a text submission requirement?
-                                assignment.textField ?
-                                    <div>
-                                        <textarea
-                                            id='textSubmission'
-                                            required
-                                            placeholder="Type your response here"
-                                            // value={story} 
-                                            // // update local state
-                                            //If text submission is null have it be an empty string, otherwise = value
-                                            value={textSubmission ? textSubmission : ''}
-                                            onChange={(evt) => setTextSubmission(evt.target.value)}
-                                        />
-                                    </div>
-                                    :
-                                    null
-                            }
-{/* 
+                            <form onSubmit={handleSubmission}>
+                                {  //is there a text submission requirement?
+                                    assignment.textField ?
+                                        <div>
+                                            <textarea
+                                                id='textSubmission'
+                                                required
+                                                placeholder="Type your response here"
+                                                // value={story} 
+                                                // // update local state
+                                                //If text submission is null have it be an empty string, otherwise = value
+                                                value={textSubmission ? textSubmission : ''}
+                                                onChange={(evt) => setTextSubmission(evt.target.value)}
+                                            />
+                                        </div>
+                                        :
+                                        null
+                                }
+                                {/* 
                             <input type="submit" /> */}
-                        </form>
-                    </>
-                    : null
-            ))}
+                            </form>
+                        </>
+                        : null
+                ))}
 
-
+            </ThemeProvider>
         </>
     )
 }
