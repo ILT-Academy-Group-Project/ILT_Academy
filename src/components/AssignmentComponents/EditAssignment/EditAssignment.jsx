@@ -15,6 +15,7 @@ import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import {
     TextareaAutosize,
     Typography,
+    Switch,
     FormLabel,
     Radio,
     RadioGroup,
@@ -335,8 +336,56 @@ function EditAssignment() {
                                         />
                                     </RadioGroup>
                                 </FormControl>
-
-                        <div>
+                                {editAssignment.id ?
+                                    <FormGroup sx={{ display: 'inline' }}>
+                                    <FormLabel>
+                                        <Typography
+                                            variant="h3"
+                                            sx={{ fontSize: '20px' }}
+                                        >
+                                            Submission Type
+                                        </Typography>
+                                    </FormLabel>
+                                    <FormControlLabel     //set starting state based on edit assignment
+                                        control={<Checkbox checked={editAssignment.textField}/>}
+                                        labelPlacement='top'
+                                        onChange={() => {
+                                            dispatch({
+                                                type: 'UPDATE_EDIT_ASSIGNMENT',
+                                                payload: { textField: !editAssignment.textField }
+                                            })
+                                        }}
+                                        label="Text Field"
+                                    />
+                                    <FormControlLabel       //set starting state based on edit assignment
+                                        control={<Checkbox checked={editAssignment.file}/>}
+                                        labelPlacement='top'                                        
+                                        onChange={() => {
+                                            dispatch({
+                                                type: 'UPDATE_EDIT_ASSIGNMENT',
+                                                payload: { file: !editAssignment.file }
+                                            })
+                                        }}
+                                        label="File"
+                                    />
+                                    <FormControlLabel    //set starting state based on edit assignment
+                                        control={<Checkbox checked={editAssignment.video}/>}
+                                        labelPlacement='top'
+                                        onChange={() => {
+                                            dispatch({
+                                                type: 'UPDATE_EDIT_ASSIGNMENT',
+                                                payload: { video: !editAssignment.video }
+                                            })
+                                        }}
+                                        label="Video"
+                                        variant='body1'
+                                        color='primary'
+                                    />
+                                </FormGroup>
+                                :
+                                null
+                                }
+                        {/* <div>
                             <h3>Submission type</h3>
                             <label>Textfield</label>
                             <input
@@ -378,7 +427,7 @@ function EditAssignment() {
                                 name="fileSubmission"
                                 className="valueRadio"
                             ></input>
-                        </div>
+                        </div> */}
 
 
                         <button type="submit">Edit Assignment</button>

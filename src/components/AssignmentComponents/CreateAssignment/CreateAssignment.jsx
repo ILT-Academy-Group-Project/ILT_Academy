@@ -264,7 +264,7 @@ function CreateAssignment() {
                                         control={<Checkbox />}
                                         labelPlacement='top'
                                         value={true}
-                                        onClick={() => setFileSubmission(!fileSubmission)}
+                                        onChange={() => setFileSubmission(!fileSubmission)}
                                         label="File"
                                     />
                                     <FormControlLabel
