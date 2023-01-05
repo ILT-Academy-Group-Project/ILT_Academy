@@ -106,7 +106,7 @@ const PrimaryMainTheme = createTheme({
         },
         //Body copy small
         body3 :  {
-            fontFamily: 'circular-light',
+            fontFamily: 'circular-bold',
             fontSize: 11,
             fontWeight: 'light',
             letterSpacing: '0pt',
