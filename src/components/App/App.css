@@ -112,7 +112,12 @@ input {
 }
 
 
+/* Make image have correct bottom padding */
 #react-root .se-video-container>figure{
     padding-bottom: 0px !important;
 }
 
+/* suneditor container */
+.sun-editor, .se-toolbar{
+    border-radius: 10px 10px 0px 0px;
+}

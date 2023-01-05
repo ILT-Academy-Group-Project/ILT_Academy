@@ -47,13 +47,25 @@ function CreateAnnouncement(){
             setContent('');
     }
 
+    const populateAnnouncement = () => {
+        setTitle('Welcome the new cohort!')
+        setContent(`Our winter cohort is starting today. 
+        Please welcome them through slack, our virtual academy, or on the community board!
+        
+        WELCOME!!!!`)
+    }
 
     return(
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
         <form  onSubmit={submitAnnouncement}>
-                <Typography
-                variant='h3'>Make New Announcement</Typography>
+                <Grid container spacing={1}>
+                    <Grid item sm={8}>
+                        <Typography
+                        variant='h3'>Make New Announcement</Typography>
+                    </Grid>
+                    <Grid onClick={populateAnnouncement} item sm={4}></Grid>
+                </Grid>
                 <Grid container spacing ={2}>
                     <Grid item sm={2}></Grid>
                     <Grid item sm={8}>
@@ -86,7 +98,8 @@ function CreateAnnouncement(){
                 </Grid>
                 <Button type='submit'
                 variant='contained'
-                ><Typography>
+                ><Typography
+                variant='body1'>
                     Create Announcement
                 </Typography></Button>
             </form>

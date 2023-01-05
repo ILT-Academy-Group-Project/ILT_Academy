@@ -48,7 +48,7 @@ function* createOrientation(action) {
             //must include this header, it is what Multer uses to id file
             headers: {
                 headers: { "Content-Type": "multipart/form-data" },
-            }
+            } 
         });
         //get posts redux and rerender after store is updated
     } catch (err) {

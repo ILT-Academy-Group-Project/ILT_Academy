@@ -29,11 +29,14 @@ function OrientationEdit() {
     const [step, setStep] = useState(0)
 
     useEffect(() => {
+
         dispatch({
             type: 'FETCH_EDIT_ORIENTATION',
             payload: params.id
         });
-    }, [params]);
+
+    }, [params.id]);
+
 
     const submitEditAssignment = (evt) => {
         evt.preventDefault();
