@@ -301,7 +301,7 @@ function Modules() {
             onClose={handleClose}>
                 <Box sx={style} >
                     <form onSubmit={createModule}>
-                        <label>Module Name</label>
+                        <label>Module Name:&nbsp;</label>
                         <Input 
                             type='text' 
                             placeholder='Module Name'

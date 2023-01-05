@@ -115,7 +115,10 @@ function CreateAssignment() {
         setAssignmentContent(content);
     }
 
-    // console.log('postclass:', postClass);
+    const populateAssignment = async () => {
+        setAssignmentTitle('5. Unpacking Your Key Insights and Observations');
+        setPostClass(true);
+    }
 
     //testing logs
     console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission, 'video', videoSubmission);
@@ -127,7 +130,7 @@ function CreateAssignment() {
                 <Typography 
                     variant="h1" 
                     color='primary' 
-                    sx={{ textAlign: 'center' }}
+                    sx={{ textAlign: 'center' }}                    
                 >
                     Create New Assignment
                 </Typography>
@@ -148,7 +151,8 @@ function CreateAssignment() {
                                         fontWeight: 'bold',
                                         marginBottom: 0,
                                         fontSize: '22px'
-                                    }}
+                                    }}              
+                                    onClick={populateAssignment}                      
                                 >
                                     Assignment Name
                                 </InputLabel>
@@ -158,6 +162,7 @@ function CreateAssignment() {
                                     type='text'
                                     placeholder="Assignment Name"
                                     onChange={(evt) => setAssignmentTitle(evt.target.value)}
+                                    value={assignmentTitle}
                                     autoFocus
                                     variant='outligned'
                                     require
@@ -203,6 +208,7 @@ function CreateAssignment() {
                                             ['underline'],
                                             ['video'],
                                             ['image'],
+                                            ['link']
                                         ],                                        
                                         videoHeightShow: false,
                                         videoWidthShow: false,

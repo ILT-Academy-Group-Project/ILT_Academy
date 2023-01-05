@@ -33,7 +33,7 @@ function AnnouncementItems({announcement}){
                     </Typography>  
                     <Typography
                     variant='body1'>
-                        {moment(announcement.createdDate).format('MMMM DO YYYY, h:mm:ss a')}</Typography>
+                        {moment(announcement.createdDate).format('MMMM DD YYYY, h:mm:ss a')}</Typography>
                 </Grid>
                 <Grid item sm={.5}>
                 </Grid>

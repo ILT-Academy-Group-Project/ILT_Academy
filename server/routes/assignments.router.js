@@ -92,7 +92,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         sqlParams = [req.params.id];
     }
     
-    console.log('TESTING PARAMS in get assignments by ID', sqlParams);
+    // console.log('TESTING PARAMS in get assignments by ID', sqlParams);
     //query DB
     pool.query(sqlText, sqlParams)
         .then(dbRes => {
