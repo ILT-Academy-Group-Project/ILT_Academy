@@ -113,14 +113,14 @@ function Cohorts() {
             onClose={handleClose}>
                 <Box sx={style} >
                     <form onSubmit={createCohort}>
-                        <label>Cohort Name</label>
+                        <label>Cohort Name&nbsp;</label>
                         <Input 
                             type='text' 
                             placeholder=''
                             value={cohortName}
                             onChange={(evt)=>setCohortName(evt.target.value)}
                         />
-                        <label>Cohort Code</label>
+                        <label>Cohort Code&nbsp;</label>
                         <Input 
                             type='text' 
                             placeholder=''
