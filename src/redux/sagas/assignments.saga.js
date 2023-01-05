@@ -7,27 +7,27 @@ import FormData from 'form-data';
 //ROUTE: '/api/assignments'
 
 function* fetchAssignments() {
-  
-    try{
-      console.log('IN FETCH MODULES ASSIGNMENTS 🖇️')
-        let assignments =  yield axios.get(`api/assignments`) //get assignments from database
+
+    try {
+        console.log('IN FETCH MODULES ASSIGNMENTS 🖇️')
+        let assignments = yield axios.get(`api/assignments`) //get assignments from database
         //  console.log('feature GET response', assignments.data)
- 
-         yield put({
-             type: 'SET_ASSIGNMENTS', //dispatch to assignments.reducer
-             payload: assignments.data
-         })
-     } catch{
+
+        yield put({
+            type: 'SET_ASSIGNMENTS', //dispatch to assignments.reducer
+            payload: assignments.data
+        })
+    } catch {
         //error route tested
-         console.log('error in assignmentsSaga')
-     }
+        console.log('error in assignmentsSaga')
+    }
 }
 
 function* createAssignment(action) {
     // console.log('in createAssignment SAGA with payload of:', action.payload);
-     
+
     //create payload object
-    let data=action.payload;
+    let data = action.payload;
     //new formdata for payload to multer and router
     let formData = new FormData();
 
@@ -45,32 +45,32 @@ function* createAssignment(action) {
     formData.append('file', data.file);
     formData.append('video', data.video);
     formData.append('seriesId', data.seriesId);
-//post to server
+    //post to server
 
-    try{
+    try {
         //send FormData to server for db query
         yield axios.post('/api/assignments', formData, {
             //must include this header, it is what Multer uses to id file
-            headers:{
+            headers: {
                 headers: { "Content-Type": "multipart/form-data" },
             }
         });
         //get posts redux and rerender after store is updated
-    } catch (err){
+    } catch (err) {
         //error route tested
         console.error('in createAssignment SAGA error', err);
-    }    
+    }
 }
 
-function* fetchSelectedAssignment(action){
+function* fetchSelectedAssignment(action) {
     console.log('in fetchSelectedAssignment saga with payload of:', action.payload);
-    try{
+    try {
         //get selectedAssignment from server with assignmentId of... 
         const selectedAssignment = yield axios.get(`/api/assignments/${action.payload}`);
         // console.log('response from GET assignment by ID', selectedAssignment.data);
 
         //send results to redux store
-        yield put ({
+        yield put({
             type: 'SET_SELECTED_ASSIGNMENT',
             payload: selectedAssignment.data
         });
@@ -82,15 +82,15 @@ function* fetchSelectedAssignment(action){
 
 }
 
-function* fetchSeriesAssignments(action){
+function* fetchSeriesAssignments(action) {
     //get all assignments from series with id of action.payload (seriesId)
-    try{
+    try {
         //get assignments in series from server
         const seriesAssignments = yield axios.get(`/api/assignments/series/${action.payload}`);
         // console.log('response from GET assignment by series', seriesAssignments.data);
 
         //send results to redux store
-        yield put ({
+        yield put({
             type: 'SET_SERIES_ASSIGNMENTS',
             payload: seriesAssignments.data
         });
@@ -102,7 +102,7 @@ function* fetchSeriesAssignments(action){
 }
 
 
-function* deleteAssignment(action){
+function* deleteAssignment(action) {
     // console.log('in deleteAssignment SAGA with payload of:', action.payload);
 
     try {
@@ -114,16 +114,16 @@ function* deleteAssignment(action){
 
 }
 
-function* fetchEditAssignment(action){
+function* fetchEditAssignment(action) {
     console.log('in fetchEditAssignment saga with payload of:', action.payload);
-    try{
+    try {
         //get selectedAssignment from server
         const editAssignment = yield axios.get(`/api/assignments/${action.payload}`);
-        
+
         console.log('in fetchEditAssignments with response of:', editAssignment.data);
 
         //send results to redux store
-        yield put ({
+        yield put({
             type: 'SET_EDIT_ASSIGNMENT',
             payload: editAssignment.data
         });
@@ -133,9 +133,9 @@ function* fetchEditAssignment(action){
     }
 }
 
-function* updateAssignment(action){
+function* updateAssignment(action) {
     // console.log('in updateAssignment with a payload of:', action.payload);
-    
+
     //assign payload to data
     let data = action.payload;
     //new formdata
@@ -148,21 +148,21 @@ function* updateAssignment(action){
     formData.append('textField', data.textField);
     formData.append('file', data.file);
     formData.append('video', data.video);
-    
-    try{
+
+    try {
         //send updates to the server
         yield axios.put('/api/assignments', formData, {
-            
-            headers:{
+
+            headers: {
                 headers: { "Content-Type": "multipart/form-data" },
             }
         })
 
         //update redux
-        yield put ({
+        yield put({
             type: 'FETCH_ASSIGNMENTS',
         })
-    } catch (err){
+    } catch (err) {
         console.error('in editAssignment SAGA put route:', err);
     }
 }

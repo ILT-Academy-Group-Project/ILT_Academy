@@ -21,11 +21,11 @@ function UserPage() {
 
   return (
     <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
+      {/* <h2>Welcome, {user.username}!</h2>
+      <p>Your ID is: {user.id}</p> */}
       <OrientationStep/>
       
-      <LogOutButton className="btn" />
+      {/* <LogOutButton className="btn" /> */}
       {/* //<HHHimage/> */}
     </div>
 
