@@ -155,14 +155,14 @@ function EditAssignment() {
                                 <Grid2 container spacing={2}>
                                     <Grid2 item sm={3}></Grid2>
                                     <Grid2 item sm={3}>
-                                        <Button 
-                                            variant='outlined'                                             
+                                        <Button
+                                            variant='outlined'
                                             onClick={(evt) => dispatch({
                                                 type: 'UPDATE_EDIT_ASSIGNMENT',
                                                 payload: {
-                                                media: null
-                                            }
-                                        })}>Delete Video</Button>
+                                                    media: null
+                                                }
+                                            })}>Delete Video</Button>
                                     </Grid2>
                                     <Grid2 item sm={3}></Grid2>
                                 </Grid2>
@@ -174,64 +174,64 @@ function EditAssignment() {
                         {/* post video inputs : if no video this is the start of the form */}
                         <Grid2 container spacing={2}>
                             <Grid2 item sm={1}></Grid2>
-                                <Grid2 item sm={4}>
-                                    <InputLabel
-                                        color='primary'
-                                        sx={{
-                                            color: '#f96b61',
-                                            fontWeight: 'bold',
-                                            marginBottom: 0,
-                                            fontSize: '22px'
-                                        }}
-                                    >
-                                        Assignment Name
-                                    </InputLabel>
-                                    <OutlinedInput
-                                        sx={{ marginTop: 0, backgroundColor: 'white', fontSize: '20px' }}
-                                        required
-                                        type='text'
-                                        placeholder="Assignment Name"
-                                        value={editAssignment.name}
-                                        onChange={(evt) => dispatch({
-                                            type: 'UPDATE_EDIT_ASSIGNMENT',
-                                            payload: { name: evt.target.value }
-                                        })}
-                                        autoFocus
-                                        variant='outligned'
-                                        require
-                                    />
-                                </Grid2>
-                                
-                                <Grid2 item sm={7}>
-                                    <InputLabel
-                                        sx={{
-                                            color: '#f96b61',
-                                            fontWeight: 'bold',
-                                            marginBottom: 0,
-                                            fontSize: '22px'
-                                        }}
-                                    >
-                                        Upload 
-                                        {/* if there isnt a video dont show 'new' */}
-                                        {typeof editAssignment.media === 'string' && editAssignment.media !== 'null' ? <>&nbsp;New</> 
+                            <Grid2 item sm={4}>
+                                <InputLabel
+                                    color='primary'
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >
+                                    Assignment Name
+                                </InputLabel>
+                                <OutlinedInput
+                                    sx={{ marginTop: 0, backgroundColor: 'white', fontSize: '20px' }}
+                                    required
+                                    type='text'
+                                    placeholder="Assignment Name"
+                                    value={editAssignment.name}
+                                    onChange={(evt) => dispatch({
+                                        type: 'UPDATE_EDIT_ASSIGNMENT',
+                                        payload: { name: evt.target.value }
+                                    })}
+                                    autoFocus
+                                    variant='outligned'
+                                    require
+                                />
+                            </Grid2>
+
+                            <Grid2 item sm={7}>
+                                <InputLabel
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >
+                                    Upload
+                                    {/* if there isnt a video dont show 'new' */}
+                                    {typeof editAssignment.media === 'string' && editAssignment.media !== 'null' ? <>&nbsp;New</>
                                         :
-                                        null    
+                                        null
                                     }
-                                        &nbsp;Video
-                                    </InputLabel>
-                                    <OutlinedInput
-                                        sx={{
-                                            marginTop: 0, backgroundColor: 'white', fontSize: '20px'
-                                        }}
-                                        accept="video/*"
-                                        type='file'
-                                        name="selectedVideo"
-                                        inputProps={{ accept: 'video/*' }}
-                                        onChange={videoChange}
-                                        color='primary'
-                                    />  
-                                </Grid2>                              
-                                    
+                                    &nbsp;Video
+                                </InputLabel>
+                                <OutlinedInput
+                                    sx={{
+                                        marginTop: 0, backgroundColor: 'white', fontSize: '20px'
+                                    }}
+                                    accept="video/*"
+                                    type='file'
+                                    name="selectedVideo"
+                                    inputProps={{ accept: 'video/*' }}
+                                    onChange={videoChange}
+                                    color='primary'
+                                />
+                            </Grid2>
+
                         </Grid2>
                         <Grid2 container spacing={2}>
                             <Grid2 item sm={1}></Grid2>
@@ -258,69 +258,32 @@ function EditAssignment() {
                                         videoHeight: "339px",
                                     }}
                                     onImageUploadBefore={handleImageUploadBefore}
-        
+
                                     setContents={editAssignment.content}
                                 />
                             </Grid2>
                             <Grid2 item sm={1}></Grid2>
                         </Grid2>
-
-                        {/* <div>
-
-                            <label>Pre Class</label>
-                            <input
-                                // if preclass default checked
-                                defaultChecked={editAssignment && !editAssignment.postClass}
-                                // onClick={()=>setPostClass(false)} 
-                                type="radio"
-                                name="classType"
-                                className="valueRadio"
-                                onChange={() => {
-                                    dispatch({
-                                        type: 'UPDATE_EDIT_ASSIGNMENT',
-                                        payload: { postClass: false }
-                                    })
-                                }}
-                            >
-
-                            </input>
-
-                            <label>Post Class</label>
-                            <input
-                                //if postclass default checked
-                                defaultChecked={editAssignment && editAssignment.postClass}
-                                // onClick={()=>setPostClass(true)} 
-                                type="radio"
-                                name="classType"
-                                className="valueRadio"
-                                onChange={() => {
-                                    dispatch({
-                                        type: 'UPDATE_EDIT_ASSIGNMENT',
-                                        payload: { postClass: true }
-                                    })
-                                }}
-                            >
-                            </input>
-
-                        </div> */}
-
-                        <FormControl>
+                        <Grid2 container sx={{ textAlign: 'center', alignContent: 'top' }} spacing={2}>
+                            <Grid2 item sm={2}></Grid2>
+                            <Grid2 item sm={4}>
+                                <FormControl>
                                     <FormLabel><Typography variant="h3" sx={{ fontSize: '20px', marginTop: 0 }}>Pre/Post-Class?</Typography></FormLabel>
                                     <RadioGroup
-                                        aria-labelledby="demo-radio-buttons-group-label"                                        
+                                        aria-labelledby="demo-radio-buttons-group-label"
                                         name="radio-buttons-group"
                                         require
                                         defaultValue={editAssignment.postClass ? true : false}
                                     >
                                         <FormControlLabel
-                                            control={<Radio required />} 
-                                            value={false}                                           
+                                            control={<Radio required />}
+                                            value={false}
                                             onChange={() => {
                                                 dispatch({
                                                     type: 'UPDATE_EDIT_ASSIGNMENT',
                                                     payload: { postClass: false }
                                                 })
-                                            }}                                            
+                                            }}
                                             label="Pre-Class"
                                         />
                                         <FormControlLabel
@@ -336,56 +299,115 @@ function EditAssignment() {
                                         />
                                     </RadioGroup>
                                 </FormControl>
+                            </Grid2>
+                            <Grid2 item sm={4}>
                                 {editAssignment.id ?
                                     <FormGroup sx={{ display: 'inline' }}>
-                                    <FormLabel>
-                                        <Typography
-                                            variant="h3"
-                                            sx={{ fontSize: '20px' }}
-                                        >
-                                            Submission Type
-                                        </Typography>
-                                    </FormLabel>
-                                    <FormControlLabel     //set starting state based on edit assignment
-                                        control={<Checkbox checked={editAssignment.textField}/>}
-                                        labelPlacement='top'
-                                        onChange={() => {
-                                            dispatch({
-                                                type: 'UPDATE_EDIT_ASSIGNMENT',
-                                                payload: { textField: !editAssignment.textField }
-                                            })
-                                        }}
-                                        label="Text Field"
-                                    />
-                                    <FormControlLabel       //set starting state based on edit assignment
-                                        control={<Checkbox checked={editAssignment.file}/>}
-                                        labelPlacement='top'                                        
-                                        onChange={() => {
-                                            dispatch({
-                                                type: 'UPDATE_EDIT_ASSIGNMENT',
-                                                payload: { file: !editAssignment.file }
-                                            })
-                                        }}
-                                        label="File"
-                                    />
-                                    <FormControlLabel    //set starting state based on edit assignment
-                                        control={<Checkbox checked={editAssignment.video}/>}
-                                        labelPlacement='top'
-                                        onChange={() => {
-                                            dispatch({
-                                                type: 'UPDATE_EDIT_ASSIGNMENT',
-                                                payload: { video: !editAssignment.video }
-                                            })
-                                        }}
-                                        label="Video"
-                                        variant='body1'
-                                        color='primary'
-                                    />
-                                </FormGroup>
-                                :
-                                null
+                                        <FormLabel>
+                                            <Typography
+                                                variant="h3"
+                                                sx={{ fontSize: '20px' }}
+                                            >
+                                                Submission Type
+                                            </Typography>
+                                        </FormLabel>
+                                        <FormControlLabel     //set starting state based on edit assignment
+                                            control={<Checkbox checked={editAssignment.textField} />}
+                                            labelPlacement='top'
+                                            onChange={() => {
+                                                dispatch({
+                                                    type: 'UPDATE_EDIT_ASSIGNMENT',
+                                                    payload: { textField: !editAssignment.textField }
+                                                })
+                                            }}
+                                            label="Text Field"
+                                        />
+                                        <FormControlLabel       //set starting state based on edit assignment
+                                            control={<Checkbox checked={editAssignment.file} />}
+                                            labelPlacement='top'
+                                            onChange={() => {
+                                                dispatch({
+                                                    type: 'UPDATE_EDIT_ASSIGNMENT',
+                                                    payload: { file: !editAssignment.file }
+                                                })
+                                            }}
+                                            label="File"
+                                        />
+                                        <FormControlLabel    //set starting state based on edit assignment
+                                            control={<Checkbox checked={editAssignment.video} />}
+                                            labelPlacement='top'
+                                            onChange={() => {
+                                                dispatch({
+                                                    type: 'UPDATE_EDIT_ASSIGNMENT',
+                                                    payload: { video: !editAssignment.video }
+                                                })
+                                            }}
+                                            label="Video"
+                                            variant='body1'
+                                            color='primary'
+                                        />
+                                    </FormGroup>
+                                    :
+                                    null
                                 }
-                        {/* <div>
+                            </Grid2>
+                            <Grid2 item sm={2}></Grid2>
+                        </Grid2>
+                        <Grid2 container sx={{ textAlign: 'right'}} spacing={2}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={10}>
+                                <Button 
+                                    sx={{marginTop:'1rem'}}
+                                    size='large' 
+                                    type="submit" 
+                                    variant="contained"
+                                >
+                                    Edit Assignment
+                                </Button>
+                            </Grid2>
+                            <Grid2 item sm={1}></Grid2>
+                        </Grid2>
+                    </form>
+                </Box>
+            </ThemeProvider>
+        </>
+    )
+
+};
+
+export default EditAssignment;
+
+
+
+
+//----------reference code----------------------------------------------------------------------
+//old post dispatch for reference//
+
+// console.log(user.accessLevel)
+// // import useState and create state for selected file on video upload
+// const [assignmentVideo, setAssignmentVideo] = useState('');
+// //use usestate to track content of WYSIWYG
+// const [assignmentContent, setAssignmentContent] = useState('');
+// //useState to track assignment title
+// const [assignmentTitle, setAssignmentTitle] = useState('');
+
+// //submission types
+// const [textField, setTextField] = useState(false);
+// const [fileSubmission, setFileSubmission] = useState(false);
+// const [postClass, setPostClass] = useState(false);
+// const [videoSubmission, setVideoSubmission] = useState(false);
+
+
+
+
+
+
+
+
+
+//original checkbox code  and radio code if there are bugs
+
+{/* <div>
                             <h3>Submission type</h3>
                             <label>Textfield</label>
                             <input
@@ -428,35 +450,41 @@ function EditAssignment() {
                                 className="valueRadio"
                             ></input>
                         </div> */}
+{/* <div>
 
+                            <label>Pre Class</label>
+                            <input
+                                // if preclass default checked
+                                defaultChecked={editAssignment && !editAssignment.postClass}
+                                // onClick={()=>setPostClass(false)} 
+                                type="radio"
+                                name="classType"
+                                className="valueRadio"
+                                onChange={() => {
+                                    dispatch({
+                                        type: 'UPDATE_EDIT_ASSIGNMENT',
+                                        payload: { postClass: false }
+                                    })
+                                }}
+                            >
 
-                        <button type="submit">Edit Assignment</button>
-                    </form>
-                </Box>
-            </ThemeProvider>
-        </>
-    )
+                            </input>
 
-};
+                            <label>Post Class</label>
+                            <input
+                                //if postclass default checked
+                                defaultChecked={editAssignment && editAssignment.postClass}
+                                // onClick={()=>setPostClass(true)} 
+                                type="radio"
+                                name="classType"
+                                className="valueRadio"
+                                onChange={() => {
+                                    dispatch({
+                                        type: 'UPDATE_EDIT_ASSIGNMENT',
+                                        payload: { postClass: true }
+                                    })
+                                }}
+                            >
+                            </input>
 
-export default EditAssignment;
-
-
-
-
-//----------reference code----------------------------------------------------------------------
-//old post dispatch for reference//
-
-// console.log(user.accessLevel)
-// // import useState and create state for selected file on video upload
-// const [assignmentVideo, setAssignmentVideo] = useState('');
-// //use usestate to track content of WYSIWYG
-// const [assignmentContent, setAssignmentContent] = useState('');
-// //useState to track assignment title
-// const [assignmentTitle, setAssignmentTitle] = useState('');
-
-// //submission types
-// const [textField, setTextField] = useState(false);
-// const [fileSubmission, setFileSubmission] = useState(false);
-// const [postClass, setPostClass] = useState(false);
-// const [videoSubmission, setVideoSubmission] = useState(false);
+                        </div> */}
