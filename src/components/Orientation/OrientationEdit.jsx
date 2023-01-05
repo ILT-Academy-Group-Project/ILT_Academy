@@ -33,7 +33,7 @@ function OrientationEdit() {
             type: 'FETCH_EDIT_ORIENTATION',
             payload: params.id
         });
-    }, []);
+    }, [params]);
 
     const submitEditAssignment = (evt) => {
         evt.preventDefault();
@@ -110,7 +110,7 @@ function OrientationEdit() {
 
             {/* <OrientationStep /> */}
             <form onSubmit={submitEditAssignment}>
-            { typeof editOrientation.media === 'string' && editOrientation.media !== 'null' ? 
+            { typeof editOrientation.media === 'string' && editOrientation.media !== '' && editOrientation.media !== 'undefined' ? 
                     <video width="640" height="480" controls src={editOrientation.media}></video> 
                 : 
                     null}

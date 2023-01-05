@@ -62,6 +62,35 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 });
 
+router.post('/imagefield',  rejectUnauthenticated, upload.single('image'), async (req,res) => {
+
+    // console.log('in /imagefield', req.file);
+    //ensure that this route is only available for admin users
+    if (req.user.accessLevel === 2){
+            //call s3 route as async to get file path
+        const filePath = await uploadImage(req.file);
+    
+        //after image in S3 bucket delete the file
+        fs.unlink(req.file.path,()=>{
+            console.log('file deleted');
+        });
+        //send photo info to suneditor
+        const response = {
+            "result": [
+                {
+                    "url":`${filePath}`,
+                    "name": req.file.filename,
+                    "size": req.file.size
+                }
+            ]
+        };
+        res.send(response);
+    }
+    //if not an admin send forbidden status
+    else{
+        res.sendStatus(403);
+    }});
+
 router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, res) => {
     // POST route code here
     // console.log('in assignment Post route! YAY, req.file:', req.file, 'req.body', req.body);
@@ -75,7 +104,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         if (req.file) {
             sqlText = `
                 INSERT INTO "orientation"
-                    ("name", "step", "content", "video", "submission")
+                    ("name", "step", "content", "media", "submission")
                 VALUES
                     ($1, $2, $3, $4, $5);
             `;
@@ -91,7 +120,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         else {
             sqlText = `
                 INSERT INTO "orientation"
-                    ("name", "step", "content", "video", "submission")
+                    ("name", "step", "content", "media", "submission")
                 VALUES
                     ($1, $2, $3, $4, $5);
             `;
@@ -147,7 +176,7 @@ router.put('/', rejectUnauthenticated, upload.single('media'), async (req, res) 
                 "name" = $1,
                 "step" = $2,
                 "content" = $3,
-                "video" = $4,
+                "media" = $4,
                 "submission" = $5
             WHERE
                 "id"=$6;

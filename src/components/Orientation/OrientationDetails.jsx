@@ -112,14 +112,16 @@ function OrientationDetails({ step }) {
 
                     orient.step === step ?
                         <>
-                            <Typography variant="h2" color="secondary.dark" sx={{ mt: 5, mb: 2 }} textAlign="center">
-                                {orient.name}
-                            </Typography>
+                            <Box backgroundColor="primary.main">
+                                <Typography variant="h2" color="secondary.dark" sx={{ mt: 5, mb: 2 }} textAlign="center">
+                                    {orient.name}
+                                </Typography>
+                            </Box>
 
                             {/* <Markup content={orient.content} /> */}
 
-                            <Box sx={{padding:2, backgroundColor: 'secondary.main'}}>
-                                <Box sx={{ padding:2, backgroundColor: 'tertiary.main'}} >
+                            <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main' }}>
+                                <Box sx={{ padding: 2, backgroundColor: 'tertiary.main' }} >
                                     {parse(orient.content, {
                                         replace: ({ attribs }) => attribs && attribs.style === "width: 100%; height: 100%;" && "height: '50vh', width: '75%' "
                                     })}

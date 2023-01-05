@@ -121,7 +121,7 @@ function OrientationStep() {
                         {orientation.map((label, index) => (
                             <Step key={label.id} completed={completed[index]}>
                                 <StepButton color="primary" onClick={handleStep(index)}>
-                                    <Typography sx={{}} variant='body1' color="primary">
+                                    <Typography sx={{}} variant='body1' color="primary.dark">
                                         {label.name}
                                     </Typography>
 
@@ -180,7 +180,7 @@ function OrientationStep() {
                                             ) : (
                                                 <Button
                                                     variant='contained'
-                                                    sx={{}}
+                                                    sx={{ml: '74%'}}
                                                     onClick={handleComplete} disabled={user.oriented != activeStep} >
 
                                                     {completedSteps() === totalSteps() - 1

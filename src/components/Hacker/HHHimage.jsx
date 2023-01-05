@@ -65,7 +65,7 @@ function HHHimage() {
         // })
         pickH();
 
-    }, []);
+    }, [params]);
 
     function pickH(){
 
@@ -93,8 +93,8 @@ function HHHimage() {
                             alt={hip.imgalt}
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{}}>
-                                {hip.title}
+                            <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
+                                {user.firstName} &nbsp; {user.lastName}
                             </Typography>
                             <Typography variant="body1" color="primary.light">
                                 {hip.description}
@@ -112,8 +112,8 @@ function HHHimage() {
                                 alt={hack.imgalt}
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                    {hack.title}
+                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                {user.firstName} &nbsp; {user.lastName}
                                 </Typography>
                                 <Typography variant="body2" color="primary.main">
                                     {hack.description}
@@ -131,8 +131,8 @@ function HHHimage() {
                                     alt={hust.imgalt}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                        {hust.title}
+                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                    {user.firstName} &nbsp; {user.lastName}
                                     </Typography>
                                     <Typography variant="body2" color="primary.main">
                                         {hust.description}
@@ -159,12 +159,12 @@ function HHHimage() {
                                     </Stack>
 
                                     <CardContent>
-                                        <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                            {hip.title} / {hack.title}
+                                        <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                        {user.firstName} &nbsp; {user.lastName}
                                         </Typography>
                                         <Typography variant="body2" color="primary.main">
                                             {hip.description}
-
+                                            <br></br>
                                             {hack.description}
                                         </Typography>
                                     </CardContent>
@@ -188,12 +188,12 @@ function HHHimage() {
                                             />
                                         </Stack>
                                         <CardContent>
-                                            <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                                {hack.title} / {hust.title}
+                                            <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                            {user.firstName} &nbsp; {user.lastName}
                                             </Typography>
                                             <Typography variant="body2" color="primary.main">
                                                 {hack.description}
-
+                                                <br></br>
                                                 {hust.description}
                                             </Typography>
                                         </CardContent>
@@ -217,12 +217,12 @@ function HHHimage() {
                                                 />
                                             </Stack>
                                             <CardContent>
-                                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                                    {hust.title} / {hip.title}
+                                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                                {user.firstName} &nbsp; {user.lastName}
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
                                                     {hust.description}
-
+                                                    <br></br>
                                                     {hip.description}
                                                 </Typography>
                                             </CardContent>
@@ -252,14 +252,14 @@ function HHHimage() {
                                                 />
                                             </Stack>
                                             <CardContent>
-                                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                                    {hip.title} / {hack.title} / {hust.title}
+                                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center' }}>
+                                                {user.firstName} &nbsp; {user.lastName}
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
                                                     {hip.description}
-
+                                                    <br></br>
                                                     {hack.description}
-
+                                                    <br></br>
                                                     {hust.description}
                                                 </Typography>
                                             </CardContent>

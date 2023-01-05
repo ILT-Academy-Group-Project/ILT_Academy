@@ -20,7 +20,7 @@ import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 const Swal = require('sweetalert2');
 import './Orientation.css';
 
-function OrientationList(){
+function OrientationList() {
     const orientationList = useSelector((store) => store.orientation.orientationReducer);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -31,7 +31,7 @@ function OrientationList(){
         dispatch({
             type: 'FETCH_ORIENTATION'
         });
-    },[]);
+    }, [params]);
 
 
     const deleteStep = (id) => {
@@ -68,45 +68,48 @@ function OrientationList(){
                     'Cancelled'
                 )
             }
-            
+
         })
 
-        
+
 
         // history.push('')
     }
 
-    return(
+    return (
         <ThemeProvider theme={PrimaryMainTheme}>
-            
-            {orientationList.map(step => (
-                <Grid2 item xs={6} sx={{}} className='cohortCard'>
-                    <Card sx={{ maxWidth: 345, mt: 5, mb: 'auto', mr: 'auto', ml: 'auto', backgroundColor: 'secondary.light' }} >
-                        <CardActionArea onClick={() => history.push(`/admin/orientation/edit/${step.id}`)}>
-                            <CardMedia
-                                component="img"
-                                // height="140"
-                                image="/images/ilt.png"
-                                alt="something cool"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                {step.name}
-                                </Typography>
-                                <Typography variant="body2" color="primary.main">
-                                Maybe some info? Start date? End date?
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                        <Button onClick={() => deleteStep(step.id)}>Delete Step</Button>
-                    </Card>
-                    
-                </Grid2>
+            <Button variant="contained"
+                onClick={() => history.push(`/home`)}>Back to Dashboard</Button>
+            <Grid2 container>
 
-            ))}
-            <Button onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
-            
-            </ThemeProvider>
+                {orientationList.map(step => (
+                    <Grid2 item xs={4} sx={{}} >
+                        <Card sx={{ maxHeight: 400, minHeight: 230, maxWidth: 450, mt: 5, mb: 'auto', mr: 2, ml: 2, backgroundColor: 'secondary.main' }} >
+                            <CardActionArea onClick={() => history.push(`/admin/orientation/edit/${step.id}`)}>
+                                <CardMedia
+                                    component="img"
+                                    // height="140"
+                                    image="/images/ilt.png"
+                                    alt="something cool"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
+                                        {step.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="primary.main">
+                                        Step: {step.step + 1}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <Button variant="contained" onClick={() => deleteStep(step.id)}>Delete Step</Button>
+                        </Card>
+
+                    </Grid2>
+
+                ))}
+                <Button variant="contained" onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
+            </Grid2>
+        </ThemeProvider>
     )
 
 }

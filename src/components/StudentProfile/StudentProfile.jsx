@@ -113,7 +113,7 @@ function StudentProfile() {
         <h1>{student.firstName} {student.lastName}</h1>
         <h2>{cohortInfo.cohortName}</h2>
         <HHHimage/>
-        <p>About Me Here</p>
+        <p>{user.aboutMe}</p>
 
         {/* student's assignments */}
         <Box sx={{ height: 400, width: '90%', margin: 10 }}>
