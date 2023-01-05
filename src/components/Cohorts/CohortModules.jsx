@@ -8,7 +8,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Assignment, AssignmentSharp } from '@mui/icons-material';
+
 
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -18,7 +18,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, FormControlLabel, Switch } from '@mui/material';
+import { Button, FormControlLabel, Switch, Box } from '@mui/material';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ThemeProvider } from '@mui/system';
+import {ArrowBack, DeleteOutline, Add } from '@mui/icons-material';
+import moment from "moment/moment";
+
 
 function CohortModules() {
     const dispatch = useDispatch();
@@ -29,7 +34,16 @@ function CohortModules() {
     const modules = useSelector(store => store.modules); //modules for THIS series 
     const cohortModules = useSelector(store => store.cohortModules);
     const assignments = useSelector(store => store.assignments.seriesAssignmentReducer)
+    const series = useSelector(store => store.series);
+    const cohort = useSelector(store => store.cohorts.singleCohortReducer);
 
+    //Get series name
+    let currentSeries;
+    series.map(series =>{
+        if(series.id == params.seriesId){
+            currentSeries = series.seriesName;
+        }
+    })
     // console.log('ASSIGNMENTS FOR THIS SERIES ', assignments);
 
     //create new variable for modules assigned to this cohort
@@ -40,20 +54,6 @@ function CohortModules() {
 
 
     useEffect(() => {
-        // dispatch({
-        //     type:'FETCH_COHORT_STUDENTS',
-        //     payload: params.cohortId
-        // })
-        // console.log('💞 COHORTMODULES params.cohortId', params.cohortId)
-
-        // dispatch({
-        //     type: 'FETCH_COHORT_SERIES',
-        //     payload: params.cohortId
-        // });
-
-        // dispatch({
-        //     type: 'FETCH_SERIES'
-        // });
 
         dispatch({
             type: 'FETCH_MODULES',
@@ -72,6 +72,14 @@ function CohortModules() {
             type: 'FETCH_SERIES_ASSIGNMENTS',
             payload: params.seriesId
         })
+        dispatch({
+            type:'FETCH_SERIES',
+            payload: params.seriesId
+        })
+        dispatch({
+            type:'FETCH_COHORT',
+            payload: params.cohortId
+        })
 
     }, [params.cohortId])
 
@@ -80,10 +88,6 @@ function CohortModules() {
         arrayToCheck.push(publishedModule.moduleId)
         console.log('array to check is ', arrayToCheck)
     })
-
-    // <h1
-    // key={publishedModule.moduleName}>
-    //     {publishedModule.moduleName[0]}</h1>
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -109,10 +113,6 @@ function CohortModules() {
         setExpanded(isExpanded ? panel : false);
     };
 
-    // function submissionDetails(assignment){
-    //     console.log(`submit this assignment! ${assignment}`)
-    // }
-
     function publishModule(moduleId) {
         // console.log(`🍭 publish module ${moduleId} for cohort ${params.cohortId}`)
         dispatch({
@@ -124,41 +124,31 @@ function CohortModules() {
             }
         })
 
-        // dispatch({
-        //     type: 'FETCH_COHORT_SERIES',
-        //     payload: params.cohortId
-        // })
-
-        // dispatch({
-        //     type: 'FETCH_SERIES'
-        // });
-
-        // dispatch({
-        //     type: 'FETCH_MODULES', 
-        //     payload: params.seriesId
-        // })
-
-        // dispatch({
-        //     type:'FETCH_COHORT_MODULES',
-        //     payload: {
-        //         cohortId:params.cohortId,
-        //         seriesId:params.seriesId
-        //     }
-        // })
-
-        // dispatch({
-        //     type:'FETCH_SERIES_ASSIGNMENTS',
-        //     payload: params.seriesId
-        // })
     }
 
     return (
         <>
-
+        <ThemeProvider theme={PrimaryMainTheme}>
+        <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:5, pr:5, pb: 20, pt:8, mb:-10, mt:-3.8,  }}>
             <Button
-                onClick={() => history.push(`/admin/cohort/${params.cohortId}`)} >
+            onClick={() => history.push(`/admin/cohort/${params.cohortId}`)}
+            variant='contained' >
+                <ArrowBack />
+                <Typography>
                 Back to Series
+                </Typography>
             </Button>
+            <Typography
+            variant='h1'
+            color='tertiary.main'>
+            {cohort.cohortName} 
+            </Typography>
+            <Typography
+            variant="h2"
+            color='primary'
+            gutterBottom>
+                Series {currentSeries}
+            </Typography>
             {/* PUBLISHED modules */}
             {cohortModules.map(publishedModule => {
                 return (
@@ -170,24 +160,30 @@ function CohortModules() {
                                 id="panel1bh-header"
 
                             >
-                                <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                <Typography sx={{ width: '33%', flexShrink: 0 }}
+                                variant='h3'>
                                     {publishedModule.moduleName}
                                 </Typography>
+
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails sx={{pb:5}}>
                                 <TableContainer component={Paper}>
                                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                         <TableHead>
                                             <TableRow>
-                                                <StyledTableCell align="center">Name</StyledTableCell>
-                                                <StyledTableCell align="center">Date Created</StyledTableCell>
-                                                {/* <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
-                                                <StyledTableCell align="center">Feedback</StyledTableCell> */}
+                                                <StyledTableCell align="center">
+                                                    <Typography variant='h3'>Name</Typography>
+                                                </StyledTableCell>
+                                                <StyledTableCell align="center">
+                                                    <Typography variant='h3'>Date Created</Typography>
+                                                </StyledTableCell> 
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             <TableRow>
-                                                <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                                <StyledTableCell align="center">
+                                                <Typography variant='h3' sx={{fontSize: 22}}>PRE-CLASS</Typography>
+                                                </StyledTableCell>
                                             </TableRow>
                                         {/* Display all pre-class assignments here */}
                                         {preClass.map((assignment, i) => {
@@ -197,19 +193,27 @@ function CohortModules() {
                                                         >                                                            
                                                          <StyledTableCell align="center">
                                                             <Button
-                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            {assignment.name}
+                                                                onClick={()=>history.push(`/admin/view/submissions/${cohort.id}/${assignment.id}`)}>
+                                                                    <Typography variant='body1'>
+                                                                    {assignment.name}
+                                                                    </Typography>
                                                             </Button>                                                            
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        <StyledTableCell align="center">
+                                                            <Typography variant='body2'>
+                                                            {moment(assignment.createdDate).format('MMMM D YYYY, h:mm:ss a')}
+                                                            </Typography>
+                                                        </StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
-                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.feedback}</StyledTableCell> */}
                                                      </StyledTableRow>
                                                 )
                                             } 
                                         })}
                                         <TableRow>
-                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3' sx={{fontSize: 22}}>POST-CLASS</Typography>
+                                            </StyledTableCell>
                                         </TableRow>
                                         {/* display all postclass assignments here */}
                                         {postClass.map((assignment, i)  => {
@@ -222,43 +226,23 @@ function CohortModules() {
                                                         >
                                                          <StyledTableCell align="center">
                                                             <Button
-                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            {assignment.name}
+                                                                onClick={()=>history.push(`/admin/view/submissions/${cohort.id}/${assignment.id}`)}>
+                                                               <Typography variant='body1'>
+                                                                {assignment.name}
+                                                                </Typography>
                                                             </Button>
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        <StyledTableCell align="center">
+                                                            <Typography variant='body2'>
+                                                            {moment(assignment.createdDate).format('MMMM D YYYY, h:mm:ss a')}
+                                                            </Typography>
+                                                        </StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
-                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.feedback}</StyledTableCell> */}
                                                      </StyledTableRow>
                                                 )
                                             } 
                                         })}
-                                            {
-                                            // assignments.map(assignment => {
-                                            //     if (assignment.moduleId == publishedModule.moduleId) {
-                                            //         console.log('TRUE')
-                                            //         let pre = ''
-                                            //         assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
-                                            //         return (
-                                            //             <StyledTableRow key={assignment.id}
-                                            //             >
-                                            //                 {/* <StyledTableCell component="th" scope="row">
-                                            //                 {assignment.name}
-                                            //             </StyledTableCell>  */}
-                                            //                 <StyledTableCell align="center">
-                                            //                     <Button
-                                            //                         onClick={() => history.push(`/admin/view/submissions/${params.cohortId}/${assignment.id}`)}>
-                                            //                         {assignment.name}
-                                            //                     </Button>
-                                            //                 </StyledTableCell>
-                                            //                 <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
-                                            //                 <StyledTableCell align="center">{pre}</StyledTableCell>
-                                            //                 <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
-                                            //             </StyledTableRow>
-                                            //         )
-                                            //     }
-                                            // })
-                                            }
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
@@ -290,7 +274,8 @@ function CohortModules() {
                                         id="panel1bh-header"
 
                                     >
-                                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                        <Typography sx={{ width: '33%', flexShrink: 0 }}
+                                        variant='h3'>
                                             {module.name}
                                         </Typography>
                                         {/* toggle to publish this module */}
@@ -304,10 +289,12 @@ function CohortModules() {
                                             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                                 <TableHead>
                                                     <TableRow>
-                                                        <StyledTableCell align="center">Name</StyledTableCell>
-                                                        <StyledTableCell align="center">Date Created</StyledTableCell>
-                                                        <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
-                                                        <StyledTableCell align="center">Feedback</StyledTableCell>
+                                                        <StyledTableCell align="center">
+                                                            <Typography variant='h3'>Name</Typography>
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">
+                                                            <Typography variant='h3'>Date Created</Typography>
+                                                        </StyledTableCell> 
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -324,7 +311,8 @@ function CohortModules() {
                     }
                 })
             }
-
+        </Box>
+        </ThemeProvider>
         </>
     )
 }
