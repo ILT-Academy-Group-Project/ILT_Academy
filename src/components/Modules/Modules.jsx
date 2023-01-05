@@ -172,13 +172,16 @@ function Modules() {
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
-            <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:3, pr:3, pb: 20, pt:8, mb:-10, mt:-4,  }}>
+            <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:5, pr:5, pb: 20, pt:8, mb:-10, mt:-3.8,  }}>
             <Button
             onClick={()=> history.push(`/home`)}
             variant='contained'
             >
                 <ArrowBack />
-                Dashboard</Button>
+                <Typography>
+                Dashboard
+                </Typography>
+               </Button>
             <Typography
                 variant="h2"
                 color='primary'
@@ -188,7 +191,7 @@ function Modules() {
             {modules.map((module, i) => (
                 
                 <>
-                    <Accordion key={i}>
+                    <Accordion key={i} >
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
@@ -321,12 +324,16 @@ function Modules() {
             ))}
             {/* CREATE A NEW MODULE */}
             <Button
+                sx={{mt:5}}
                 onClick={()=>setOpen(!open)}
-                sx={{ minHeight: 100, fontSize: 35 }}
                 color='primary'
-                variant='outlined'
+                variant='contained'
             >
-                    Create New Module
+                 < Add />
+                <Typography>
+                Create New Module
+                </Typography>
+               
             </ Button>
             
             <Modal 

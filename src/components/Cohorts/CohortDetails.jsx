@@ -4,12 +4,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ThemeProvider } from '@mui/system';
-import {Button, Box} from '@mui/material';
+import {Button, Box, Typography} from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { DataGrid, GridToolbar} from '@mui/x-data-grid'
 import PropTypes from 'prop-types';
 import { FormControlLabel, Switch } from '@mui/material';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ArrowBack } from '@mui/icons-material';
+
 
 import './Cohorts.css'
 
@@ -49,11 +51,6 @@ function CohortDetails() {
 
     const cohortParam = Number(params.cohortId)
     let newSeriesObject = series;
-    // for (let i = 0; i<newSeriesObject.length ; i++){
-    //     if (cohortSeries[i]){
-    //         newSeriesObject[i].cohortId = cohortSeries[i].cohortId
-    //     };
-    // };
 
     //FIX
     //loop through newseries object to check existing series against series published
@@ -68,10 +65,6 @@ function CohortDetails() {
             }
         }
     };
-
-    // console.error('newSeriesObject', newSeriesObject);
-    
-
 
     // assign series to cohort
     function publish(seriesId) {
@@ -163,78 +156,100 @@ function CohortDetails() {
 
     return(
         <>
+        <ThemeProvider theme={PrimaryMainTheme}>
+        <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:5, pr:5, pb: 20, pt:8, mb:-10, mt:-3.8,  }}>
+            
+            <Button
+            onClick={() => history.push(`/home`)}
+            variant='contained'>
+             <ArrowBack />
+                <Typography>
+                Dashboard
+                </Typography>
+               </Button>
+            <Typography
+            variant='h1'
+            color='tertiary.main'>{cohortInfo.cohortName}</Typography>
+        <Grid2 container spacing={2} >
+                {newSeriesObject.map(series => {
+                    if(series.cohortId){
+                        return(
+                            <>
+                            <ThemeProvider
+                            key={series.seriesName} theme={PrimaryMainTheme}>
+                                <Grid2 
+                                item xs={4}
+                                className='published'
+                                direction='column'
 
-        <Button
-        onClick={() => history.push(`/home`)}>Back to Dashboard</Button>
-        <h1>{cohortInfo.cohortName}</h1>
+                                >
+                                    <Button
+                                    sx={{width:300}}
+                                    color='primary'
+                                    variant='contained'
+                                    onClick={() => history.push(`/admin/cohort/modules/${params.cohortId}/${series.id}`)}>
+                                        <Typography
+                                        variant='h2'>
+                                        {series.seriesName}
+                                        </Typography>
+                                        
+                                    </ Button>
 
-            {newSeriesObject.map(series => {
-                if(series.cohortId){
-                    return(
-                        <>
-                        <ThemeProvider
-                        key={series.seriesName} theme={PrimaryMainTheme}>
-                            <Grid2 
-                            className='published'
-                            direction='column'
-                             >
-                                 <Button
-                                sx={{minHeight: 100, fontSize: 60}}
-                                color='primary'
-                                fullWidth={true}
-                                variant='outlined'
-                                onClick={() => history.push(`/admin/cohort/modules/${params.cohortId}/${series.id}`)}>
-                                    {series.seriesName}
-                                </ Button>
+                                </Grid2>
+                            </ThemeProvider>
+                            </>
+                        )
+                    }
+                    else{
+                        return(
+                            <>
+                            <ThemeProvider
+                            key={series.seriesName} theme={PrimaryMainTheme}>
+                                <Grid2 
+                                item xs={4}
+                                className='unpublished'
+                                direction='column'
+                                >
+                                    <Button
+                                    sx={{width:300}}
+                                    color='unpublished'
+                                    fullWidth={true}
+                                    variant='contained'
+                                    onClick={() => history.push(`/admin/cohort/modules/${params.cohortId}/${series.id}`)}>
+                                        <Typography
+                                        variant='h2'
+                                        color='#ffffff'>
+                                        {series.seriesName}
+                                        </Typography>
+                                    </ Button>
+                                    <FormControlLabel  control={<Switch />} 
+                                        label="Publish Series"
+                                        onClick={(event) => publish(series.id, cohortParam)}
+                                        />
 
-                            </Grid2>
-                        </ThemeProvider>
-                        </>
-                    )
+                                </Grid2>
+                            </ThemeProvider>
+                            </>
+
+                        )
                 }
-                else{
-                    return(
-                        <>
-                        <ThemeProvider
-                        key={series.seriesName} theme={PrimaryMainTheme}>
-                            <Grid2 
-                            className='unpublished'
-                            direction='column'
-                             >
-                                 <Button
-                                sx={{minHeight: 100, fontSize: 60}}
-                                color='unpublished'
-                                fullWidth={true}
-                                variant='outlined'
-                                onClick={() => history.push(`/admin/cohort/modules/${params.cohortId}/${series.id}`)}>
-                                    {series.seriesName}
-                                    
-                                </ Button>
-                                <FormControlLabel  control={<Switch />} 
-                                    label="Publish Series"
-                                    onClick={(event) => publish(series.id, cohortParam)}
-                                    />
-
-                            </Grid2>
-                        </ThemeProvider>
-                        </>
-
-                    )
-            }
-            })}   
-                
-                        <Box sx={{ height: 400, width: '90%', margin: 10 }}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            pageSize={8}
-                            rowsPerPageOptions={[8]} 
-                            components={{
-                            Toolbar: GridToolbar
-                            }} 
-                       />
-                        </Box>
-       
+                })}   
+                    
+                            <Box sx={{ height: 500, width: '90%', mt:10, }}>
+                            <DataGrid
+                                sx={{backgroundColor:'white', pl:5, pt:5}}
+                                rows={rows}
+                                columns={columns}
+                                pageSize={8}
+                                rowsPerPageOptions={[8]} 
+                                components={{
+                                Toolbar: GridToolbar
+                                }} 
+                        />
+                            </Box>
+            </Grid2>
+        </Box>
+        </ThemeProvider>
         </>
     )
   
