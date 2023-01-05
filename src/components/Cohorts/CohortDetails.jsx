@@ -169,7 +169,9 @@ function CohortDetails() {
                </Button>
             <Typography
             variant='h1'
-            color='tertiary.main'>{cohortInfo.cohortName}</Typography>
+            color='tertiary.main'>
+                {cohortInfo.cohortName}
+            </Typography>
         <Grid2 container spacing={2} >
                 {newSeriesObject.map(series => {
                     if(series.cohortId){

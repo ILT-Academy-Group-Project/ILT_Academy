@@ -201,8 +201,7 @@ function Modules() {
                             variant='h3'>
                                 {module.name}
                             </Typography>
-                           
-                                                        
+                                             
                         </AccordionSummary>
                         <AccordionDetails sx={{pb:5}}>
                             <TableContainer component={Paper} sx={{mb:5}}>
@@ -215,9 +214,6 @@ function Modules() {
                                             <StyledTableCell align="center">
                                                 <Typography variant='h3'>Date Created</Typography>
                                             </StyledTableCell>                                          
-                                            <StyledTableCell align="center">
-                                                <Typography variant='h3'>Notes</Typography>
-                                            </StyledTableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -246,7 +242,7 @@ function Modules() {
                                                             </Typography>
                                                         </StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
-                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.feedback}</StyledTableCell> */}
                                                      </StyledTableRow>
                                                 )
                                             } 
@@ -268,9 +264,9 @@ function Modules() {
                                                         <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            <Typography variant='body1'>
-                                                                    {assignment.name}
-                                                                    </Typography>
+                                                                <Typography variant='body1'>
+                                                                {assignment.name}
+                                                                </Typography>
                                                             </Button>
                                                         </StyledTableCell>
                                                         <StyledTableCell align="center">
@@ -279,7 +275,7 @@ function Modules() {
                                                             </Typography>
                                                         </StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
-                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.feedback}</StyledTableCell> */}
                                                      </StyledTableRow>
                                                 )
                                             } 

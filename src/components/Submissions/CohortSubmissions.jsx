@@ -3,9 +3,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { DataGrid, GridToolbar} from '@mui/x-data-grid'
-import { Box, Button, Link, Popper, Paper } from '@mui/material'
+import { Box, Button, Link, Typography } from '@mui/material'
 import moment from "moment/moment";
-
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ThemeProvider } from '@mui/system';
+import {ArrowBack, DeleteOutline, Add } from '@mui/icons-material';
 
 
 function CohortSubmissions() {
@@ -160,29 +162,48 @@ function CohortSubmissions() {
   
     return(
             <>
-            <Button
-            onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}/${assignment.seriesId}`)}
-            >Back to Assignments</Button>
-            <h1>{assignment.name}</h1>
-            <h3>{cohortInfo.cohortName}</h3>
-            
-            <Box sx={{ height: 400, width: '90%', margin: 10 }}>
-            <DataGrid
-             sx={{
-              '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' }, //this adds padding to 'auto' height
-              '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { py: '15px' },
-              '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '22px' },
-            }}
-              rows={rows}
-              columns={columns}
-              pageSize={8}
-              rowsPerPageOptions={[8]} 
-              getRowHeight={() => 'auto'}
-              components={{
-                Toolbar: GridToolbar
-              }} 
-            />
-            </Box>
+            <ThemeProvider theme={PrimaryMainTheme}>
+              <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:5, pr:5, pb: 20, pt:8, mb:-10, mt:-3.8,  }}>
+                <Button
+                variant='contained'
+                onClick={()=>history.push(`/admin/cohort/modules/${params.cohortId}/${assignment.seriesId}`)}
+                >
+                  <ArrowBack />
+                    <Typography>
+                    Modules
+                    </Typography>
+                </Button>
+                <Typography
+                  variant='h1'
+                  color='tertiary.main'>
+                  {cohortInfo.cohortName}
+                </Typography>
+                <Typography
+                 variant='h2'
+                 color='tertiary.main'>
+                  {assignment.name}
+                </Typography>
+                
+                <Box sx={{ height: 500, width: '90%', mt:10, }}>
+                <DataGrid
+                sx={{
+                  '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' }, //this adds padding to 'auto' height
+                  '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { py: '15px' },
+                  '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '22px' },
+                  backgroundColor:'white', pl:5, pt:5
+                }}
+                  rows={rows}
+                  columns={columns}
+                  pageSize={8}
+                  rowsPerPageOptions={[8]} 
+                  getRowHeight={() => 'auto'}
+                  components={{
+                    Toolbar: GridToolbar
+                  }} 
+                />
+                </Box>
+              </Box>
+            </ThemeProvider>
             </>
             
       
