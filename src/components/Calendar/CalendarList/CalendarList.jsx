@@ -24,7 +24,8 @@ function CalendarList(){
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
-        <Typography gutterBottom variant='h2' color='secondary.main'>Events</Typography>
+        <Typography gutterBottom variant='h2' color='tertiary.main'>
+            Events</Typography>
             {/* MAP EVENTS */}
                 {events.map((event, i) =>{
                     return (

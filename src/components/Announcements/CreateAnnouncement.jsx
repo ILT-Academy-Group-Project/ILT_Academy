@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AnnouncementItems from './AnnouncementItems';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ThemeProvider } from '@mui/system';
 
 import {
     TextareaAutosize,
@@ -12,7 +14,10 @@ import {
     MenuItem,
     FormControl,
     Select,
-    Grid
+    Grid,
+    Typography,
+    TextField,
+    Button
 } from '@mui/material'
 
 function CreateAnnouncement(){
@@ -44,38 +49,49 @@ function CreateAnnouncement(){
 
 
     return(
+        <>
+        <ThemeProvider theme={PrimaryMainTheme}>
         <form  onSubmit={submitAnnouncement}>
-                <h3>Make New Announcement</h3>
+                <Typography
+                variant='h3'>Make New Announcement</Typography>
                 <Grid container spacing ={2}>
                     <Grid item sm={2}></Grid>
                     <Grid item sm={8}>
+                        <Typography>
                         <Input 
                             type='Text' 
-                            placeholder='Announcement' 
-                            style={{ width: 200, fontSize:20, height: 30}}
+                            placeholder='Title' 
+                            fullWidth
                             value={title} // update local state                        
                             onChange={evt => setTitle(evt.target.value)}
                             required
                         />
+                        </Typography>
                         
                     </Grid>
                     <Grid item sm={2}></Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                    <Grid item sm={.25}></Grid>
+                    {/* <Grid item sm={.25}></Grid> */}
                     <Grid item sm={11.5}>
-                        <textarea
-                                className='announcementTextArea'
-                                required
-                                placeholder="Announcement"
-                                value={content} // update local state                        
-                                onChange={evt => setContent(evt.target.value)}
+                        <TextField sx={{ wordBreak: "break-word" , mb: 5}}
+                            fullWidth
+                            required
+                            placeholder="Announcement"
+                            value={content} // update local state                        
+                            onChange={evt => setContent(evt.target.value)}
                         />                                                
                     </Grid>
-                    <Grid item sm={.25}></Grid>                
+                    {/* <Grid item sm={.25}></Grid>                 */}
                 </Grid>
-                <button type='submit'>Create Announcement</button>
+                <Button type='submit'
+                variant='contained'
+                ><Typography>
+                    Create Announcement
+                </Typography></Button>
             </form>
+            </ThemeProvider>
+            </>
     )
 }
 

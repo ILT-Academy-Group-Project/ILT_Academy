@@ -96,11 +96,14 @@ function Cohorts() {
         <Grid2 item xs={6} sx={{}} className='cohortCard'>
             <Button sx={{ maxWidth: 345, minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
                 onClick={()=>setOpen(!open)}
-                color='secondary'
-                fullWidth='true'
-                variant='contained'>
-                    
-                 Create Cohort
+                color='primary'
+                // fullWidth='true'
+                variant='outlined'>
+                <Typography
+                variant='h3'>
+                + Add Cohort
+                </Typography>
+                
             </Button>               
         </Grid2>
      
@@ -124,7 +127,14 @@ function Cohorts() {
                             value={accessCode}
                             onChange={(evt)=>setAccessCode(evt.target.value)}
                         />
-                        <Button type='submit'>Create Cohort</Button>
+                        <Button type='submit'
+                        variant='outlined'>
+                            <Typography
+                            
+                            >
+                            Add Cohort
+                            </Typography>  
+                        </Button>
                     </form>
                 </Box>
 
