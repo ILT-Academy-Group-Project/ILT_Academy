@@ -75,7 +75,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         if (req.file) {
             sqlText = `
                 INSERT INTO "orientation"
-                    ("name", "step", "content", "video", "submission")
+                    ("name", "step", "content", "media", "submission")
                 VALUES
                     ($1, $2, $3, $4, $5);
             `;
@@ -91,7 +91,7 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
         else {
             sqlText = `
                 INSERT INTO "orientation"
-                    ("name", "step", "content", "video", "submission")
+                    ("name", "step", "content", "media", "submission")
                 VALUES
                     ($1, $2, $3, $4, $5);
             `;

@@ -50,6 +50,7 @@ function AssignmentDetails () {
                 type: 'FETCH_SINGLE_SUBMISSION',
                 payload: params.id
             });
+            
         
     },[params.id]);
 

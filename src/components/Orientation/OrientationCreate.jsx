@@ -8,6 +8,28 @@ import FormData from "form-data";
 import OrientationStep from "./OrientationStep";
 import './Orientation.css'
 
+import { PrimaryMainTheme } from "../PrimaryMainTheme/PrimaryMainTheme";
+import { ThemeProvider } from '@mui/system';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import {
+    TextareaAutosize,
+    Typography,
+    FormLabel,
+    Radio,
+    RadioGroup,
+    FormGroup,
+    Input,
+    Box,
+    Checkbox,
+    OutlinedInput,
+    InputLabel,
+    MenuItem,
+    FormControl,
+    FormControlLabel,
+    Select,
+    Button
+} from '@mui/material'
+
 function CreateAssignment() {
 
     //import user
@@ -88,7 +110,7 @@ function CreateAssignment() {
         const callBack = async () => {
             let formData = new FormData();
             formData.append('image', files[0]);
-            const response = await axios.post('/api/orientation/imagefield', formData, {
+            const response = await axios.post('/api/assignments/imagefield', formData, {
                 //must include this header, it is what Multer uses to id file
                 headers: {
                     headers: { "Content-Type": "multipart/form-data" },
@@ -113,78 +135,155 @@ function CreateAssignment() {
     // console.log('video submission', videoSubmission);
     return (
         <>
-            {/* <video width="320" height="240" controls src="/videos/assignmentVideo1670963030995.mov">
-            
-            </video> */}
-
             {/* <OrientationStep /> */}
-            <form onSubmit={submitAssignment}>
-                <label>Upload Video
-                    <input
-                        accept="video/*"
-                        type='file'
-                        name="selectedVideo"
-                        onChange={(evt) => setVideo(evt.target.files[0])}
-
-                    />
-                </label>
-                <input
-                    required
-                    type='text'
-                    placeholder="Assignment Name"
-                    onChange={(evt) => setTitle(evt.target.value)}
-                />
-                <input
-                    required
-                    type='text'
-                    placeholder="Step"
-                    onChange={(evt) => setStep(evt.target.value)}
-                />
-                <SunEditor
-                    onChange={handleChange}
-                    setOptions={{
-                        height: 500,
-                        buttonList: [
-                            ['font', 'align'],
-                            ['fontSize'],
-                            ['italic'],
-                            ['bold'],
-                            ['underline'],
-                            ['video'],
-                            ['image'],
-                        ],
-                        videoFileInput: false,
-                        videoUrlInput: false,
-                        videoRatioShow: false,
-                        constrainProportions: false,
-                        videoHeight: "540px",
-                        videoWidth: "960px",
+            <ThemeProvider theme={PrimaryMainTheme}>
+                <Typography
+                    variant="h1"
+                    color='primary'
+                    sx={{ textAlign: 'center' }}
+                >
+                    Create Orientation Lesson
+                </Typography>
+                <Box
+                    sx={{
+                        backgroundColor: '#80808017',
+                        margin: '1rem',
+                        borderRadius: '10px',
+                        paddingBottom: '2rem',
                     }}
-                    onImageUploadBefore={handleImageUploadBefore}
-                //  setContents={content}
-                />
+                >
+                    <form onSubmit={submitAssignment}>
+                        <Grid2 container spacing={3}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={3}>
+                                <InputLabel
+                                    color='primary'
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >
+                                    Orientation Name
+                                </InputLabel>
+                                <OutlinedInput
+                                    sx={{ marginTop: 0, backgroundColor: 'white', fontSize: '20px' }}
+                                    required
+                                    type='text'
+                                    placeholder="Orientation Name"
+                                    onChange={(evt) => setTitle(evt.target.value)}
+                                    autoFocus
+                                    require
+                                />
+                            </Grid2>
+                            <Grid2 item sm={1} xs={2} sx={{ marginRight: '1rem' }}>
+                                <InputLabel
+                                    color='primary'
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >Step</InputLabel>
+                                <OutlinedInput
+                                    sx={{ marginTop: 0, backgroundColor: 'white', fontSize: '20px' }}
+                                    required
+                                    type='number'
+                                    placeholder="Step"
+                                    onChange={(evt) => setStep(evt.target.value)}
+                                />
+                            </Grid2>
+                            <Grid2 item sm={5} sx={{ alignContent: 'right' }} >
+                                <InputLabel
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >
+                                    Upload Video
+                                </InputLabel>
+                                <OutlinedInput
+                                    sx={{
+                                        marginTop: 0, backgroundColor: 'white', fontSize: '20px'
+                                    }}
+                                    accept="video/*"
+                                    type='file'
+                                    name="selectedVideo"
+                                    inputProps={{ accept: 'video/*' }}
+                                    onChange={(evt) => setVideo(evt.target.files[0])}
+                                    color='primary'
+                                />
+                            </Grid2>
 
-                <div>
-                    {/* <label>Pre Class</label>
-                    <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
-                    <label>Post Class</label>
-                    <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input> */}
-                    {/* <label>Orientation</label>
-                    <input onClick={() => setOrientation(true)} type="radio" name="classType" className="valueRadio"></input> */}
-                </div>
-                <div>
-                    <h3>Submission type</h3>
-                    <label>Textfield</label>
-                    <input onClick={() => setSubmission(!submission)} type="checkbox" name="textField" className="valueRadio"></input>
-                    {/* <label>File</label>
-                    <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
-                    <label>Video</label>
-                    <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input> */}
-                </div>
+                        </Grid2>
+                        <Grid2 container spacing={2}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={10}>
+                                <SunEditor
+                                    onChange={handleChange}
+                                    setOptions={{
+                                        height: 500,
+                                        buttonList: [
+                                            ['font', 'align'],
+                                            ['fontSize'],
+                                            ['italic'],
+                                            ['bold'],
+                                            ['underline'],
+                                            ['video'],
+                                            ['image'],
+                                        ],
+                                        videoFileInput: false,
+                                        videoUrlInput: false,
+                                        videoRatioShow: false,
+                                        constrainProportions: false,
+                                        videoHeight: "540px",
+                                        videoWidth: "960px",
+                                    }}
+                                    onImageUploadBefore={handleImageUploadBefore}
+                                //  setContents={content}
+                                />   
+                            </Grid2>
+                            <Grid2 item sm={1}></Grid2>      
+                        </Grid2>                    
+                                <FormGroup sx={{textAlign: 'center'}}>
+                                <FormLabel>
+                                        <Typography
+                                            variant="h3"
+                                            sx={{ fontSize: '20px' }}
+                                        >
+                                            Submission Type
+                                        </Typography>
+                                    </FormLabel>
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        labelPlacement='top'
+                                        value={true}
+                                        onChange={() => setSubmission(!submission)}
+                                        label="Text Field"
+                                    />
+                                </FormGroup>   
 
-
-                <button type="submit">Create Assignment</button>
-            </form>
+                                <Grid2 container sx={{ textAlign: 'right'}} spacing={2}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={10}>
+                                <Button 
+                                    sx={{marginTop:'1rem'}}
+                                    size='large' 
+                                    type="submit" 
+                                    variant="contained"
+                                >
+                                    Create Assignment
+                                </Button>
+                            </Grid2>
+                            <Grid2 item sm={1}></Grid2>
+                        </Grid2>
+                    </form>
+                </Box>
+            </ThemeProvider>
         </>
     )
 }
@@ -224,3 +323,29 @@ export default CreateAssignment
 //                 useEffect(() => {
 //                     getVideo();
 //                   }, [videoRef]);
+
+
+{/* <label>Upload Video
+                            <input
+                                accept="video/*"
+                                type='file'
+                                name="selectedVideo"
+                                onChange={(evt) => setVideo(evt.target.files[0])}
+        
+                            />
+                        </label>
+                        <input
+                            required
+                            type='text'
+                            placeholder="Assignment Name"
+                            onChange={(evt) => setTitle(evt.target.value)}
+                        /> */}
+
+{/* <div>
+                            <label>Pre Class</label>
+                            <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
+                            <label>Post Class</label>
+                            <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input>
+                            <label>Orientation</label>
+                            <input onClick={() => setOrientation(true)} type="radio" name="classType" className="valueRadio"></input>
+                        </div>  */}
