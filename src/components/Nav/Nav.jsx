@@ -18,10 +18,12 @@ function Nav() {
             type: 'FETCH_COHORT_SERIES',
             payload: user.cohortId
         })
+
         dispatch({
             type: 'FETCH_ORIENTATION'
         });
     }, [user.id]);
+
 
     return (
         <div className="nav">

@@ -30,20 +30,21 @@ function CohortModules() {
     const cohortModules = useSelector(store => store.cohortModules);
     const assignments = useSelector(store => store.assignments.seriesAssignmentReducer)
 
-    console.log('ASSIGNMENTS FOR THIS SERIES ', assignments);
+    // console.log('ASSIGNMENTS FOR THIS SERIES ', assignments);
 
     //create new variable for modules assigned to this cohort
-    
-    
-    
-   
+
+    //set up preclass post class arrays to seperately render in module
+    const preClass = assignments.filter(assignment => assignment.postClass === false);
+    const postClass = assignments.filter(assignment => assignment.postClass === true);
+
 
     useEffect(() => {
         // dispatch({
         //     type:'FETCH_COHORT_STUDENTS',
         //     payload: params.cohortId
         // })
-        console.log('💞 COHORTMODULES params.cohortId', params.cohortId)
+        // console.log('💞 COHORTMODULES params.cohortId', params.cohortId)
 
         // dispatch({
         //     type: 'FETCH_COHORT_SERIES',
@@ -55,24 +56,24 @@ function CohortModules() {
         // });
 
         dispatch({
-            type: 'FETCH_MODULES', 
+            type: 'FETCH_MODULES',
             payload: params.seriesId
         })
 
         dispatch({
-            type:'FETCH_COHORT_MODULES',
+            type: 'FETCH_COHORT_MODULES',
             payload: {
-                cohortId:params.cohortId,
-                seriesId:params.seriesId
+                cohortId: params.cohortId,
+                seriesId: params.seriesId
             }
         })
 
         dispatch({
-            type:'FETCH_SERIES_ASSIGNMENTS',
+            type: 'FETCH_SERIES_ASSIGNMENTS',
             payload: params.seriesId
         })
 
-    },[params.cohortId])
+    }, [params.cohortId])
 
     let arrayToCheck = [];
     cohortModules.map(publishedModule => {
@@ -83,7 +84,7 @@ function CohortModules() {
     // <h1
     // key={publishedModule.moduleName}>
     //     {publishedModule.moduleName[0]}</h1>
-    
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
@@ -108,18 +109,18 @@ function CohortModules() {
         setExpanded(isExpanded ? panel : false);
     };
 
-    function submissionDetails(assignment){
-        console.log(`submit this assignment! ${assignment}`)
-    }
+    // function submissionDetails(assignment){
+    //     console.log(`submit this assignment! ${assignment}`)
+    // }
 
-    function publishModule(moduleId){
-        console.log(`🍭 publish module ${moduleId} for cohort ${params.cohortId}`)
+    function publishModule(moduleId) {
+        // console.log(`🍭 publish module ${moduleId} for cohort ${params.cohortId}`)
         dispatch({
             type: 'PUBLISH_MODULE',
             payload: {
-                moduleId:moduleId,
+                moduleId: moduleId,
                 cohortId: params.cohortId,
-                seriesId: params.seriesId                
+                seriesId: params.seriesId
             }
         })
 
@@ -153,105 +154,152 @@ function CohortModules() {
 
     return (
         <>
-      
-        <Button
-            onClick={()=> history.push(`/admin/cohort/${params.cohortId}`)} >
-            Back to Series
-        </Button>
-          {/* PUBLISHED modules */}
-        {cohortModules.map(publishedModule =>{
-            return(
-                <>
-                 <Accordion key={publishedModule.moduleId} 
-                //  expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}
-                 >
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                        
-                        >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                            {publishedModule.moduleName}
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                            <TableContainer component={Paper}>
-                                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <StyledTableCell align="center">Name</StyledTableCell>
-                                            <StyledTableCell align="center">Date Created</StyledTableCell>
-                                            <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
-                                            <StyledTableCell align="center">Feedback</StyledTableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                     <TableBody>
-                                        {assignments.map(assignment => {
-                                            if (assignment.moduleId == publishedModule.moduleId) {
-                                                console.log('TRUE')
-                                                let pre = ''
-                                                assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+
+            <Button
+                onClick={() => history.push(`/admin/cohort/${params.cohortId}`)} >
+                Back to Series
+            </Button>
+            {/* PUBLISHED modules */}
+            {cohortModules.map(publishedModule => {
+                return (
+                    <>
+                        <Accordion key={publishedModule.moduleId} >
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+
+                            >
+                                <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                    {publishedModule.moduleName}
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TableContainer component={Paper}>
+                                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <StyledTableCell align="center">Name</StyledTableCell>
+                                                <StyledTableCell align="center">Date Created</StyledTableCell>
+                                                {/* <StyledTableCell align="center">Pre/Post Class</StyledTableCell>
+                                                <StyledTableCell align="center">Feedback</StyledTableCell> */}
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow>
+                                                <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                            </TableRow>
+                                        {/* Display all pre-class assignments here */}
+                                        {preClass.map((assignment, i) => {
+                                            if (assignment.moduleId == publishedModule.moduleId) {                                                
                                                 return (
-                                                    <StyledTableRow key={assignment.id}
-                                                        >
-                                                        {/* <StyledTableCell component="th" scope="row">
-                                                            {assignment.name}
-                                                        </StyledTableCell>  */}
+                                                    <StyledTableRow key={i}
+                                                        >                                                            
                                                          <StyledTableCell align="center">
                                                             <Button
-                                                                onClick={()=>history.push(`/admin/view/submissions/${params.cohortId}/${assignment.id}`)}>
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
                                                             {assignment.name}
-                                                            </Button>
+                                                            </Button>                                                            
                                                         </StyledTableCell>
                                                         <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
-                                                        <StyledTableCell align="center">{pre}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
                                                         <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
                                                      </StyledTableRow>
                                                 )
                                             } 
                                         })}
-                                     </TableBody>  
-                                </Table>
-                            </TableContainer>
-                            {/* <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button> */}
-                        </AccordionDetails>
+                                        <TableRow>
+                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                        </TableRow>
+                                        {/* display all postclass assignments here */}
+                                        {postClass.map((assignment, i)  => {
+                                            if (assignment.moduleId == publishedModule.moduleId) {
+                                                // console.log('TRUE')
+                                                let pre = ''
+                                                assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+                                                return (
+                                                    <StyledTableRow key={i}
+                                                        >
+                                                         <StyledTableCell align="center">
+                                                            <Button
+                                                                onClick={()=>history.push(`/assignment/${assignment.id}`)}>
+                                                            {assignment.name}
+                                                            </Button>
+                                                        </StyledTableCell>
+                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
+                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                     </StyledTableRow>
+                                                )
+                                            } 
+                                        })}
+                                            {
+                                            // assignments.map(assignment => {
+                                            //     if (assignment.moduleId == publishedModule.moduleId) {
+                                            //         console.log('TRUE')
+                                            //         let pre = ''
+                                            //         assignment.postClass === 'false' ? pre = 'Pre-Class' : pre = 'Post-Class'
+                                            //         return (
+                                            //             <StyledTableRow key={assignment.id}
+                                            //             >
+                                            //                 {/* <StyledTableCell component="th" scope="row">
+                                            //                 {assignment.name}
+                                            //             </StyledTableCell>  */}
+                                            //                 <StyledTableCell align="center">
+                                            //                     <Button
+                                            //                         onClick={() => history.push(`/admin/view/submissions/${params.cohortId}/${assignment.id}`)}>
+                                            //                         {assignment.name}
+                                            //                     </Button>
+                                            //                 </StyledTableCell>
+                                            //                 <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                            //                 <StyledTableCell align="center">{pre}</StyledTableCell>
+                                            //                 <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                            //             </StyledTableRow>
+                                            //         )
+                                            //     }
+                                            // })
+                                            }
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                {/* <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${publishedModule.moduleId}`)}>Add assignment</Button> */}
+                            </AccordionDetails>
 
-                 </Accordion>
-                </>
-            )
-        })}
+                        </Accordion>
+                    </>
+                )
+            })}
 
-        {/* UNPUBLISHED MODULES */}
-        {
-              modules.map(module => {
-                if(arrayToCheck.includes(module.id)){
-                    return true
-                }
-                else{
-                    return(
-                        <>
-                            <Accordion 
-                            key={module.id} 
-                            expanded={expanded === `panel${module.id}`} 
-                            onChange={handleChange(`panel${module.id}`)}
-                            sx={{ backgroundColor: 'gray' }}>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1bh-content"
-                                    id="panel1bh-header"
-                                    
+            {/* UNPUBLISHED MODULES */}
+            {
+                modules.map(module => {
+                    if (arrayToCheck.includes(module.id)) {
+                        return true
+                    }
+                    else {
+                        return (
+                            <>
+                                <Accordion
+                                    key={module.id}
+                                    expanded={expanded === `panel${module.id}`}
+                                    onChange={handleChange(`panel${module.id}`)}
+                                    sx={{ backgroundColor: 'gray' }}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+
                                     >
-                                    <Typography sx={{ width: '33%', flexShrink: 0}}>
-                                        {module.name}
-                                    </Typography>
-                                    {/* toggle to publish this module */}
-                                    <FormControlLabel  control={<Switch />} 
-                                        label="Publish Module"
-                                        onChange={(event) => publishModule(module.id)}
+                                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                            {module.name}
+                                        </Typography>
+                                        {/* toggle to publish this module */}
+                                        <FormControlLabel control={<Switch />}
+                                            label="Publish Module"
+                                            onChange={(event) => publishModule(module.id)}
                                         />
-                                </AccordionSummary>
-                                <AccordionDetails>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
                                         <TableContainer component={Paper}>
                                             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                                 <TableHead>
@@ -263,19 +311,19 @@ function CohortModules() {
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    
-                                                </TableBody>  
+
+                                                </TableBody>
                                             </Table>
                                         </TableContainer>
                                         {/* <Button onClick={() => history.push(`/admin/create/assignment/${params.seriesId}/${module.id}`)}>Add assignment</Button> */}
                                     </AccordionDetails>
 
-                            </Accordion>
-                </>
-                    )
-                }
-            })
-        }
+                                </Accordion>
+                            </>
+                        )
+                    }
+                })
+            }
 
         </>
     )
