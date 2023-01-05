@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AnnouncementItems from './AnnouncementItems';
 import CreateAnnouncement from './CreateAnnouncement';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { ThemeProvider } from '@mui/system';
+import moment from "moment/moment";
 //sweet alert import
 const Swal = require('sweetalert2')
 
@@ -20,7 +23,10 @@ import {
     MenuItem,
     FormControl,
     Select,
-    Grid2
+    Grid2,
+    Grid, 
+    Card,
+    Typography
 } from '@mui/material'
 
 
@@ -41,27 +47,32 @@ function Announcements() {
     },[]);
 
     return (
-        <div>
-            <header>
-                <h3>Announcements</h3>         
-            </header>
-                {announcements.map((announcement, i) => 
+       <>
+        <ThemeProvider theme={PrimaryMainTheme}>
+        <Typography
+            variant='h2'
+            color='secondary.main'
+            sx={{width:600, mt:8}}>
+                Announcements
+        </Typography>
+            <Card sx={{mb:8}}>
+            {announcements.map((announcement, i) => 
                     <AnnouncementItems 
                     //assign key
                     key={i}
                     //pass state
                     announcement={announcement}
                     />
-                )}                        
+                )}  
+            </Card>
+                                      
             {user.accessLevel ===2 ?
             <CreateAnnouncement />
             :
             null
             }
-        </div>
-  
-  
-
+        </ThemeProvider>
+        </>
     );
 }
 

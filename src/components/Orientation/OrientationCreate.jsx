@@ -31,6 +31,7 @@ import {
 } from '@mui/material'
 
 function CreateAssignment() {
+
     //import user
     const user = useSelector(store => store.user);
     const orientationArray = useSelector((store) => store.orientation.orientationReducer);
@@ -74,6 +75,8 @@ function CreateAssignment() {
                 step
             }
         })
+
+        history.push('/admin/orientation/list')
 
         // } else {
         //     //dispatch to the SAGA for serverpost route
@@ -139,7 +142,7 @@ function CreateAssignment() {
                     color='primary'
                     sx={{ textAlign: 'center' }}
                 >
-                    Create New Assignment
+                    Create Orientation Lesson
                 </Typography>
                 <Box
                     sx={{

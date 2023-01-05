@@ -1,6 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const uploadImage= require('../Util/s3Upload');
+const fs = require('fs');
+const path = require('path');
 
 const {
     rejectUnauthenticated,
@@ -113,7 +116,91 @@ router.post('/', rejectUnauthenticated, upload.single('assignmentVideo'), (req, 
     else {
         res.sendStatus(403);
     }
+     
 });
 
+router.put('/', rejectUnauthenticated, upload.single('media'), async (req, res) => {
+    console.log('in orientationPut route with payload of:', req.body, req.file);
+    //insure route only available to Admin users
+    if (req.user.accessLevel === 2){
+        let data=req.body;
+        let media;
+        
+        // if the media value is still a file path set value to that
+        if(typeof req.body.video === 'string'){
+            media=req.body.video;
+        }
+        //else set file path of new file
+        else{
+            media=await uploadImage(req.file);
+
+            //after image in S3 bucket delete the file
+            fs.unlink(req.file.path,()=>{
+                console.log('file deleted');
+            });
+        }
+        //set SQL text
+
+        const sqlText =`
+            UPDATE "orientation"
+            SET
+                "name" = $1,
+                "step" = $2,
+                "content" = $3,
+                "video" = $4,
+                "submission" = $5
+            WHERE
+                "id"=$6;
+        `;
+
+        const sqlParams = [
+            data.name,
+            data.step,
+            data.content,
+            data.video,
+            data.submission,
+           
+            data.id
+        ];
+
+        pool.query(sqlText, sqlParams)
+            .then(dbRes => {
+                res.sendStatus(201);
+            })
+            .catch( err => {
+                console.error('in assignment PUT route error:', err);
+                res.sendStatus(500);
+            })
+    }
+    else {
+        res.sendStatus(403);
+    }
+
+})
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    // console.log('in delete assignment with id of', req.params);
+    //set query text
+
+    if(req.user.accessLevel === 2){
+        const sqlText = `
+        DELETE FROM "orientation"
+        WHERE "id" = $1;
+    `;
+    //query to DB
+    pool.query(sqlText, [req.params.id])
+        .then(dbRes => {
+            res.sendStatus(200);
+        })
+        .catch(err => {
+            console.error('in delete assignment error', err);
+            res.sendStatus(500);
+        });
+    }
+    else{
+        res.sendStatus(403);
+    }
+    
+})
 
 module.exports = router

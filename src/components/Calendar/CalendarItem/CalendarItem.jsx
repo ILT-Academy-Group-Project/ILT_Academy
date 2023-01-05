@@ -12,6 +12,7 @@ function CalendarItem ({event}){
             <Grid item sm={3} md={5} lg={8}>
                 <Typography 
                 variant='h3'
+                sx={{ wordBreak: "break-word" }}
                 >
                     <Link color='primary.main' href={event.htmlLink}>{event.summary}</Link>
                 </Typography>
@@ -19,12 +20,14 @@ function CalendarItem ({event}){
                  color='primary.main'
                 className="dateTime"
                 variant='body1'
+                sx={{ wordBreak: "break-word" }}
                 >
                     {moment(event.start.dateTime).format('MMMM Do YYYY, h:mm:ss a')}
                 </Typography>
                 <Typography
                 variant='body1'
-                color='secondary.light'>
+                color='secondary.light'
+                sx={{ wordBreak: "break-word" }}>
                     {event.location}
                 </Typography>
                 <Typography

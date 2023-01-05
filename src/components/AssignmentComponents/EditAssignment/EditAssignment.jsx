@@ -362,7 +362,7 @@ function EditAssignment() {
                                     type="submit" 
                                     variant="contained"
                                 >
-                                    Edit Assignment
+                                    <Typography variant="body1">Edit Assignment</Typography>
                                 </Button>
                             </Grid2>
                             <Grid2 item sm={1}></Grid2>

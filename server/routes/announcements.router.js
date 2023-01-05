@@ -17,7 +17,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 const sqlText = `
     SELECT * FROM "announcements"
     ORDER BY "createdDate" DESC
-    LIMIT 2;
+    LIMIT 3;
 `;
 
 try {

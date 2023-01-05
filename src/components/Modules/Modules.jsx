@@ -37,6 +37,7 @@ function Modules() {
     const [expanded, setExpanded] = React.useState(false);
     const series = useSelector(store => store.series);
 
+
     //set up preclass post class arrays to seperately render in module
     const preClass = assignments.filter(assignment => assignment.postClass === false);
     const postClass = assignments.filter(assignment => assignment.postClass === true);
@@ -183,12 +184,12 @@ function Modules() {
             </Typography>
             {modules.map((module, i) => (
                 
-                <div key={i}>
-                    <Accordion key={i} expanded={expanded === `panel${module.id}`} onChange={handleChange(`panel${module.id}`)}>
+                <>
+                    <Accordion key={i}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1bh-content"
-                            id="panel1bh-header"
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
                         >
                             <Typography sx={{ width: '33%', flexShrink: 0 }}>
                                 {module.name}
@@ -281,7 +282,7 @@ function Modules() {
                         </AccordionDetails>
                     </Accordion>
                     {/* TO DO include icons for submission required AND completed */}
-                </div>
+                </>
                     
                 
             ))}

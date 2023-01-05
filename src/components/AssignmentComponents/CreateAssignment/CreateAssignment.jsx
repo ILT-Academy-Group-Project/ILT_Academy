@@ -289,7 +289,7 @@ function CreateAssignment() {
                                     type="submit" 
                                     variant="contained"
                                 >
-                                    Create Assignment
+                                    <Typography variant="body1">Create Assignment</Typography>
                                 </Button>
                             </Grid2>
                             <Grid2 item sm={1}></Grid2>
