@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -28,6 +29,7 @@ function Hacker() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const [about, setAbout] = useState('');
 
     useEffect(() => {
 
@@ -108,6 +110,7 @@ function Hacker() {
                 hipsterSkill,
                 hackerSkill,
                 hustlerSkill,
+                about,
                 id
             }
         })
@@ -336,6 +339,18 @@ function Hacker() {
                     </Grid>
                 </Grid>
             </Box>
+            <Typography>
+                Please tell us a little bit about yourself
+            </Typography>
+            <TextField
+                id="outlined-multiline-flexible"
+                label="Multiline"
+                multiline
+                maxRows={10}
+                minRows={5}
+                fullWidth
+                onChange={(evt) => setAbout(evt.target.value)}
+            />
             <Button onClick={submit}>Submit</Button>
         </>
     )

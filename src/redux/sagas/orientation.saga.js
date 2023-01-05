@@ -76,14 +76,63 @@ function* fetchEditOrientation(action){
     }
 }
 
-// function* editCurrentStep(action) {
-//     console.log('CURRENT STEP', action.payload)
-// }
+function* updateOrientation(action) {
+    console.log('CURRENT STEP', action.payload);
+    let data = action.payload;
+    //new formdata
+    let formData = new FormData;
+    formData.append('id', data.id);
+    formData.append('video', data.video);
+    formData.append('name', data.name);
+    formData.append('content', data.content);
+    formData.append('step', data.step);
+    // formData.append('postClass', data.postClass);
+    formData.append('submission', data.submission);
+    // formData.append('file', data.file);
+    // formData.append('video', data.video);
+    
+    try{
+        //send updates to the server
+        yield axios.put('/api/orientation', formData, {
+            
+            headers:{
+                headers: { "Content-Type": "multipart/form-data" },
+            }
+        })
+
+        //update redux
+        yield put ({
+            type: 'FETCH_ORIENTATION',
+        })
+    } catch (err){
+        console.error('in editOrientation SAGA put route:', err);
+    }
+}
+
+function* deleteOrientation(action){
+    // console.log('in deleteAssignment SAGA with payload of:', action.payload);
+
+    try {
+        //send id via axios delete request
+        yield axios.delete(`/api/orientation/${action.payload}`);
+
+        yield put ({
+            type: 'FETCH_ORIENTATION',
+        })
+    } catch (err) {
+        console.error('in deleteAssignment SAGA with error:', err);
+    }
+
+}
+
+
 
 function* orientationSaga() {
   yield takeLatest('FETCH_ORIENTATION', fetchOrientation);
   yield takeLatest('CREATE_ORIENTATION', createOrientation);
   yield takeLatest('FETCH_EDIT_ORIENTATION', fetchEditOrientation);
+  yield takeLatest('UPDATE_ORIENTATION', updateOrientation);
+  yield takeLatest('DELETE_ORIENTATION', deleteOrientation);
 //   yield takeLatest('EDIT_CURRENT_STEP', editCurrentStep);
 }
 
