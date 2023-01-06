@@ -62,9 +62,10 @@ function CohortsItem({cohort}) {
              html: "<h5 style='font-size:22px ;color:red'>You won't be able to revert this!</h5>"
          }).then((result) => {
          if (result.isConfirmed) {
-             Swal.fire(            
-             'The Cohort Graduated!'
-             )
+            Swal.fire({
+                title: 'The Cohort Graduated!',
+                confirmButtonColor: '#f96b61'
+            })
              //dispatch delete/graduate cohort request to saga
              dispatch({
                  type: 'GRADUATE_COHORT',
@@ -74,9 +75,10 @@ function CohortsItem({cohort}) {
              /* Read more about handling dismissals below */
              result.dismiss === Swal.DismissReason.cancel
          ) {
-             Swal.fire(
-             'Cancelled'
-             )
+            Swal.fire({
+                title: 'Cancelled',
+                confirmButtonColor: '#f96b61'
+                })
          }
          })        
      }
