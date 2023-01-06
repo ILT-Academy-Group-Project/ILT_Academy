@@ -380,6 +380,7 @@ function Hacker() {
                             required
                             type='text'
                             label="First Name"
+                            value={firstName}
                             sx={{
                                 width: 284, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
@@ -397,6 +398,7 @@ function Hacker() {
                             required
                             type='text'
                             label="Last Name"
+                            value={lastName}
                             sx={{
                                 margin: 'auto', width: 284, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
@@ -414,6 +416,7 @@ function Hacker() {
                             required
                             type='text'
                             label="Email"
+                            value={email}
                             sx={{
                                 width: 284, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
