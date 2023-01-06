@@ -1,5 +1,4 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
@@ -36,11 +35,15 @@ function OrientationStep() {
             // payload: user.oriented
         })
 
-        orientation.length >= 0 ?
+        if(orientation.id){{
             user.accessLevel === 2 ? history.push('/home')
-                : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null : null
+                : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null}}
 
     }, []);
+
+
+    {user.accessLevel === 2 ? history.push('/home'): null}
+
 
     const totalSteps = () => {
         // console.log('orientation length', orientation.length)

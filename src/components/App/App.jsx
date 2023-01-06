@@ -8,7 +8,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
+import Nav from '../Nav/NewNav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -38,6 +38,8 @@ import StudentProfile from '../StudentProfile/StudentProfile';
 import Hacker from '../Hacker/Hacker';
 
 import './App.css';
+import { ThemeProvider } from '@mui/material';
+import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 
 
 function App() {
@@ -50,6 +52,7 @@ function App() {
     }, [dispatch]);
 
     return (
+        <ThemeProvider theme={PrimaryMainTheme}>
         <Router>
             <div>
                 <Nav />
@@ -296,6 +299,7 @@ function App() {
                 <Footer />
             </div>
         </Router>
+        </ThemeProvider>
     );
 }
 

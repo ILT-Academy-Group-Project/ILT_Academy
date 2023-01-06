@@ -55,7 +55,12 @@ function Hacker() {
         // console.log('value', value)
         return `${value}`;
     }
+    const populateName = () => {
 
+        setFirstName('Johnathan');
+        setLastName('French');
+        setEmail('Frenchie145@gmail.com');
+    }
     function setHipsterInterest(value) {
         // console.log('value', value)
         setHipsterI(value)
@@ -132,10 +137,11 @@ function Hacker() {
 
     return (
         <>
+
             <ThemeProvider theme={PrimaryMainTheme}>
                 {/* <HHHimage /> */}
 
-                <Box display="flex"
+                <Box marginTop={3} marginBottom={-2} display="flex"
                     justifyContent="center">
                     <img margin={2} src='/images/hipster.png'></img>
                     <img margin={2} src='/images/hacker.png'></img>
@@ -155,6 +161,7 @@ function Hacker() {
                         <Typography variant='h2' color='primary.main'>Hipstering</Typography>
                         <Typography variant='body1' color='secondary.contrastText'>
                             Understanding the market place/industry well, developing the creatie vision, and sharing how this idea could work to serve the market needs.
+
                         </Typography>
                         <Box sx={{ width: 500 }}>
                             <Grid container spacing={2} alignItems="center">
@@ -366,13 +373,16 @@ function Hacker() {
                     </Box>
                 </Box>
 
+
                 <Box backgroundColor='secondary.light' sx={{ margin: 8, padding: 2 }} borderRadius={2}>
-                    <Typography color='primary.light' margin={2} variant='h2'>Please enter your name and email.</Typography>
+                    <Typography color='primary.light' margin={2} variant='h2' onClick={populateName}>Please enter your name and email.</Typography>
+
                     <Box sx={{ margin: 2, padding: 2 }} backgroundColor='secondary.main' display='flex' justifyContent="center" borderRadius={2}>
                         <TextField
                             required
                             type='text'
                             label="First Name"
+                            value={firstName}
                             sx={{
                                 width: 380, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
@@ -390,6 +400,7 @@ function Hacker() {
                             required
                             type='text'
                             label="Last Name"
+                            value={lastName}
                             sx={{
                                 margin: 'auto', width: 380, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
@@ -407,6 +418,7 @@ function Hacker() {
                             required
                             type='text'
                             label="Email"
+                            value={email}
                             sx={{
                                 width: 380, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
@@ -451,8 +463,8 @@ function Hacker() {
                         />
                     </Box>
                 </Box>
-                <Box sx={{ margin: 2}} display='flex' justifyContent="center" borderRadius={2}>
-                <Button variant='contained' onClick={submit}>Submit</Button>
+                <Box sx={{ margin: 2 }} display='flex' justifyContent="center" borderRadius={2}>
+                    <Button variant='contained' onClick={submit}>Submit</Button>
                 </Box>
             </ThemeProvider>
         </>
