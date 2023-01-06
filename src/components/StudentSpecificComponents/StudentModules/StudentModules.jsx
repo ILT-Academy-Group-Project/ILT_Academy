@@ -127,7 +127,7 @@ function StudentModules (){
           <h1></h1>
         {cohortModules.map((publishedModule, i) =>{
             return(               
-                 <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
+                 <Accordion key={i} onChange={handleChange(`panel${publishedModule.id}`)}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"
