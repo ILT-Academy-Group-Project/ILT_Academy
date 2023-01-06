@@ -47,7 +47,12 @@ function Hacker() {
         // console.log('value', value)
         return `${value}`;
     }
+    const populateName = () =>{
 
+        setFirstName('Johnathan');
+        setLastName('French');
+        setEmail('Frenchie145@gmail.com');
+    }
     function setHipsterInterest(value) {
         // console.log('value', value)
         setHipsterI(value)
@@ -125,22 +130,25 @@ function Hacker() {
     return (
         <>
             <HHHimage />
-            <h1>Please enter your name and email</h1>
+            <h1 onClick={populateName}>Please enter your name and email</h1>
             <input
                 required
                 type='text'
+                value={firstName}
                 placeholder="First Name"
                 onChange={(evt) => setFirstName(evt.target.value)}
             />
             <input
                 required
                 type='text'
+                value={lastName}
                 placeholder="Last Name"
                 onChange={(evt) => setLastName(evt.target.value)}
             />
             <input
                 required
                 type='text'
+                value={email}
                 placeholder="Email"
                 onChange={(evt) => setEmail(evt.target.value)}
             />
