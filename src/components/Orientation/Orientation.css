@@ -6,8 +6,3 @@ padding-bottom: 0px !important;
 #react-root .se-video-container>figure{
     padding-bottom: 0px !important;
 }
-
-.cohortCard{
-    display : flex;
-    flex-wrap: wrap;
-}

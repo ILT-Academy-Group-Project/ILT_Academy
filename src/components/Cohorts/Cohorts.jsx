@@ -83,17 +83,21 @@ function Cohorts() {
         <Typography
             variant='h2'
             color='secondary.main'
-            sx={{width:600}}>
+            // sx={{width:600}}
+            >
                 Cohorts
         </Typography>
+        <Box sx={{display: 'flex', flexWrap: 'wrap',}}>
             {cohorts.map((cohort, i) => {
                 return (
                     <CohortsItem key={i} cohort={cohort}/>
                 )
             })}
 
+</Box>
+
             {/* form section */}
-        <Grid2 item xs={6} sx={{}} className='cohortCard'>
+        <Grid2 item xs={6}>
             <Button sx={{ maxWidth: 345, minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
                 onClick={()=>setOpen(!open)}
                 color='primary'
