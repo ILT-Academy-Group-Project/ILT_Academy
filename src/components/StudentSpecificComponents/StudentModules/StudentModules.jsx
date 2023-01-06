@@ -120,11 +120,14 @@ function StudentModules (){
                 Series 
             </Typography>   
           {/* Map the modules user has access to */}
+
             {cohortModules.map((publishedModule, i) =>{
-            return(   
-                
+            return( 
                   
                  <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
+           
+                // <Accordion key={i} onChange={handleChange(`panel${publishedModule.id}`)}>
+
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"
