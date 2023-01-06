@@ -29,6 +29,10 @@ function OrientationList() {
 
     useEffect(() => {
         dispatch({
+            type: 'SET_EDIT_ORIENTATION',
+            payload:{},
+        })
+        dispatch({
             type: 'FETCH_ORIENTATION'
         });
     }, [params]);

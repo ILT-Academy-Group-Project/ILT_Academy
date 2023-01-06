@@ -9,7 +9,7 @@ const {
 //GET all cohorts
 router.get('/', rejectUnauthenticated, async (req, res) => {
     try{
-        const sqlText = `SELECT * FROM "cohorts";`;
+        const sqlText = `SELECT * FROM "cohorts" ORDER BY "id";`;
         let dbResult = await pool.query(sqlText);
         res.send(dbResult.rows);
 

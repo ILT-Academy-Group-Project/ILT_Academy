@@ -89,7 +89,7 @@ function UserDashboard(){
                     </Box>
                 </Grid2>
                 <Grid2 item xs={6.5}>     
-                    <Box sx={{ height: 'fit-content', minWidth: 200, width: 1, marginLeft: 'auto', marginRight: 'auto', marginTop:1, }}>
+                    <Box sx={{ position:'sticky',  height: 'fit-content', minWidth: 200, width: 1, marginLeft: 'auto', marginRight: 'auto', marginTop:1, }}>
                         <Announcements />
                     </Box>
                 </Grid2>
