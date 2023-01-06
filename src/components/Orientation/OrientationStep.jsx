@@ -118,6 +118,9 @@ function OrientationStep() {
     return (
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
+                <Typography variant='h1' textAlign='center'>
+                    Welcome to Orientation!
+                </Typography>
                 <Box sx={{ width: '100%' }}>
                     {/* <Box sx={{ width: '100%', padding: 2, backgroundColor: 'secondary.main' }}> */}
                     <Stepper nonLinear activeStep={activeStep}>

@@ -120,8 +120,8 @@ function OrientationDetails({ step }) {
 
                             {/* <Markup content={orient.content} /> */}
 
-                            <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main' }}>
-                                <Box sx={{ padding: 2, backgroundColor: 'tertiary.main' }} >
+                            <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main' }} borderRadius={2}>
+                                <Box sx={{ padding: 2, backgroundColor: 'tertiary.main' }} borderRadius={2}>
                                     {parse(orient.content, {
                                         replace: ({ attribs }) => attribs && attribs.style === "width: 100%; height: 100%;" && "height: '50vh', width: '75%' "
                                     })}
