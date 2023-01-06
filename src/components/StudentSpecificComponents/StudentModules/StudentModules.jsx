@@ -11,8 +11,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Assignment, AssignmentSharp } from '@mui/icons-material';
-
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -21,7 +19,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, FormControlLabel, Switch } from '@mui/material';
+import { Button, Box,  } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 function StudentModules (){
     //set up hooks
@@ -51,24 +50,6 @@ function StudentModules (){
     const postClass = assignments.filter(assignment => assignment.postClass === true);
 
     useEffect(() => {
-        // dispatch({
-        //     type:'FETCH_COHORT_STUDENTS',
-        //     payload: params.cohortId
-        // })
-
-        // dispatch({
-        //     type: 'FETCH_COHORT_SERIES',
-        //     payload: params.cohortId
-        // });
-
-        // dispatch({
-        //     type: 'FETCH_SERIES'
-        // });
-
-        // dispatch({
-        //     type: 'FETCH_MODULES', 
-        //     payload: params.seriesId
-        // })
 
         //get the modules assigned for this user
         dispatch({
@@ -123,10 +104,26 @@ function StudentModules (){
     
     return (
         <>
+        <Box sx={{ flexGrow: 1, bgcolor:'secondary.light', pl:5, pr:5, pb: 20, pt:8, mb:-10,   }}>
+          <Button
+                onClick={()=> history.push(`/home`)}
+                variant='contained'>
+                <ArrowBack />
+                <Typography>
+                    Dashboard
+                </Typography>
+            </Button> 
+            <Typography
+                variant="h2"
+                color='primary'
+                gutterBottom>
+                Series 
+            </Typography>   
           {/* Map the modules user has access to */}
-          <h1></h1>
-        {cohortModules.map((publishedModule, i) =>{
-            return(               
+            {cohortModules.map((publishedModule, i) =>{
+            return(   
+                
+                  
                  <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -208,11 +205,11 @@ function StudentModules (){
                                 </Table>
                             </TableContainer>
                         </AccordionDetails>
-
                  </Accordion>
+               
             )
         })}
-
+        </Box>  
         </>
     )
 }

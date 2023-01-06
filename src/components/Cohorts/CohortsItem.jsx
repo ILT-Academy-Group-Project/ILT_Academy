@@ -1,40 +1,15 @@
-import { useState, useEffect, React,  } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, React,  } from "react";
+import { useDispatch,  } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Grid, CardContent, CardActionArea, Button } from "@mui/material";
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import {  CardContent, CardActionArea, Button } from "@mui/material";
 import { PrimaryMainTheme } from "../PrimaryMainTheme/PrimaryMainTheme";
 import { ThemeProvider } from '@mui/system';
-import { Typography, Card, Link } from '@mui/material'
-import { Input } from '@mui/material';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import { Typography, Card,  } from '@mui/material'
 const Swal = require('sweetalert2')
 
 function CohortsItem({cohort}) {
     const dispatch = useDispatch();
     const history = useHistory();
-
-     //modal controls, opens and handles close
-     const [open, setOpen] = useState(false);
-     const handleClose = () => setOpen(false);
- 
-     //state for creation values when creating a new cohort
-     const [cohortName, setCohortName] = useState('');
-     const [accessCode, setAccessCode] = useState('');
- 
-     //modal style
-     const style = {
-         position: 'absolute',
-         top: '50%',
-         left: '50%',
-         transform: 'translate(-50%, -50%)',
-         width: 300,
-         bgcolor: 'white',
-         border: '2px solid #000',
-         boxShadow: 24,
-         p: 4,
-       };
  
      // FETCH cohorts for map fn
  
@@ -86,7 +61,7 @@ function CohortsItem({cohort}) {
         <ThemeProvider theme={PrimaryMainTheme}>
         {/* <Grid2 item xs={2}
         key={cohort.id}> */}
-        <Card sx={{ width: 300, mr: 2, mb:2  }} key={cohort.id}>
+        <Card sx={{ width: 300, mr: 2, mb:2 }} key={cohort.id}>
             {/* <Card sx={{  margin: 'auto', }} > */}
                 <CardActionArea  sx={{bgcolor: 'primary.main'}}
                 onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>

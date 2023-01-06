@@ -17,9 +17,9 @@ function AdminDashboard() {
     return (
         // <div className="container">
         <ThemeProvider theme={PrimaryMainTheme}>
-            <Box sx={{ flexGrow: 1, bgcolor: 'background.light', margin:1 }}>
+            <Box sx={{ flexGrow: 1, bgcolor: 'background.light', mt:1.1 }}>
                 <Grid2 container spacing={2}>
-                    <Grid2 item xs={3} sx={{ bgcolor: 'secondary.light', pl: 3, pr: 3, }}>
+                    <Grid2 item xs={3} sx={{ bgcolor: 'secondary.light',mt:-.1, pl: 3, pr: 3, }}>
                         <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, margin: 'auto', }}>
                             <CalendarList />
                         </Box>
