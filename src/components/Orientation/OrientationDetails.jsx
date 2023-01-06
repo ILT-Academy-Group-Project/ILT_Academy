@@ -108,19 +108,20 @@ function OrientationDetails({ step }) {
     return (
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
+            <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 8 }} borderRadius={2}>
                 {assignment.map(orient => (
 
                     orient.step === step ?
                         <>
-                            <Box backgroundColor="primary.main">
-                                <Typography variant="h2" color="secondary.dark" sx={{ mt: 5, mb: 2 }} textAlign="center">
+                            
+                                <Typography variant="h2" color="primary.light" sx={{ mt: 2, mb: 2 }} textAlign="center">
                                     {orient.name}
                                 </Typography>
-                            </Box>
+                            
 
                             {/* <Markup content={orient.content} /> */}
 
-                            <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main' }} borderRadius={2}>
+                            <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main', border: 2, borderColor: 'primary.main' }}  borderRadius={2}>
                                 <Box sx={{ padding: 2, backgroundColor: 'tertiary.main' }} borderRadius={2}>
                                     {parse(orient.content, {
                                         replace: ({ attribs }) => attribs && attribs.style === "width: 100%; height: 100%;" && "height: '50vh', width: '75%' "
@@ -163,6 +164,7 @@ function OrientationDetails({ step }) {
                         </>
                         : null
                 ))}
+                </Box>
 
             </ThemeProvider>
         </>
