@@ -55,7 +55,12 @@ function Hacker() {
         // console.log('value', value)
         return `${value}`;
     }
+    const populateName = () =>{
 
+        setFirstName('Johnathan');
+        setLastName('French');
+        setEmail('Frenchie145@gmail.com');
+    }
     function setHipsterInterest(value) {
         // console.log('value', value)
         setHipsterI(value)
@@ -132,6 +137,7 @@ function Hacker() {
 
     return (
         <>
+
             <ThemeProvider theme={PrimaryMainTheme}>
                 {/* <HHHimage /> */}
 
@@ -155,6 +161,7 @@ function Hacker() {
                         <Typography variant='h2' color='primary.main'>Hipstering</Typography>
                         <Typography variant='body1' color='secondary.contrastText'>
                             Understanding the market place/industry well, developing the creatie vision, and sharing how this idea could work to serve the market needs.
+
                         </Typography>
                         <Box sx={{ width: 500 }}>
                             <Grid container spacing={2} alignItems="center">
@@ -367,7 +374,7 @@ function Hacker() {
                 </Box>
 
                 <Box backgroundColor='secondary.light' sx={{ margin: 4, padding: 2 }} borderRadius={2}>
-                    <Typography color='primary.light' margin={2} variant='h2'>Please enter your name and email.</Typography>
+                    <Typography color='primary.light' margin={2} variant='h2' onClick={populateName}>Please enter your name and email.</Typography>
                     <Box sx={{ margin: 2, padding: 2 }} backgroundColor='secondary.main' display='flex' justifyContent="center" borderRadius={2}>
                         <TextField
                             required
