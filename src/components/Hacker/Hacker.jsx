@@ -130,7 +130,10 @@ function Hacker() {
             }
         })
         //push to modules view
-        Swal.fire('Success!')
+        Swal.fire({
+            title: 'Success!',
+            confirmButtonColor: '#f96b61'
+        })
             .then((result) => {
                 history.go(0);
             })
