@@ -195,7 +195,7 @@ function CreateAssignment() {
                                     onChange={(evt) => setStep(evt.target.value)}
                                 />
                             </Grid2>
-                            <Grid2 item sm={5} sx={{ alignContent: 'right' }} >
+                            {/* <Grid2 item sm={5} sx={{ alignContent: 'right' }} >
                                 <InputLabel
                                     sx={{
                                         color: '#f96b61',
@@ -217,7 +217,7 @@ function CreateAssignment() {
                                     onChange={(evt) => setVideo(evt.target.files[0])}
                                     color='primary'
                                 />
-                            </Grid2>
+                            </Grid2> */}
 
                         </Grid2>
                         <Grid2 container spacing={2}>

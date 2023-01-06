@@ -8,6 +8,28 @@ import FormData from "form-data";
 import OrientationStep from "./OrientationStep";
 const Swal = require('sweetalert2');
 import './Orientation.css'
+//MUI IMPORTS
+import { PrimaryMainTheme } from "../PrimaryMainTheme/PrimaryMainTheme";
+import { ThemeProvider } from '@mui/system';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import {
+    TextareaAutosize,
+    Typography,
+    FormLabel,
+    Radio,
+    RadioGroup,
+    FormGroup,
+    Input,
+    Box,
+    Checkbox,
+    OutlinedInput,
+    InputLabel,
+    MenuItem,
+    FormControl,
+    FormControlLabel,
+    Select,
+    Button
+} from '@mui/material'
 
 function OrientationEdit() {
 
@@ -29,7 +51,6 @@ function OrientationEdit() {
     const [step, setStep] = useState(0)
 
     useEffect(() => {
-
         dispatch({
             type: 'FETCH_EDIT_ORIENTATION',
             payload: params.id
@@ -102,18 +123,166 @@ function OrientationEdit() {
 
     }
 
-    
+
 
     return (
 
         <>
-            {/* <video width="320" height="240" controls src="/videos/assignmentVideo1670963030995.mov">
-            
-            </video> */}
 
-            {/* <OrientationStep /> */}
-            <form onSubmit={submitEditAssignment}>
-            { typeof editOrientation.media === 'string' && editOrientation.media !== '' && editOrientation.media !== 'undefined' ? 
+
+            <ThemeProvider theme={PrimaryMainTheme}>
+                <Typography
+                    variant="h1"
+                    color='primary'
+                    sx={{ textAlign: 'center' }}
+                >
+                    Create Orientation
+                </Typography>
+                <Box
+                    sx={{
+                        backgroundColor: '#80808017',
+                        margin: '1rem',
+                        borderRadius: '10px',
+                        paddingBottom: '2rem',
+                    }}
+                >
+                    <form onSubmit={submitEditAssignment}>
+                        <Grid2 container spacing={3}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={3}>
+                                <InputLabel
+                                    color='primary'
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >
+                                    Orientation Name
+                                </InputLabel>
+                                <OutlinedInput
+                                    sx={{ marginTop: 0, backgroundColor: 'white', fontSize: '20px' }}
+                                    required
+                                    autoFocus
+                                    placeholder="Orientation Name"
+                                    type='text'
+                                    value={editOrientation.name}
+                                    onChange={(evt) => dispatch({
+                                        type: 'UPDATE_EDIT_ORIENTATION',
+                                        payload: { name: evt.target.value }
+                                    })}
+                                />
+                            </Grid2>
+                            <Grid2 item sm={1} sx={{ marginRight: '1rem' }}>
+                                <InputLabel
+                                    color='primary'
+                                    sx={{
+                                        color: '#f96b61',
+                                        fontWeight: 'bold',
+                                        marginBottom: 0,
+                                        fontSize: '22px'
+                                    }}
+                                >Step</InputLabel>
+
+                                <OutlinedInput
+                                    sx={{ marginTop: 0, backgroundColor: 'white', fontSize: '20px' }}
+                                    placeholder="Step"
+                                    required
+                                    type='number'
+                                    value={editOrientation.step}
+                                    onChange={(evt) => dispatch({
+                                        type: 'UPDATE_EDIT_ORIENTATION',
+                                        payload: { step: evt.target.value }
+                                    })}
+                                />
+                            </Grid2>
+                        </Grid2>
+                        <Grid2 container spacing={2}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={10}>
+                                <SunEditor
+                                    onChange={handleChange}
+                                    setOptions={{
+                                        height: 500,
+                                        buttonList: [
+                                            ['font', 'align'],
+                                            ['fontSize'],
+                                            ['italic'],
+                                            ['bold'],
+                                            ['underline'],
+                                            ['video'],
+                                            ['image'],
+                                        ],
+                                        videoFileInput: false,
+                                        videoUrlInput: false,
+                                        videoRatioShow: false,
+                                        constrainProportions: false,
+                                        videoHeight: "540px",
+                                        videoWidth: "960px",
+                                    }}
+                                    onImageUploadBefore={handleImageUploadBefore}
+                                    setContents={editOrientation.content}
+                                />
+                            </Grid2>
+                            <Grid2 item sm={1}></Grid2>
+                        </Grid2>
+                        {editOrientation.id ?
+                            <FormGroup sx={{ textAlign: 'center' }}>
+                                <FormLabel>
+                                    <Typography
+                                        variant="h3"
+                                        sx={{ fontSize: '20px' }}
+                                    >
+                                        Submission Type
+                                    </Typography>
+                                </FormLabel>
+                                <FormControlLabel
+                                    control={<Checkbox checked={editOrientation.submission} />}
+                                    labelPlacement='top'
+                                    onChange={(evt) => dispatch({
+                                        type: 'UPDATE_EDIT_ORIENTATION',
+                                        payload: { submission: !editOrientation.submission }
+                                    })}
+                                    variant='body1'
+                                    color='primary'
+                                />
+                            </FormGroup>
+                            :
+                            null
+                        }
+                        <Grid2 container sx={{ textAlign: 'right' }} spacing={2}>
+                            <Grid2 item sm={1}></Grid2>
+                            <Grid2 item sm={10}>
+                                <Button
+                                    sx={{ marginTop: '1rem' }}
+                                    size='large'
+                                    type="submit"
+                                    variant="contained"
+                                >
+                                    <Typography variant="body1">Edit Assignment</Typography>
+                                </Button>
+                            </Grid2>
+                            <Grid2 item sm={1}></Grid2>
+                        </Grid2>
+                    </form>
+                </Box>
+            </ThemeProvider>
+        </>
+    )
+}
+
+export default OrientationEdit;
+
+
+
+
+
+
+
+//VIDEO CODE
+
+{/* { typeof editOrientation.media === 'string' && editOrientation.media !== '' && editOrientation.media !== 'undefined' ? 
                     <video width="640" height="480" controls src={editOrientation.media}></video> 
                 : 
                     null}
@@ -129,74 +298,4 @@ function OrientationEdit() {
                         name="selectedVideo"
                         onChange={videoChange}                                            
                     />
-                </label>
-                <input
-                    required
-                    type='text'
-                    value={editOrientation.name}
-                    onChange={(evt)=>dispatch({
-                        type: 'UPDATE_EDIT_ORIENTATION',
-                        payload: {name: evt.target.value}
-                    })}
-                />
-                <input
-                    required
-                    type='text'
-                    value={editOrientation.step}
-                    onChange={(evt)=>dispatch({
-                        type: 'UPDATE_EDIT_ORIENTATION',
-                        payload: {name: evt.target.value}
-                    })}
-                />
-                <SunEditor
-                    onChange={handleChange}
-                    setOptions={{
-                        height: 500,
-                        buttonList: [
-                            ['font', 'align'],
-                            ['fontSize'],
-                            ['italic'],
-                            ['bold'],
-                            ['underline'],
-                            ['video'],
-                            ['image'],
-                        ],
-                        videoFileInput: false,
-                        videoUrlInput: false,
-                        videoRatioShow: false,
-                        constrainProportions: false,
-                        videoHeight: "540px",
-                        videoWidth: "960px",
-                    }}
-                    onImageUploadBefore={handleImageUploadBefore}
-                    setContents={editOrientation.content}
-                />
-
-                <div>
-                    {/* <label>Pre Class</label>
-                    <input defaultChecked onClick={() => setPostClass(false)} type="radio" name="classType" className="valueRadio"></input>
-                    <label>Post Class</label>
-                    <input onClick={() => setPostClass(true)} type="radio" name="classType" className="valueRadio"></input> */}
-                    {/* <label>Orientation</label>
-                    <input onClick={() => setOrientation(true)} type="radio" name="classType" className="valueRadio"></input> */}
-                </div>
-                <div>
-                    <h3>Submission type</h3>
-                    <label>Textfield</label>
-                    <input onClick={() => setSubmission(!submission)} type="checkbox" name="textField" className="valueRadio"></input>
-                    {/* <label>File</label>
-                    <input onClick={() => setFileSubmission(!fileSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input>
-                    <label>Video</label>
-                    <input onClick={() => setVideoSubmission(!videoSubmission)} type="checkbox" name="fileSubmission" className="valueRadio"></input> */}
-                </div>
-
-
-                <button type="submit">Update Step</button>
-                
-            </form>
-
-        </>
-    )
-}
-
-export default OrientationEdit;
+                </label> */}
