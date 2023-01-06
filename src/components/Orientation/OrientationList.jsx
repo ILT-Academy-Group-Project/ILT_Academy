@@ -84,36 +84,41 @@ function OrientationList() {
 
     return (
         <ThemeProvider theme={PrimaryMainTheme}>
-            <Button variant="contained"
+            <Button variant="contained" sx={{ margin: 2 }}
                 onClick={() => history.push(`/home`)}>Back to Dashboard</Button>
             <Grid2 container>
 
                 {orientationList.map(step => (
                     <Grid2 item xs={4} sx={{}} >
-                        <Card sx={{ maxHeight: 400, minHeight: 230, maxWidth: 450, mt: 5, mb: 'auto', mr: 2, ml: 2, backgroundColor: 'secondary.main' }} >
+                        <Card sx={{ maxHeight: 400, minHeight: 230, maxWidth: 450, mt: 5, mb: 'auto', mr: 2, ml: 2, backgroundColor: 'secondary.main', borderRadius: 2 }} >
                             <CardActionArea onClick={() => history.push(`/admin/orientation/edit/${step.id}`)}>
-                                <CardMedia
+                                {/* <CardMedia
                                     component="img"
                                     // height="140"
                                     image="/images/ilt.png"
                                     alt="something cool"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{}}>
-                                        {step.name}
-                                    </Typography>
-                                    <Typography variant="body2" color="primary.main">
-                                        Step: {step.step + 1}
-                                    </Typography>
-                                </CardContent>
+                                /> */}
+                                <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 2 }} borderRadius={2}>
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{ minHeight: 75 }}>
+                                            {step.name}
+                                        </Typography>
+                                        <Typography variant="body2" color="primary.main">
+                                            Step: {step.step + 1}
+                                        </Typography>
+                                    </CardContent>
+                                </Box>
                             </CardActionArea>
-                            <Button variant="contained" onClick={() => deleteStep(step.id)}>Delete Step</Button>
+                            <Button sx={{ margin: 2 }} variant="contained" onClick={() => deleteStep(step.id)}>Delete Step</Button>
                         </Card>
 
                     </Grid2>
 
                 ))}
-                <Button variant="contained" onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
+                <Box display="flex"
+                    justifyContent="center">
+                    <Button sx={{ m: 'auto', ml: '9.5vw', mt: '15vh', height: 100, width: 200 }} variant="contained" onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
+                </Box>
             </Grid2>
         </ThemeProvider>
     )
