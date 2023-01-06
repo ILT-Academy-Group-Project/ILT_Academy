@@ -43,8 +43,8 @@ function Nav() {
                             <Link to="/user">
                                 <img
                                     src="/images/logo.png"
-                                    height="80"
-                                    style={{ paddingTop: '6px' }}
+                                    height="70"
+                                    style={{ paddingTop: '3px' }}
                                 />
                             </Link>
                         </Box>
@@ -54,8 +54,8 @@ function Nav() {
                             <Link to="/home">
                                 <img
                                     src="/images/logo.png"
-                                    height="80"
-                                    style={{ paddingTop: '6px' }}
+                                    height="70"
+                                    style={{ paddingTop: '3px' }}
                                 />
                             </Link>
                         </Box>

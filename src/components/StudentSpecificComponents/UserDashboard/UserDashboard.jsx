@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { Card, Box, Button, Typography } from '@mui/material';
+import {  Box, Button, Typography } from '@mui/material';
 import CalendarList from '../../Calendar/CalendarList/CalendarList';
 import Announcements from '../../Announcements/Announcements';
 import { PrimaryMainTheme } from '../../PrimaryMainTheme/PrimaryMainTheme';
@@ -33,7 +33,7 @@ function UserDashboard(){
         && user.hustlerSkill === 0
         ? history.push('/user') 
         : null
-    };
+    }
 
     useEffect(() => {
         //get assigned series for the render;
@@ -122,6 +122,6 @@ function UserDashboard(){
                </ThemeProvider>
         
     )
-};
+}
 
 export default UserDashboard;

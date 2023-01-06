@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, } from 'react-router-dom';
 import { ThemeProvider } from '@mui/system';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+// import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
+// import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -16,7 +16,7 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 
 import OrientationDetails from './OrientationDetails';
-import { StepLabel } from '@mui/material';
+// import { StepLabel } from '@mui/material';
 
 function OrientationStep() {
 
@@ -100,16 +100,16 @@ function OrientationStep() {
 
     };
 
-    const handleStudent = () => {
+    // const handleStudent = () => {
 
-        dispatch({
-            type: 'EDIT_CURRENT_STEP',
-            payload: {
-                step: 0,
-                id: user.id
-            }
-        })
-    };
+    //     dispatch({
+    //         type: 'EDIT_CURRENT_STEP',
+    //         payload: {
+    //             step: 0,
+    //             id: user.id
+    //         }
+    //     })
+    // };
 
     return (
         <>
