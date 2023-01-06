@@ -60,6 +60,8 @@ function Hacker() {
         setFirstName('Johnathan');
         setLastName('French');
         setEmail('Frenchie145@gmail.com');
+        setAbout(`I am an enthusiastic founder who loves to spend time outside.
+        My current project is focused on getting at risk youth outdoors with my new app "The Urge to Wander"`)
     }
     function setHipsterInterest(value) {
         // console.log('value', value)
@@ -441,6 +443,7 @@ function Hacker() {
                         <TextField
                             id="outlined-multiline-flexible"
                             label="About Me"
+                            value={about}
                             color='primary'
                             multiline
                             maxRows={10}
