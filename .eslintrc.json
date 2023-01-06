@@ -1,13 +1,13 @@
-// {
-//     "extends": ["eslint:recommended", "plugin:react/recommended"],
-//     "parserOptions": {
-//         "sourceType": "module",
-//         "ecmaVersion": 2015
-//     },
-//     "env": {
-//         "node": true
-//     },
-//     "rules": {
-//         "react/prop-types": "off"
-//     }
-// }
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2015
+    },
+    "env": {
+        "node": true
+    },
+    "rules": {
+        "react/prop-types": "off"
+    }
+}
