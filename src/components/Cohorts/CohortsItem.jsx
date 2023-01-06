@@ -84,10 +84,10 @@ function CohortsItem({cohort}) {
 
     return (
         <ThemeProvider theme={PrimaryMainTheme}>
-        <Grid2 item xs={6} sx={{}} className='cohortCard'
-        key={cohort.id}>
-        <Card sx={{margin: 'auto', width: 1, }}>
-            <Card sx={{ width:1, margin: 'auto', }} >
+        {/* <Grid2 item xs={2}
+        key={cohort.id}> */}
+        <Card sx={{ width: 300, mr: 2, mb:2  }} key={cohort.id}>
+            {/* <Card sx={{  margin: 'auto', }} > */}
                 <CardActionArea  sx={{bgcolor: 'primary.main'}}
                 onClick={() => history.push(`/admin/cohort/${cohort.id}`)}>
 
@@ -102,7 +102,7 @@ function CohortsItem({cohort}) {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-            </Card>
+            {/* </Card> */}
             <Button 
                     sx={{ textAlign:'right', width: 1}} 
                     variant='contained' 
@@ -118,7 +118,7 @@ function CohortsItem({cohort}) {
                
             </Button>
         </Card>
-    </Grid2>
+    {/* </Grid2> */}
      
     </ThemeProvider>
     )

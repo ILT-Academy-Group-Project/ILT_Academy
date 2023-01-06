@@ -13,36 +13,31 @@ import { ThemeProvider } from '@mui/system';
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is'
 
-function AdminDashboard (){
-
-
-
-
-
-    return(
+function AdminDashboard() {
+    return (
         // <div className="container">
-    <ThemeProvider theme={PrimaryMainTheme}>
-        <Box sx={{ flexGrow: 1, bgcolor:'background.light', mt: -5, pb:150 }}>
-                <Grid2 container spacing={2} sx={{m:5, }}>
-                <Grid2 item xs={3} sx={{bgcolor: 'background.dark', ml:-5, mb:-40, pl:3, pr:3, }}>
-                    <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
-                        <CalendarList />
-                    </Box>
+        <ThemeProvider theme={PrimaryMainTheme}>
+            <Box sx={{ flexGrow: 1, bgcolor: 'background.light', }}>
+                <Grid2 container spacing={2}>
+                    <Grid2 item xs={3} sx={{ bgcolor: 'background.dark', pl: 3, pr: 3, }}>
+                        <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, margin: 'auto', }}>
+                            <CalendarList />
+                        </Box>
+                    </Grid2>
+                    <Grid2 item xs={6} sx={{pl: 4}}>
+
+                        <Cohorts />
+                        <Box sx={{ minWidth: 200, minHeight: 400, margin: 'auto' }}>
+                            <Announcements />
+                        </Box>
+                    </Grid2>
+                    <Grid2 item xs={3} sx={{pr: 4}}>
+                        <Series />
+                    </Grid2>
                 </Grid2>
-                <Grid2 item xs={6} className='cohortCard'>
-                 
-                    <Cohorts />            
-                    <Box sx={{  minWidth: 200, width: 1, minHeight: 400, margin: 'auto'}}>
-                    <Announcements />
-                    </Box>
-                </Grid2>
-                <Grid2 item xs={3}>
-                    <Series />
-                </Grid2>
-                </Grid2>
-        </Box>
-    </ThemeProvider>
-       
+            </Box>
+        </ThemeProvider>
+
         // </div>
     )
 }

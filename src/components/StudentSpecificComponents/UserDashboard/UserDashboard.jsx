@@ -52,13 +52,13 @@ function UserDashboard(){
             <Box sx={{ flexGrow: 1, bgcolor:'background.light', mt: -3,  height: '100%' }}>
             <Grid2 container spacing={2} sx={{m:5, height: '100%'}} >
                 <Grid2 item xs={4} sx={{bgcolor: 'background.dark', ml:-5,  pl:3, pr:3, height: '100%'}}>
-                    <Box sx={{ minWidth: 200, maxWidth: 325, maxHeight: 500, pt:3}}>
+                    <Box sx={{ minWidth: 200, maxWidth: 325,  pt:3}}>
                         <Button
                         variant='contained'
                         onClick={() => history.push(`/profile/${username}/${cohortId}`)}
                         >My Profile</Button>
                     </Box>
-                    <Box sx={{ maxHeight: 400, width: .8, maxHeight: 400,}}>
+                    <Box sx={{ width: .8, }}>
                         <Typography
                         variant='h2'
                         color='tertiary.main' >
@@ -84,11 +84,11 @@ function UserDashboard(){
                            
                         })}
                     </Box>
-                    <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, maxHeight: 500, margin: 'auto', }}>
+                    <Box sx={{ minWidth: 200, maxWidth: 325, minHeight: 400, margin: 'auto', }}>
                         <CalendarList />
                     </Box>
                 </Grid2>
-                <Grid2 item xs={6.5} className='cohortCard'>     
+                <Grid2 item xs={6.5}>     
                     <Box sx={{ height: 'fit-content', minWidth: 200, width: 1, marginLeft: 'auto', marginRight: 'auto', marginTop:1, }}>
                         <Announcements />
                     </Box>
