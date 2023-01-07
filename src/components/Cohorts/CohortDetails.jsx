@@ -157,7 +157,7 @@ function CohortDetails() {
     return(
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
-        <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:5, pr:5, pb: 20, pt:8, mb:-10, mt:-3.8,  }}>
+        <Box sx={{ flexGrow: 1, bgcolor:'secondary.light', pl:5, pr:5, pb: 20, pt:8, mb:-10,  }}>
             
             <Button
             onClick={() => history.push(`/home`)}

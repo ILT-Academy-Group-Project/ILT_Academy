@@ -26,7 +26,7 @@ function Nav() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" color="secondary">
+            <AppBar position="sticky" color="secondary">
                 <Toolbar>
                     {/* if user isnt oriented yet redirect to orientation route */}
                     {user.accessLevel === 1

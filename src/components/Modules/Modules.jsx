@@ -172,7 +172,7 @@ function Modules() {
     return (
         <>
         <ThemeProvider theme={PrimaryMainTheme}>
-            <Box sx={{ flexGrow: 1, bgcolor:'background.dark', pl:5, pr:5, pb: 20, pt:8, mb:-10, mt:-3.8,  }}>
+            <Box sx={{ flexGrow: 1, bgcolor:'secondary.light', pl:5, pr:5, pb: 20, pt:8, mb:-10,   }}>
             <Button
             onClick={()=> history.push(`/home`)}
             variant='contained'
@@ -209,7 +209,7 @@ function Modules() {
                                     <TableHead>
                                         <TableRow>                                        
                                             <StyledTableCell align="center">
-                                                <Typography variant='h3'>Name</Typography>
+                                                <Typography variant='h3'>Assignment</Typography>
                                             </StyledTableCell>
                                             <StyledTableCell align="center">
                                                 <Typography variant='h3'>Date Created</Typography>
