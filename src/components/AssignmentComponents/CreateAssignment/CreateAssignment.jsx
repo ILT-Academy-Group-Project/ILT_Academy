@@ -75,11 +75,15 @@ function CreateAssignment() {
                 // name to match database, lef as submission so there isnt confusion on this page
                 file: fileSubmission,
                 video: videoSubmission,
-                seriesId: params.seriesId,                
+                seriesId: params.seriesId,
             }
         })
         //push to modules view
-        Swal.fire('Success!')
+        Swal.fire({
+            title: 'Success!',
+            confirmButtonColor: '#f96b61'
+
+        })
             .then((result) => {
                 history.push(`/admin/modules/${params.seriesId}`);
             })
@@ -127,18 +131,18 @@ function CreateAssignment() {
     return (
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
-                <Typography 
-                    variant="h1" 
-                    color='primary' 
-                    sx={{ textAlign: 'center' }}                    
+                <Typography
+                    variant="h1"
+                    color='primary'
+                    sx={{ textAlign: 'center' }}
                 >
                     Create New Assignment
                 </Typography>
-                <Box sx={{ 
-                    backgroundColor: '#80808017', 
-                    margin: '1rem', 
+                <Box sx={{
+                    backgroundColor: '#80808017',
+                    margin: '1rem',
                     borderRadius: '10px',
-                    paddingBottom: '2rem', 
+                    paddingBottom: '2rem',
                 }}>
                     <form onSubmit={submitAssignment}>
                         <Grid2 container spacing={2}>
@@ -151,8 +155,8 @@ function CreateAssignment() {
                                         fontWeight: 'bold',
                                         marginBottom: 0,
                                         fontSize: '22px'
-                                    }}              
-                                    onClick={populateAssignment}                      
+                                    }}
+                                    onClick={populateAssignment}
                                 >
                                     Assignment Name
                                 </InputLabel>
@@ -192,7 +196,7 @@ function CreateAssignment() {
                                     color='primary'
                                 />
                             </Grid2>
-                        </Grid2>                        
+                        </Grid2>
                         <Grid2 container spacing={2}>
                             <Grid2 item sm={1}></Grid2>
                             <Grid2 item sm={10}>
@@ -209,7 +213,7 @@ function CreateAssignment() {
                                             ['video'],
                                             ['image'],
                                             ['link']
-                                        ],                                        
+                                        ],
                                         videoHeightShow: false,
                                         videoWidthShow: false,
                                         videoFileInput: false,
@@ -218,12 +222,12 @@ function CreateAssignment() {
                                         videoWidth: "603px",
                                         videoHeight: "339px",
                                     }}
-                                    onImageUploadBefore={handleImageUploadBefore}                                
+                                    onImageUploadBefore={handleImageUploadBefore}
                                 />
                             </Grid2>
                             <Grid2 item sm={1}></Grid2>
                         </Grid2>
-                        <Grid2 container sx={{textAlign: 'center', alignContent: 'top'}} spacing={2}>
+                        <Grid2 container sx={{ textAlign: 'center', alignContent: 'top' }} spacing={2}>
                             <Grid2 item sm={2}></Grid2>
                             <Grid2 item sm={4}>
                                 <FormControl>
@@ -286,13 +290,13 @@ function CreateAssignment() {
                             </Grid2>
                             <Grid2 item sm={2}></Grid2>
                         </Grid2>
-                        <Grid2 container sx={{ textAlign: 'right'}} spacing={2}>
+                        <Grid2 container sx={{ textAlign: 'right' }} spacing={2}>
                             <Grid2 item sm={1}></Grid2>
                             <Grid2 item sm={10}>
-                                <Button 
-                                    sx={{marginTop:'1rem'}}
-                                    size='large' 
-                                    type="submit" 
+                                <Button
+                                    sx={{ marginTop: '1rem' }}
+                                    size='large'
+                                    type="submit"
                                     variant="contained"
                                 >
                                     <Typography variant="body1">Create Assignment</Typography>

@@ -7,12 +7,12 @@ import { Markup } from 'interweave';
 //sweet alert import
 const Swal = require('sweetalert2')
 
-function AssignmentDetails () {
+function AssignmentDetails() {
 
     //import dispatch, history, params
     const history = useHistory();
     const dispatch = useDispatch();
-    const params=useParams();
+    const params = useParams();
 
     //get selected assignment for the render
     //import user
@@ -20,7 +20,7 @@ function AssignmentDetails () {
     const assignment = useSelector(store => store.assignments.selectedAssignmentReducer);
     //user's submissions to check if assignments are
     const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
-    const singleSubmission= useSelector(store => store.submissions.singleSubmissionReducer);
+    const singleSubmission = useSelector(store => store.submissions.singleSubmissionReducer);
 
     const parse = require('html-react-parser');
 
@@ -30,7 +30,7 @@ function AssignmentDetails () {
     // const [textSubmission, setTextSubmission] = useState(null);
 
     //check if this assignment has been submitted already by the logged in user and then get fields to populate
-   
+
 
     //useEffect for getting assignment by id
     useEffect(() => {
@@ -45,14 +45,14 @@ function AssignmentDetails () {
             payload: user.id,
         });
         //check if user has completed this assignment and set it to redux
-        
-            dispatch({
-                type: 'FETCH_SINGLE_SUBMISSION',
-                payload: params.id
-            });
-            
-        
-    },[params.id]);
+
+        dispatch({
+            type: 'FETCH_SINGLE_SUBMISSION',
+            payload: params.id
+        });
+
+
+    }, [params.id]);
 
     //handle file submission
     const handleSubmission = (evt) => {
@@ -61,24 +61,27 @@ function AssignmentDetails () {
         // console.log('video file', videoSubmission);
         // console.log('text file', textSubmission);
         //dispatch to SAGA for post to server
-    
-            dispatch({
+
+        dispatch({
             type: 'CREATE_SUBMISSION',   //add in the assignment id if this is a new submission
-            payload: {...singleSubmission, assignmentId: assignment.id}
+            payload: { ...singleSubmission, assignmentId: assignment.id }
         });
 
         //confirm assignment is completed
-        Swal.fire('Assignment Completed!')
-        .then((result) => {
-            history.push(`/studentportal/modules/${assignment.seriesId}`);
-          })   
+        Swal.fire({
+            title: 'Assignment Completed!',
+            confirmButtonColor: '#f96b61'
+        })
+            .then((result) => {
+                history.push(`/studentportal/modules/${assignment.seriesId}`);
+            })
     }
 
     const deleteLesson = () => {
 
         //sweet alert for delete confirmation
         Swal.fire({
-            title: 'Are you sure you want to delete this post?',
+            title: 'Are you sure you want to delete this lesson?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             iconColor: 'red',
@@ -88,26 +91,28 @@ function AssignmentDetails () {
             cancelButtonText: 'No, cancel!',
             reverseButtons: true
         }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-            'Deleted!',
-            'Assignment has been deleted.'
-            )
-            //dispatch delete request to saga
-            dispatch({
-                type: 'DELETE_ASSIGNMENT',
-                payload: params.id,
-            });
-            //after delete head home
-            history.push(`/admin/modules/${assignment.seriesId}`)
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            Swal.fire(
-            'Cancelled'
-            )
-        }
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Assignment has been deleted.',
+                    confirmButtonColor: '#f96b61'
+                })
+                //dispatch delete request to saga
+                dispatch({
+                    type: 'DELETE_ASSIGNMENT',
+                    payload: params.id,
+                });
+                //after delete head home
+                history.push(`/admin/modules/${assignment.seriesId}`)
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                Swal.fire({
+                    title: 'Cancelled',
+                    confirmButtonColor: '#f96b61'
+                })
+            }
         })
 
         // history.push('')
@@ -121,21 +126,21 @@ function AssignmentDetails () {
 
     //populate Fields if assignment is complete
 
-    
-   
-    
+
+
+
 
     //if there is no assignment at the url with this id return 404
-    if(!assignment.name){
+    if (!assignment.name) {
         return <h1>404</h1>
     }
     // 
 
-    return(
+    return (
         <>
             <header>
                 <h3 className="assignmentTitle">{assignment.name}</h3>
-                {user.accessLevel === 2 ? 
+                {user.accessLevel === 2 ?
                     <>
                         <button onClick={editLesson}>Edit</button>
                         <button onClick={deleteLesson}>Delete</button>
@@ -143,25 +148,25 @@ function AssignmentDetails () {
                     :
                     null
                 }
-                <button onClick={()=>history.goBack()}>Go Back</button>
+                <button onClick={() => history.goBack()}>Go Back</button>
             </header>
-                
+
             {
                 // check if their is a video url included
                 //TODO: fix db query bug where null is sent as string
                 //although this fix works for now, it is a hard coded fix
-            typeof assignment.media==='string' && assignment.media !== 'null' ? 
-            <video width="640" height="480" controls src={assignment.media}></video>
-            :
-            null
+                typeof assignment.media === 'string' && assignment.media !== 'null' ?
+                    <video width="640" height="480" controls src={assignment.media}></video>
+                    :
+                    null
             }
-                {/* TODO REPLACE!!!! */}
-                {/* <div dangerouslySetInnerHTML={{__html: assignment.content}}/> */}
-                {parse(assignment.content)}
+            {/* TODO REPLACE!!!! */}
+            {/* <div dangerouslySetInnerHTML={{__html: assignment.content}}/> */}
+            {parse(assignment.content)}
             {/* <Markup content={assignment.content}/> */}
             <form onSubmit={handleSubmission}>
                 {  //is there a text submission requirement for the student?
-                    assignment.textField  && user.accessLevel !== 2  ? 
+                    assignment.textField && user.accessLevel !== 2 ?
                         <div>
                             <textarea
                                 id='textSubmission'
@@ -170,8 +175,8 @@ function AssignmentDetails () {
                                 // value={story} 
                                 // // update local state
                                 //If text submission is null have it be an empty string, otherwise = value
-                                value={singleSubmission.textInput ? singleSubmission.textInput: ''}
-                                onChange = {(evt)=>{
+                                value={singleSubmission.textInput ? singleSubmission.textInput : ''}
+                                onChange={(evt) => {
                                     dispatch({
                                         type: 'UPDATE_SINGLE_SUBMISSION',
                                         payload: { textInput: evt.target.value }
@@ -179,20 +184,20 @@ function AssignmentDetails () {
                                 }}
                             />
                         </div>
-                    :
-                    null
+                        :
+                        null
                 }
                 {   //is there a file submission requirement for the student?
-                    assignment.file  && user.accessLevel !== 2 ? 
+                    assignment.file && user.accessLevel !== 2 ?
                         <div>
                             <label>Upload PDF Here</label>
-                            <input 
+                            <input
                                 required
                                 title=' '
-                                type='file' 
-                                name="fileSubmission"                         
+                                type='file'
+                                name="fileSubmission"
                                 accept='.pdf'
-                                onChange = {(evt)=>{
+                                onChange={(evt) => {
                                     dispatch({
                                         type: 'UPDATE_SINGLE_SUBMISSION',
                                         payload: { file: evt.target.files[0] }
@@ -200,20 +205,20 @@ function AssignmentDetails () {
                                 }}
                             />
                         </div>
-                    :
-                    null
+                        :
+                        null
                 }
                 { //is there a video upload requirement for the student?
                     assignment.video && user.accessLevel !== 2 ?
                         <div>
                             <label> Upload Video Here</label>
-                            <input 
+                            <input
                                 type='url'
                                 placeholder="Include https://"
                                 required   //dont cause 'cant be null error' 
-                                            // if video submission != null set val, else set as empty string
-                                value={singleSubmission.video ? singleSubmission.video : ''}  
-                                onChange = {(evt)=>{
+                                // if video submission != null set val, else set as empty string
+                                value={singleSubmission.video ? singleSubmission.video : ''}
+                                onChange={(evt) => {
                                     dispatch({
                                         type: 'UPDATE_SINGLE_SUBMISSION',
                                         payload: { video: evt.target.value }
@@ -221,25 +226,25 @@ function AssignmentDetails () {
                                 }}
                             />
                         </div>
-                    :
-                    null
+                        :
+                        null
                 }
 
-                { 
-                // if the user is a student and there is a submission requirement show submit button
-                user.accessLevel===1 && assignment.video || assignment.file || assignment.textField ? 
-                <button type="submit">Submit</button>
-                :
-                // if user is admin include no button
-                user.accessLevel===2 ?
-                null
-                :
-                //if user is a student and their are no submissions required show mark complete button            
-                <button type="submit">Mark Complete</button>
+                {
+                    // if the user is a student and there is a submission requirement show submit button
+                    user.accessLevel === 1 && assignment.video || assignment.file || assignment.textField ?
+                        <button type="submit">Submit</button>
+                        :
+                        // if user is admin include no button
+                        user.accessLevel === 2 ?
+                            null
+                            :
+                            //if user is a student and their are no submissions required show mark complete button            
+                            <button type="submit">Mark Complete</button>
                 }
             </form>
-            
-        </>            
+
+        </>
     )
 }
 
@@ -262,4 +267,3 @@ export default AssignmentDetails;
 
 
 
-        

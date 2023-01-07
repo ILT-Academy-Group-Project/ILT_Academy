@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import { useHistory, } from 'react-router-dom';
 import { ThemeProvider } from '@mui/system';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -35,14 +36,17 @@ function OrientationStep() {
             // payload: user.oriented
         })
 
-        if(orientation.id){{
-            user.accessLevel === 2 ? history.push('/home')
-                : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null}}
+        if (orientation.id) {
+            {
+                user.accessLevel === 2 ? history.push('/home')
+                    : user.oriented === orientation.length ? history.push('/hipster/hacker/hustler') : null
+            }
+        }
 
     }, []);
 
 
-    {user.accessLevel === 2 ? history.push('/home'): null}
+    { user.accessLevel === 2 ? history.push('/home') : null }
 
 
     const totalSteps = () => {
@@ -118,6 +122,11 @@ function OrientationStep() {
     return (
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
+                <Box sx={{ mt: -2.5 }} backgroundColor="primary.main">
+                    <Typography variant='h1' textAlign='center'>
+                        Welcome to Orientation!
+                    </Typography>
+                </Box>
                 <Box sx={{ width: '100%' }}>
                     {/* <Box sx={{ width: '100%', padding: 2, backgroundColor: 'secondary.main' }}> */}
                     <Stepper nonLinear activeStep={activeStep}>
@@ -156,42 +165,46 @@ function OrientationStep() {
                                     {/* </Box> */}
 
                                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-
-                                        <Button
-                                            color="primary"
-                                            disabled={activeStep === 0}
-                                            onClick={handleBack}
-                                            sx={{ ml: 2 }}
-                                            variant='contained'
-                                        >
-                                            Back
-                                        </Button>
-                                        <Box />
-                                        <Button
-                                            color="primary"
-                                            onClick={handleNext}
-                                            sx={{ mr: 1, ml: 2 }}
-                                            variant='contained'
-                                        >
-                                            Next
-                                        </Button>
-                                        {activeStep !== orientation.length &&
-                                            (completed[activeStep] ? (
-                                                <Typography variant="caption" color="secondary" sx={{ display: 'inline-block' }}>
-                                                    Step {activeStep + 1} already completed
-                                                </Typography>
-                                            ) : (
+                                        <Grid2 container>
+                                            <Button
+                                                color="primary"
+                                                disabled={activeStep === 0}
+                                                onClick={handleBack}
+                                                sx={{ ml: 8 }}
+                                                variant='contained'
+                                            >
+                                                Back
+                                            </Button>
+                                            <Box />
+                                            
                                                 <Button
+                                                    color="primary"
+                                                    onClick={handleNext}
+                                                    sx={{ mr: 1, ml: 2 }}
                                                     variant='contained'
-                                                    sx={{ml: '74%'}}
-                                                    onClick={handleComplete} disabled={user.oriented != activeStep} >
-
-                                                    {completedSteps() === totalSteps() - 1
-                                                        ? 'Finish'
-                                                        : 'Complete Step'}
-
+                                                >
+                                                    Next
                                                 </Button>
-                                            ))}
+                                                <Grid2 justifyItems='right' textAlign='right' alignContent='right'>
+                                                {activeStep !== orientation.length &&
+                                                    (completed[activeStep] ? (
+                                                        <Typography variant="caption" color="secondary" sx={{ display: 'inline-block' }}>
+                                                            Step {activeStep + 1} already completed
+                                                        </Typography>
+                                                    ) : (
+                                                        <Button
+                                                            variant='contained'
+                                                            sx={{ ml: '69%' }}
+                                                            onClick={handleComplete} disabled={user.oriented != activeStep} >
+
+                                                            {completedSteps() === totalSteps() - 1
+                                                                ? 'Finish'
+                                                                : 'Complete Step'}
+
+                                                        </Button>
+                                                    ))}
+                                            </Grid2>
+                                        </Grid2>
                                     </Box>
                                 </>
                             )}

@@ -120,7 +120,7 @@ function* fetchEditAssignment(action) {
         //get selectedAssignment from server
         const editAssignment = yield axios.get(`/api/assignments/${action.payload}`);
 
-        console.log('in fetchEditAssignments with response of:', editAssignment.data);
+        // console.log('in fetchEditAssignments with response of:', editAssignment.data);
 
         //send results to redux store
         yield put({

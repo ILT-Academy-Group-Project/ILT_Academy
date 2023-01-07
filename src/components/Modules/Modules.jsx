@@ -144,9 +144,11 @@ function Modules() {
             reverseButtons: true
         }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(            
-            'The Module has been deleted!'
-            )
+            Swal.fire({
+                title: 'Deleted!',
+                text: 'Module has been deleted.',
+                confirmButtonColor: '#f96b61'
+            })
             //dispatch delete request to saga
             dispatch({
                 type:'DELETE_MODULE',
@@ -161,9 +163,10 @@ function Modules() {
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
         ) {
-            Swal.fire(
-            'Cancelled'
-            )
+            Swal.fire({
+                title: 'Cancelled',
+                confirmButtonColor: '#f96b61'
+            })
         }
         })
         

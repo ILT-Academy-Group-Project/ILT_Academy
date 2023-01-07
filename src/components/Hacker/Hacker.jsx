@@ -51,7 +51,7 @@ function Hacker() {
         // console.log('value', value)
         return `${value}`;
     }
-    const populateName = () =>{
+    const populateName = () => {
 
         setFirstName('Johnathan');
         setLastName('French');
@@ -126,7 +126,10 @@ function Hacker() {
             }
         })
         //push to modules view
-        Swal.fire('Success!')
+        Swal.fire({
+            title: 'Success!',
+            confirmButtonColor: '#f96b61'
+        })
             .then((result) => {
                 history.go(0);
             })
@@ -139,14 +142,14 @@ function Hacker() {
             <ThemeProvider theme={PrimaryMainTheme}>
                 {/* <HHHimage /> */}
 
-                <Box display="flex"
+                <Box marginTop={3} marginBottom={-2} display="flex"
                     justifyContent="center">
                     <img margin={2} src='/images/hipster.png'></img>
                     <img margin={2} src='/images/hacker.png'></img>
                     <img margin={2} src='/images/hustler.png'></img>
                 </Box>
 
-                <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 4 }} borderRadius={2}>
+                <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 8 }} borderRadius={2}>
                     <Typography margin={2} color='primary.light' variant='h2'>
                         Step 01: Understanding the founder skills you enjoy
                     </Typography>
@@ -259,7 +262,7 @@ function Hacker() {
                     </Box>
                 </Box>
 
-                <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 4 }} borderRadius={2}>
+                <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 8 }} borderRadius={2}>
                     <Typography margin={2} color='primary.light' variant='h2'>
                         Step 02: Unpacking your founder skill level
                     </Typography>
@@ -371,8 +374,10 @@ function Hacker() {
                     </Box>
                 </Box>
 
-                <Box backgroundColor='secondary.light' sx={{ margin: 4, padding: 2 }} borderRadius={2}>
+
+                <Box backgroundColor='secondary.light' sx={{ margin: 8, padding: 2 }} borderRadius={2}>
                     <Typography color='primary.light' margin={2} variant='h2' onClick={populateName}>Please enter your name and email.</Typography>
+
                     <Box sx={{ margin: 2, padding: 2 }} backgroundColor='secondary.main' display='flex' justifyContent="center" borderRadius={2}>
                         <TextField
                             required
@@ -380,7 +385,7 @@ function Hacker() {
                             label="First Name"
                             value={firstName}
                             sx={{
-                                width: 284, "& .MuiFormLabel-root": {
+                                width: 380, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
                                 },
                                 "& .MuiFormLabel-root.Mui-focused": {
@@ -398,7 +403,7 @@ function Hacker() {
                             label="Last Name"
                             value={lastName}
                             sx={{
-                                margin: 'auto', width: 284, "& .MuiFormLabel-root": {
+                                margin: 'auto', width: 380, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
                                 },
                                 "& .MuiFormLabel-root.Mui-focused": {
@@ -416,7 +421,7 @@ function Hacker() {
                             label="Email"
                             value={email}
                             sx={{
-                                width: 284, "& .MuiFormLabel-root": {
+                                width: 380, "& .MuiFormLabel-root": {
                                     color: 'primary.main'
                                 },
                                 "& .MuiFormLabel-root.Mui-focused": {
@@ -431,7 +436,7 @@ function Hacker() {
                     </Box>
                 </Box>
 
-                <Box backgroundColor='secondary.light' sx={{ margin: 4, padding: 2 }} borderRadius={2}>
+                <Box backgroundColor='secondary.light' sx={{ margin: 8, padding: 2 }} borderRadius={2}>
                     <Typography color='primary.light' margin={2} variant='h2'>
                         Please tell us a little bit about yourself.
                     </Typography>
@@ -460,8 +465,8 @@ function Hacker() {
                         />
                     </Box>
                 </Box>
-                <Box sx={{ margin: 2}} display='flex' justifyContent="center" borderRadius={2}>
-                <Button variant='contained' onClick={submit}>Submit</Button>
+                <Box sx={{ margin: 2 }} display='flex' justifyContent="center" borderRadius={2}>
+                    <Button variant='contained' onClick={submit}>Submit</Button>
                 </Box>
             </ThemeProvider>
         </>
