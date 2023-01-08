@@ -1,8 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppBar, Box, Toolbar } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 import NavButton from './NavButton';
+import LinkText from './LinkText';
+
+//Mui
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+import { PrimaryMainTheme } from "../PrimaryMainTheme/PrimaryMainTheme";
+import {
+    Drawer,
+    ListItem,
+    ListItemText,
+    MenuList,
+    ThemeProvider
+} from '@mui/material';
 
 function Nav() {
     const user = useSelector((store) => store.user);
@@ -10,6 +32,12 @@ function Nav() {
     const orientationList = useSelector((store) => store.orientation.orientationReducer);
     const dispatch = useDispatch();
     // console.log('publishedSeries', publishedSeries, 'cohortId:', user);
+
+    //series     //app bar
+    const [seriesOpen, setSeriesOpen] = useState(false);
+    const [anchor, setAnchor] = useState(null);
+
+
 
     useEffect(() => {
         //get assigned series for the render;
@@ -25,64 +53,10 @@ function Nav() {
 
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="sticky" color="secondary">
-                <Toolbar>
-                    {/* if user isnt oriented yet redirect to orientation route */}
-                    {user.accessLevel === 1
-                        && user.oriented <= orientationList.length
-                        && user.hipsterInterest === 0
-                        && user.hipsterSkill === 0
-                        && user.hackerInterest === 0
-                        && user.hackerSkill === 0
-                        && user.hustlerInterest === 0
-                        && user.hustlerSkill === 0
-                        ?
-
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Link to="/user">
-                                <img
-                                    src="/images/logo.png"
-                                    height="70"
-                                    style={{ paddingTop: '3px' }}
-                                />
-                            </Link>
-                        </Box>
-
-                        :
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Link to="/home">
-                                <img
-                                    src="/images/logo.png"
-                                    height="70"
-                                    style={{ paddingTop: '3px' }}
-                                />
-                            </Link>
-                        </Box>
-
-                    }
-
-
-
-                    <Box>
-                        {/* If no user is logged in, show these links */}
-                        {!user.id && (
-                            // If there's no user, show login/registration links
-                            <Link to="/login" component={NavButton}>Login / Register</Link>
-                        )}
-
-                        {
-                            user.accessLevel === 1 ?
-                                publishedSeries.map((series, i) => {
-                                    return (
-                                        <Link key={i} to={`/studentportal/modules/${series.seriesId}`} component={NavButton}>{series.seriesName}</Link>
-                                    )
-                                })
-                                :
-                                null
-                        }
-
-                        {/* If a user is logged in, show these links */}
+        <ThemeProvider theme={PrimaryMainTheme}>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="sticky" color="secondary">
+                    <Toolbar>
                         {/* if user isnt oriented yet redirect to orientation route */}
                         {user.accessLevel === 1
                             && user.oriented <= orientationList.length
@@ -93,32 +67,110 @@ function Nav() {
                             && user.hustlerInterest === 0
                             && user.hustlerSkill === 0
                             ?
-                            <Link to="/user" component={NavButton}>
-                                Home
-                            </Link>
-                            :
-                            <Link to="/home" component={NavButton}>
-                                Home
-                            </Link>
-                        }
-
-                        {user.id && (
-                            <>
-                                <Link to="/info" component={NavButton}>
-                                    Info Page
+    
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Link to="/user">
+                                    <img
+                                        src="/images/logo.png"
+                                        height="70"
+                                        style={{ paddingTop: '3px' }}
+                                    />
                                 </Link>
-
-                                <NavButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</NavButton>
-                            </>
-                        )}
-
-                        <Link to="/about" component={NavButton}>
-                            About
-                        </Link>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-        </Box>
+                            </Box>
+    
+                            :
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Link to="/home">
+                                    <img
+                                        src="/images/logo.png"
+                                        height="70"
+                                        style={{ paddingTop: '3px' }}
+                                    />
+                                </Link>
+                            </Box>
+    
+                        }
+    
+    
+    
+                        <Box>
+                            {/* If no user is logged in, show these links */}
+                            {!user.id && (
+                                // If there's no user, show login/registration links
+                                <Link to="/login" component={NavButton}>Login / Register</Link>
+                            )}                        
+                                
+                            {/* {
+                                user.accessLevel === 1 ?
+                                    publishedSeries.map((series, i) => {
+                                        return (
+                                            <Link key={i} to={`/studentportal/modules/${series.seriesId}`} component={NavButton}>{series.seriesName}</Link>
+                                        )
+                                    })
+                                    :
+                                    null
+                            } */}
+    
+                            {/* If a user is logged in, show these links */}
+                            {/* if user isnt oriented yet redirect to orientation route */}
+                            {user.accessLevel === 1
+                                && user.oriented <= orientationList.length
+                                && user.hipsterInterest === 0
+                                && user.hipsterSkill === 0
+                                && user.hackerInterest === 0
+                                && user.hackerSkill === 0
+                                && user.hustlerInterest === 0
+                                && user.hustlerSkill === 0
+                                ?
+                                <Link to="/user" component={NavButton}>
+                                    Home
+                                </Link>
+                                :
+                                <Link to="/home" component={NavButton}>
+                                    Home
+                                </Link>
+                            }
+                            {  user.accessLevel === 1 ?
+                                    <>
+                                        <Link 
+                                        onClick={(evt => setAnchor(evt.currentTarget))}
+                                        component={NavButton}                                        
+                                        // sx={{fontFamily: 'circular-bold'}}
+                                    >
+                                        Lessons
+                                        </Link>
+                                    <Menu
+                                        open={Boolean(anchor)}
+                                        anchorEl={anchor}
+                                        onClose={()=>setAnchor(null)}
+                                        keepMounted
+                                        
+                                        
+                                    >
+                                        <MenuList >
+                                            <Typography sx={{color: 'primary.dark', fontFamily: 'circular-bold', textAlign:'center', fontSize: '20px'}}>Series</Typography>
+                                            {publishedSeries.map((series, i) => {
+                                                return (
+                                                    <MenuItem sx={{color: '#f96b61'}}><Link key={i} to={`/studentportal/modules/${series.seriesId}`} component={LinkText}>{series.seriesName}</Link></MenuItem>
+                                                )
+                                            })}
+                                        </MenuList>
+                                    </Menu>
+                                    </>
+                                :
+                                null
+                                }
+    
+                            {user.id && (
+                                <>
+                                    <NavButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</NavButton>
+                                </>
+                            )}
+                        </Box>
+                    </Toolbar>
+                </AppBar>
+            </Box >
+        </ThemeProvider>
     )
 }
 
