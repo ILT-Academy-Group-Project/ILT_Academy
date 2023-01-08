@@ -1,26 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import { ThemeProvider } from '@mui/system';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import Stack from '@mui/material/Stack';
 
-const Swal = require('sweetalert2');
+// const Swal = require('sweetalert2');
 
 function HHHimage() {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
     const params = useParams();
 

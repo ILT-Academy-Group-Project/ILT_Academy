@@ -4,17 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import { ThemeProvider } from '@mui/system';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
+import { Add } from '@mui/icons-material'
 
 
 
@@ -59,7 +55,7 @@ function Series() {
                         </Typography>
                         <Button
                             sx={{ minHeight: 100 }}
-                            color='primary'
+                            color='secondary'
                             fullWidth='true'
                             variant='contained'
                             onClick={() => history.push(`/admin/orientation/list`)}>
@@ -71,12 +67,15 @@ function Series() {
                         {series.map(serial => (
 
                             <Button
+                                key={serial.id}
                                 sx={{ minHeight: 100, fontSize: 60, mt: 2}}
-                                color='secondary'
+                                color='primary'
                                 fullWidth='true'
                                 variant='contained'
                                 onClick={() => history.push(`/admin/modules/${serial.id}`)}>
-                                    {serial.seriesName}
+                                    <Typography variant='h3' sx={{fontSize:60}}>
+                                        {serial.seriesName}
+                                    </Typography>
                             </ Button>
                         ))}
                         <Button
@@ -86,9 +85,10 @@ function Series() {
                             variant='outlined'
                             onClick={() => setOpen(true)}
                             >
+                            < Add />
                             <Typography
                             variant='h3'>
-                            + Add Series
+                             Add Series
                             </Typography>
                         </ Button>
                     </Grid2>
@@ -113,6 +113,6 @@ function Series() {
             </Modal>
         </>
     )
-};
+}
 
 export default Series;

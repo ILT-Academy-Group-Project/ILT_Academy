@@ -26,7 +26,7 @@ function Nav() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" color="secondary">
+            <AppBar position="sticky" color="secondary">
                 <Toolbar>
                     {/* if user isnt oriented yet redirect to orientation route */}
                     {user.accessLevel === 1
@@ -43,8 +43,8 @@ function Nav() {
                             <Link to="/user">
                                 <img
                                     src="/images/logo.png"
-                                    height="80"
-                                    style={{ paddingTop: '6px' }}
+                                    height="70"
+                                    style={{ paddingTop: '3px' }}
                                 />
                             </Link>
                         </Box>
@@ -54,8 +54,8 @@ function Nav() {
                             <Link to="/home">
                                 <img
                                     src="/images/logo.png"
-                                    height="80"
-                                    style={{ paddingTop: '6px' }}
+                                    height="70"
+                                    style={{ paddingTop: '3px' }}
                                 />
                             </Link>
                         </Box>
