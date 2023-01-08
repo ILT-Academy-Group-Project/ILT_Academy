@@ -114,10 +114,10 @@ function Nav() {
 
                         <Box>
                             {/* If no user is logged in, show these links */}
-                            {!user.id && (
+                            {/* {!user.id && (
                                 // If there's no user, show login/registration links
                                 <Link to="/login" component={NavButton}>Login / Register</Link>
-                            )}
+                            )} */}
 
                             {/* {
                                 user.accessLevel === 1 ?

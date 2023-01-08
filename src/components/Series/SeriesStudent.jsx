@@ -28,7 +28,12 @@ function SeriesStudent() {
                 
                     <Grid2 direction='column' sx={{paddingLeft:'0'}}>
 
-                        <Typography variant='h2'>My Curriculum</Typography>
+                        {
+                            series.length>0 ?
+                            <Typography variant='h2'>My Curriculum</Typography>
+                        :
+                            null    
+                        }
                         
                         {series.map(serial => (
 
