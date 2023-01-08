@@ -58,7 +58,7 @@ function Nav() {
     return (
         <ThemeProvider theme={PrimaryMainTheme}>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="sticky" color="secondary">
+                <AppBar position="sticky" color="secondary" position='fixed'>
                     <Toolbar>
                         {/* if user isnt oriented yet redirect to orientation route */}
                         {user.accessLevel === 1
@@ -70,7 +70,7 @@ function Nav() {
                             && user.hustlerInterest === 0
                             && user.hustlerSkill === 0
                             ?
-    
+
                             <Box sx={{ flexGrow: 1 }}>
                                 <Link to="/user">
                                     <img
@@ -78,14 +78,16 @@ function Nav() {
                                         height="70"
                                         style={{ paddingTop: '3px' }}
                                     />
-                                </Link>                                
+                                </Link>
                             </Box>
-    
+
                             :
-                            <Box sx={{ flexGrow: 1, display: 'inline-flex',
+                            <Box sx={{
+                                flexGrow: 1, display: 'inline-flex',
                                 flexDirection: 'row',
                                 alignContent: 'center',
-                                alignItems: 'center' }}>
+                                alignItems: 'center'
+                            }}>
                                 <Link to="/home">
                                     <img
                                         src="/images/logo.png"
@@ -93,28 +95,29 @@ function Nav() {
                                         style={{ paddingTop: '3px' }}
                                     />
                                 </Link>
-                                <Button
-                                sx={{paddingTop:'0px', paddingBottom: '0px', marginLeft: '10px'}}
-                                size="small"
-                        variant='contained'
-                        onClick={() => history.push(`/profile/${user.username}/${user.cohortId}`)}>
-                           <Person/>
-                           <Typography variant='body1'>My Profile
-                            </Typography>
-                        </Button>
+                                {user.accessLevel !== 2 && user.oriented === orientationList.length ?
+                                    <Button
+                                        sx={{ paddingTop: '0px', paddingBottom: '0px', marginLeft: '10px' }}
+                                        size="small"
+                                        variant='contained'
+                                        onClick={() => history.push(`/profile/${user.username}/${user.cohortId}`)}>
+                                    <Person />
+                                    <Typography variant='body1'>My Profile
+                                    </Typography>
+                                </Button> : null}
                             </Box>
-    
+
                         }
-    
-    
-    
+
+
+
                         <Box>
                             {/* If no user is logged in, show these links */}
                             {!user.id && (
                                 // If there's no user, show login/registration links
                                 <Link to="/login" component={NavButton}>Login / Register</Link>
-                            )}                        
-                                
+                            )}
+
                             {/* {
                                 user.accessLevel === 1 ?
                                     publishedSeries.map((series, i) => {
@@ -125,7 +128,7 @@ function Nav() {
                                     :
                                     null
                             } */}
-    
+
                             {/* If a user is logged in, show these links */}
                             {/* if user isnt oriented yet redirect to orientation route */}
                             {user.accessLevel === 1
@@ -145,65 +148,65 @@ function Nav() {
                                     Home
                                 </Link>
                             }
-                            {  user.accessLevel === 1 ?
-                                    <>
-                                        <Link 
+                            {user.accessLevel === 1 ?
+                                <>
+                                    <Link
                                         onClick={(evt => setAnchor(evt.currentTarget))}
-                                        component={NavButton}                                        
-                                        // sx={{fontFamily: 'circular-bold'}}
+                                        component={NavButton}
+                                    // sx={{fontFamily: 'circular-bold'}}
                                     >
                                         Lessons
-                                        </Link>
+                                    </Link>
                                     <Menu
                                         open={Boolean(anchor)}
                                         anchorEl={anchor}
-                                        onClose={()=>setAnchor(null)}
+                                        onClose={() => setAnchor(null)}
                                         keepMounted
-                                        
-                                        
+
+
                                     >
                                         <MenuList >
-                                            <Typography sx={{color: 'primary.dark', fontFamily: 'circular-bold', textAlign:'center', fontSize: '20px'}}>Series</Typography>
+                                            <Typography sx={{ color: 'primary.dark', fontFamily: 'circular-bold', textAlign: 'center', fontSize: '20px' }}>Series</Typography>
                                             {publishedSeries.map((series, i) => {
                                                 return (
-                                                    <MenuItem sx={{color: '#f96b61'}}><Link key={i} to={`/studentportal/modules/${series.seriesId}`} component={LinkText}>{series.seriesName}</Link></MenuItem>
+                                                    <MenuItem sx={{ color: '#f96b61' }}><Link key={i} to={`/studentportal/modules/${series.seriesId}`} component={LinkText}>{series.seriesName}</Link></MenuItem>
                                                 )
                                             })}
                                         </MenuList>
                                     </Menu>
-                                    </>
+                                </>
                                 :
                                 null
-                                }
-                            
+                            }
+
                             {/* Dead links for future development */}
 
                             <>
-                                        <Link 
-                                        onClick={(evt => setAppAnchor(evt.currentTarget))}
-                                        component={NavButton}                                        
-                                        // sx={{fontFamily: 'circular-bold'}}
-                                    >
-                                        Apps
-                                        </Link>
-                                    <Menu
-                                        open={Boolean(appAnchor)}
-                                        anchorEl={appAnchor}
-                                        onClose={()=>setAppAnchor(null)}
-                                        keepMounted
-                                        
-                                        
-                                    >
-                                        <MenuList >                                            
-                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Pathways</Link></MenuItem>
-                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Media</Link></MenuItem>
-                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Assessments</Link></MenuItem>
-                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Surveys</Link></MenuItem>
-                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Resources</Link></MenuItem>                                            
-                                        </MenuList>
-                                    </Menu>
-                                    </>
-    
+                                <Link
+                                    onClick={(evt => setAppAnchor(evt.currentTarget))}
+                                    component={NavButton}
+                                // sx={{fontFamily: 'circular-bold'}}
+                                >
+                                    Apps
+                                </Link>
+                                <Menu
+                                    open={Boolean(appAnchor)}
+                                    anchorEl={appAnchor}
+                                    onClose={() => setAppAnchor(null)}
+                                    keepMounted
+
+
+                                >
+                                    <MenuList >
+                                        <MenuItem sx={{ color: '#f96b61' }}><Link to='/' component={LinkText}>Pathways</Link></MenuItem>
+                                        <MenuItem sx={{ color: '#f96b61' }}><Link to='/' component={LinkText}>Media</Link></MenuItem>
+                                        <MenuItem sx={{ color: '#f96b61' }}><Link to='/' component={LinkText}>Assessments</Link></MenuItem>
+                                        <MenuItem sx={{ color: '#f96b61' }}><Link to='/' component={LinkText}>Surveys</Link></MenuItem>
+                                        <MenuItem sx={{ color: '#f96b61' }}><Link to='/' component={LinkText}>Resources</Link></MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            </>
+
                             {user.id && (
                                 <>
                                     <NavButton onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</NavButton>
