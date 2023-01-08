@@ -94,7 +94,8 @@ function Nav() {
                                         height="70"
                                         style={{ paddingTop: '3px' }}
                                     />
-                                </Link>
+                                </Link>   
+                                {/* Show user profile button if user is oriented and is also a student (not an admin) */}
                                 {user.accessLevel !== 2 && user.oriented === orientationList.length ?
                                     <Button
                                         sx={{ paddingTop: '0px', paddingBottom: '0px', marginLeft: '10px' }}
