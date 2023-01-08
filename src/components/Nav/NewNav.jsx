@@ -58,7 +58,7 @@ function Nav() {
     return (
         <ThemeProvider theme={PrimaryMainTheme}>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="sticky" color="secondary" position='fixed'>
+                <AppBar position="fixed" color="secondary" >
                     <Toolbar>
                         {/* if user isnt oriented yet redirect to orientation route */}
                         {user.accessLevel === 1
