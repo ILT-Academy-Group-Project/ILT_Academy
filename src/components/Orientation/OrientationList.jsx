@@ -117,7 +117,7 @@ function OrientationList() {
                 ))}
                 <Box display="flex"
                     justifyContent="center">
-                    <Button sx={{ m: 'auto', ml: '9.5vw', mt: '15vh', height: 100, width: 200 }} variant="contained" onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
+                    <Button sx={{ m: 'auto', ml: '9.5vw', mt: '17vh', height: 100, width: 200 }} variant="contained" onClick={() => history.push(`/admin/orientation/create`)}>Add Step</Button>
                 </Box>
             </Grid2>
         </ThemeProvider>

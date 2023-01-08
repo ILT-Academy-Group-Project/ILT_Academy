@@ -16,6 +16,7 @@ function HHHimage() {
 
     // const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
+    const student = useSelector(store => store.student);
     const params = useParams();
 
     // const hipsterInterest = user.hipsterInterest;
@@ -79,7 +80,7 @@ function HHHimage() {
 
                 {hipster > hacker && hipster > hustler ?
 
-                    <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                    <Card sx={{ maxWidth: 345, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                         <CardMedia
                             component="img"
                             // height="140"
@@ -90,7 +91,7 @@ function HHHimage() {
                             <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
                                 {user.firstName} &nbsp; {user.lastName}
                             </Typography>
-                            <Typography variant="body1" color="primary.light">
+                            <Typography variant="body1" color="secondary.contrastText">
                                 {hip.description}
                             </Typography>
                         </CardContent>
@@ -154,10 +155,11 @@ function HHHimage() {
 
                                     <CardContent>
                                         <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
-                                        {user.firstName} &nbsp; {user.lastName}
+                                        {student.firstName} &nbsp; {student.lastName}
                                         </Typography>
                                         <Typography variant="body2" color="primary.main">
                                             {hip.description}
+                                            <br></br>
                                             <br></br>
                                             {hack.description}
                                         </Typography>
@@ -188,6 +190,7 @@ function HHHimage() {
                                             <Typography variant="body2" color="primary.main">
                                                 {hack.description}
                                                 <br></br>
+                                                <br></br>
                                                 {hust.description}
                                             </Typography>
                                         </CardContent>
@@ -216,6 +219,7 @@ function HHHimage() {
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
                                                     {hust.description}
+                                                    <br></br>
                                                     <br></br>
                                                     {hip.description}
                                                 </Typography>
@@ -252,7 +256,9 @@ function HHHimage() {
                                                 <Typography variant="body2" color="primary.main">
                                                     {hip.description}
                                                     <br></br>
+                                                    <br></br>
                                                     {hack.description}
+                                                    <br></br>
                                                     <br></br>
                                                     {hust.description}
                                                 </Typography>
