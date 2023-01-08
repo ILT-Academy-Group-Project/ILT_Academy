@@ -67,11 +67,12 @@ Technologies used:
 - react-easy-crop
 - react-router-dom
 - react-dom
-- redux-lobber/redux-saga/redux/react-redux
+- redux-logger/redux-saga/redux/react-redux
 - sweetalert2
 - AWS S3
 - Google Calendar API
 - SunEditor (WYSIWIG)
+- Node.js
 
 ## Lessons learned
 
