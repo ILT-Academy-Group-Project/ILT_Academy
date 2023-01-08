@@ -8,7 +8,7 @@ const NavButton = React.forwardRef(({ children, ...props }, ref) => {
             {...props}
             color="inherit"
             sx={{
-                fontSize: '18px',
+                fontSize: '16px',
                 color: 'btnDark',
                 fontFamily: 'circular-bold'
             }}>{children}</Button>

@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Box, Toolbar } from '@mui/material';
 import NavButton from './NavButton';
 import LinkText from './LinkText';
-
+import { Person } from '@mui/icons-material';
+import { useHistory } from 'react-router-dom';
 //Mui
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
@@ -31,11 +32,13 @@ function Nav() {
     const publishedSeries = useSelector((store) => store.cohortSeries)
     const orientationList = useSelector((store) => store.orientation.orientationReducer);
     const dispatch = useDispatch();
+    const history = useHistory();
     // console.log('publishedSeries', publishedSeries, 'cohortId:', user);
 
     //series     //app bar
     const [seriesOpen, setSeriesOpen] = useState(false);
     const [anchor, setAnchor] = useState(null);
+    const [appAnchor, setAppAnchor] = useState(null);
 
 
 
@@ -75,11 +78,14 @@ function Nav() {
                                         height="70"
                                         style={{ paddingTop: '3px' }}
                                     />
-                                </Link>
+                                </Link>                                
                             </Box>
     
                             :
-                            <Box sx={{ flexGrow: 1 }}>
+                            <Box sx={{ flexGrow: 1, display: 'inline-flex',
+                                flexDirection: 'row',
+                                alignContent: 'center',
+                                alignItems: 'center' }}>
                                 <Link to="/home">
                                     <img
                                         src="/images/logo.png"
@@ -87,6 +93,15 @@ function Nav() {
                                         style={{ paddingTop: '3px' }}
                                     />
                                 </Link>
+                                <Button
+                                sx={{paddingTop:'0px', paddingBottom: '0px', marginLeft: '10px'}}
+                                size="small"
+                        variant='contained'
+                        onClick={() => history.push(`/profile/${user.username}/${user.cohortId}`)}>
+                           <Person/>
+                           <Typography variant='body1'>My Profile
+                            </Typography>
+                        </Button>
                             </Box>
     
                         }
@@ -160,6 +175,34 @@ function Nav() {
                                 :
                                 null
                                 }
+                            
+                            {/* Dead links for future development */}
+
+                            <>
+                                        <Link 
+                                        onClick={(evt => setAppAnchor(evt.currentTarget))}
+                                        component={NavButton}                                        
+                                        // sx={{fontFamily: 'circular-bold'}}
+                                    >
+                                        Apps
+                                        </Link>
+                                    <Menu
+                                        open={Boolean(appAnchor)}
+                                        anchorEl={appAnchor}
+                                        onClose={()=>setAppAnchor(null)}
+                                        keepMounted
+                                        
+                                        
+                                    >
+                                        <MenuList >                                            
+                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Pathways</Link></MenuItem>
+                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Media</Link></MenuItem>
+                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Assessments</Link></MenuItem>
+                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Surveys</Link></MenuItem>
+                                            <MenuItem sx={{color: '#f96b61'}}><Link to='/' component={LinkText}>Resources</Link></MenuItem>                                            
+                                        </MenuList>
+                                    </Menu>
+                                    </>
     
                             {user.id && (
                                 <>

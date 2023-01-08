@@ -239,6 +239,7 @@ function AssignmentDetails() {
                         user.accessLevel === 2 ?
                             null
                             :
+                            
                             //if user is a student and their are no submissions required show mark complete button            
                             <button type="submit">Mark Complete</button>
                 }

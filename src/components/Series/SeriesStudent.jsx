@@ -26,7 +26,7 @@ function SeriesStudent() {
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
                 
-                    <Grid2 direction='column'>
+                    <Grid2 direction='column' sx={{paddingLeft:'0'}}>
 
                         <Typography variant='h2'>My Curriculum</Typography>
                         

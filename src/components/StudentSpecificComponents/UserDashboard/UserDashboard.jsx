@@ -90,7 +90,7 @@ function UserDashboard(){
                     </Box>
                 </Grid2>
             <Grid2 item xs={4} >
-                <Box sx={{ minWidth: 200,  pt:3, ml:0, display: 'flex' }}>
+                {/* <Box sx={{ minWidth: 200,  pt:3, ml:0, display: 'flex' }}>
                         <Button
                         variant='contained'
                         onClick={() => history.push(`/profile/${username}/${cohortId}`)}>
@@ -98,15 +98,17 @@ function UserDashboard(){
                            <Typography variant='body1'>My Profile
                             </Typography>
                         </Button>
-                    </Box>
-                <Box sx={{mt:6}}>
+                    </Box> */}
+                <Box sx={{textAlign: 'left', mt:6}}>
+                    <SeriesStudent />
+                    <Typography variant='h2'>My Links</Typography>
                     <Button 
                     sx={{ minHeight: 100, minWidth:350, mt: 2, }}
                     variant='contained' 
                     color='btnLight'
                     onClick={()=> {
                         window.location.href = "https://gather.town/app/QUkwAkENtpBq8fvW/ILTAcademy"
-                    }}>
+                    }}>                
                         <Typography
                         color='tertiary.main'
                         variant='h3'>Live Virtual Academy
@@ -136,7 +138,6 @@ function UserDashboard(){
                         variant='h3'>Slack
                         </Typography> 
                     </Button>
-                    <SeriesStudent />
                 </Box>
 
             </Grid2>
