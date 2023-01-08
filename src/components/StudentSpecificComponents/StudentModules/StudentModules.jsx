@@ -211,8 +211,10 @@ function StudentModules (){
                                                 return (
                                                     <StyledTableRow key={i}
                                                         >
-                                                        <StyledTableCell>
-                                                            {submissions.some(sub => sub.assignmentId === assignment.id) ? <p>Completed</p> : null}
+                                                        <StyledTableCell align='center'>
+                                                            {submissions.some(sub => sub.assignmentId === assignment.id) ? 
+                                                            <Typography variant='body1' color='secondary.light'> ✅ SUBMITTED</Typography>
+                                                             : null}
                                                         </StyledTableCell>
                                                          <StyledTableCell align="center">
                                                             <Button
