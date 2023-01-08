@@ -1,121 +1,101 @@
+# ILT Academy
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+## Description
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+Duration: 2 Week Sprint
 
-## Use the Template for This Repository (Don't Clone)
+This project is the initial development of a locally hosted learning management system at an entrepeneurial startup called ILT Academy. It is intended to be the first in a series of technologies to migrate current systems from 3rd party apps to ILT's website. The current application is built to replace Canvas as a learning management system. There are two roles, student (user) and teacher(admin). The administrator/teacher can create curriculum, view student submissions, edit the orientation for students during onboarding, and manage classes of students(cohorts). The student can view curriculum, school announcements, school events. Upon completion of lessons students can submit assignments and if they want to make a change to their submission they can resubmit their assignment.
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+## Screen Shot
 
+- Orientation
+![Orientation](./public/images/Orientation.png)
 
-## Prerequisites
+-Student Dashboard
+![StudentDashboard](./public/images/StudentDashboard.png)
 
-Before you get started, make sure you have the following software installed on your computer:
+-Lesson Creation
+![CreateLesson](./public/images/CreateLesson.png)
+
+### Prerequisites
+
+What things you need to install the software and how to install them
 
 - [Node.js](https://nodejs.org/en/)
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
-## Create database and table
+### Installing
 
-Create a new database called `prime_app` and create a `user` table:
+To run this application on your computer follow these steps:
+1) Clone this repository and run 'npm install'
+2) Create a database titled 'ilt_academy'
+3) Run the sql query located in 'database.sql'
+4) Create a .env File with the following values
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+SERVER_SESSION_SECRET = 'random string'
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+### Google API Information and Google Calendar ID 
+- GOOGLE_PROJECT_NUMBER
+- GOOGLE_CALENDAR_ID
+- GOOGLE_PRIVATE_KEY
+- GOOGLE_CLIENT_EMAIL
+- GOOGLE_SCOPES
 
-## Development Setup Instructions
+### AWS S-3 Information
+- AWS_ACCESS_KEY
+- AWS_SECRET_KEY
+- AWS_BUCKET_NAME
+- AWS_BUCKET_REGION
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+5) Start the server using 'npm run server'
+6) Start the client using 'npm run client'
 
-## Debugging
+## Built With
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+Technologies used:
+- Material UI
+- Axios
+- date-fns
+- dotenv
+- express
+- form-data
+- moment.js
+- multer
+- passport
+- react
+- react-easy-crop
+- react-router-dom
+- react-dom
+- redux-lobber/redux-saga/redux/react-redux
+- sweetalert2
+- AWS S3
+- Google Calendar API
+- SunEditor (WYSIWIG)
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+## Lessons learned
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+- Reuse components and follow the Single Responsibility more than it currently is. Will make debugging, styling, and development more streamlined.
+- Use MUI Compenents from the start so replacing all typography, form inputs and logic is not necessary
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+### Future Development Goals
 
-## Testing Routes with Postman
+- Create a local community board to replace Slack
+- Build a virtual academy to replace Gather
+- Create a resources page where students and instructors can post articles, resources, and community information to provide founders with continuous improvement
+- Create a poster board to relace Mural
+- Refactor current Code
+- Build in due dates
+- Build in localized calendar that can link and share to google calendars\
+- Build mentorship program into the application
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
+## Acknowledgement
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+Thanks to Nick Tietz and [ILT Academy](https://iltacademy.io/), [Prime Digital Academy](www.primeacademy.io) where we were taught how to make this application a reality. Thank you to Edan Schwartz, our fearless instructor and advisor, our cohort mates who helped support us through this entire process, and finally, our families and friends. 
 
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
-
-After running the login route above, you can try any other route you've created that requires a logged in user!
-
-## Production Build
-
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
-
-## Lay of the Land
-
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
-
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
-
-Directory Structure:
-
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
-
-## Deployment
-
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
-
-## Update Documentation
-
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+## Support
+If you have suggestions or issues, please email us at 
+- jordan13wolter@gmail.com
+- samuel.v.phipps@gmail.com
+- lydiawildes1@gmail.com
+- jvillegas422@gmail.com
