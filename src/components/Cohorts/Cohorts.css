@@ -12,7 +12,7 @@
 }
 
 .MuiButton-root.Button {
-    margin: 0;
+    margin: auto 0;
     height: 100px;
     width: 295px;
 }
