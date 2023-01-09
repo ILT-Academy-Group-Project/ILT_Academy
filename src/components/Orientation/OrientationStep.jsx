@@ -31,6 +31,7 @@ function OrientationStep() {
 
     console.log(orientation)
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch({
             type: 'FETCH_ORIENTATION',
             // payload: user.oriented

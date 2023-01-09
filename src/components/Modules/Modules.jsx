@@ -97,15 +97,15 @@ function Modules() {
         dispatch({
             type: 'FETCH_MODULES',
             payload: params.seriesId
-        })
-
+        });
         dispatch({
             type: 'FETCH_ASSIGNMENTS'
-        })
+        });
         dispatch({
             type:'FETCH_SERIES',
             payload: params.seriesId
-        })
+        });
+        window.scrollTo(0, 0);
     }, [params.seriesId])
 
     const handleChange = (panel) => (event, isExpanded) => {

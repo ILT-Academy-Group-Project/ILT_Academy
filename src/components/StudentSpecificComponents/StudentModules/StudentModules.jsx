@@ -61,7 +61,6 @@ function StudentModules (){
     const postClass = assignments.filter(assignment => assignment.postClass === true);
 
     useEffect(() => {
-
         //get the modules assigned for this user
         dispatch({
             type:'FETCH_COHORT_MODULES',
@@ -69,19 +68,18 @@ function StudentModules (){
                 cohortId: user.cohortId,
                 seriesId: params.id
             }
-        })
-
+        });
         //get the list of assignments for this series in preparation for the render
         dispatch({
             type:'FETCH_SERIES_ASSIGNMENTS',
             payload: params.id
-        })
-
+        });
         //get the assignments that have been submitted for this user
         dispatch({
             type: 'FETCH_USER_SUBMISSIONS',
             payload: user.id,
         });
+        window.scrollTo(0, 0);
 
     },[params.cohortId])
 
