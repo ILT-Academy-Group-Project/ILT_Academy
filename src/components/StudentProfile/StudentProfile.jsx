@@ -139,10 +139,10 @@ function StudentProfile() {
         </Grid2>
       </Box>
       {user.id === 1 ?
-        <Button sx={{margin: 8, mt: 0}}
+        <Button variant="outlined" sx={{margin: 8, mt: 0}}
           onClick={() => history.push(`/admin/cohort/${cohortInfo.id}`)}>Back to Cohort</Button>
         :
-        <Button sx={{margin: 8, mt: 0}}
+        <Button variant="outlined" sx={{margin: 8, mt: 0}}
           onClick={() => history.push(`/studentportal`)}>Back to Dashboard</Button>
       }
 
