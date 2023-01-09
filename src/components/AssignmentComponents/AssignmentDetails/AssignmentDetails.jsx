@@ -181,8 +181,8 @@ function AssignmentDetails() {
                         </Box>
                     </Box>
                     {/* <Markup content={assignment.content}/> */}
-
-                    <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main', border: 2, borderColor: 'primary.main' }} borderRadius={2}>
+                    {/* if admin delete this box */}
+                    {user.accessLevel===2 ? null : <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main', border: 2, borderColor: 'primary.main' }} borderRadius={2}>
                         {/* <Box sx={{ padding: 2, backgroundColor: 'tertiary.main' }} borderRadius={2}> */}
                         <form onSubmit={handleSubmission}>
                             {  //is there a text submission requirement for the student?
@@ -298,19 +298,19 @@ function AssignmentDetails() {
                             }
 
                             {
+                                // if user is admin include no button
+                                user.accessLevel === 2 ?
+                                null
+                                :
                                 // if the user is a student and there is a submission requirement show submit button
                                 user.accessLevel === 1 && assignment.video || assignment.file || assignment.textField ?
                                     <Button sx={{ margin: 2}} variant="contained" type="submit">Submit</Button>
                                     :
-                                    // if user is admin include no button
-                                    user.accessLevel === 2 ?
-                                        null
-                                        :
                                         //if user is a student and their are no submissions required show mark complete button            
                                         <Button variant="contained" type="submit">Mark Complete</Button>
                             }
                         </form>
-                    </Box>
+                    </Box>}
                     {/* </Box> */}
                 </Box>
                 {user.accessLevel === 2 ?
