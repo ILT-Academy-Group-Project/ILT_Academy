@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+// import {  useParams } from 'react-router-dom';
 
 import Nav from '../Nav/NewNav';
 import Footer from '../Footer/Footer';
@@ -36,6 +37,7 @@ import StudentModules from '../StudentSpecificComponents/StudentModules/StudentM
 import ReSubmitAssignment from '../AssignmentComponents/ReSubmitAssignment/ReSubmitAssignment';
 import StudentProfile from '../StudentProfile/StudentProfile';
 import Hacker from '../Hacker/Hacker';
+import HHHimage from '../Hacker/HHHimage';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material';
@@ -45,6 +47,7 @@ import { Box } from '@mui/material';
 
 function App() {
     const dispatch = useDispatch();
+    // const params = useParams();
 
     const user = useSelector(store => store.user);
 
