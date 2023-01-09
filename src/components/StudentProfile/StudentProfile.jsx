@@ -113,7 +113,12 @@ function StudentProfile() {
         </Box>
         <Grid2 container>
           <Grid2 item xs={4} >
-            <HHHimage student={student}/>
+            {
+                student.id ?
+                    <HHHimage student={student}/>
+                :
+                null
+            }
           </Grid2>
 
           {/* student's assignments */}

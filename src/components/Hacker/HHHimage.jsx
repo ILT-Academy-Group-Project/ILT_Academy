@@ -23,6 +23,7 @@ function HHHimage({student}) {
     // const hipsterSkill = user.hipsterSkill;
     // const hackerSkill = user.hackerSkill;
     // const hustlerSkill = user.hustlerSkill;
+    
 
     const [hipster, setHipster] = useState(student.hipsterInterest + student.hipsterSkill);
     const [hacker, setHacker] = useState(student.hackerInterest + student.hackerSkill);
