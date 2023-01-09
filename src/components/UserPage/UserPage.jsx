@@ -1,19 +1,19 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
+// import { useEffect, useState } from 'react';
+// import { useHistory, useParams } from 'react-router-dom';
+// import Box from '@mui/material/Box';
+// import Stepper from '@mui/material/Stepper';
+// import Step from '@mui/material/Step';
+// import StepButton from '@mui/material/StepButton';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
 import OrientationStep from '../Orientation/OrientationStep';
-import HHHimage from '../Hacker/HHHimage';
+// import HHHimage from '../Hacker/HHHimage';
 
 function UserPage() {
 
-  const user = useSelector((store) => store.user);
+  // const user = useSelector((store) => store.user);
 
   
   

@@ -1,11 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { useHistory,} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -60,6 +56,9 @@ function Hacker() {
         setFirstName('Johnathan');
         setLastName('French');
         setEmail('Frenchie145@gmail.com');
+        setAbout(`I am an enthusiastic founder who loves to spend time outside.
+        My current project is focused on getting at risk youth outdoors 
+        with my new app "The Urge to Wander"`)
     }
     function setHipsterInterest(value) {
         // console.log('value', value)
@@ -128,7 +127,10 @@ function Hacker() {
             }
         })
         //push to modules view
-        Swal.fire('Success!')
+        Swal.fire({
+            title: 'Success!',
+            confirmButtonColor: '#f96b61'
+        })
             .then((result) => {
                 history.go(0);
             })
@@ -443,6 +445,7 @@ function Hacker() {
                         <TextField
                             id="outlined-multiline-flexible"
                             label="About Me"
+                            value={about}
                             color='primary'
                             multiline
                             maxRows={10}

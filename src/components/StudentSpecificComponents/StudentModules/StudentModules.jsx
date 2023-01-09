@@ -11,8 +11,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Assignment, AssignmentSharp } from '@mui/icons-material';
-
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -21,7 +19,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, FormControlLabel, Switch } from '@mui/material';
+import { Button, Box,  } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 function StudentModules (){
     //set up hooks
@@ -43,6 +42,17 @@ function StudentModules (){
     const user = useSelector((store) => store.user);
     //user's submissions to check if assignments are
     const submissions = useSelector(store => store.submissions.userSubmissionsReducer);
+    const series = useSelector(store => store.cohortSeries);
+
+     //Get current series
+     let currentSeries;
+     console.log('🍍 params is ', params.id)
+
+     series.map(series =>{
+         if(series.seriesId == params.id){
+             currentSeries = series.seriesName;
+         }
+     })
 
     // console.log('submissions', submissions);
 
@@ -51,24 +61,6 @@ function StudentModules (){
     const postClass = assignments.filter(assignment => assignment.postClass === true);
 
     useEffect(() => {
-        // dispatch({
-        //     type:'FETCH_COHORT_STUDENTS',
-        //     payload: params.cohortId
-        // })
-
-        // dispatch({
-        //     type: 'FETCH_COHORT_SERIES',
-        //     payload: params.cohortId
-        // });
-
-        // dispatch({
-        //     type: 'FETCH_SERIES'
-        // });
-
-        // dispatch({
-        //     type: 'FETCH_MODULES', 
-        //     payload: params.seriesId
-        // })
 
         //get the modules assigned for this user
         dispatch({
@@ -123,18 +115,35 @@ function StudentModules (){
     
     return (
         <>
+        <Box sx={{ flexGrow: 1, bgcolor:'secondary.light', pl:5, pr:5, pb: 20, pt:8, mb:-10,   }}>
+          <Button
+                onClick={()=> history.push(`/home`)}
+                variant='contained'>
+                <ArrowBack />
+                <Typography>
+                    Dashboard
+                </Typography>
+            </Button> 
+            <Typography
+                variant="h2"
+                color='primary'
+                gutterBottom>
+                Series {currentSeries}
+            </Typography>   
           {/* Map the modules user has access to */}
-          <h1></h1>
-        {cohortModules.map((publishedModule, i) =>{
-            return(               
-                 <Accordion key={i} expanded={expanded === `panel${publishedModule.id}`} onChange={handleChange(`panel${publishedModule.id}`)}>
+            {cohortModules.map((publishedModule, i) =>{
+            return(   
+                
+                  
+                 <Accordion key={i} >
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                         
                         >
-                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                        <Typography sx={{ width: '33%', flexShrink: 0 }}
+                        variant='h3'>
                             {publishedModule.moduleName}
                         </Typography>
                     </AccordionSummary>
@@ -143,16 +152,24 @@ function StudentModules (){
                                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                                     <TableHead>
                                         <TableRow>
-                                            <StyledTableCell align="center">Completed?</StyledTableCell>
-                                            <StyledTableCell align="center">Name</StyledTableCell>
-                                            <StyledTableCell align="center">Date Created</StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3'>Status</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3'>Assignment</Typography>
+                                            </StyledTableCell>
+                                            {/* <StyledTableCell align="center">
+                                            <Typography variant='h3'>Date Created</Typography>
+                                            </StyledTableCell> */}
                                             {/* <StyledTableCell align="center">Pre/Post Class</StyledTableCell> */}
                                             {/* <StyledTableCell align="center">Feedback</StyledTableCell> */}
                                         </TableRow>
                                     </TableHead>
                                      <TableBody>
                                         <TableRow>
-                                            <StyledTableCell align="center">PRE-CLASS</StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3' sx={{fontSize: 22}}>PRE-CLASS</Typography>
+                                            </StyledTableCell>
                                         </TableRow>
                                         {/* Display all pre-class assignments here */}
                                         {preClass.map((assignment, i) => {
@@ -160,24 +177,30 @@ function StudentModules (){
                                                 return (
                                                     <StyledTableRow key={i}
                                                         >                                                            
-                                                        <StyledTableCell>
-                                                        {submissions.some(sub => sub.assignmentId === assignment.id) ? <p>Completed</p> : null}
+                                                        <StyledTableCell align="center">
+                                                        {submissions.some(sub => sub.assignmentId === assignment.id) ? 
+                                                            <Typography variant='body1' color='secondary.light'> ✅ SUBMITTED</Typography>
+                                                             : null}
                                                         </StyledTableCell> 
                                                          <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            {assignment.name}
+                                                                 <Typography variant='body1' >
+                                                                    {assignment.name}
+                                                                </Typography>
                                                             </Button>                                                            
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
-                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.feedback}</StyledTableCell> */} 
                                                      </StyledTableRow>
                                                 )
                                             } 
                                         })}
                                         <TableRow>
-                                            <StyledTableCell align="center">POST-CLASS</StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Typography variant='h3' sx={{fontSize: 22}}>POST-CLASS</Typography>
+                                            </StyledTableCell>
                                         </TableRow>
                                         {/* display all postclass assignments here */}
                                         {postClass.map((assignment, i)  => {
@@ -188,18 +211,22 @@ function StudentModules (){
                                                 return (
                                                     <StyledTableRow key={i}
                                                         >
-                                                        <StyledTableCell>
-                                                            {submissions.some(sub => sub.assignmentId === assignment.id) ? <p>Completed</p> : null}
+                                                        <StyledTableCell align='center'>
+                                                            {submissions.some(sub => sub.assignmentId === assignment.id) ? 
+                                                            <Typography variant='body1' color='secondary.light'> ✅ SUBMITTED</Typography>
+                                                             : null}
                                                         </StyledTableCell>
                                                          <StyledTableCell align="center">
                                                             <Button
                                                                 onClick={()=>history.push(`/assignment/${assignment.id}`)}>
-                                                            {assignment.name}
+                                                                <Typography variant='body1' >
+                                                                    {assignment.name}
+                                                                </Typography>
                                                             </Button>
                                                         </StyledTableCell>
-                                                        <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.createdDate}</StyledTableCell> */}
                                                         {/* <StyledTableCell align="center">{pre}</StyledTableCell> */}
-                                                        <StyledTableCell align="center">{assignment.feedback}</StyledTableCell>
+                                                        {/* <StyledTableCell align="center">{assignment.feedback}</StyledTableCell> */}
                                                      </StyledTableRow>
                                                 )
                                             } 
@@ -208,11 +235,11 @@ function StudentModules (){
                                 </Table>
                             </TableContainer>
                         </AccordionDetails>
-
                  </Accordion>
+               
             )
         })}
-
+        </Box>  
         </>
     )
 }

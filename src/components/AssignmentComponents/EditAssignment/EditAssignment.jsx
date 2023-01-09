@@ -68,7 +68,11 @@ function EditAssignment() {
             payload: editAssignment
         });
 
-        Swal.fire('Success!')
+        Swal.fire({
+            title: 'Success!',
+            confirmButtonColor: '#f96b61'
+
+        })
             .then((result) => {
                 history.push(`/admin/modules/${editAssignment.seriesId}`);
             })
