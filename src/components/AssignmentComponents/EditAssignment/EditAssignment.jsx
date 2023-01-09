@@ -243,7 +243,7 @@ function EditAssignment() {
                                 <SunEditor
                                     onChange={handleChange}
                                     setOptions={{
-                                        height: 500,
+                                        height: 800,
                                         buttonList: [
                                             ['font', 'align'],
                                             ['fontSize'],
