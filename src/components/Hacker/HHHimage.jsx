@@ -12,11 +12,9 @@ import Stack from '@mui/material/Stack';
 
 // const Swal = require('sweetalert2');
 
-function HHHimage() {
+function HHHimage({student}) {
 
-    // const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
-    const student = useSelector(store => store.student);
+    // const dispatch = useDispatch();    
     const params = useParams();
 
     // const hipsterInterest = user.hipsterInterest;
@@ -26,9 +24,9 @@ function HHHimage() {
     // const hackerSkill = user.hackerSkill;
     // const hustlerSkill = user.hustlerSkill;
 
-    const [hipster, setHipster] = useState(user.hipsterInterest + user.hipsterSkill);
-    const [hacker, setHacker] = useState(user.hackerInterest + user.hackerSkill);
-    const [hustler, setHustler] = useState(user.hustlerInterest + user.hustlerSkill);
+    const [hipster, setHipster] = useState(student.hipsterInterest + student.hipsterSkill);
+    const [hacker, setHacker] = useState(student.hackerInterest + student.hackerSkill);
+    const [hustler, setHustler] = useState(student.hustlerInterest + student.hustlerSkill);
     const [imageHHH, setHHH] = useState(0);
 
     const hip = {
@@ -60,7 +58,7 @@ function HHHimage() {
         // })
         pickH();
 
-    }, [params]);
+    }, []);
 
     function pickH(){
 
@@ -89,7 +87,7 @@ function HHHimage() {
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
-                                {user.firstName} &nbsp; {user.lastName}
+                                {student.firstName} &nbsp; {student.lastName}
                             </Typography>
                             <Typography variant="body1" color="secondary.contrastText">
                                 {hip.description}
@@ -108,7 +106,7 @@ function HHHimage() {
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
-                                {user.firstName} &nbsp; {user.lastName}
+                                {student.firstName} &nbsp; {student.lastName}
                                 </Typography>
                                 <Typography variant="body2" color="primary.main">
                                     {hack.description}
@@ -127,7 +125,7 @@ function HHHimage() {
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
-                                    {user.firstName} &nbsp; {user.lastName}
+                                    {student.firstName} &nbsp; {student.lastName}
                                     </Typography>
                                     <Typography variant="body2" color="primary.main">
                                         {hust.description}
@@ -185,7 +183,7 @@ function HHHimage() {
                                         </Stack>
                                         <CardContent>
                                             <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
-                                            {user.firstName} &nbsp; {user.lastName}
+                                            {student.firstName} &nbsp; {student.lastName}
                                             </Typography>
                                             <Typography variant="body2" color="primary.main">
                                                 {hack.description}
@@ -215,7 +213,7 @@ function HHHimage() {
                                             </Stack>
                                             <CardContent>
                                                 <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
-                                                {user.firstName} &nbsp; {user.lastName}
+                                                {student.firstName} &nbsp; {student.lastName}
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
                                                     {hust.description}
@@ -251,7 +249,7 @@ function HHHimage() {
                                             </Stack>
                                             <CardContent>
                                                 <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center' }}>
-                                                {user.firstName} &nbsp; {user.lastName}
+                                                {student.firstName} &nbsp; {student.lastName}
                                                 </Typography>
                                                 <Typography variant="body2" color="primary.main">
                                                     {hip.description}
