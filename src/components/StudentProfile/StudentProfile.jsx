@@ -105,20 +105,29 @@ function StudentProfile() {
 
       
 
-      <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 8}} borderRadius={2}>
+      <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 8, mt: 18}} borderRadius={2}>
         <Box backgroundColor='secondary.main' sx={{ margin: 2, padding: 2 }} borderRadius={2}>
-          <Typography variant="h1" color='primary.main'>{student.firstName} {student.lastName}</Typography>
-          <Typography variant="h2" color='primary.light'>Cohort: {cohortInfo.cohortName}</Typography>
-          <Typography variant="body1" color='primary.contrastText'>{user.aboutMe}</Typography>
-        </Box>
-        <Grid2 container>
+          <Grid2 container>
+          <Grid2 item xs={8} >
+          <Typography textAlign='center' sx={{margin: 'auto'}} variant="h1" color='primary.main'>{student.firstName} {student.lastName}</Typography>
+          </Grid2>
           <Grid2 item xs={4} >
+          <Typography textAlign='center' sx={{margin: 2, mt: 5.8}} variant="h2" color='primary.light'>Cohort: {cohortInfo.cohortName}</Typography>
+          </Grid2>
+          <Grid2 item xs={12} >
+          <Typography sx={{margin: 4, mt: 2}} variant="body1" color='primary.contrastText'>{user.aboutMe}</Typography>
+          </Grid2>
+          <Grid2 item xs={12} margin='auto' >
             <HHHimage student={student}/>
           </Grid2>
+          </Grid2>
+        </Box>
+        <Grid2 container>
+          
 
           {/* student's assignments */}
-          <Grid2 item xs={8}>
-            <Box backgroundColor='secondary.contrastText' sx={{ height: 640, margin: 2, ml: -2, borderRadius: 1 }}>
+          <Grid2 item xs={12}>
+            <Box backgroundColor='secondary.contrastText' sx={{ height: 640, margin: 2, borderRadius: 1 }}>
               <DataGrid
                 sx={{
                   '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' }, //this adds padding to 'auto' height
