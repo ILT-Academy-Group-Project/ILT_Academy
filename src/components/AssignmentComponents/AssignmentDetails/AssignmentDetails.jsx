@@ -78,7 +78,12 @@ function AssignmentDetails() {
         });
 
         //confirm assignment is completed
-        Swal.fire('Assignment Completed!')
+
+        Swal.fire({
+            title: 'Assignment Completed!',
+            confirmButtonColor: '#f96b61'
+        })
+
             .then((result) => {
                 history.push(`/studentportal/modules/${assignment.seriesId}`);
             })
@@ -88,7 +93,7 @@ function AssignmentDetails() {
 
         //sweet alert for delete confirmation
         Swal.fire({
-            title: 'Are you sure you want to delete this post?',
+            title: 'Are you sure you want to delete this lesson?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             iconColor: 'red',
@@ -99,10 +104,13 @@ function AssignmentDetails() {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Deleted!',
-                    'Assignment has been deleted.'
-                )
+
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Assignment has been deleted.',
+                    confirmButtonColor: '#f96b61'
+                })
+
                 //dispatch delete request to saga
                 dispatch({
                     type: 'DELETE_ASSIGNMENT',
@@ -114,9 +122,12 @@ function AssignmentDetails() {
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                Swal.fire(
-                    'Cancelled'
-                )
+
+                Swal.fire({
+                    title: 'Cancelled',
+                    confirmButtonColor: '#f96b61'
+                })
+
             }
         })
 
@@ -143,6 +154,7 @@ function AssignmentDetails() {
 
     return (
         <>
+
             <ThemeProvider theme={PrimaryMainTheme}>
                 
                 <Box backgroundColor='secondary.light' sx={{ padding: 2, margin: 8, mb: 0}} borderRadius={2}>
@@ -308,9 +320,27 @@ function AssignmentDetails() {
                     </>
                     :
                     null
+
                 }
                 <Button variant="outlined" sx={{margin: 8}} onClick={() => history.goBack()}>Go Back</Button>
             </ThemeProvider>
+
+
+                {
+                    // if the user is a student and there is a submission requirement show submit button
+                    user.accessLevel === 1 && assignment.video || assignment.file || assignment.textField ?
+                        <button type="submit">Submit</button>
+                        :
+                        // if user is admin include no button
+                        user.accessLevel === 2 ?
+                            null
+                            :
+                            
+                            //if user is a student and their are no submissions required show mark complete button            
+                            <button type="submit">Mark Complete</button>
+                }
+            </form>
+
 
         </>
     )

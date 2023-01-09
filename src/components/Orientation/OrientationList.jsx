@@ -29,6 +29,10 @@ function OrientationList() {
 
     useEffect(() => {
         dispatch({
+            type: 'SET_EDIT_ORIENTATION',
+            payload:{},
+        })
+        dispatch({
             type: 'FETCH_ORIENTATION'
         });
     }, [params]);
@@ -49,10 +53,11 @@ function OrientationList() {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Deleted!',
-                    'Assignment has been deleted.'
-                )
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Assignment has been deleted.',
+                    confirmButtonColor:'#f96b61',
+                })
                 //dispatch delete request to saga
                 dispatch({
                     type: 'DELETE_ORIENTATION',
@@ -64,9 +69,10 @@ function OrientationList() {
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                Swal.fire(
-                    'Cancelled'
-                )
+                Swal.fire({
+                    title: 'Cancelled',
+                    confirmButtonColor: '#f96b61'
+                })
             }
 
         })

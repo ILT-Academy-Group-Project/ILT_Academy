@@ -1,30 +1,21 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import { ThemeProvider } from '@mui/system';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import './Cohorts.css';
 import { Input } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import CohortsItem from './CohortsItem';
+import { Add} from '@mui/icons-material'
 //sweet alerts import
-const Swal = require('sweetalert2')
-
-
 
 function Cohorts() {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const cohorts = useSelector(store => store.cohorts.cohortReducer);
     // FETCH cohorts
@@ -93,22 +84,24 @@ function Cohorts() {
                     <CohortsItem key={i} cohort={cohort}/>
                 )
             })}
-
-</Box>
-
-            {/* form section */}
-        <Grid2 item xs={6}>
-            <Button sx={{ maxWidth: 345, minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
+             <Button sx={{ maxWidth: 345, width: 250, mb:2 , minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
                 onClick={()=>setOpen(!open)}
                 color='primary'
                 // fullWidth='true'
                 variant='outlined'>
+                < Add />
                 <Typography
                 variant='h3'>
-                + Add Cohort
+                 Add Cohort
                 </Typography>
                 
-            </Button>               
+            </Button>  
+
+        </Box>
+
+            {/* form section */}
+        <Grid2 item xs={6}>
+                        
         </Grid2>
      
         {/* ADD COHORT MODAL */}
@@ -133,9 +126,8 @@ function Cohorts() {
                         />
                         <Button type='submit'
                         variant='outlined'>
-                            <Typography
-                            
-                            >
+                              < Add />
+                            <Typography>
                             Add Cohort
                             </Typography>  
                         </Button>

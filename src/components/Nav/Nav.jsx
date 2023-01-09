@@ -12,6 +12,10 @@ function Nav() {
     const dispatch = useDispatch();
     // console.log('publishedSeries', publishedSeries, 'cohortId:', user);
 
+
+
+
+
     useEffect(() => {
         //get assigned series for the render;
         dispatch({
@@ -27,20 +31,30 @@ function Nav() {
 
     return (
         <div className="nav">
+            <Button
+                onClick={() => setSeriesOpen(!seriesOpen)}
+                color='primary'
+            >
+                Series
+            </Button>
+            <Menu>
+                <MenuItem></MenuItem>
+            </Menu>
+
             {/* if user isnt oriented yet redirect to orientation route */}
-            {   user.accessLevel === 1
-                && user.oriented <= orientationList.length 
-                && user.hipsterInterest === 0 
-                && user.hipsterSkill === 0 
-                && user.hackerInterest === 0 
-                && user.hackerSkill === 0 
-                && user.hustlerInterest === 0 
+            {user.accessLevel === 1
+                && user.oriented <= orientationList.length
+                && user.hipsterInterest === 0
+                && user.hipsterSkill === 0
+                && user.hackerInterest === 0
+                && user.hackerSkill === 0
+                && user.hustlerInterest === 0
                 && user.hustlerSkill === 0
-            ? 
+                ?
                 <Link to="/user">
                     <h2 className="nav-title">Prime Solo Project</h2>
                 </Link>
-            :
+                :
                 <Link to="/home">
                     <h2 className="nav-title">Prime Solo Project</h2>
                 </Link>
@@ -67,19 +81,19 @@ function Nav() {
 
                 {/* If a user is logged in, show these links */}
                 {/* if user isnt oriented yet redirect to orientation route */}
-                {   user.accessLevel === 1
-                    && user.oriented <= orientationList.length 
-                    && user.hipsterInterest === 0 
-                    && user.hipsterSkill === 0 
-                    && user.hackerInterest === 0 
-                    && user.hackerSkill === 0 
-                    && user.hustlerInterest === 0 
-                    && user.hustlerSkill === 0 
-                ?
+                {user.accessLevel === 1
+                    && user.oriented <= orientationList.length
+                    && user.hipsterInterest === 0
+                    && user.hipsterSkill === 0
+                    && user.hackerInterest === 0
+                    && user.hackerSkill === 0
+                    && user.hustlerInterest === 0
+                    && user.hustlerSkill === 0
+                    ?
                     <Link className="navLink" to="/user">
                         Home
                     </Link>
-                :
+                    :
                     <Link className="navLink" to="/home">
                         Home
                     </Link>
@@ -87,10 +101,6 @@ function Nav() {
 
                 {user.id && (
                     <>
-                        <Link className="navLink" to="/info">
-                            Info Page
-                        </Link>
-
                         <LogOutButton className="navLink" />
                     </>
                 )}

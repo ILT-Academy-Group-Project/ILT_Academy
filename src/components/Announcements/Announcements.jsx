@@ -1,14 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import AnnouncementItems from './AnnouncementItems';
 import CreateAnnouncement from './CreateAnnouncement';
 import { PrimaryMainTheme } from '../PrimaryMainTheme/PrimaryMainTheme';
 import { ThemeProvider } from '@mui/system';
-import moment from "moment/moment";
-//sweet alert import
-const Swal = require('sweetalert2')
+
 
 //css
 import './announcements.css';
@@ -16,15 +13,7 @@ import './announcements.css';
 
 //MUI imports
 import {
-    TextareaAutosize,
-    Input,
-    Box,
-    InputLabel,
-    MenuItem,
-    FormControl,
-    Select,
-    Grid2,
-    Grid, 
+   
     Card,
     Typography
 } from '@mui/material'
