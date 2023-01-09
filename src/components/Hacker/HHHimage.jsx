@@ -53,6 +53,19 @@ function HHHimage({}) {
         imgalt: 'Hustler Icon'
     }
 
+    function pickH(){
+
+        hipster > hacker && hipster > hustler ? setHHH(1)
+            : hacker > hustler && hacker > hipster ? setHHH(2)
+                : hustler > hipster && hustler > hacker ? setHHH(3)
+                    : hipster === hacker && hipster > hustler ? setHHH(4)
+                        : hacker === hustler && hacker > hipster ? setHHH(5)
+                            : hustler === hipster && hustler > hacker ? setHHH(6) : setHHH(7)
+                            
+        console.log(imageHHH)
+        
+    }
+
     
 
     useEffect(() => {
@@ -62,25 +75,16 @@ function HHHimage({}) {
         dispatch({
             type: 'FETCH_STUDENT',
             payload: params.username
-          })
+          });
+          
         pickH();
 
         console.log('student', student)
 
-    }, [imageHHH]);
+    }, [hipster, hacker, hustler]);
 
-    function pickH(){
 
-        hipster > hacker && hipster > hustler ? setHHH(1)
-            : hacker > hustler && hacker > hipster ? setHHH(2)
-                : hustler > hipster && hustler > hacker ? setHHH(3)
-                    : hipster === hacker && hipster > hustler ? setHHH(4)
-                        : hacker === hustler && hacker > hipster ? setHHH(5)
-                            : hustler === hipster && hustler > hacker ? setHHH(6) : setHHH(7)
-
-    }
-
-    console.log( imageHHH )
+    
     return (
         <>
             <ThemeProvider theme={PrimaryMainTheme}>
