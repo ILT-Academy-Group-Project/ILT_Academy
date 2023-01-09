@@ -80,23 +80,19 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     } else if(req.user.cohortId == null) {
         console.log('🦧admin access')
         sqlText =`
-        SELECT "assignments".id, "assignments"."name", "assignments"."seriesId", "assignments"."content","assignments"."createdDate", "assignments".feedback, "assignments".media, "assignments".file, "assignments"."textField", "assignments".video, "assignments"."postClass" FROM "assignments"
-        JOIN "series" ON "assignments"."seriesId" = "series".id
-        JOIN "cohorts_series" ON "series".id = "cohorts_series"."seriesId"
-        JOIN "cohorts" ON "cohorts_series"."cohortId" = "cohorts".id
-        JOIN "cohorts_modules" ON "cohorts".id = "cohorts_modules"."cohortId"
-        WHERE "assignments".id = $1
-        GROUP BY "assignments".id;
+        SELECT * FROM "assignments"
+            WHERE "assignments".id = $1
+            GROUP BY "assignments".id;
         `;
 
         sqlParams = [req.params.id];
     }
     
-    // console.log('TESTING PARAMS in get assignments by ID', sqlParams);
+    // console.log('TESTING PARAMS in get assignments by ID', sqlText, sqlParams);
     //query DB
     pool.query(sqlText, sqlParams)
         .then(dbRes => {
-            // console.log('dbRes.rows', dbRes.rows[0]);
+            console.log('dbRes.rows', dbRes.rows[0]);
             res.send(dbRes.rows[0]);
         })
         .catch(err => {

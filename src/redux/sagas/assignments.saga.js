@@ -67,7 +67,7 @@ function* fetchSelectedAssignment(action) {
     try {
         //get selectedAssignment from server with assignmentId of... 
         const selectedAssignment = yield axios.get(`/api/assignments/${action.payload}`);
-        // console.log('response from GET assignment by ID', selectedAssignment.data);
+        console.log('response from GET assignment by ID', selectedAssignment.data);
 
         //send results to redux store
         yield put({
