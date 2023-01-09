@@ -236,7 +236,7 @@ function AssignmentDetails() {
                                             title=' '
                                             type='file'
                                             name="fileSubmission"
-                                            accept='.pdf'
+                                            inputProps={{ accept: 'application/pdf' }}
                                             color='primary'
                                             sx={{
                                                 "& .MuiFormLabel-root": {
@@ -324,44 +324,9 @@ function AssignmentDetails() {
                 }
                 <Button variant="outlined" sx={{margin: 8}} onClick={() => history.goBack()}>Go Back</Button>
             </ThemeProvider>
-
-
-                {
-                    // if the user is a student and there is a submission requirement show submit button
-                    user.accessLevel === 1 && assignment.video || assignment.file || assignment.textField ?
-                        <button type="submit">Submit</button>
-                        :
-                        // if user is admin include no button
-                        user.accessLevel === 2 ?
-                            null
-                            :
-                            
-                            //if user is a student and their are no submissions required show mark complete button            
-                            <button type="submit">Mark Complete</button>
-                }
-            </form>
-
-
         </>
     )
 }
 
 
 export default AssignmentDetails;
-
-
-//save suneditor format in case we change display type
-{/* <SunEditor 
-            // onChange={handleChange}
-            setOptions={{
-                height: 200,                                                   
-            }}
-            // hide={true}
-            hideToolbar={true}
-            disable={true}
-            // defaultValue={'<p>&nbsp;&nbsp;&nbsp;&nbsp;Sam TEST 1Sam TEST 1Sam TEST 1Sam TEST 1<br></p>'}
-            //  setContents={content}
-        /> */}
-
-
-
