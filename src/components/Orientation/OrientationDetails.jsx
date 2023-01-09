@@ -37,10 +37,7 @@ function OrientationDetails({ step }) {
 
     //useEffect for getting assignment by id
     // useEffect(() => {
-    //     dispatch({
-    //         type: 'FETCH_SELECTED_ASSIGMENT',
-    //         payload: params.id
-    //     });
+        
     // },[params.id]);
 
     //handle file submission

@@ -60,7 +60,7 @@ function AssignmentDetails() {
             type: 'FETCH_SINGLE_SUBMISSION',
             payload: params.id
         });
-
+        window.scrollTo(0, 0);
 
     }, [params.id]);
 
