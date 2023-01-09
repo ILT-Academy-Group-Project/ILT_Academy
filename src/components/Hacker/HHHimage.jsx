@@ -105,7 +105,7 @@ function HHHimage() {
 
                     : hacker > hustler && hacker > hipster ?
 
-                        <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                        <Card sx={{ maxWidth: 345, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                             <CardMedia
                                 component="img"
                                 // height="140"
@@ -113,10 +113,10 @@ function HHHimage() {
                                 alt={hack.imgalt}
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
                                 {user.firstName} &nbsp; {user.lastName}
                                 </Typography>
-                                <Typography variant="body2" color="primary.main">
+                                <Typography variant="body2" color="secondary.contrastText">
                                     {hack.description}
                                 </Typography>
                             </CardContent>
@@ -124,7 +124,7 @@ function HHHimage() {
 
                         : hustler > hipster && hustler > hacker ?
 
-                            <Card sx={{ maxWidth: 345, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                            <Card sx={{ maxWidth: 345, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                                 <CardMedia
                                     component="img"
                                     // height="140"
@@ -132,10 +132,10 @@ function HHHimage() {
                                     alt={hust.imgalt}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                    <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
                                     {user.firstName} &nbsp; {user.lastName}
                                     </Typography>
-                                    <Typography variant="body2" color="primary.main">
+                                    <Typography variant="body2" color="secondary.contrastText">
                                         {hust.description}
                                     </Typography>
                                 </CardContent>
@@ -143,7 +143,7 @@ function HHHimage() {
 
                             : hipster === hacker && hipster > hustler ?
 
-                                <Card sx={{ maxWidth: 500, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                                <Card sx={{ maxWidth: 500, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                                     <Stack direction="row" spacing={0}>
                                         <CardMedia
                                             component="img"
@@ -160,10 +160,10 @@ function HHHimage() {
                                     </Stack>
 
                                     <CardContent>
-                                        <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                        <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
                                         {student.firstName} &nbsp; {student.lastName}
                                         </Typography>
-                                        <Typography variant="body2" color="primary.main">
+                                        <Typography variant="body2" color="secondary.contrastText">
                                             {hip.description}
                                             <br></br>
                                             <br></br>
@@ -174,7 +174,7 @@ function HHHimage() {
 
                                 : hacker === hustler && hacker > hipster ?
 
-                                    <Card sx={{ maxWidth: 500, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                                    <Card sx={{ maxWidth: 500, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                                         <Stack direction="row" spacing={0}>
                                             <CardMedia
                                                 component="img"
@@ -190,10 +190,10 @@ function HHHimage() {
                                             />
                                         </Stack>
                                         <CardContent>
-                                            <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                            <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
                                             {user.firstName} &nbsp; {user.lastName}
                                             </Typography>
-                                            <Typography variant="body2" color="primary.main">
+                                            <Typography variant="body2" color="secondary.contrastText">
                                                 {hack.description}
                                                 <br></br>
                                                 <br></br>
@@ -204,7 +204,7 @@ function HHHimage() {
 
                                     : hustler === hipster && hustler > hacker ?
 
-                                        <Card sx={{ maxWidth: 500, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                                        <Card sx={{ maxWidth: 500, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                                             <Stack direction="row" spacing={0}>
                                                 <CardMedia
                                                     component="img"
@@ -220,10 +220,10 @@ function HHHimage() {
                                                 />
                                             </Stack>
                                             <CardContent>
-                                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center'}}>
+                                                <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center'}}>
                                                 {user.firstName} &nbsp; {user.lastName}
                                                 </Typography>
-                                                <Typography variant="body2" color="primary.main">
+                                                <Typography variant="body2" color="secondary.contrastText">
                                                     {hust.description}
                                                     <br></br>
                                                     <br></br>
@@ -234,7 +234,7 @@ function HHHimage() {
 
                                         :
 
-                                        <Card sx={{ maxWidth: 750, margin: 'auto', backgroundColor: 'secondary.light' }} >
+                                        <Card sx={{ maxWidth: 750, margin: 2, mr: 0, backgroundColor: 'secondary.main' }} >
                                             <Stack direction="row" spacing={0}>
                                                 <CardMedia
                                                     component="img"
@@ -256,10 +256,10 @@ function HHHimage() {
                                                 />
                                             </Stack>
                                             <CardContent>
-                                                <Typography gutterBottom variant="h3" component="div" color='primary.light' sx={{textAlign: 'center' }}>
+                                                <Typography gutterBottom variant="h3" component="div" color='primary.main' sx={{textAlign: 'center' }}>
                                                 {user.firstName} &nbsp; {user.lastName}
                                                 </Typography>
-                                                <Typography variant="body2" color="primary.main">
+                                                <Typography variant="body2" color="secondary.contrastText">
                                                     {hip.description}
                                                     <br></br>
                                                     <br></br>
