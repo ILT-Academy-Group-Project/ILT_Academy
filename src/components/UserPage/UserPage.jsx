@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useEffect } from 'react';
 // import { useEffect, useState } from 'react';
 // import { useHistory, useParams } from 'react-router-dom';
 // import Box from '@mui/material/Box';
@@ -15,7 +15,9 @@ function UserPage() {
 
   // const user = useSelector((store) => store.user);
 
-  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
 
   return (

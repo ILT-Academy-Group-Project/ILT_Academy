@@ -84,7 +84,7 @@ function Cohorts() {
                     <CohortsItem key={i} cohort={cohort}/>
                 )
             })}
-             <Button sx={{ maxWidth: 345, width: 250, mb:2 , minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
+             <Button selected className='Button' sx={{ maxWidth: 345, width: 250, mb:2 , minHeight:100, margin: 'auto', backgroundColor: 'secondary' }} 
                 onClick={()=>setOpen(!open)}
                 color='primary'
                 // fullWidth='true'

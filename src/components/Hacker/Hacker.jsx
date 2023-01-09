@@ -37,13 +37,15 @@ function Hacker() {
 
     useEffect(() => {
 
-        user.accessLevel === 2 ? history.push('/home')
+        window.scrollTo(0, 0);
+        
+        {user.accessLevel === 2 ? history.push('/home')
             : user.hipsterInterest !== 0
                 && user.hipsterSkill !== 0
                 && user.hackerInterest !== 0
                 && user.hackerSkill !== 0
                 && user.hustlerInterest !== 0
-                && user.hustlerSkill !== 0 ? history.push('/home') : null;
+                && user.hustlerSkill !== 0 ? history.push('/home') : null};
 
     }, []);
 

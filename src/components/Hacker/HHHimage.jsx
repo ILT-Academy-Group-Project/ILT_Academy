@@ -23,6 +23,7 @@ function HHHimage({}) {
     // const hipsterSkill = user.hipsterSkill;
     // const hackerSkill = user.hackerSkill;
     // const hustlerSkill = user.hustlerSkill;
+    
 
     const student = useSelector(store => store.student);
 
