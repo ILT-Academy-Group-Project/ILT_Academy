@@ -10,3 +10,9 @@
 .unpublished {
     color:#808080;
 }
+
+.MuiButton-root.Button {
+    margin: 0;
+    height: 100px;
+    width: 295px;
+}
