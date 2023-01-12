@@ -241,7 +241,10 @@ function EditAssignment() {
                             <Grid2 item sm={1}></Grid2>
                             <Grid2 item sm={10}>
                                 <SunEditor
+                                    //handle state on change with usestate
                                     onChange={handleChange}
+                                    //options are props that set the toolbar components and height
+                                    //and presets some dimensions
                                     setOptions={{
                                         height: 800,
                                         buttonList: [
@@ -261,8 +264,9 @@ function EditAssignment() {
                                         videoWidth: "603px",
                                         videoHeight: "339px",
                                     }}
+                                    //on image upload handle it to s3 and set img element with s3 url
                                     onImageUploadBefore={handleImageUploadBefore}
-
+                                    //set contents
                                     setContents={editAssignment.content}
                                 />
                             </Grid2>

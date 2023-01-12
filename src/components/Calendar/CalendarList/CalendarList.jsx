@@ -13,6 +13,8 @@ function CalendarList() {
 
     //get events from store
     const events = useSelector(store => store.events.eventsReducer);
+
+    //get events from google calendar on load
     useEffect(() => {
         dispatch({
             type: 'FETCH_EVENTS'

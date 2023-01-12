@@ -79,6 +79,12 @@ Technologies used:
 - Reuse components and follow the Single Responsibility more than it currently is. Will make debugging, styling, and development more streamlined.
 - Use MUI Compenents from the start so replacing all typography, form inputs and logic is not necessary
 
+## Known Bugs
+
+- Series dispatch in Nav (doesnt break anything, just throws an error)
+- Redux state on changing edit view (assignments and orientation), the WYSIWYG doest change on state change
+- Student stuck in orientation (has only happened once during extremely rapid run through)
+
 ### Future Development Goals
 
 - Create a local community board to replace Slack
