@@ -6,6 +6,9 @@ import { Typography, Card, Link } from '@mui/material'
 
 function CalendarItem ({event}){
     return (
+
+        // render events individually on cards
+        // TODO: Figure out link permissions for calendar sharing
         <ThemeProvider theme={PrimaryMainTheme}>
         <Card
             sx={{mb:3, p:3}}>

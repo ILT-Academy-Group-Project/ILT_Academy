@@ -92,6 +92,7 @@ function AssignmentDetails() {
     const deleteLesson = () => {
 
         //sweet alert for delete confirmation
+        //!Alert admin if they want to delete assignment
         Swal.fire({
             title: 'Are you sure you want to delete this lesson?',
             text: "You won't be able to revert this!",
@@ -111,7 +112,7 @@ function AssignmentDetails() {
                     confirmButtonColor: '#f96b61'
                 })
 
-                //dispatch delete request to saga
+                //dispatch delete request to saga on confirmation of delete
                 dispatch({
                     type: 'DELETE_ASSIGNMENT',
                     payload: params.id,
@@ -139,12 +140,6 @@ function AssignmentDetails() {
         //go to the edit url
         history.push(`/admin/assignment/edit/${params.id}`);
     }
-
-    //populate Fields if assignment is complete
-
-
-
-
 
     //if there is no assignment at the url with this id return 404
     if (!assignment.name) {
@@ -181,7 +176,7 @@ function AssignmentDetails() {
                         </Box>
                     </Box>
                     {/* <Markup content={assignment.content}/> */}
-                    {/* if admin delete this box */}
+                    {/* if admin delete this box since admin doesnt submit assignmentes*/}
                     {user.accessLevel===2 ? null : <Box sx={{ margin: 2, padding: 2, backgroundColor: 'secondary.main', border: 2, borderColor: 'primary.main' }} borderRadius={2}>
                         {/* <Box sx={{ padding: 2, backgroundColor: 'tertiary.main' }} borderRadius={2}> */}
                         <form onSubmit={handleSubmission}>

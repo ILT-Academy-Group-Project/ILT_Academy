@@ -78,7 +78,7 @@ function CreateAssignment() {
                 seriesId: params.seriesId,
             }
         })
-        //push to modules view
+        //Alert user and push to modules view
         Swal.fire({
             title: 'Success!',
             confirmButtonColor: '#f96b61'
@@ -93,6 +93,14 @@ function CreateAssignment() {
     // console.log('assignmentcontent', assignmentContent);
 
 
+    /*
+        This function is the image upload handler for the wysiwyg. When user uploads the image it runs through this
+        function which uploads it to AWS S3 and upon completion recieves the url for the image for the 
+        render in the WYSIWYG <img> element src
+        uploadHandler is a fn from the wysiwyg doc that assigns the url.
+        async function is nested becauseif the handlImageUploadBefore is async there is a bug
+        where two img elements are created.
+    */
     const handleImageUploadBefore = (files, info, uploadHandler) => {
         // uploadHandler is a function
         // console.log(files, info)
@@ -118,11 +126,11 @@ function CreateAssignment() {
     const handleChange = (content) => {
         setAssignmentContent(content);
     }
-
-    const populateAssignment = async () => {
-        setAssignmentTitle('5. Unpacking Your Key Insights and Observations');
-        setPostClass(true);
-    }
+    //populates fields for code demo
+    // const populateAssignment = async () => {
+    //     setAssignmentTitle('5. Unpacking Your Key Insights and Observations');
+    //     setPostClass(true);
+    // }
 
     //testing logs
     console.log('submission types, textfield:', textField, 'fileSubmission', fileSubmission, 'video', videoSubmission);
@@ -156,7 +164,7 @@ function CreateAssignment() {
                                         marginBottom: 0,
                                         fontSize: '22px'
                                     }}
-                                    onClick={populateAssignment}
+                                    // onClick={populateAssignment}
                                 >
                                     Assignment Name
                                 </InputLabel>
@@ -201,7 +209,10 @@ function CreateAssignment() {
                             <Grid2 item sm={1}></Grid2>
                             <Grid2 item sm={10}>
                                 <SunEditor
+                                    //handle state on change with usestate
                                     onChange={handleChange}
+                                    //options are props that set the toolbar components and height
+                                    //and presets some dimensions
                                     setOptions={{
                                         height: 800,
                                         buttonList: [
@@ -222,6 +233,7 @@ function CreateAssignment() {
                                         videoWidth: "603px",
                                         videoHeight: "339px",
                                     }}
+                                    //handle image upload to s3 to create img element
                                     onImageUploadBefore={handleImageUploadBefore}
                                 />
                             </Grid2>
